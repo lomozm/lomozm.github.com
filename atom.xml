@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[钟明的个人博客]]></title>
+  <link href="http://lomozm.github.io/atom.xml" rel="self"/>
+  <link href="http://lomozm.github.io/"/>
+  <updated>2013-12-21T01:18:32+08:00</updated>
+  <id>http://lomozm.github.io/</id>
+  <author>
+    <name><![CDATA[钟明]]></name>
+    <email><![CDATA[18064095@qq.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Title]]></title>
+    <link href="http://lomozm.github.io/blog/2013/12/21/title/"/>
+    <updated>2013-12-21T00:00:00+08:00</updated>
+    <id>http://lomozm.github.io/blog/2013/12/21/title</id>
+    <content type="html"><![CDATA[<hr />
+
+<p>layout: post
+title: &ldquo;测试&rdquo;
+date: 2013-12-21 00:58:47 +0800
+comments: true</p>
+
+<h2>categories: other</h2>
+]]></content>
+  </entry>
+  
+</feed>
