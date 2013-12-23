@@ -4,7 +4,7 @@
   <title><![CDATA[钟明的个人博客]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-23T11:26:08+08:00</updated>
+  <updated>2013-12-23T13:26:50+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[钟明]]></name>
@@ -14,18 +14,19 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Title]]></title>
-    <link href="http://lomozm.github.io/blog/2013/12/21/title/"/>
-    <updated>2013-12-21T00:00:00+08:00</updated>
-    <id>http://lomozm.github.io/blog/2013/12/21/title</id>
-    <content type="html"><![CDATA[<hr />
+    <title type="html"><![CDATA[My first octopress blog]]></title>
+    <link href="http://lomozm.github.io/blog/2013/12/23/my-first-octopress-blog/"/>
+    <updated>2013-12-23T13:14:39+08:00</updated>
+    <id>http://lomozm.github.io/blog/2013/12/23/my-first-octopress-blog</id>
+    <content type="html"><![CDATA[<p>helllo word</p>
 
-<p>layout: post
-title: &ldquo;测试&rdquo;
-date: 2013-12-21 00:58:47 +0800
-comments: true</p>
-
-<h2>categories: other</h2>
+<p>—
+layout: post
+title: “my first octopress blog”
+date: 2012-08-12 19:54
+comments: true
+categories:
+—</p>
 ]]></content>
   </entry>
   
