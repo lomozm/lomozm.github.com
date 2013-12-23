@@ -4,7 +4,7 @@
   <title><![CDATA[Category: SAP系统函数 | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/sapxi-tong-han-shu/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-23T16:03:16+08:00</updated>
+  <updated>2013-12-23T16:11:05+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -21,7 +21,7 @@
     <content type="html"><![CDATA[<p>说明：输入国家代码，运行时弹出选择窗口</p>
 
 <p>示例：
-%}
+{ &ldquo;
  data: lwa_bnka type bnka.</p>
 
 <p>  call function &lsquo;SEARCH_BANK_ADDRESS&rsquo;</p>
@@ -37,7 +37,7 @@ importing
 if lwa_bnka is not initial.
 p_0026  = lwa_bnka-bankl.
 endif.
-%}</li>
+{ &ldquo;</li>
 </ul>
 
 
