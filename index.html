@@ -9,14 +9,8 @@
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="helllo word —
-layout: post
-title: “my first octopress blog”
-date: 2012-08-12 19:54
-comments: true
-categories:
-—
-">
+  <meta name="description" content="说明：输入国家代码，运行时弹出选择窗口 示例：
+{% raw %} data: lwa_bnka type bnka. call function &lsquo;SEARCH_BANK_ADDRESS&rsquo; exporting i_banks = p_banks I_MORE = & &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +68,69 @@ categories:
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2013/12/23/yin-xing-dai-ma-f4bang-zhu-search-bank-address/">银行代码F4帮助 - SEARCH_BANK_ADDRESS</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-23T15:55:56+08:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2013</time>
+        
+         | <a href="/blog/2013/12/23/yin-xing-dai-ma-f4bang-zhu-search-bank-address/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>说明：输入国家代码，运行时弹出选择窗口</p>
+
+<p>示例：
+{% raw %}
+ data: lwa_bnka type bnka.</p>
+
+<p>  call function &lsquo;SEARCH_BANK_ADDRESS&rsquo;</p>
+
+<pre><code>exporting
+  i_banks = p_banks
+</code></pre>
+
+<ul>
+<li>  I_MORE  = &lsquo;X&rsquo;
+importing
+  e_bnka  = lwa_bnka.
+if lwa_bnka is not initial.
+p_0026  = lwa_bnka-bankl.
+endif.
+{% endraw %}</li>
+</ul>
+
+
+<p><img class="left" src="/images/images/daa36f17829e2b3321a7f0c3e99cfe82.jpeg" width="360" height="200"></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -140,12 +197,17 @@ categories:
 <section> 
   <h1>文章分类</h1> 
   <ul id="categories"> 
-    <li class='category'><a href='/blog/categories/others/'>others (1)</a></li>
+    <li class='category'><a href='/blog/categories/sap系统函数/'>SAP系统函数 (1)</a></li>
+<li class='category'><a href='/blog/categories/others/'>others (1)</a></li>
  
   </ul> 
 </section><section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/12/23/yin-xing-dai-ma-f4bang-zhu-search-bank-address/">银行代码F4帮助 - SEARCH_BANK_ADDRESS</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/12/23/my-first-octopress-blog/">My First Octopress Blog</a>

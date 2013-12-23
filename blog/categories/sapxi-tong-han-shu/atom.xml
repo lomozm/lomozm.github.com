@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[lomozm’s Journal]]></title>
-  <link href="http://lomozm.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: SAP系统函数 | lomozm’s Journal]]></title>
+  <link href="http://lomozm.github.io/blog/categories/sapxi-tong-han-shu/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
   <updated>2013-12-23T16:03:16+08:00</updated>
   <id>http://lomozm.github.io/</id>
@@ -21,7 +21,7 @@
     <content type="html"><![CDATA[<p>说明：输入国家代码，运行时弹出选择窗口</p>
 
 <p>示例：
-{% raw %}
+%}
  data: lwa_bnka type bnka.</p>
 
 <p>  call function &lsquo;SEARCH_BANK_ADDRESS&rsquo;</p>
@@ -37,28 +37,11 @@ importing
 if lwa_bnka is not initial.
 p_0026  = lwa_bnka-bankl.
 endif.
-{% endraw %}</li>
+%}</li>
 </ul>
 
 
-<p><img class="left" src="http://lomozm.github.io/images/images/daa36f17829e2b3321a7f0c3e99cfe82.jpeg" width="360" height="200"></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[My first octopress blog]]></title>
-    <link href="http://lomozm.github.io/blog/2013/12/23/my-first-octopress-blog/"/>
-    <updated>2013-12-23T13:14:39+08:00</updated>
-    <id>http://lomozm.github.io/blog/2013/12/23/my-first-octopress-blog</id>
-    <content type="html"><![CDATA[<p>helllo word</p>
-
-<p>—
-layout: post
-title: “my first octopress blog”
-date: 2012-08-12 19:54
-comments: true
-categories:
-—</p>
+<p><img class="left" src="/images/images/daa36f17829e2b3321a7f0c3e99cfe82.jpeg" width="360" height="200"></p>
 ]]></content>
   </entry>
   
