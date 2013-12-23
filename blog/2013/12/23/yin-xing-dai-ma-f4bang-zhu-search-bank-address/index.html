@@ -9,8 +9,19 @@
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="说明：输入国家代码，运行时弹出选择窗口 示例：
-{ &ldquo; data: lwa_bnka type bnka. call function &lsquo;SEARCH_BANK_ADDRESS&rsquo; exporting i_banks = p_banks I_MORE = & &hellip;">
+  <meta name="description" content="说明：输入国家代码，运行时弹出选择窗口 示例： 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+data: lwa_bnka type bnka. call function 'SEARCH_BANK_ADDRESS' exporting i_banks = p_banks
+* I_MORE &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -100,25 +111,30 @@
 
 <div class="entry-content"><p>说明：输入国家代码，运行时弹出选择窗口</p>
 
-<p>示例：
-{ &ldquo;
- data: lwa_bnka type bnka.</p>
+<p>示例：</p>
 
-<p>  call function &lsquo;SEARCH_BANK_ADDRESS&rsquo;</p>
-
-<pre><code>exporting
-  i_banks = p_banks
-</code></pre>
-
-<ul>
-<li>  I_MORE  = &lsquo;X&rsquo;
-importing
-  e_bnka  = lwa_bnka.
-if lwa_bnka is not initial.
-p_0026  = lwa_bnka-bankl.
-endif.
-{ &#8221;</li>
-</ul>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>data: lwa_bnka type bnka.
+</span><span class='line'>
+</span><span class='line'>  call function 'SEARCH_BANK_ADDRESS'
+</span><span class='line'>    exporting
+</span><span class='line'>      i_banks = p_banks
+</span><span class='line'>*     I_MORE  = 'X'
+</span><span class='line'>    importing
+</span><span class='line'>      e_bnka  = lwa_bnka.
+</span><span class='line'>  if lwa_bnka is not initial.
+</span><span class='line'>    p_0026  = lwa_bnka-bankl.
+</span><span class='line'>  endif.</span></code></pre></td></tr></table></div></figure>
 
 
 <p><img class="left" src="/images/images/daa36f17829e2b3321a7f0c3e99cfe82.jpeg" width="360" height="200"></p>

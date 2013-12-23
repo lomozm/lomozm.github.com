@@ -4,7 +4,7 @@
   <title><![CDATA[Category: SAP系统函数 | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/sapxi-tong-han-shu/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-23T16:11:05+08:00</updated>
+  <updated>2013-12-23T16:18:38+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -21,27 +21,39 @@
     <content type="html"><![CDATA[<p>说明：输入国家代码，运行时弹出选择窗口</p>
 
 <p>示例：
-{ &ldquo;
- data: lwa_bnka type bnka.</p>
-
-<p>  call function &lsquo;SEARCH_BANK_ADDRESS&rsquo;</p>
-
-<pre><code>exporting
-  i_banks = p_banks
-</code></pre>
-
-<ul>
-<li>  I_MORE  = &lsquo;X&rsquo;
-importing
-  e_bnka  = lwa_bnka.
-if lwa_bnka is not initial.
-p_0026  = lwa_bnka-bankl.
-endif.
-{ &ldquo;</li>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>data: lwa_bnka type bnka.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>  call function &lsquo;SEARCH_BANK_ADDRESS&rsquo;&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>exporting
+</span><span class='line'>  i_banks = p_banks
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;ul>
+</span><span class='line'>&lt;li>  I_MORE  = &lsquo;X&rsquo;
+</span><span class='line'>importing
+</span><span class='line'>  e_bnka  = lwa_bnka.
+</span><span class='line'>if lwa_bnka is not initial.
+</span><span class='line'>p_0026  = lwa_bnka-bankl.
+</span><span class='line'>endif.</span></code></pre></td></tr></table></div></figure></notextile></div>
+<img class="left" src="/images/images/daa36f17829e2b3321a7f0c3e99cfe82.jpeg" width="360" height="200"></li>
 </ul>
 
-
-<p><img class="left" src="/images/images/daa36f17829e2b3321a7f0c3e99cfe82.jpeg" width="360" height="200"></p>
 ]]></content>
   </entry>
   
