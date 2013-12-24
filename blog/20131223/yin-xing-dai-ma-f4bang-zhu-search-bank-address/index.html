@@ -112,36 +112,32 @@ data: lwa_bnka type bnka. call function 'SEARCH_BANK_ADDRESS' exporting i_banks 
 
 <p>示例：</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>data: lwa_bnka type bnka.
-</span><span class='line'>
-</span><span class='line'>  call function 'SEARCH_BANK_ADDRESS'
-</span><span class='line'>    exporting
-</span><span class='line'>      i_banks = p_banks
-</span><span class='line'>*     I_MORE  = 'X'
-</span><span class='line'>    importing
-</span><span class='line'>      e_bnka  = lwa_bnka.
-</span><span class='line'>  if lwa_bnka is not initial.
-</span><span class='line'>    p_0026  = lwa_bnka-bankl.
-</span><span class='line'>  endif.</span></code></pre></td></tr></table></div></figure>
-
-
-
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">data: lwa_bnka type bnka.
+</span><span class="line">
+</span><span class="line">  call function 'SEARCH_BANK_ADDRESS'
+</span><span class="line">    exporting
+</span><span class="line">      i_banks = p_banks
+</span><span class="line">*     I_MORE  = 'X'
+</span><span class="line">    importing
+</span><span class="line">      e_bnka  = lwa_bnka.
+</span><span class="line">  if lwa_bnka is not initial.
+</span><span class="line">    p_0026  = lwa_bnka-bankl.
+</span><span class="line">  endif.</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <!--more-->
+<p><img src="/images/images/daa36f17829e2b3321a7f0c3e99cfe82.jpeg" /></p>
 
-
-<p><img src="/images/images/daa36f17829e2b3321a7f0c3e99cfe82.jpeg"></p>
 </div>
 
 

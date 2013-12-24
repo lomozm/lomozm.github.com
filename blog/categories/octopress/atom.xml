@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-24T11:40:36+08:00</updated>
+  <updated>2013-12-24T12:13:33+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -18,26 +18,16 @@
     <link href="http://lomozm.github.io/blog/20131223/my-first-octopress-blog/"/>
     <updated>2013-12-23T13:14:39+08:00</updated>
     <id>http://lomozm.github.io/blog/20131223/my-first-octopress-blog</id>
-    <content type="html"><![CDATA[<p>话说第一篇blog是关于octopress的，魔咒啊！<br>
-很早就有建自己blog的想法，最近项目空闲，总算是实现这个愿望，虽然也不尽完美<br><br>
-octopress主要优点就是可以绑定自己的域名（虽然我没有）<br></p>
-
-<!--more-->
-
-
+    <content type="html"><![CDATA[<p>话说第一篇blog是关于octopress的，魔咒啊！<br />
+很早就有建自己blog的想法，最近项目空闲，总算是实现这个愿望，虽然也不尽完美<br /><br />
+octopress主要优点就是可以绑定自己的域名（虽然我没有）<br />
+<!--more--></p>
 <h3>基础搭建</h3>
-
-
-<p>参照船长的文档<a href=”http://beyondvincent.com/blog/2013/08/03/108-creating-a-github-blog-using-octopress/”>利用Octopress搭建一个Github博客</a></p>
-
-<br>
-
-
+<p>参照船长的文档&lt;a href=”http://beyondvincent.com/blog/2013/08/03/108-creating-a-github-blog-using-octopress/”&gt;利用Octopress搭建一个Github博客&lt;/a&gt;
+<br /></p>
 <h3>导航和评论</h3>
-
-
-<p>参照冯威的<a href=”http://www.cnblogs.com/oec2003/archive/2013/05/31/3109577.html”> Octopress博客设置</a><br>
-说明一下，里面category_list_tag.rb文件内容要做些更改，因为github地址栏不支持中文<br>
+<p>参照冯威的&lt;a href=”http://www.cnblogs.com/oec2003/archive/2013/05/31/3109577.html”&gt; Octopress博客设置&lt;/a&gt;<br />
+说明一下，里面category_list_tag.rb文件内容要做些更改，因为github地址栏不支持中文<br />
 <div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -56,30 +46,25 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br><
 <span class='line-number'>16</span>
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>module Jekyll
-</span><span class='line'>  class CategoryListTag &lt; Liquid::Tag&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;pre>&lt;code>def render(context) 
-</span><span class='line'>  html = "" 
-</span><span class='line'>  categories = context.registers[:site].categories.keys 
-</span><span class='line'>  categories.sort.each do |category| 
-</span><span class='line'>    posts_in_category = context.registers[:site].categories[category].size 
-</span><span class='line'>    category_dir = context.registers[:site].config['category_dir']
-</span><span class='line'>    category_url = File.join(category_dir, category.to_url)
-</span><span class='line'>    html &lt;&lt; "&lt;li class='category'&gt;&lt;a href='http://lomozm.github.io/#{category_url}/'&gt;#{category} (#{posts_in_category})&lt;/a&gt;&lt;/li&gt;\n" 
+</pre></td><td class='code'><pre><code class=''><span class='line'>module Jekyll 
+</span><span class='line'>  class CategoryListTag &lt; Liquid::Tag 
+</span><span class='line'>    def render(context) 
+</span><span class='line'>      html = “” 
+</span><span class='line'>      categories = context.registers[:site].categories.keys 
+</span><span class='line'>      categories.sort.each do |category| 
+</span><span class='line'>        posts_in_category = context.registers[:site].categories[category].size 
+</span><span class='line'>        category_dir = context.registers[:site].config[‘category_dir’]
+</span><span class='line'>        category_url = File.join(category_dir, category.to_url)
+</span><span class='line'>        html « “&lt;li class='category'&gt;&lt;a href="http://lomozm.github.io/#{category_url}/">#{category} (#{posts_in_category})&lt;/a>&lt;/li&gt;\n” 
+</span><span class='line'>      end 
+</span><span class='line'>      html 
+</span><span class='line'>    end 
 </span><span class='line'>  end 
-</span><span class='line'>  html 
-</span><span class='line'>end 
-</span><span class='line'>&lt;/code>&lt;/pre>
-</span><span class='line'>
-</span><span class='line'>&lt;p>  end
 </span><span class='line'>end&lt;/p>
 </span><span class='line'>
-</span><span class='line'>&lt;p>Liquid::Template.register_tag(&lsquo;category_list&rsquo;, Jekyll::CategoryListTag)
-</span><span class='line'>require &lsquo;stringex&rsquo;</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span><span class='line'>&lt;p>Liquid::Template.register_tag(‘category_list’, Jekyll::CategoryListTag)
+</span><span class='line'>require ‘stringex’</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
 ]]></content>
   </entry>
   

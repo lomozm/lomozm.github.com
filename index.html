@@ -115,37 +115,34 @@ data: lwa_bnka type bnka. call function 'SEARCH_BANK_ADDRESS' exporting i_banks 
 
 <p>示例：</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>data: lwa_bnka type bnka.
-</span><span class='line'>
-</span><span class='line'>  call function 'SEARCH_BANK_ADDRESS'
-</span><span class='line'>    exporting
-</span><span class='line'>      i_banks = p_banks
-</span><span class='line'>*     I_MORE  = 'X'
-</span><span class='line'>    importing
-</span><span class='line'>      e_bnka  = lwa_bnka.
-</span><span class='line'>  if lwa_bnka is not initial.
-</span><span class='line'>    p_0026  = lwa_bnka-bankl.
-</span><span class='line'>  endif.</span></code></pre></td></tr></table></div></figure>
-
-
-
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">data: lwa_bnka type bnka.
+</span><span class="line">
+</span><span class="line">  call function 'SEARCH_BANK_ADDRESS'
+</span><span class="line">    exporting
+</span><span class="line">      i_banks = p_banks
+</span><span class="line">*     I_MORE  = 'X'
+</span><span class="line">    importing
+</span><span class="line">      e_bnka  = lwa_bnka.
+</span><span class="line">  if lwa_bnka is not initial.
+</span><span class="line">    p_0026  = lwa_bnka-bankl.
+</span><span class="line">  endif.</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/20131223/yin-xing-dai-ma-f4bang-zhu-search-bank-address/">Read on &rarr;</a>
+      <a rel="full-article" href="/blog/20131223/yin-xing-dai-ma-f4bang-zhu-search-bank-address/">阅读全文&rarr</a>
     </footer>
   
 
@@ -184,15 +181,14 @@ data: lwa_bnka type bnka. call function 'SEARCH_BANK_ADDRESS' exporting i_banks 
   </header>
 
 
-  <div class="entry-content"><p>话说第一篇blog是关于octopress的，魔咒啊！<br>
-很早就有建自己blog的想法，最近项目空闲，总算是实现这个愿望，虽然也不尽完美<br><br>
-octopress主要优点就是可以绑定自己的域名（虽然我没有）<br></p>
-
+  <div class="entry-content"><p>话说第一篇blog是关于octopress的，魔咒啊！<br />
+很早就有建自己blog的想法，最近项目空闲，总算是实现这个愿望，虽然也不尽完美<br /><br />
+octopress主要优点就是可以绑定自己的域名（虽然我没有）<br />
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/20131223/my-first-octopress-blog/">Read on &rarr;</a>
+      <a rel="full-article" href="/blog/20131223/my-first-octopress-blog/">阅读全文&rarr</a>
     </footer>
   
 
