@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-24T12:13:33+08:00</updated>
+  <updated>2013-12-24T12:55:01+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -61,10 +61,10 @@
 octopress主要优点就是可以绑定自己的域名（虽然我没有）<br />
 <!--more--></p>
 <h3>基础搭建</h3>
-<p>参照船长的文档&lt;a href=”http://beyondvincent.com/blog/2013/08/03/108-creating-a-github-blog-using-octopress/”&gt;利用Octopress搭建一个Github博客&lt;/a&gt;
+<p>参照船长的文档<a href="http://beyondvincent.com/blog/2013/08/03/108-creating-a-github-blog-using-octopress/">利用Octopress搭建一个Github博客</a>
 <br /></p>
 <h3>导航和评论</h3>
-<p>参照冯威的&lt;a href=”http://www.cnblogs.com/oec2003/archive/2013/05/31/3109577.html”&gt; Octopress博客设置&lt;/a&gt;<br />
+<p>参照冯威的<a href="http://www.cnblogs.com/oec2003/archive/2013/05/31/3109577.html">Octopress博客设置</a>
 说明一下，里面category_list_tag.rb文件内容要做些更改，因为github地址栏不支持中文<br /></p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
