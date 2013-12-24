@@ -9,9 +9,10 @@
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="很早就有建自己blog的想法，最近项目空闲，总算是实现这个愿望，虽然也不尽完美
-话说第一篇blog是关于octopress的，魔咒啊！
-">
+  <meta name="description" content="话说第一篇blog是关于octopress的，魔咒啊！
+很早就有建自己blog的想法，最近项目空闲，总算是实现这个愿望，虽然也不尽完美
+octopress主要优点就是可以绑定自己的域名（虽然我没有） 基础搭建 参照船长的文档利用Octopress搭建一个Github博客 导航和评论
+参照冯威的 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,8 +99,67 @@
   </header>
 
 
-<div class="entry-content"><p>很早就有建自己blog的想法，最近项目空闲，总算是实现这个愿望，虽然也不尽完美
-话说第一篇blog是关于octopress的，魔咒啊！</p>
+<div class="entry-content"><p>话说第一篇blog是关于octopress的，魔咒啊！<br>
+很早就有建自己blog的想法，最近项目空闲，总算是实现这个愿望，虽然也不尽完美<br><br>
+octopress主要优点就是可以绑定自己的域名（虽然我没有）<br></p>
+
+<!--more-->
+
+
+<br>
+
+
+<h3>基础搭建</h3>
+
+
+<p>参照船长的文档<a href=”http://beyondvincent.com/blog/2013/08/03/108-creating-a-github-blog-using-octopress/”>利用Octopress搭建一个Github博客</a></p>
+
+<br>
+
+
+<br>
+
+
+<p><h3>导航和评论<h3>
+参照冯威的<a href=”http://www.cnblogs.com/oec2003/archive/2013/05/31/3109577.html”> Octopress博客设置</a><br>
+说明一下，里面category_list_tag.rb文件内容要做些更改，因为github地址栏不支持中文<br></p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>module Jekyll
+</span><span class='line'>  class CategoryListTag &lt; Liquid::Tag
+</span><span class='line'>    def render(context)
+</span><span class='line'>      html = &ldquo;&rdquo;
+</span><span class='line'>      categories = context.registers[:site].categories.keys
+</span><span class='line'>      categories.sort.each do |category|
+</span><span class='line'>        posts_in_category = context.registers[:site].categories[category].size
+</span><span class='line'>        category_dir = context.registers[:site].config[&lsquo;category_dir&rsquo;]
+</span><span class='line'>        category_url = File.join(category_dir, category.to_url)
+</span><span class='line'>        html &lt;&lt; &ldquo;&lt;li class=&lsquo;category&rsquo;>&lt;a href=&lsquo;/#{category_url}/&rsquo;>#{category} (#{posts_in_category})&lt;/a>&lt;/li>\n&rdquo;
+</span><span class='line'>      end
+</span><span class='line'>      html
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>Liquid::Template.register_tag(&lsquo;category_list&rsquo;, Jekyll::CategoryListTag)
+</span><span class='line'>require &lsquo;stringex&rsquo;</span></code></pre></td></tr></table></div></figure></p>
 </div>
 
 
