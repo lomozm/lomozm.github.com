@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-24T15:46:25+08:00</updated>
+  <updated>2013-12-24T15:52:24+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -82,8 +82,8 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br /
 </span><span class='line'>excerpt_link: "阅读全文…” 
 </span><span class='line'>default_asides: [asides/title_pic.html, asides/recent_posts.html, custom/asides/recent_comment.html, asides/category_list.html]</span></code></pre></td></tr></table></div></figure></notextile></div>
 </p>
-<h3>附上整理的Markdown部分语法<h3>
-<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<h3>附上整理的Markdown部分语法</h3>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -104,13 +104,13 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br /
 <span class='line-number'>19</span>
 <span class='line-number'>20</span>
 <span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>octopress发布blog常用格式
+</pre></td><td class='code'><pre><code class=''><span class='line'>octopress发布blog常用格式&lt;/p>
 </span><span class='line'>
-</span><span class='line'>sudo rake new_post[“    “]
+</span><span class='line'>&lt;p>sudo rake new_post[“    “]
 </span><span class='line'>sudo rake generate
-</span><span class='line'>sudo rake deploy
+</span><span class='line'>sudo rake deploy&lt;/p>
 </span><span class='line'>
-</span><span class='line'>&lt;code>  &lt;/code>
+</span><span class='line'>&lt;p>&lt;code>  &lt;/code>&lt;/p>
 </span><span class='line'>&lt;h3>    &lt;/h3>
 </span><span class='line'>&lt;p> 	&lt;/p>
 </span><span class='line'>
@@ -125,9 +125,9 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br /
 </span><span class='line'>*或者**     *或者**
 </span><span class='line'>&lt;!--more—&gt;
 </span><span class='line'>转义符反斜杠\</span></code></pre></td></tr></table></div></figure></notextile></div>
-<p>最后，感谢强大的google！</p>
+<p>最后，感谢万能的google！</p>
 <br />
-</ol></h3></h3>
+</ol>
 ]]></content>
   </entry>
   

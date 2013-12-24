@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-24T15:46:25+08:00</updated>
+  <updated>2013-12-24T15:52:24+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -124,7 +124,7 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br /
 </span><span class="line">default_asides: [asides/title_pic.html, asides/recent_posts.html, custom/asides/recent_comment.html, asides/category_list.html]</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 </p>
-<h3>附上整理的Markdown部分语法<h3>
+<h3>附上整理的Markdown部分语法</h3>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -169,9 +169,8 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br /
 </span><span class="line">&lt;!--more—&gt;
 </span><span class="line">转义符反斜杠\</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>最后，感谢强大的google！</p>
-<br />
-</h3></h3>
+<p>最后，感谢万能的google！</p>
+<p><br /></p>
 ]]></content>
   </entry>
   
