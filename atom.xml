@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-24T10:08:06+08:00</updated>
+  <updated>2013-12-24T10:33:56+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -60,15 +60,8 @@
     <link href="http://lomozm.github.io/blog/20131223/my-first-octopress-blog/"/>
     <updated>2013-12-23T13:14:39+08:00</updated>
     <id>http://lomozm.github.io/blog/20131223/my-first-octopress-blog</id>
-    <content type="html"><![CDATA[<p>helllo word</p>
-
-<p>—
-layout: post
-title: “my first octopress blog”
-date: 2012-08-12 19:54
-comments: true
-categories:
-—</p>
+    <content type="html"><![CDATA[<p>很早就有建自己blog的想法，最近项目空闲，总算是实现这个愿望，虽然也不尽完美
+话说第一篇blog是关于octopress的，魔咒啊！</p>
 ]]></content>
   </entry>
   
