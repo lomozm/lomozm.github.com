@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-24T12:58:51+08:00</updated>
+  <updated>2013-12-24T13:27:34+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -103,6 +103,24 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br /
 </span><span class="line">
 </span><span class="line">Liquid::Template.register_tag('category_list', Jekyll::CategoryListTag)
 </span><span class="line">require 'stringex'</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h3>其它</h3>
+<p>改变图标[How to Change the Favicon in Octopress]( http://brianbuccola.github.io/blog/2012-11-29-how-to-change-the-favicon-in-octopress.html)
+</p>
+<p>插入链接[Markdown 语法说明](http://wowubuntu.com/markdown/#link)
+</p>
+<p>对于配置文件<code>_config.yml</code>的一些更改
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">permalink: /blog/:year:month:day/:title/
+</span><span class="line">markdown: kramdown
+</span><span class="line">excerpt_link: "阅读全文 &rarr;” 
+</span><span class="line">default_asides: [asides/title_pic.html, asides/recent_posts.html, custom/asides/recent_comment.html, asides/category_list.html]</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+</p>
 
 ]]></content>
   </entry>
