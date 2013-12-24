@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-24T14:22:09+08:00</updated>
+  <updated>2013-12-24T14:26:48+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -62,8 +62,8 @@
 octopress主要优点就是可以绑定自己的域名（虽然我没有）<br />
 <!--more--></p>
 <h3>基础搭建</h3>
-<p>参船长的文档[利用Octopress搭建一个Github博客][4]
-</p>
+<p>参船长的文档<a href="http://beyondvincent.com/blog/2013/08/03/108-creating-a-github-blog-using-octopress/">利用Octopress搭建一个Github博客</a>
+<br /></p>
 <h3>导航和评论</h3>
 <p>参照冯威的<a href="http://www.cnblogs.com/oec2003/archive/2013/05/31/3109577.html">Octopress博客设置</a>
 <br /></p>
@@ -109,9 +109,9 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br /
 </p>
 
 <h3>其它</h3>
-<p>改变图标[How to Change the Favicon in Octopress][1]</p>
-<p>插入链接[Markdown 语法说明][2]</p>
-<p>其它技巧[Octopress技巧集][5]</p>
+<p>改变图标<a href="http://brianbuccola.github.io/blog/2012-11-29-how-to-change-the-favicon-in-octopress.html">How to Change the Favicon in Octopress</a><br />
+插入链接<a href="http://wowubuntu.com/markdown/#link">Markdown 语法说明</a><br />
+其它技巧<a href="http://blog.jackphil.com/blog/2012/05/16/octopress-tips/">Octopress技巧集</a><br /></p>
 <p>对于配置文件<code>_config.yml</code>的一些更改
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
