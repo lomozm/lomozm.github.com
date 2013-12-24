@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-24T16:15:01+08:00</updated>
+  <updated>2013-12-24T16:27:08+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -12,6 +12,75 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[取SD凭证流 - RV_ORDER_FLOW_INFORMATION]]></title>
+    <link href="http://lomozm.github.io/blog/20131224/qu-sdping-zheng-liu-rv-order-flow-information/"/>
+    <updated>2013-12-24T16:24:01+08:00</updated>
+    <id>http://lomozm.github.io/blog/20131224/qu-sdping-zheng-liu-rv-order-flow-information</id>
+    <content type="html"><![CDATA[<p>可以得到从销售到财务凭证的流数据
+</p>
+<p>示例：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">data: lt_vbak type table of vbak with header line,
+</span><span class="line">         ls_vbco6 type vbco6.
+</span><span class="line">
+</span><span class="line">    ls_vbco6-mandt = sy-mandt.
+</span><span class="line">    ls_vbco6-vbeln = lt_vbak-vbeln.
+</span><span class="line">
+</span><span class="line">    refresh: lt_vbfa.
+</span><span class="line">    call function 'RV_ORDER_FLOW_INFORMATION'
+</span><span class="line">      exporting
+</span><span class="line">*   AUFBEREITUNG        = '2'
+</span><span class="line">*   BELEGTYP            = ' '
+</span><span class="line">        comwa               = ls_vbco6
+</span><span class="line">*   NACHFOLGER          = 'X'
+</span><span class="line">*   N_STUFEN            = '50'
+</span><span class="line">*   VORGAENGER          = 'X'
+</span><span class="line">*   V_STUFEN            = '50'
+</span><span class="line">* IMPORTING
+</span><span class="line">*   BELEGTYP_BACK       =
+</span><span class="line">      tables
+</span><span class="line">        vbfa_tab            = lt_vbfa
+</span><span class="line">     exceptions
+</span><span class="line">       no_vbfa             = 1
+</span><span class="line">       no_vbuk_found       = 2
+</span><span class="line">       others              = 3
+</span><span class="line">              .
+</span><span class="line">    if sy-subrc &lt;&gt; 0.
+</span><span class="line">* Implement suitable error handling here
+</span><span class="line">    endif.</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[银行代码F4帮助 - SEARCH_BANK_ADDRESS]]></title>
