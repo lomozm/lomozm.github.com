@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-24T15:52:24+08:00</updated>
+  <updated>2013-12-24T16:15:01+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -58,8 +58,8 @@
     <id>http://lomozm.github.io/blog/20131223/my-first-octopress-blog</id>
     <content type="html"><![CDATA[
 <p>话说第一篇blog是关于octopress的，魔咒啊！<br />
-很早就有建自己blog的想法，最近项目空闲，总算是实现这个愿望，虽然也不尽完美<br /><br />
-octopress主要优点就是可以绑定自己的域名（虽然我没有）<br />
+很早就有建自己blog的想法，最近项目空闲，总算是实现了，也不尽完美<br /><br />
+octopress主要优点就是可以绑定自己的域名<br />
 <!--more--></p>
 <h3>基础搭建</h3>
 <p>参船长的文档<a href="http://beyondvincent.com/blog/2013/08/03/108-creating-a-github-blog-using-octopress">利用Octopress搭建一个Github博客</a>
