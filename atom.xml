@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-24T14:18:19+08:00</updated>
+  <updated>2013-12-24T14:22:09+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -56,7 +56,8 @@
     <link href="http://lomozm.github.io/blog/20131223/my-first-octopress-blog/"/>
     <updated>2013-12-23T13:14:39+08:00</updated>
     <id>http://lomozm.github.io/blog/20131223/my-first-octopress-blog</id>
-    <content type="html"><![CDATA[<p>话说第一篇blog是关于octopress的，魔咒啊！<br />
+    <content type="html"><![CDATA[
+<p>话说第一篇blog是关于octopress的，魔咒啊！<br />
 很早就有建自己blog的想法，最近项目空闲，总算是实现这个愿望，虽然也不尽完美<br /><br />
 octopress主要优点就是可以绑定自己的域名（虽然我没有）<br />
 <!--more--></p>
@@ -108,10 +109,9 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br /
 </p>
 
 <h3>其它</h3>
-<p>改变图标[How to Change the Favicon in Octopress][1]
-</p>
-<p>插入链接[Markdown 语法说明][2]
-</p>
+<p>改变图标[How to Change the Favicon in Octopress][1]</p>
+<p>插入链接[Markdown 语法说明][2]</p>
+<p>其它技巧[Octopress技巧集][5]</p>
 <p>对于配置文件<code>_config.yml</code>的一些更改
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
@@ -124,8 +124,6 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br /
 </span><span class="line">default_asides: [asides/title_pic.html, asides/recent_posts.html, custom/asides/recent_comment.html, asides/category_list.html]</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 </p>
-<p>其它技巧[Octopress技巧集][5]</p>
-
 ]]></content>
   </entry>
   
