@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-24T15:23:03+08:00</updated>
+  <updated>2013-12-24T15:31:38+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -70,7 +70,7 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br /
 
 <h3>其它</h3>
 <p>改变图标<a href="http://brianbuccola.github.io/blog/2012-11-29-how-to-change-the-favicon-in-octopress.html">How to Change the Favicon in Octopress</a><br />
-插入链接<a href="http://wowubuntu.com/markdown">Markdown 语法说明</a><br />(注意：如果链接是以”/“结尾的，需把它去掉)
+插入链接<a href="http://wowubuntu.com/markdown">Markdown 语法说明</a>(注意：如果链接是以”/“结尾的，需把它去掉)<br />
 其它技巧<a href="http://blog.jackphil.com/blog/2012/05/16/octopress-tips">Octopress技巧集</a><br /></p>
 <p>对于配置文件<code>_config.yml</code>的一些更改
 <div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -124,8 +124,8 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br /
 </span><span class='line'>插入链接[Markdown 语法说明][2]
 </span><span class='line'>[2]: http://wowubuntu.com/markdown “说明”
 </span><span class='line'>
-</span><span class='line'>&lt;img class="left/right/center" src="/images/images/daa36f17829e2b3321a7f0c3e99cfe82.jpeg" title="weigh high “comment”" >
-</span><span class='line'>&lt;div class='bogus-wrapper'>&lt;notextile>&lt;figure class='code'>&lt;div class="highlight">&lt;table>&lt;tr>&lt;td class="gutter">&lt;pre class="line-numbers">&lt;/pre>&lt;/td>&lt;td class='code'>&lt;pre>&lt;code class=''>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>&lt;/div>&lt;/figure>&lt;/notextile>&lt;/div>
+</span><span class='line'>\{\% img left/right/center /images/images/daa36f17829e2b3321a7f0c3e99cfe82.jpeg weigh high “comment”\%\}
+</span><span class='line'>\{\% codeblock \%\}      \{\% endcodeblock \%\}
 </span><span class='line'>*或者**     *或者**
 </span><span class='line'>&lt;!--more—&gt;
 </span><span class='line'>转义符反斜杠\</span></code></pre></td></tr></table></div></figure></notextile></div>
