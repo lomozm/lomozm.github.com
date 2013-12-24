@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-24T13:31:42+08:00</updated>
+  <updated>2013-12-24T13:41:21+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -105,9 +105,9 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br /
 </span><span class="line">require 'stringex'</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <h3>其它</h3>
-<p>改变图标<a href="http://brianbuccola.github.io/blog/2012-11-29-how-to-change-the-favicon-in-octopress.html">How to Change the Favicon in Octopress</a>
-<br /></p>
-<p>插入链接[Markdown 语法说明](http://wowubuntu.com/markdown/)
+<p>改变图标[How to Change the Favicon in Octopress][1]
+</p>
+<p>插入链接[Markdown 语法说明][2]
 </p>
 <p>对于配置文件<code>_config.yml</code>的一些更改
 
