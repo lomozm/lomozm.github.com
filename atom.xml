@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-24T13:49:28+08:00</updated>
+  <updated>2013-12-24T14:18:19+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -65,7 +65,8 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br /
 </p>
 <h3>导航和评论</h3>
 <p>参照冯威的<a href="http://www.cnblogs.com/oec2003/archive/2013/05/31/3109577.html">Octopress博客设置</a>
-<br />说明一下，里面category_list_tag.rb文件内容要做些更改，因为github地址栏不支持中文<br /></p>
+<br /></p>
+<p>说明一下，里面<code>category_list_tag.rb</code>文件内容要做些更改，因为github地址栏不支持中文
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -104,7 +105,8 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br /
 </span><span class="line">Liquid::Template.register_tag('category_list', Jekyll::CategoryListTag)
 </span><span class="line">require 'stringex'</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p><br /></p>
+</p>
+
 <h3>其它</h3>
 <p>改变图标[How to Change the Favicon in Octopress][1]
 </p>
@@ -122,6 +124,7 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br /
 </span><span class="line">default_asides: [asides/title_pic.html, asides/recent_posts.html, custom/asides/recent_comment.html, asides/category_list.html]</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 </p>
+<p>其它技巧[Octopress技巧集][5]</p>
 
 ]]></content>
   </entry>
