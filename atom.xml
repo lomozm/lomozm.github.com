@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-24T15:35:56+08:00</updated>
+  <updated>2013-12-24T15:43:48+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -87,7 +87,9 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br /
 <span class="line-number">16</span>
 <span class="line-number">17</span>
 <span class="line-number">18</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">module Jekyll 
+<span class="line-number">19</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">[rectangle setX: 10 y: 10 width: 20 height: 20];
+</span><span class="line">module Jekyll 
 </span><span class="line">  class CategoryListTag &lt; Liquid::Tag 
 </span><span class="line">    def render(context) 
 </span><span class="line">      html = "" 
@@ -118,7 +120,9 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br /
 <span class="line-number">2</span>
 <span class="line-number">3</span>
 <span class="line-number">4</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">permalink: /blog/:year:month:day/:title/
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">[rectangle setX: 10 y: 10 width: 20 height: 20];
+</span><span class="line">permalink: /blog/:year:month:day/:title/
 </span><span class="line">markdown: kramdown
 </span><span class="line">excerpt_link: "阅读全文…” 
 </span><span class="line">default_asides: [asides/title_pic.html, asides/recent_posts.html, custom/asides/recent_comment.html, asides/category_list.html]</span></code></pre></td></tr></table></div></figure></notextile></div>
@@ -147,10 +151,6 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br /
 <span class="line-number">19</span>
 <span class="line-number">20</span>
 <span class="line-number">21</span>
-<span class="line-number">22</span>
-<span class="line-number">23</span>
-<span class="line-number">24</span>
-<span class="line-number">25</span>
 </pre></td><td class="code"><pre><code class=""><span class="line">octopress发布blog常用格式
 </span><span class="line">
 </span><span class="line">sudo rake new_post[“    “]
@@ -169,10 +169,6 @@ octopress主要优点就是可以绑定自己的域名（虽然我没有）<br /
 </span><span class="line">插入链接[Markdown 语法说明][2]
 </span><span class="line">[2]: http://wowubuntu.com/markdown “说明”
 </span><span class="line">
-</span><span class="line">‘’&lt;img class="left/right/center" src="http://lomozm.github.io/images/images/daa36f17829e2b3321a7f0c3e99cfe82.jpeg" title="weigh high “comment”" &gt;
-</span><span class="line">
-</span><span class="line">&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt;&lt;div class="highlight"&gt;&lt;table&gt;&lt;tr&gt;&lt;td class="gutter"&gt;&lt;pre class="line-numbers"&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
-</span><span class="line">’’
 </span><span class="line">*或者**     *或者**
 </span><span class="line">&lt;!--more—&gt;
 </span><span class="line">转义符反斜杠\</span></code></pre></td></tr></table></div></figure></notextile></div>
