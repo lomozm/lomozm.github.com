@@ -4,7 +4,7 @@
   <title><![CDATA[Category: WorkFlow | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/workflow/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-25T16:54:55+08:00</updated>
+  <updated>2013-12-25T17:04:33+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -19,32 +19,31 @@
     <updated>2013-12-25T16:33:52+08:00</updated>
     <id>http://lomozm.github.io/blog/20131225/sapgong-zuo-liu-kai-fa-shi-li</id>
     <content type="html"><![CDATA[<p> 
-开发事务代码目录截屏
+开发事务代码目录截屏<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image001.png" alt="m001" />
-其他可能使用到的事务代码——
-SWE2：显示/维护事件类型链接
-SWEL：显示事件记录
-&lt;!—-more—-&gt; 
+其他可能使用到的事务代码——<br />
+SWE2：显示/维护事件类型链接<br />
+SWEL：显示事件记录<br />
  
-<em>准备 – Tcode: su01创建接收工作流用户</em>
-创建用户名: GW-TEST2, 密码: ******；当工作流提交后，下一步处理的用户
+### 准备 – Tcode: su01创建接收工作流用户 h3
+创建用户名: GW-TEST2, 密码: ******；当工作流提交后，下一步处理的用户<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image002.png" alt="m002" />
  
-<em>步骤1 – Tcode: se11 建表存储工作流数据</em>
+### 步骤1 – Tcode: se11 建表存储工作流数据 h3
 表ZWFTST01用于存放工作流审批数据
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image003.png" alt="m003" />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image003.png" alt="m003" /><br />
 表ZWFTST02用于存放工作流内容数据
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image004.png" alt="m004" /></p>
 
-<p><em>步骤2 - Tcode: se80函数组</em>
-工作流的数据操作使用函数方式调用，必需放在在函数组中
+<h3 id="tcode-se80">步骤2 - Tcode: se80函数组</h3>
+<p>工作流的数据操作使用函数方式调用，必需放在在函数组中
 函数组名：ZTEST_SWF，创建后，使它激活
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image005.png" alt="m005" />
 进入函数组，在 INCLUDE LZTEST_SWFTOP中加入全局定义数据
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image006.png" alt="m006" /></p>
 
-<p><em>步骤3 – Tcode: se37 创建工作流界面处理函数</em>
-工作流处理过程中，需要对数据进行操作，同时，数据处理完成后，提交到下一个节点处理。这些都是函数ZTEST_SWF_SCREEN_01的功能
+<h3 id="tcode-se37-">步骤3 – Tcode: se37 创建工作流界面处理函数*</h3>
+<p>工作流处理过程中，需要对数据进行操作，同时，数据处理完成后，提交到下一个节点处理。这些都是函数ZTEST_SWF_SCREEN_01的功能
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image007.png" alt="m007" />
 输入参数
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image008.png" alt="m008" />
