@@ -4,7 +4,7 @@
   <title><![CDATA[Category: SAP | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/sap/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-25T17:04:33+08:00</updated>
+  <updated>2013-12-25T17:20:11+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -20,103 +20,105 @@
     <id>http://lomozm.github.io/blog/20131225/sapgong-zuo-liu-kai-fa-shi-li</id>
     <content type="html"><![CDATA[<p> 
 开发事务代码目录截屏<br />
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image001.png" alt="m001" />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image001.png" alt="m001" /><br />
 其他可能使用到的事务代码——<br />
 SWE2：显示/维护事件类型链接<br />
 SWEL：显示事件记录<br />
+ <!--more--></p>
+
+<h3 id="tcode-su01">准备 – Tcode: su01创建接收工作流用户</h3>
+<p>创建用户名: GW-TEST2, 密码: ******；当工作流提交后，下一步处理的用户<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image002.png" alt="m002" /><br />
  
-### 准备 – Tcode: su01创建接收工作流用户 h3
-创建用户名: GW-TEST2, 密码: ******；当工作流提交后，下一步处理的用户<br />
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image002.png" alt="m002" />
- 
-### 步骤1 – Tcode: se11 建表存储工作流数据 h3
+### 步骤1 – Tcode: se11 建表存储工作流数据
 表ZWFTST01用于存放工作流审批数据
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image003.png" alt="m003" /><br />
-表ZWFTST02用于存放工作流内容数据
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image004.png" alt="m004" /></p>
+表ZWFTST02用于存放工作流内容数据<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image004.png" alt="m004" /><br /></p>
 
 <h3 id="tcode-se80">步骤2 - Tcode: se80函数组</h3>
-<p>工作流的数据操作使用函数方式调用，必需放在在函数组中
-函数组名：ZTEST_SWF，创建后，使它激活
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image005.png" alt="m005" />
-进入函数组，在 INCLUDE LZTEST_SWFTOP中加入全局定义数据
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image006.png" alt="m006" /></p>
+<p>工作流的数据操作使用函数方式调用，必需放在在函数组中<br />
+函数组名：ZTEST_SWF，创建后，使它激活<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image005.png" alt="m005" /><br />
+进入函数组，在 INCLUDE LZTEST_SWFTOP中加入全局定义数据<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image006.png" alt="m006" /><br /></p>
 
-<h3 id="tcode-se37-">步骤3 – Tcode: se37 创建工作流界面处理函数*</h3>
-<p>工作流处理过程中，需要对数据进行操作，同时，数据处理完成后，提交到下一个节点处理。这些都是函数ZTEST_SWF_SCREEN_01的功能
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image007.png" alt="m007" />
-输入参数
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image008.png" alt="m008" />
-屏幕调用
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image009.png" alt="m009" />
-状态0100定义</p>
+<h3 id="tcode-se37-">步骤3 – Tcode: se37 创建工作流界面处理函数</h3>
+<p>工作流处理过程中，需要对数据进行操作，同时，数据处理完成后，提交到下一个节点处理。这些都是函数ZTEST_SWF_SCREEN_01的功能<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image007.png" alt="m007" /><br />
+输入参数<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image008.png" alt="m008" /><br />
+屏幕调用<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image009.png" alt="m009" /><br />
+状态0100定义<br /></p>
 
-<p>标题100定义</p>
+<p>标题100定义<br /></p>
 
-<p>屏幕100逻辑流截屏</p>
+<p>屏幕100逻辑流截屏<br /></p>
 
-<p>附函数源代码
-Data define——</p>
+<p>附函数源代码<br />
+Data define——<br /></p>
 
-<p>Before output——</p>
+<p>Before output——<br /></p>
 
-<p>After input——</p>
+<p>After input——<br /></p>
 
-<p>Forms——</p>
+<p>Forms——<br /></p>
 
-<p>步骤4 – Tcode:se37创建获取审批人函数
-创建函数ZTEST_SWF_GET_APPROVER取得工作流的审批人</p>
+<h3 id="tcodese37">步骤4 – Tcode:se37创建获取审批人函数</h3>
+<p>创建函数ZTEST_SWF_GET_APPROVER取得工作流的审批人<br /></p>
 
-<p>参数</p>
+<p>参数<br /></p>
 
-<p>源代码截屏</p>
+<p>源代码截屏<br /></p>
 
-<p>FUNCTION ZTEST_SWF_GET_APPROVER. <em>”———————————————————————- </em>”<em>“Local interface: </em>“  TABLES <em>“      AC_CONTAINER STRUCTURE  SWCONT </em>“      ACTOR_TAB STRUCTURE  SWHACTOR <em>”———————————————————————-  </em>  DATA:l_czlx TYPE char02, <em>       l_hzdh TYPE z00hrhzdh, </em>       l_hcws TYPE z00hrhcws.   data: wf_code_cont type char20,         wa_ZWFTST01 type ZWFTST01.   swc_container_to_runtime ac_container.   REFRESH actor_tab. <em>&amp; 获取工作流中的容器元素值 </em>  swc_get_element ac_container ’CZLX’    l_czlx. <em>  swc_get_element ac_container ’HZDH’    l_hzdh. </em>  swc_get_element ac_container ’HCWS’    l_hcws.   swc_get_element ac_container ’WF_CODE_CONT’    wf_code_cont. <em>*加入审批用户   select single </em> into corresponding fields of wa_ZWFTST01     from ZWFTST01     where WFCODE eq wf_code_cont.   if sy-subrc eq 0.     actor_tab-objid = wa_ZWFTST01-APPRO.   else.     actor_tab-objid = ’GW-ZM’.   endif.   actor_tab-otype = ’US’.   ”用户类型   APPEND actor_tab. ENDFUNCTION.
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>FUNCTION ZTEST_SWF_GET_APPROVER. &lt;em>”———————————————————————- &lt;/em>”&lt;em>“Local interface: &lt;/em>“  TABLES &lt;em>“      AC_CONTAINER STRUCTURE  SWCONT &lt;/em>“      ACTOR_TAB STRUCTURE  SWHACTOR &lt;em>”———————————————————————-  &lt;/em>  DATA:l_czlx TYPE char02, &lt;em>       l_hzdh TYPE z00hrhzdh, &lt;/em>       l_hcws TYPE z00hrhcws.   data: wf_code_cont type char20,         wa_ZWFTST01 type ZWFTST01.   swc_container_to_runtime ac_container.   REFRESH actor_tab. &lt;em>&amp; 获取工作流中的容器元素值 &lt;/em>  swc_get_element ac_container ’CZLX’    l_czlx. &lt;em>  swc_get_element ac_container ’HZDH’    l_hzdh. &lt;/em>  swc_get_element ac_container ’HCWS’    l_hcws.   swc_get_element ac_container ’WF_CODE_CONT’    wf_code_cont. &lt;em>*加入审批用户   select single &lt;/em> into corresponding fields of wa_ZWFTST01     from ZWFTST01     where WFCODE eq wf_code_cont.   if sy-subrc eq 0.     actor_tab-objid = wa_ZWFTST01-APPRO.   else.     actor_tab-objid = ’GW-ZM’.   endif.   actor_tab-otype = ’US’.   ”用户类型   APPEND actor_tab. ENDFUNCTION.</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3 id="tcode-se37--1">步骤5 – Tcode: se37 创建工作流触发函数</h3>
+<p>创建函数ZTRIGGERWF，在程序中调用该函数触发工作流<br />
+参数<br /></p>
+
+<p>代码截屏<br /></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>FUNCTION ZTRIGGERWF. &lt;em>”———————————————————————- &lt;/em>”&lt;em>“Local interface: &lt;/em>“  IMPORTING &lt;em>“     VALUE(INSTANCEID) TYPE  CHAR32 &lt;/em>“     VALUE(EVENT) TYPE  CHAR61 &lt;em>“     VALUE(WORKFLOWNAME) TYPE  CHAR30 &lt;/em>“     REFERENCE(IM_EVENT_CONTAINER) TYPE REF TO &lt;em>“        IF_SWF_IFS_PARAMETER_CONTAINER OPTIONAL &lt;/em>“  EXPORTING &lt;em>“     REFERENCE(RC) TYPE  SY-SUBRC &lt;/em>”———————————————————————-   DATA:            lv_objtype       TYPE sibftypeid,            lv_event         TYPE sibfevent,            lv_objkey        TYPE sibfinstid.    lv_objtype = workflowname.   lv_event   = event.   lv_objkey = instanceid.  * Raise the event   TRY.       CALL METHOD cl_swf_evt_event=&gt;raise         EXPORTING           im_objcateg = cl_swf_evt_event=&gt;mc_objcateg_cl           im_objtype  = lv_objtype           im_event    = lv_event           im_objkey   = lv_objkey           im_event_container = im_event_container.       rc = 0.     CATCH cx_swf_evt_invalid_objtype .       rc = 1.     CATCH cx_swf_evt_invalid_event .       rc = 2.   ENDTRY.   COMMIT WORK AND WAIT.  ENDFUNCTION.</span></code></pre></td></tr></table></div></figure></notextile></div>
  
-步骤5 – Tcode: se37 创建工作流触发函数
-创建函数ZTRIGGERWF，在程序中调用该函数触发工作流
-参数</p>
+### 步骤6 – Tcode: se80 创建工作流处理类
+创建类ZTEST_SWF01_01用于响应工作流处理过程中的事件<br /></p>
 
-<p>代码截屏</p>
+<p>新增 3 接口(仅需这3个就行了)：BI_OBJECT，BI_PERSISTENT，IF_WORKFLOW<br /></p>
 
-<p>FUNCTION ZTRIGGERWF. <em>”———————————————————————- </em>”<em>“Local interface: </em>“  IMPORTING <em>“     VALUE(INSTANCEID) TYPE  CHAR32 </em>“     VALUE(EVENT) TYPE  CHAR61 <em>“     VALUE(WORKFLOWNAME) TYPE  CHAR30 </em>“     REFERENCE(IM_EVENT_CONTAINER) TYPE REF TO <em>“        IF_SWF_IFS_PARAMETER_CONTAINER OPTIONAL </em>“  EXPORTING <em>“     REFERENCE(RC) TYPE  SY-SUBRC </em>”———————————————————————-   DATA:            lv_objtype       TYPE sibftypeid,            lv_event         TYPE sibfevent,            lv_objkey        TYPE sibfinstid.    lv_objtype = workflowname.   lv_event   = event.   lv_objkey = instanceid.  * Raise the event   TRY.       CALL METHOD cl_swf_evt_event=&gt;raise         EXPORTING           im_objcateg = cl_swf_evt_event=&gt;mc_objcateg_cl           im_objtype  = lv_objtype           im_event    = lv_event           im_objkey   = lv_objkey           im_event_container = im_event_container.       rc = 0.     CATCH cx_swf_evt_invalid_objtype .       rc = 1.     CATCH cx_swf_evt_invalid_event .       rc = 2.   ENDTRY.   COMMIT WORK AND WAIT.  ENDFUNCTION.
+<p>新增属性，SIBFLPOR是必需的<br /></p>
+
+<p>新增方法，CONSTRUCTOR是必需的<br /></p>
+
+<p>各方法的参数<br /></p>
+
+<p>方法CONSTRUCTOR代码<br /></p>
+
+<p>方法 BI_PERSISTENT~FIND_BY_LPOR代码<br /></p>
+
+<p>方法BI_PERSISTENT~LPOR 代码<br /></p>
+
+<p>方法METH_DISPLAY代码<br /></p>
+
+<p>方法APPROVE代码<br /></p>
+
+<p>新增事件<br /></p>
+
+<p>事件参数<br /></p>
+
+<p>最后，激活该类<br />
  
-步骤6 – Tcode: se80 创建工作流处理类
-创建类ZTEST_SWF01_01用于响应工作流处理过程中的事件</p>
-
-<p>新增 3 接口(仅需这3个就行了)：BI_OBJECT，BI_PERSISTENT，IF_WORKFLOW</p>
-
-<p>新增属性，SIBFLPOR是必需的</p>
-
-<p>新增方法，CONSTRUCTOR是必需的</p>
-
-<p>各方法的参数</p>
-
-<p>方法CONSTRUCTOR代码</p>
-
-<p>方法 BI_PERSISTENT~FIND_BY_LPOR代码</p>
-
-<p>方法BI_PERSISTENT~LPOR 代码</p>
-
-<p>方法METH_DISPLAY代码</p>
-
-<p>方法APPROVE代码</p>
-
-<p>新增事件</p>
-
-<p>事件参数</p>
-
-<p>最后，激活该类
- 
-步骤7 – Tcode:se24事件完成后执行该类中事件
-新类ZTEST_SWF01_EXIT从demo类CL_SWF_WORKITEM_EXIT_TST拷贝过来，再改
-方法CHANGE_CONT_ELEMENT基本不需要更改</p>
+### 步骤7 – Tcode:se24事件完成后执行该类中事件
+新类ZTEST_SWF01_EXIT从demo类CL_SWF_WORKITEM_EXIT_TST拷贝过来，再改方法CHANGE_CONT_ELEMENT基本不需要更改<br /></p>
 
 <p> 
-步骤8 – Tcode: PFAC_INS 创建审批规则</p>
+### 步骤8 – Tcode: PFAC_INS 创建审批规则</p>
 
-<p>步骤9 – Tcode: swdb 新建工作流
-新建工作流zwf_test001</p>
+<h3 id="tcode-swdb-">步骤9 – Tcode: swdb 新建工作流</h3>
+<p>新建工作流zwf_test001</p>
 
 <p>选择工作流容器</p>
 
@@ -169,20 +171,22 @@ Data define——</p>
 最终流程图</p>
 
 <p> 
-步骤10 – Tcode: se38 新增程序去触发流程开始
+### 步骤10 – Tcode: se38 新增程序去触发流程开始
 完整代码</p>
 
 <p>方法1:
-FORM CREATE_WORKFLOW .   DATA: ls_instanceid TYPE char32,         ls_event TYPE char61,         ls_workflowname TYPE char30.   DATA: im_event_container TYPE REF TO if_swf_ifs_parameter_container.   DATA: ls_rc TYPE sy-subrc.    data: l_PARA_EV_SIGN type char10,         lwa_test02 type ZWFTST02,         lwa_test01 type zwftst01.    check p_wcode is not initial.   lwa_test02-wfcode = p_wcode.   lwa_test02-ctext = p_ctext.    lwa_test01-wfcode = p_wcode.   lwa_test01-CUSER = sy-uname.   lwa_test01-CDATE = sy-datum.   lwa_test01-appro = p_appro.   modify zwftst01 from  lwa_test01.    CONCATENATE ’Z##’ p_wcode  INTO LS_INSTANCEID.  ”工作流号码   lwa_test02-WFCODENO = LS_INSTANCEID.   lwa_test02-state = ’C’.   modify ZWFTST02 from lwa_test02.    LS_EVENT        = ’CREATED’.   LS_WORKFLOWNAME = ’ZTEST_SWF01_01’.   CALL METHOD CL_SWF_EVT_EVENT=&gt;GET_EVENT_CONTAINER     EXPORTING       IM_OBJCATEG  = CL_SWF_EVT_EVENT=&gt;MC_OBJCATEG_CL       IM_OBJTYPE   = LS_WORKFLOWNAME       IM_EVENT     = LS_EVENT     RECEIVING       RE_REFERENCE = IM_EVENT_CONTAINER.    l_PARA_EV_SIGN = p_wcode.   CALL METHOD IM_EVENT_CONTAINER-&gt;SET     EXPORTING       NAME  = ’PARA_EV_SIGN’       VALUE = l_PARA_EV_SIGN.    CALL FUNCTION ’ZTRIGGERWF’     EXPORTING       INSTANCEID         = LS_INSTANCEID       EVENT              = LS_EVENT       WORKFLOWNAME       = LS_WORKFLOWNAME       IM_EVENT_CONTAINER = IM_EVENT_CONTAINER     IMPORTING       RC                 = LS_RC.   IF LS_RC = 0.     lwa_test02-state = ’A’.     modify ZWFTST02 from lwa_test02.     if sy-subrc eq 0.       write: / ’The work flow: ’,                 p_wcode,                 ’ is started’.     endif.   endif.  ENDFORM.                    ” CREATE_WORKFLOW
- 
-方法2:
-FORM CREATE_WORKFLOW2 .    DATA: ZAGENTS  LIKE TABLE OF SWHACTOR WITH HEADER LINE.   ”agents   DATA WF_INITIATOR LIKE SWHACTOR   OCCURS 1 WITH HEADER LINE.   DATA BEGIN OF WI_CONTAINER OCCURS 0.           INCLUDE STRUCTURE SWCONT.   DATA END OF WI_CONTAINER.     DATA: ls_instanceid TYPE char32.   data: l_PARA_EV_SIGN type char10,       lwa_test02 type ZWFTST02,       lwa_test01 type zwftst01.    check p_wcode is not initial.   lwa_test02-wfcode = p_wcode.   lwa_test02-ctext = p_ctext.    lwa_test01-wfcode = p_wcode.   lwa_test01-CUSER = sy-uname.   lwa_test01-CDATE = sy-datum.   lwa_test01-appro = p_appro.   modify zwftst01 from  lwa_test01.    CONCATENATE ’Z##’ p_wcode  INTO LS_INSTANCEID.  ”工作流号码   lwa_test02-WFCODENO = LS_INSTANCEID.   lwa_test02-state = ’C’.   modify ZWFTST02 from lwa_test02.  * Some workflow-specific initializing   WF_INITIATOR-OTYPE = ’US’.   WF_INITIATOR-OBJID = ’GW-ZM’.    SWC_SET_ELEMENT WI_CONTAINER ’_WF_INITIATOR’ WF_INITIATOR.   SWC_SET_ELEMENT WI_CONTAINER ’WF_SIGN_TEXT’  p_wcode.”   SWC_SET_ELEMENT WI_CONTAINER ’WF_CODE_CONT’  p_wcode.”    CALL FUNCTION ’SWW_WI_START_SIMPLE’     EXPORTING       TASK         = ’WS91100048’     TABLES       AGENTS       = ZAGENTS       WI_CONTAINER = WI_CONTAINER.   IF SY-SUBRC &lt;&gt; 0.     MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO             WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.   else.     write: / ’The work flow 2: ’,               p_wcode,               ’ is started’.   ENDIF.  ENDFORM.                    ” CREATE_WORKFLOW2
- 
-问题解决——
-1.       如果出现：</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>FORM CREATE_WORKFLOW .   DATA: ls_instanceid TYPE char32,         ls_event TYPE char61,         ls_workflowname TYPE char30.   DATA: im_event_container TYPE REF TO if_swf_ifs_parameter_container.   DATA: ls_rc TYPE sy-subrc.    data: l_PARA_EV_SIGN type char10,         lwa_test02 type ZWFTST02,         lwa_test01 type zwftst01.    check p_wcode is not initial.   lwa_test02-wfcode = p_wcode.   lwa_test02-ctext = p_ctext.    lwa_test01-wfcode = p_wcode.   lwa_test01-CUSER = sy-uname.   lwa_test01-CDATE = sy-datum.   lwa_test01-appro = p_appro.   modify zwftst01 from  lwa_test01.    CONCATENATE ’Z##’ p_wcode  INTO LS_INSTANCEID.  ”工作流号码   lwa_test02-WFCODENO = LS_INSTANCEID.   lwa_test02-state = ’C’.   modify ZWFTST02 from lwa_test02.    LS_EVENT        = ’CREATED’.   LS_WORKFLOWNAME = ’ZTEST_SWF01_01’.   CALL METHOD CL_SWF_EVT_EVENT=&gt;GET_EVENT_CONTAINER     EXPORTING       IM_OBJCATEG  = CL_SWF_EVT_EVENT=&gt;MC_OBJCATEG_CL       IM_OBJTYPE   = LS_WORKFLOWNAME       IM_EVENT     = LS_EVENT     RECEIVING       RE_REFERENCE = IM_EVENT_CONTAINER.    l_PARA_EV_SIGN = p_wcode.   CALL METHOD IM_EVENT_CONTAINER-&gt;SET     EXPORTING       NAME  = ’PARA_EV_SIGN’       VALUE = l_PARA_EV_SIGN.    CALL FUNCTION ’ZTRIGGERWF’     EXPORTING       INSTANCEID         = LS_INSTANCEID       EVENT              = LS_EVENT       WORKFLOWNAME       = LS_WORKFLOWNAME       IM_EVENT_CONTAINER = IM_EVENT_CONTAINER     IMPORTING       RC                 = LS_RC.   IF LS_RC = 0.     lwa_test02-state = ’A’.     modify ZWFTST02 from lwa_test02.     if sy-subrc eq 0.       write: / ’The work flow: ’,                 p_wcode,                 ’ is started’.     endif.   endif.  ENDFORM.                    ” CREATE_WORKFLOW</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>解决方法：
-在工作流类中，加入BI_PERSISTENT~FIND_BY_LPOR函数代码；注意函数SWF_UTL_INVOKE_CLIF_METHOD在所有工作流调用时，都会使这个函数；如果更改了类的方法，没有激活的话，也会报这种异常</p>
+<p>方法2:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>FORM CREATE_WORKFLOW2 .    DATA: ZAGENTS  LIKE TABLE OF SWHACTOR WITH HEADER LINE.   ”agents   DATA WF_INITIATOR LIKE SWHACTOR   OCCURS 1 WITH HEADER LINE.   DATA BEGIN OF WI_CONTAINER OCCURS 0.           INCLUDE STRUCTURE SWCONT.   DATA END OF WI_CONTAINER.     DATA: ls_instanceid TYPE char32.   data: l_PARA_EV_SIGN type char10,       lwa_test02 type ZWFTST02,       lwa_test01 type zwftst01.    check p_wcode is not initial.   lwa_test02-wfcode = p_wcode.   lwa_test02-ctext = p_ctext.    lwa_test01-wfcode = p_wcode.   lwa_test01-CUSER = sy-uname.   lwa_test01-CDATE = sy-datum.   lwa_test01-appro = p_appro.   modify zwftst01 from  lwa_test01.    CONCATENATE ’Z##’ p_wcode  INTO LS_INSTANCEID.  ”工作流号码   lwa_test02-WFCODENO = LS_INSTANCEID.   lwa_test02-state = ’C’.   modify ZWFTST02 from lwa_test02.  * Some workflow-specific initializing   WF_INITIATOR-OTYPE = ’US’.   WF_INITIATOR-OBJID = ’GW-ZM’.    SWC_SET_ELEMENT WI_CONTAINER ’_WF_INITIATOR’ WF_INITIATOR.   SWC_SET_ELEMENT WI_CONTAINER ’WF_SIGN_TEXT’  p_wcode.”   SWC_SET_ELEMENT WI_CONTAINER ’WF_CODE_CONT’  p_wcode.”    CALL FUNCTION ’SWW_WI_START_SIMPLE’     EXPORTING       TASK         = ’WS91100048’     TABLES       AGENTS       = ZAGENTS       WI_CONTAINER = WI_CONTAINER.   IF SY-SUBRC &lt;&gt; 0.     MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO             WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.   else.     write: / ’The work flow 2: ’,               p_wcode,               ’ is started’.   ENDIF.  ENDFORM.                    ” CREATE_WORKFLOW2</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3 id="section">问题解决——</h3>
+<p>1.       如果出现：<br /></p>
+
+<p>解决方法：<br />
+在工作流类中，加入BI_PERSISTENT~FIND_BY_LPOR函数代码；注意函数SWF_UTL_INVOKE_CLIF_METHOD在所有工作流调用时，都会使这个函数；如果更改了类的方法，没有激活的话，也会报这种异常<br /></p>
 
 ]]></content>
   </entry>
