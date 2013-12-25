@@ -1,250 +1,114 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[lomozm’s Journal]]></title>
-  <link href="http://lomozm.github.io/atom.xml" rel="self"/>
-  <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-25T11:58:52+08:00</updated>
-  <id>http://lomozm.github.io/</id>
-  <author>
-    <name><![CDATA[lomozm]]></name>
-    <email><![CDATA[18064095@qq.com]]></email>
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>金额转大写英文 - lomozm’s Journal</title>
+  <meta name="author" content="lomozm">
 
   
-  <entry>
-    <title type="html"><![CDATA[金额格式化 - 千分符]]></title>
-    <link href="http://lomozm.github.io/blog/20131225/jin-e-ge-shi-hua-qian-fen-fu/"/>
-    <updated>2013-12-25T11:55:59+08:00</updated>
-    <id>http://lomozm.github.io/blog/20131225/jin-e-ge-shi-hua-qian-fen-fu</id>
-    <content type="html"><![CDATA[
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">function z_num2str.
-</span><span class="line">*"----------------------------------------------------------------------
-</span><span class="line">*"*"本地接口：
-</span><span class="line">*"  IMPORTING
-</span><span class="line">*"     REFERENCE(INUM) TYPE  STRING
-</span><span class="line">*"  EXPORTING
-</span><span class="line">*"     REFERENCE(ZSTR) TYPE  STRING
-</span><span class="line">*"----------------------------------------------------------------------</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<!--more-->
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-<span class="line-number">19</span>
-<span class="line-number">20</span>
-<span class="line-number">21</span>
-<span class="line-number">22</span>
-<span class="line-number">23</span>
-<span class="line-number">24</span>
-<span class="line-number">25</span>
-<span class="line-number">26</span>
-<span class="line-number">27</span>
-<span class="line-number">28</span>
-<span class="line-number">29</span>
-<span class="line-number">30</span>
-<span class="line-number">31</span>
-<span class="line-number">32</span>
-<span class="line-number">33</span>
-<span class="line-number">34</span>
-<span class="line-number">35</span>
-<span class="line-number">36</span>
-<span class="line-number">37</span>
-<span class="line-number">38</span>
-<span class="line-number">39</span>
-<span class="line-number">40</span>
-<span class="line-number">41</span>
-<span class="line-number">42</span>
-<span class="line-number">43</span>
-<span class="line-number">44</span>
-<span class="line-number">45</span>
-<span class="line-number">46</span>
-<span class="line-number">47</span>
-<span class="line-number">48</span>
-<span class="line-number">49</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">data : zclen type i,
-</span><span class="line">        znum type dmbtr,
-</span><span class="line">  n type i,
-</span><span class="line">  zcstr(20) type c,
-</span><span class="line">  zcstr2(20) type c,
-</span><span class="line">  zctemp(3) type c,
-</span><span class="line">  zflag(1) type c value '.',
-</span><span class="line">  zflag2 type i value 0,
-</span><span class="line">  zcdec(20) type c. "记录小数部分.
-</span><span class="line">  zstr = ''.
-</span><span class="line">  znum = INUM.
-</span><span class="line">  check znum &lt;&gt; 0.
-</span><span class="line">  if znum &lt;= -1000.
-</span><span class="line">    zflag2 = 1.
-</span><span class="line">    znum = abs( znum ).
-</span><span class="line">  endif.
-</span><span class="line">  if znum &gt;= 1000.
-</span><span class="line">    zcstr = znum.
-</span><span class="line">* 压缩字符串，去除前面的空格。
-</span><span class="line">    condense zcstr no-gaps.
-</span><span class="line">* 分离整数与小数，好单独处理整数。
-</span><span class="line">    split zcstr at zflag into zcstr zcdec.
-</span><span class="line">    zclen = strlen( zcstr ).
-</span><span class="line">* 在循环中从右面在每三位的前面加上一个逗号。
-</span><span class="line">    while zclen &gt; 3.
-</span><span class="line">      n = zclen - 3.
-</span><span class="line">      zctemp = zcstr+n(3).
-</span><span class="line">      if not zcstr2 is initial.
-</span><span class="line">        concatenate zctemp zcstr2 into zcstr2 separated by ','.
-</span><span class="line">      else.
-</span><span class="line">        zcstr2 = zctemp.
-</span><span class="line">      endif.
-</span><span class="line">      zclen = zclen - 3.
-</span><span class="line">    endwhile.
-</span><span class="line">* 将不剩下的不足三位数加到前面
-</span><span class="line">    concatenate zcstr+0(zclen) zcstr2 into zcstr2 separated by ','.
-</span><span class="line">    if zflag2 = 1.
-</span><span class="line">      concatenate '-' zcstr2 into zcstr2.
-</span><span class="line">    endif.
-</span><span class="line">    clear zcstr.
-</span><span class="line">* 将处理过的整数与小数连接起来。
-</span><span class="line">    concatenate zcstr2 zcdec into zcstr separated by zflag.
-</span><span class="line">* 将值返回
-</span><span class="line">    zstr = zcstr.
-</span><span class="line">  else.
-</span><span class="line">    zstr = znum.
-</span><span class="line">  endif.
-</span><span class="line">
-</span><span class="line">endfunction.</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-]]></content>
-  </entry>
+  <meta name="description" content="1
+2
+3
+4
+5
+6
+7
+8
+function zcurr2english.
+*"----------------------------------------------------------------------
+*"*"本地接口：
+*" IMPORTING
+*" REFERENCE &hellip;">
   
-  <entry>
-    <title type="html"><![CDATA[数字检查 - 通过正则表达式]]></title>
-    <link href="http://lomozm.github.io/blog/20131225/shu-zi-jian-cha-tong-guo-zheng-ze-biao-da-shi/"/>
-    <updated>2013-12-25T11:50:56+08:00</updated>
-    <id>http://lomozm.github.io/blog/20131225/shu-zi-jian-cha-tong-guo-zheng-ze-biao-da-shi</id>
-    <content type="html"><![CDATA[<ol>
-  <li>函数代码</li>
-</ol>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">function z_is_number_check.
-</span><span class="line">*"----------------------------------------------------------------------
-</span><span class="line">*"*"本地接口：
-</span><span class="line">*"  IMPORTING
-</span><span class="line">*"     REFERENCE(I_STRING) TYPE  STRING
-</span><span class="line">*"     REFERENCE(I_MARKER) TYPE  STRING
-</span><span class="line">*"  EXPORTING
-</span><span class="line">*"     REFERENCE(O_IS_NUM) TYPE  CHAR1
-</span><span class="line">*"----------------------------------------------------------------------</span></code></pre></td></tr></table></div></figure></notextile></div>
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!--more-->
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-<span class="line-number">19</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">data: g_regex_ref   type ref to cl_abap_regex,
-</span><span class="line">        g_matcher_ref type ref to cl_abap_matcher.
-</span><span class="line">
-</span><span class="line">  clear: o_is_num.
-</span><span class="line">
-</span><span class="line">  create object g_regex_ref
-</span><span class="line">    exporting
-</span><span class="line">      pattern = i_marker.
-</span><span class="line">
-</span><span class="line">  if i_string is not initial.
-</span><span class="line">    g_matcher_ref = g_regex_ref-&gt;create_matcher( text = i_string ).
-</span><span class="line">    o_is_num = g_matcher_ref-&gt;match( ).  " if matched the P_G_MATCH value is 'X', else value is space
-</span><span class="line">  else.
-</span><span class="line">    o_is_num = 'X'.
-</span><span class="line">  endif.
-</span><span class="line">
-</span><span class="line">  free g_regex_ref.
-</span><span class="line">
-</span><span class="line">endfunction.</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<ol>
-  <li>使用方法</li>
-</ol>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">data: i_str type string value '1000',
-</span><span class="line">      i_mark type string value '\d+',
-</span><span class="line">      o_num type char1.
-</span><span class="line">     
-</span><span class="line">call function 'ZG001_IS_NUMBER_CHECK'
-</span><span class="line">  exporting
-</span><span class="line">    i_string       = i_str
-</span><span class="line">    i_marker       = i_mark
-</span><span class="line"> IMPORTING
-</span><span class="line">   O_IS_NUM       = o_num
-</span><span class="line">          .</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-]]></content>
-  </entry>
   
-  <entry>
-    <title type="html"><![CDATA[金额转大写英文]]></title>
-    <link href="http://lomozm.github.io/blog/20131225/jin-e-zhuan-da-xie-ying-wen/"/>
-    <updated>2013-12-25T11:46:25+08:00</updated>
-    <id>http://lomozm.github.io/blog/20131225/jin-e-zhuan-da-xie-ying-wen</id>
-    <content type="html"><![CDATA[
+  <link rel="canonical" href="http://lomozm.github.io/blog/20131225/jin-e-zhuan-da-xie-ying-wen/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="lomozm’s Journal" type="application/atom+xml">
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">lomozm’s Journal</a></h1>
+  
+    <h2>长得不帅，跑得不快；一如既往，永往向前...</h2>
+  
+  <div class="clear"></div>
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:lomozm.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">归档</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      
+        <h1 class="entry-title">金额转大写英文</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-25T11:46:25+08:00" pubdate data-updated="true">2013-12-25 Wed</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
@@ -1891,407 +1755,159 @@
 </span><span class="line">
 </span><span class="line">endfunction.</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[金额转大写中文]]></title>
-    <link href="http://lomozm.github.io/blog/20131225/jin-e-zhuan-da-xie-zhong-wen/"/>
-    <updated>2013-12-25T11:33:41+08:00</updated>
-    <id>http://lomozm.github.io/blog/20131225/jin-e-zhuan-da-xie-zhong-wen</id>
-    <content type="html"><![CDATA[
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">function zcurr2chinese.
-</span><span class="line">*"----------------------------------------------------------------------
-</span><span class="line">*"*"本地接口：
-</span><span class="line">*"  IMPORTING
-</span><span class="line">*"     REFERENCE(IV_MONEY) TYPE  DMBTR
-</span><span class="line">*"  EXPORTING
-</span><span class="line">*"     REFERENCE(EV_MONEY) TYPE  STRING
-</span><span class="line">*"  EXCEPTIONS
-</span><span class="line">*"      WRONG_MONEY
-</span><span class="line">*"----------------------------------------------------------------------</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<!--more-->
+<span class="byline author vcard">Posted by <span class="fn">lomozm</span></span>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-<span class="line-number">19</span>
-<span class="line-number">20</span>
-<span class="line-number">21</span>
-<span class="line-number">22</span>
-<span class="line-number">23</span>
-<span class="line-number">24</span>
-<span class="line-number">25</span>
-<span class="line-number">26</span>
-<span class="line-number">27</span>
-<span class="line-number">28</span>
-<span class="line-number">29</span>
-<span class="line-number">30</span>
-<span class="line-number">31</span>
-<span class="line-number">32</span>
-<span class="line-number">33</span>
-<span class="line-number">34</span>
-<span class="line-number">35</span>
-<span class="line-number">36</span>
-<span class="line-number">37</span>
-<span class="line-number">38</span>
-<span class="line-number">39</span>
-<span class="line-number">40</span>
-<span class="line-number">41</span>
-<span class="line-number">42</span>
-<span class="line-number">43</span>
-<span class="line-number">44</span>
-<span class="line-number">45</span>
-<span class="line-number">46</span>
-<span class="line-number">47</span>
-<span class="line-number">48</span>
-<span class="line-number">49</span>
-<span class="line-number">50</span>
-<span class="line-number">51</span>
-<span class="line-number">52</span>
-<span class="line-number">53</span>
-<span class="line-number">54</span>
-<span class="line-number">55</span>
-<span class="line-number">56</span>
-<span class="line-number">57</span>
-<span class="line-number">58</span>
-<span class="line-number">59</span>
-<span class="line-number">60</span>
-<span class="line-number">61</span>
-<span class="line-number">62</span>
-<span class="line-number">63</span>
-<span class="line-number">64</span>
-<span class="line-number">65</span>
-<span class="line-number">66</span>
-<span class="line-number">67</span>
-<span class="line-number">68</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">types: cur6  type p decimals 6 ,
-</span><span class="line">         cur2  type  bf_dmbtr.
-</span><span class="line">  data va1 type cur2.
-</span><span class="line">  data f_source type cur2.
-</span><span class="line">  data str(40) type c .
-</span><span class="line">  va1 = iv_money.
-</span><span class="line">  f_source = va1.
-</span><span class="line">
-</span><span class="line">  data: scr(30) type c, res(60) type c,fen(2) type c .
-</span><span class="line">  data: len type i, c1 type i, c2 type i, c3 type i, c4 type i.
-</span><span class="line">  data: d1(1) type c, d2(1) type c, d3 type i.
-</span><span class="line">  data: digit(2) type c, weight(2) type c.
-</span><span class="line">  data: rule1(20) type c value '零壹贰叁肆伍陆柒捌玖'.
-</span><span class="line">  data: rule2(30) type c value '分角元拾佰仟万拾佰仟亿拾佰仟万拾佰仟'.
-</span><span class="line">  scr = f_source * 100.
-</span><span class="line">  condense scr no-gaps.
-</span><span class="line">  if scr = '0'.
-</span><span class="line">    res = '零元'.
-</span><span class="line">  else.
-</span><span class="line">    len = strlen( scr ).
-</span><span class="line">    c1 = 0.
-</span><span class="line">    d1 = '0'.
-</span><span class="line">    clear res.
-</span><span class="line">    do len times.
-</span><span class="line">      c1 = c1 + 1.
-</span><span class="line">      c2 = len - c1.
-</span><span class="line">      d2 = scr+c2(1) .
-</span><span class="line">      if d2 = '0'.
-</span><span class="line">        d3 = 0.
-</span><span class="line">      else.
-</span><span class="line">        d3 = d2.
-</span><span class="line">      endif.
-</span><span class="line">      digit = rule1+d3(1) .
-</span><span class="line">      c3 = ( c1 - 1 ) .
-</span><span class="line">      weight = rule2+c3(1) .
-</span><span class="line">      if d2 = '0'.
-</span><span class="line">        if c1 = 3.
-</span><span class="line">          digit = ''.
-</span><span class="line">        elseif c1 = 7.
-</span><span class="line">          digit = ''.
-</span><span class="line">          if len &gt; 10 .
-</span><span class="line">            c4 = len - 10.
-</span><span class="line">            if scr+c4(4) = '0000'.
-</span><span class="line">              weight = ''.
-</span><span class="line">            endif.
-</span><span class="line">          endif.
-</span><span class="line">        elseif c1 = 11.
-</span><span class="line">          digit = ''.
-</span><span class="line">        elseif d1 = '0'.
-</span><span class="line">          digit = ''.
-</span><span class="line">          weight = ''.
-</span><span class="line">        else.
-</span><span class="line">          weight = ''.
-</span><span class="line">        endif.
-</span><span class="line">      endif.
-</span><span class="line">      concatenate digit weight res into res .
-</span><span class="line">      d1 = d2.
-</span><span class="line">    enddo.
-</span><span class="line">  endif.
-</span><span class="line">  len = strlen( res ) - 1.
-</span><span class="line">  fen = res+len(1).
-</span><span class="line">  if fen &lt;&gt; '分' .
-</span><span class="line">    concatenate res '整' into ev_money.
-</span><span class="line">  else.
-</span><span class="line">    ev_money = res.
-</span><span class="line">  endif.
-</span><span class="line">
-</span><span class="line">endfunction.</span></code></pre></td></tr></table></div></figure></notextile></div>
+      
 
-]]></content>
-  </entry>
+
+
+
+
+
+
+
   
-  <entry>
-    <title type="html"><![CDATA[取SD凭证流 - RV_ORDER_FLOW_INFORMATION]]></title>
-    <link href="http://lomozm.github.io/blog/20131224/qu-sdping-zheng-liu-rv-order-flow-information/"/>
-    <updated>2013-12-24T16:24:01+08:00</updated>
-    <id>http://lomozm.github.io/blog/20131224/qu-sdping-zheng-liu-rv-order-flow-information</id>
-    <content type="html"><![CDATA[<p>可以得到从销售到财务凭证的流数据
-</p>
-<p>示例：</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">data: lt_vbak type table of vbak with header line,
-</span><span class="line">         ls_vbco6 type vbco6.
-</span><span class="line">
-</span><span class="line">    ls_vbco6-mandt = sy-mandt.
-</span><span class="line">    ls_vbco6-vbeln = lt_vbak-vbeln.</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<!--more-->
+<time datetime="2013-12-25T11:46:25+08:00" pubdate data-updated="true">2013-12-25 Wed</time>
+      
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-<span class="line-number">19</span>
-<span class="line-number">20</span>
-<span class="line-number">21</span>
-<span class="line-number">22</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">refresh: lt_vbfa.
-</span><span class="line">    call function 'RV_ORDER_FLOW_INFORMATION'
-</span><span class="line">      exporting
-</span><span class="line">*   AUFBEREITUNG        = '2'
-</span><span class="line">*   BELEGTYP            = ' '
-</span><span class="line">        comwa               = ls_vbco6
-</span><span class="line">*   NACHFOLGER          = 'X'
-</span><span class="line">*   N_STUFEN            = '50'
-</span><span class="line">*   VORGAENGER          = 'X'
-</span><span class="line">*   V_STUFEN            = '50'
-</span><span class="line">* IMPORTING
-</span><span class="line">*   BELEGTYP_BACK       =
-</span><span class="line">      tables
-</span><span class="line">        vbfa_tab            = lt_vbfa
-</span><span class="line">     exceptions
-</span><span class="line">       no_vbfa             = 1
-</span><span class="line">       no_vbuk_found       = 2
-</span><span class="line">       others              = 3
-</span><span class="line">              .
-</span><span class="line">    if sy-subrc &lt;&gt; 0.
-</span><span class="line">* Implement suitable error handling here
-</span><span class="line">    endif.</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-]]></content>
-  </entry>
+<span class="categories">
   
-  <entry>
-    <title type="html"><![CDATA[银行代码F4帮助 - SEARCH_BANK_ADDRESS]]></title>
-    <link href="http://lomozm.github.io/blog/20131223/yin-xing-dai-ma-f4bang-zhu-search-bank-address/"/>
-    <updated>2013-12-23T15:55:56+08:00</updated>
-    <id>http://lomozm.github.io/blog/20131223/yin-xing-dai-ma-f4bang-zhu-search-bank-address</id>
-    <content type="html"><![CDATA[<p>说明：输入国家代码，运行时弹出选择窗口</p>
-
-<p>示例：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">data: lwa_bnka type bnka.
-</span><span class="line">
-</span><span class="line">  call function 'SEARCH_BANK_ADDRESS'
-</span><span class="line">    exporting
-</span><span class="line">      i_banks = p_banks
-</span><span class="line">*     I_MORE  = 'X'
-</span><span class="line">    importing
-</span><span class="line">      e_bnka  = lwa_bnka.
-</span><span class="line">  if lwa_bnka is not initial.
-</span><span class="line">    p_0026  = lwa_bnka-bankl.
-</span><span class="line">  endif.</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<!--more-->
-<p><img src="http://lomozm.github.io/images/images/daa36f17829e2b3321a7f0c3e99cfe82.jpeg" /></p>
-
-]]></content>
-  </entry>
+    <a class='category' href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数</a>
   
-  <entry>
-    <title type="html"><![CDATA[My first octopress blog]]></title>
-    <link href="http://lomozm.github.io/blog/20131223/my-first-octopress-blog/"/>
-    <updated>2013-12-23T13:14:39+08:00</updated>
-    <id>http://lomozm.github.io/blog/20131223/my-first-octopress-blog</id>
-    <content type="html"><![CDATA[
-<p>话说第一篇blog是关于octopress的，魔咒啊！<br />
-很早就有建自己blog的想法，最近项目空闲，总算是实现了，也不尽完美<br /><br />
-octopress主要优点就是可以绑定自己的域名<br />
-<!--more--></p>
-<h3>基础搭建</h3>
-<p>参船长的文档<a href="http://beyondvincent.com/blog/2013/08/03/108-creating-a-github-blog-using-octopress">利用Octopress搭建一个Github博客</a>
-<br /></p>
-<h3>导航和评论</h3>
-<p>参照冯威的<a href="http://www.cnblogs.com/oec2003/archive/2013/05/31/3109577.html">Octopress博客设置</a>
-<br /></p>
-<p>说明一下，里面<code>category_list_tag.rb</code>文件内容要做些更改，因为github地址栏不支持中文
+</span>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">module Jekyll 
-</span><span class="line">  class CategoryListTag &lt; Liquid::Tag 
-</span><span class="line">    def render(context) 
-</span><span class="line">      html = "" 
-</span><span class="line">      categories = context.registers[:site].categories.keys 
-</span><span class="line">      categories.sort.each do |category| 
-</span><span class="line">        posts_in_category = context.registers[:site].categories[category].size 
-</span><span class="line">        category_dir = context.registers[:site].config['category_dir']
-</span><span class="line">        category_url = File.join(category_dir, category.to_url)
-</span><span class="line">        html &lt;&lt; "&lt;li class='category'&gt;&lt;a href='http://lomozm.github.io/#{category_url}/'&gt;#{category} (#{posts_in_category})&lt;/a&gt;&lt;/li&gt;\n" 
-</span><span class="line">      end 
-</span><span class="line">      html 
-</span><span class="line">    end 
-</span><span class="line">  end 
-</span><span class="line">end
-</span><span class="line">
-</span><span class="line">Liquid::Template.register_tag('category_list', Jekyll::CategoryListTag)
-</span><span class="line">require 'stringex'</span></code></pre></td></tr></table></div></figure></notextile></div>
 
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/20131225/jin-e-zhuan-da-xie-zhong-wen/" title="Previous Post: 金额转大写中文">&laquo; 金额转大写中文</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/20131225/shu-zi-jian-cha-tong-guo-zheng-ze-biao-da-shi/" title="Next Post: 数字检查 - 通过正则表达式">数字检查 - 通过正则表达式 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    
+<section> 
+    <img class="center" src="/images/myTitle/title.jpg">
+
+ <h1>关于我</h1>
+ <ul>
+    <li>
+    做过些SAP项目，时有心得<br>
+    Objective-c初学，成长历程<br>
+    其它种种....
+    </li>
+ </ul> 
+</section>
+<section>
+  <h1>最新文章</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/20131225/jin-e-ge-shi-hua-qian-fen-fu/">金额格式化 - 千分符</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20131225/shu-zi-jian-cha-tong-guo-zheng-ze-biao-da-shi/">数字检查 - 通过正则表达式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20131225/jin-e-zhuan-da-xie-ying-wen/">金额转大写英文</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20131225/jin-e-zhuan-da-xie-zhong-wen/">金额转大写中文</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20131224/qu-sdping-zheng-liu-rv-order-flow-information/">取SD凭证流 - RV_ORDER_FLOW_INFORMATION</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>最新评论</h1>
+  <script type="text/javascript" src="http://lomozm.disqus.com/recent_comments_widget.js?num_items=8&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
+</section>
+<section> 
+  <h1>文章分类</h1> 
+  <ul id="categories"> 
+    <li class='category'><a href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数 (2)</a></li>
+<li class='category'><a href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数 (4)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
+ 
+  </ul> 
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - lomozm -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
-<h3>其它</h3>
-<p>改变图标<a href="http://brianbuccola.github.io/blog/2012-11-29-how-to-change-the-favicon-in-octopress.html">How to Change the Favicon in Octopress</a><br />
-插入链接<a href="http://wowubuntu.com/markdown">Markdown 语法说明</a>(注意：如果链接是以”/“结尾的，需把它去掉)<br />
-其它技巧<a href="http://blog.jackphil.com/blog/2012/05/16/octopress-tips">Octopress技巧集</a><br /></p>
-<p>对于配置文件<code>_config.yml</code>的一些更改
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">permalink: /blog/:year:month:day/:title/
-</span><span class="line">markdown: kramdown
-</span><span class="line">excerpt_link: "阅读全文…” 
-</span><span class="line">default_asides: [asides/title_pic.html, asides/recent_posts.html, custom/asides/recent_comment.html, asides/category_list.html]</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-</p>
-<h3>附上整理的Markdown部分语法</h3>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-<span class="line-number">19</span>
-<span class="line-number">20</span>
-<span class="line-number">21</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">octopress发布blog常用格式
-</span><span class="line">
-</span><span class="line">sudo rake new_post[“    “]
-</span><span class="line">sudo rake generate
-</span><span class="line">sudo rake deploy
-</span><span class="line">
-</span><span class="line">&lt;code&gt;  &lt;/code&gt;
-</span><span class="line">&lt;h3&gt;    &lt;/h3&gt;
-</span><span class="line">&lt;p&gt; 	&lt;/p&gt;
-</span><span class="line">
-</span><span class="line">&lt;ol&gt;或者&lt;ul&gt;
-</span><span class="line">  &lt;li&gt;  &lt;/li&gt;
-</span><span class="line">  &lt;li&gt;  &lt;/li&gt;
-</span><span class="line">&lt;/ol&gt;或者&lt;/ul&gt;
-</span><span class="line">
-</span><span class="line">插入链接[Markdown 语法说明][2]
-</span><span class="line">[2]: http://wowubuntu.com/markdown “说明”
-</span><span class="line">
-</span><span class="line">*或者**     *或者**
-</span><span class="line">&lt;!--more—&gt;
-</span><span class="line">转义符反斜杠\</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>最后，感谢万能的google！</p>
-<p><br /></p>
-]]></content>
-  </entry>
+</footer>
   
-</feed>
+
+<script type="text/javascript">
+      var disqus_shortname = 'lomozm';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://lomozm.github.io/blog/20131225/jin-e-zhuan-da-xie-ying-wen/';
+        var disqus_url = 'http://lomozm.github.io/blog/20131225/jin-e-zhuan-da-xie-ying-wen/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

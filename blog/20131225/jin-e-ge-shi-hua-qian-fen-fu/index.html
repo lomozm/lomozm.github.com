@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>金额转大写中文 - lomozm’s Journal</title>
+  <title>金额格式化 - 千分符 - lomozm’s Journal</title>
   <meta name="author" content="lomozm">
 
   
@@ -17,13 +17,11 @@
 6
 7
 8
-9
-10
-function zcurr2chinese.
+function z_num2str.
 *"----------------------------------------------------------------------
 *"*"本地接口：
 *" IMPORTING
-*" &hellip;">
+*" REFERENCE( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -32,7 +30,7 @@ function zcurr2chinese.
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://lomozm.github.io/blog/20131225/jin-e-zhuan-da-xie-zhong-wen/">
+  <link rel="canonical" href="http://lomozm.github.io/blog/20131225/jin-e-ge-shi-hua-qian-fen-fu/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -84,7 +82,7 @@ function zcurr2chinese.
   <header>
     
       
-        <h1 class="entry-title">金额转大写中文</h1>
+        <h1 class="entry-title">金额格式化 - 千分符</h1>
       
     
     
@@ -101,7 +99,7 @@ function zcurr2chinese.
   
 
 
-<time datetime="2013-12-25T11:33:41+08:00" pubdate data-updated="true">2013-12-25 Wed</time>
+<time datetime="2013-12-25T11:55:59+08:00" pubdate data-updated="true">2013-12-25 Wed</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -119,17 +117,13 @@ function zcurr2chinese.
 <span class="line-number">6</span>
 <span class="line-number">7</span>
 <span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">function zcurr2chinese.
+</pre></td><td class="code"><pre><code class=""><span class="line">function z_num2str.
 </span><span class="line">*"----------------------------------------------------------------------
 </span><span class="line">*"*"本地接口：
 </span><span class="line">*"  IMPORTING
-</span><span class="line">*"     REFERENCE(IV_MONEY) TYPE  DMBTR
+</span><span class="line">*"     REFERENCE(INUM) TYPE  STRING
 </span><span class="line">*"  EXPORTING
-</span><span class="line">*"     REFERENCE(EV_MONEY) TYPE  STRING
-</span><span class="line">*"  EXCEPTIONS
-</span><span class="line">*"      WRONG_MONEY
+</span><span class="line">*"     REFERENCE(ZSTR) TYPE  STRING
 </span><span class="line">*"----------------------------------------------------------------------</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <!--more-->
@@ -183,90 +177,52 @@ function zcurr2chinese.
 <span class="line-number">47</span>
 <span class="line-number">48</span>
 <span class="line-number">49</span>
-<span class="line-number">50</span>
-<span class="line-number">51</span>
-<span class="line-number">52</span>
-<span class="line-number">53</span>
-<span class="line-number">54</span>
-<span class="line-number">55</span>
-<span class="line-number">56</span>
-<span class="line-number">57</span>
-<span class="line-number">58</span>
-<span class="line-number">59</span>
-<span class="line-number">60</span>
-<span class="line-number">61</span>
-<span class="line-number">62</span>
-<span class="line-number">63</span>
-<span class="line-number">64</span>
-<span class="line-number">65</span>
-<span class="line-number">66</span>
-<span class="line-number">67</span>
-<span class="line-number">68</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">types: cur6  type p decimals 6 ,
-</span><span class="line">         cur2  type  bf_dmbtr.
-</span><span class="line">  data va1 type cur2.
-</span><span class="line">  data f_source type cur2.
-</span><span class="line">  data str(40) type c .
-</span><span class="line">  va1 = iv_money.
-</span><span class="line">  f_source = va1.
-</span><span class="line">
-</span><span class="line">  data: scr(30) type c, res(60) type c,fen(2) type c .
-</span><span class="line">  data: len type i, c1 type i, c2 type i, c3 type i, c4 type i.
-</span><span class="line">  data: d1(1) type c, d2(1) type c, d3 type i.
-</span><span class="line">  data: digit(2) type c, weight(2) type c.
-</span><span class="line">  data: rule1(20) type c value '零壹贰叁肆伍陆柒捌玖'.
-</span><span class="line">  data: rule2(30) type c value '分角元拾佰仟万拾佰仟亿拾佰仟万拾佰仟'.
-</span><span class="line">  scr = f_source * 100.
-</span><span class="line">  condense scr no-gaps.
-</span><span class="line">  if scr = '0'.
-</span><span class="line">    res = '零元'.
-</span><span class="line">  else.
-</span><span class="line">    len = strlen( scr ).
-</span><span class="line">    c1 = 0.
-</span><span class="line">    d1 = '0'.
-</span><span class="line">    clear res.
-</span><span class="line">    do len times.
-</span><span class="line">      c1 = c1 + 1.
-</span><span class="line">      c2 = len - c1.
-</span><span class="line">      d2 = scr+c2(1) .
-</span><span class="line">      if d2 = '0'.
-</span><span class="line">        d3 = 0.
-</span><span class="line">      else.
-</span><span class="line">        d3 = d2.
-</span><span class="line">      endif.
-</span><span class="line">      digit = rule1+d3(1) .
-</span><span class="line">      c3 = ( c1 - 1 ) .
-</span><span class="line">      weight = rule2+c3(1) .
-</span><span class="line">      if d2 = '0'.
-</span><span class="line">        if c1 = 3.
-</span><span class="line">          digit = ''.
-</span><span class="line">        elseif c1 = 7.
-</span><span class="line">          digit = ''.
-</span><span class="line">          if len &gt; 10 .
-</span><span class="line">            c4 = len - 10.
-</span><span class="line">            if scr+c4(4) = '0000'.
-</span><span class="line">              weight = ''.
-</span><span class="line">            endif.
-</span><span class="line">          endif.
-</span><span class="line">        elseif c1 = 11.
-</span><span class="line">          digit = ''.
-</span><span class="line">        elseif d1 = '0'.
-</span><span class="line">          digit = ''.
-</span><span class="line">          weight = ''.
-</span><span class="line">        else.
-</span><span class="line">          weight = ''.
-</span><span class="line">        endif.
-</span><span class="line">      endif.
-</span><span class="line">      concatenate digit weight res into res .
-</span><span class="line">      d1 = d2.
-</span><span class="line">    enddo.
+</pre></td><td class="code"><pre><code class=""><span class="line">data : zclen type i,
+</span><span class="line">        znum type dmbtr,
+</span><span class="line">  n type i,
+</span><span class="line">  zcstr(20) type c,
+</span><span class="line">  zcstr2(20) type c,
+</span><span class="line">  zctemp(3) type c,
+</span><span class="line">  zflag(1) type c value '.',
+</span><span class="line">  zflag2 type i value 0,
+</span><span class="line">  zcdec(20) type c. "记录小数部分.
+</span><span class="line">  zstr = ''.
+</span><span class="line">  znum = INUM.
+</span><span class="line">  check znum &lt;&gt; 0.
+</span><span class="line">  if znum &lt;= -1000.
+</span><span class="line">    zflag2 = 1.
+</span><span class="line">    znum = abs( znum ).
 </span><span class="line">  endif.
-</span><span class="line">  len = strlen( res ) - 1.
-</span><span class="line">  fen = res+len(1).
-</span><span class="line">  if fen &lt;&gt; '分' .
-</span><span class="line">    concatenate res '整' into ev_money.
+</span><span class="line">  if znum &gt;= 1000.
+</span><span class="line">    zcstr = znum.
+</span><span class="line">* 压缩字符串，去除前面的空格。
+</span><span class="line">    condense zcstr no-gaps.
+</span><span class="line">* 分离整数与小数，好单独处理整数。
+</span><span class="line">    split zcstr at zflag into zcstr zcdec.
+</span><span class="line">    zclen = strlen( zcstr ).
+</span><span class="line">* 在循环中从右面在每三位的前面加上一个逗号。
+</span><span class="line">    while zclen &gt; 3.
+</span><span class="line">      n = zclen - 3.
+</span><span class="line">      zctemp = zcstr+n(3).
+</span><span class="line">      if not zcstr2 is initial.
+</span><span class="line">        concatenate zctemp zcstr2 into zcstr2 separated by ','.
+</span><span class="line">      else.
+</span><span class="line">        zcstr2 = zctemp.
+</span><span class="line">      endif.
+</span><span class="line">      zclen = zclen - 3.
+</span><span class="line">    endwhile.
+</span><span class="line">* 将不剩下的不足三位数加到前面
+</span><span class="line">    concatenate zcstr+0(zclen) zcstr2 into zcstr2 separated by ','.
+</span><span class="line">    if zflag2 = 1.
+</span><span class="line">      concatenate '-' zcstr2 into zcstr2.
+</span><span class="line">    endif.
+</span><span class="line">    clear zcstr.
+</span><span class="line">* 将处理过的整数与小数连接起来。
+</span><span class="line">    concatenate zcstr2 zcdec into zcstr separated by zflag.
+</span><span class="line">* 将值返回
+</span><span class="line">    zstr = zcstr.
 </span><span class="line">  else.
-</span><span class="line">    ev_money = res.
+</span><span class="line">    zstr = znum.
 </span><span class="line">  endif.
 </span><span class="line">
 </span><span class="line">endfunction.</span></code></pre></td></tr></table></div></figure></notextile></div>
@@ -293,7 +249,7 @@ function zcurr2chinese.
   
 
 
-<time datetime="2013-12-25T11:33:41+08:00" pubdate data-updated="true">2013-12-25 Wed</time>
+<time datetime="2013-12-25T11:55:59+08:00" pubdate data-updated="true">2013-12-25 Wed</time>
       
 
 <span class="categories">
@@ -314,10 +270,8 @@ function zcurr2chinese.
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/20131224/qu-sdping-zheng-liu-rv-order-flow-information/" title="Previous Post: 取SD凭证流 - RV_ORDER_FLOW_INFORMATION">&laquo; 取SD凭证流 - RV_ORDER_FLOW_INFORMATION</a>
+        <a class="basic-alignment left" href="/blog/20131225/shu-zi-jian-cha-tong-guo-zheng-ze-biao-da-shi/" title="Previous Post: 数字检查 - 通过正则表达式">&laquo; 数字检查 - 通过正则表达式</a>
       
-      
-        <a class="basic-alignment right" href="/blog/20131225/jin-e-zhuan-da-xie-ying-wen/" title="Next Post: 金额转大写英文">金额转大写英文 &raquo;</a>
       
     </p>
   </footer>
@@ -404,8 +358,8 @@ function zcurr2chinese.
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://lomozm.github.io/blog/20131225/jin-e-zhuan-da-xie-zhong-wen/';
-        var disqus_url = 'http://lomozm.github.io/blog/20131225/jin-e-zhuan-da-xie-zhong-wen/';
+        var disqus_identifier = 'http://lomozm.github.io/blog/20131225/jin-e-ge-shi-hua-qian-fen-fu/';
+        var disqus_url = 'http://lomozm.github.io/blog/20131225/jin-e-ge-shi-hua-qian-fen-fu/';
         var disqus_script = 'embed.js';
       
     (function () {

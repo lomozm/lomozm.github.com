@@ -14,30 +14,7 @@
 3
 4
 5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-data: lt_vbak type table of vbak with header line, &hellip;">
+data: lt_vbak type table of vbak with header line, ls_vbco6 type vbco6. ls_vbco6-mandt = sy-mandt. ls_vbco6-vbeln = &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -133,6 +110,19 @@ data: lt_vbak type table of vbak with header line, &hellip;">
 <span class="line-number">3</span>
 <span class="line-number">4</span>
 <span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">data: lt_vbak type table of vbak with header line,
+</span><span class="line">         ls_vbco6 type vbco6.
+</span><span class="line">
+</span><span class="line">    ls_vbco6-mandt = sy-mandt.
+</span><span class="line">    ls_vbco6-vbeln = lt_vbak-vbeln.</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<!--more-->
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
 <span class="line-number">6</span>
 <span class="line-number">7</span>
 <span class="line-number">8</span>
@@ -150,19 +140,7 @@ data: lt_vbak type table of vbak with header line, &hellip;">
 <span class="line-number">20</span>
 <span class="line-number">21</span>
 <span class="line-number">22</span>
-<span class="line-number">23</span>
-<span class="line-number">24</span>
-<span class="line-number">25</span>
-<span class="line-number">26</span>
-<span class="line-number">27</span>
-<span class="line-number">28</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">data: lt_vbak type table of vbak with header line,
-</span><span class="line">         ls_vbco6 type vbco6.
-</span><span class="line">
-</span><span class="line">    ls_vbco6-mandt = sy-mandt.
-</span><span class="line">    ls_vbco6-vbeln = lt_vbak-vbeln.
-</span><span class="line">
-</span><span class="line">    refresh: lt_vbfa.
+</pre></td><td class="code"><pre><code class=""><span class="line">refresh: lt_vbfa.
 </span><span class="line">    call function 'RV_ORDER_FLOW_INFORMATION'
 </span><span class="line">      exporting
 </span><span class="line">*   AUFBEREITUNG        = '2'
@@ -265,19 +243,23 @@ data: lt_vbak type table of vbak with header line, &hellip;">
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/20131225/jin-e-ge-shi-hua-qian-fen-fu/">金额格式化 - 千分符</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20131225/shu-zi-jian-cha-tong-guo-zheng-ze-biao-da-shi/">数字检查 - 通过正则表达式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20131225/jin-e-zhuan-da-xie-ying-wen/">金额转大写英文</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/20131225/jin-e-zhuan-da-xie-zhong-wen/">金额转大写中文</a>
       </li>
     
       <li class="post">
         <a href="/blog/20131224/qu-sdping-zheng-liu-rv-order-flow-information/">取SD凭证流 - RV_ORDER_FLOW_INFORMATION</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/20131223/yin-xing-dai-ma-f4bang-zhu-search-bank-address/">银行代码F4帮助 - SEARCH_BANK_ADDRESS</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/20131223/my-first-octopress-blog/">My First Octopress Blog</a>
       </li>
     
   </ul>
@@ -290,7 +272,7 @@ data: lt_vbak type table of vbak with header line, &hellip;">
   <h1>文章分类</h1> 
   <ul id="categories"> 
     <li class='category'><a href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数 (2)</a></li>
-<li class='category'><a href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数 (1)</a></li>
+<li class='category'><a href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数 (4)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
  
   </ul> 

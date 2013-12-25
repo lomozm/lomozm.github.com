@@ -4,7 +4,7 @@
   <title><![CDATA[Category: SAP系统函数 | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/sapxi-tong-han-shu/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-25T11:41:20+08:00</updated>
+  <updated>2013-12-25T11:58:52+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -26,6 +26,15 @@
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>data: lt_vbak type table of vbak with header line,
+</span><span class='line'>         ls_vbco6 type vbco6.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>ls_vbco6-mandt = sy-mandt.
+</span><span class='line'>ls_vbco6-vbeln = lt_vbak-vbeln.</span></code></pre></td></tr></table></div></figure></notextile></div> &lt;!--more--&gt; <div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
@@ -34,19 +43,7 @@
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>data: lt_vbak type table of vbak with header line,
-</span><span class='line'>         ls_vbco6 type vbco6.&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;pre>&lt;code>ls_vbco6-mandt = sy-mandt.
-</span><span class='line'>ls_vbco6-vbeln = lt_vbak-vbeln.
-</span><span class='line'>
-</span><span class='line'>refresh: lt_vbfa.
+</pre></td><td class='code'><pre><code class=''><span class='line'>refresh: lt_vbfa.
 </span><span class='line'>call function 'RV_ORDER_FLOW_INFORMATION'
 </span><span class='line'>  exporting *   AUFBEREITUNG        = '2' *   BELEGTYP            = ' '
 </span><span class='line'>    comwa               = ls_vbco6 *   NACHFOLGER          = 'X' *   N_STUFEN            = '50' *   VORGAENGER          = 'X' *   V_STUFEN            = '50' * IMPORTING *   BELEGTYP_BACK       =

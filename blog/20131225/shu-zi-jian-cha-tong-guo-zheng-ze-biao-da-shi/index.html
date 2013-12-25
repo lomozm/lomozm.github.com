@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>金额转大写中文 - lomozm’s Journal</title>
+  <title>数字检查 - 通过正则表达式 - lomozm’s Journal</title>
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="1
+  <meta name="description" content="函数代码 1
 2
 3
 4
@@ -18,12 +18,10 @@
 7
 8
 9
-10
-function zcurr2chinese.
+function z_is_number_check.
 *"----------------------------------------------------------------------
 *"*"本地接口：
-*" IMPORTING
-*" &hellip;">
+*" IMPORTING &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -32,7 +30,7 @@ function zcurr2chinese.
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://lomozm.github.io/blog/20131225/jin-e-zhuan-da-xie-zhong-wen/">
+  <link rel="canonical" href="http://lomozm.github.io/blog/20131225/shu-zi-jian-cha-tong-guo-zheng-ze-biao-da-shi/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -84,7 +82,7 @@ function zcurr2chinese.
   <header>
     
       
-        <h1 class="entry-title">金额转大写中文</h1>
+        <h1 class="entry-title">数字检查 - 通过正则表达式</h1>
       
     
     
@@ -101,7 +99,7 @@ function zcurr2chinese.
   
 
 
-<time datetime="2013-12-25T11:33:41+08:00" pubdate data-updated="true">2013-12-25 Wed</time>
+<time datetime="2013-12-25T11:50:56+08:00" pubdate data-updated="true">2013-12-25 Wed</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -110,7 +108,10 @@ function zcurr2chinese.
   </header>
 
 
-<div class="entry-content">
+<div class="entry-content"><ol>
+  <li>函数代码</li>
+</ol>
+
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
@@ -120,16 +121,14 @@ function zcurr2chinese.
 <span class="line-number">7</span>
 <span class="line-number">8</span>
 <span class="line-number">9</span>
-<span class="line-number">10</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">function zcurr2chinese.
+</pre></td><td class="code"><pre><code class=""><span class="line">function z_is_number_check.
 </span><span class="line">*"----------------------------------------------------------------------
 </span><span class="line">*"*"本地接口：
 </span><span class="line">*"  IMPORTING
-</span><span class="line">*"     REFERENCE(IV_MONEY) TYPE  DMBTR
+</span><span class="line">*"     REFERENCE(I_STRING) TYPE  STRING
+</span><span class="line">*"     REFERENCE(I_MARKER) TYPE  STRING
 </span><span class="line">*"  EXPORTING
-</span><span class="line">*"     REFERENCE(EV_MONEY) TYPE  STRING
-</span><span class="line">*"  EXCEPTIONS
-</span><span class="line">*"      WRONG_MONEY
+</span><span class="line">*"     REFERENCE(O_IS_NUM) TYPE  CHAR1
 </span><span class="line">*"----------------------------------------------------------------------</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <!--more-->
@@ -153,123 +152,52 @@ function zcurr2chinese.
 <span class="line-number">17</span>
 <span class="line-number">18</span>
 <span class="line-number">19</span>
-<span class="line-number">20</span>
-<span class="line-number">21</span>
-<span class="line-number">22</span>
-<span class="line-number">23</span>
-<span class="line-number">24</span>
-<span class="line-number">25</span>
-<span class="line-number">26</span>
-<span class="line-number">27</span>
-<span class="line-number">28</span>
-<span class="line-number">29</span>
-<span class="line-number">30</span>
-<span class="line-number">31</span>
-<span class="line-number">32</span>
-<span class="line-number">33</span>
-<span class="line-number">34</span>
-<span class="line-number">35</span>
-<span class="line-number">36</span>
-<span class="line-number">37</span>
-<span class="line-number">38</span>
-<span class="line-number">39</span>
-<span class="line-number">40</span>
-<span class="line-number">41</span>
-<span class="line-number">42</span>
-<span class="line-number">43</span>
-<span class="line-number">44</span>
-<span class="line-number">45</span>
-<span class="line-number">46</span>
-<span class="line-number">47</span>
-<span class="line-number">48</span>
-<span class="line-number">49</span>
-<span class="line-number">50</span>
-<span class="line-number">51</span>
-<span class="line-number">52</span>
-<span class="line-number">53</span>
-<span class="line-number">54</span>
-<span class="line-number">55</span>
-<span class="line-number">56</span>
-<span class="line-number">57</span>
-<span class="line-number">58</span>
-<span class="line-number">59</span>
-<span class="line-number">60</span>
-<span class="line-number">61</span>
-<span class="line-number">62</span>
-<span class="line-number">63</span>
-<span class="line-number">64</span>
-<span class="line-number">65</span>
-<span class="line-number">66</span>
-<span class="line-number">67</span>
-<span class="line-number">68</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">types: cur6  type p decimals 6 ,
-</span><span class="line">         cur2  type  bf_dmbtr.
-</span><span class="line">  data va1 type cur2.
-</span><span class="line">  data f_source type cur2.
-</span><span class="line">  data str(40) type c .
-</span><span class="line">  va1 = iv_money.
-</span><span class="line">  f_source = va1.
+</pre></td><td class="code"><pre><code class=""><span class="line">data: g_regex_ref   type ref to cl_abap_regex,
+</span><span class="line">        g_matcher_ref type ref to cl_abap_matcher.
 </span><span class="line">
-</span><span class="line">  data: scr(30) type c, res(60) type c,fen(2) type c .
-</span><span class="line">  data: len type i, c1 type i, c2 type i, c3 type i, c4 type i.
-</span><span class="line">  data: d1(1) type c, d2(1) type c, d3 type i.
-</span><span class="line">  data: digit(2) type c, weight(2) type c.
-</span><span class="line">  data: rule1(20) type c value '零壹贰叁肆伍陆柒捌玖'.
-</span><span class="line">  data: rule2(30) type c value '分角元拾佰仟万拾佰仟亿拾佰仟万拾佰仟'.
-</span><span class="line">  scr = f_source * 100.
-</span><span class="line">  condense scr no-gaps.
-</span><span class="line">  if scr = '0'.
-</span><span class="line">    res = '零元'.
+</span><span class="line">  clear: o_is_num.
+</span><span class="line">
+</span><span class="line">  create object g_regex_ref
+</span><span class="line">    exporting
+</span><span class="line">      pattern = i_marker.
+</span><span class="line">
+</span><span class="line">  if i_string is not initial.
+</span><span class="line">    g_matcher_ref = g_regex_ref-&gt;create_matcher( text = i_string ).
+</span><span class="line">    o_is_num = g_matcher_ref-&gt;match( ).  " if matched the P_G_MATCH value is 'X', else value is space
 </span><span class="line">  else.
-</span><span class="line">    len = strlen( scr ).
-</span><span class="line">    c1 = 0.
-</span><span class="line">    d1 = '0'.
-</span><span class="line">    clear res.
-</span><span class="line">    do len times.
-</span><span class="line">      c1 = c1 + 1.
-</span><span class="line">      c2 = len - c1.
-</span><span class="line">      d2 = scr+c2(1) .
-</span><span class="line">      if d2 = '0'.
-</span><span class="line">        d3 = 0.
-</span><span class="line">      else.
-</span><span class="line">        d3 = d2.
-</span><span class="line">      endif.
-</span><span class="line">      digit = rule1+d3(1) .
-</span><span class="line">      c3 = ( c1 - 1 ) .
-</span><span class="line">      weight = rule2+c3(1) .
-</span><span class="line">      if d2 = '0'.
-</span><span class="line">        if c1 = 3.
-</span><span class="line">          digit = ''.
-</span><span class="line">        elseif c1 = 7.
-</span><span class="line">          digit = ''.
-</span><span class="line">          if len &gt; 10 .
-</span><span class="line">            c4 = len - 10.
-</span><span class="line">            if scr+c4(4) = '0000'.
-</span><span class="line">              weight = ''.
-</span><span class="line">            endif.
-</span><span class="line">          endif.
-</span><span class="line">        elseif c1 = 11.
-</span><span class="line">          digit = ''.
-</span><span class="line">        elseif d1 = '0'.
-</span><span class="line">          digit = ''.
-</span><span class="line">          weight = ''.
-</span><span class="line">        else.
-</span><span class="line">          weight = ''.
-</span><span class="line">        endif.
-</span><span class="line">      endif.
-</span><span class="line">      concatenate digit weight res into res .
-</span><span class="line">      d1 = d2.
-</span><span class="line">    enddo.
+</span><span class="line">    o_is_num = 'X'.
 </span><span class="line">  endif.
-</span><span class="line">  len = strlen( res ) - 1.
-</span><span class="line">  fen = res+len(1).
-</span><span class="line">  if fen &lt;&gt; '分' .
-</span><span class="line">    concatenate res '整' into ev_money.
-</span><span class="line">  else.
-</span><span class="line">    ev_money = res.
-</span><span class="line">  endif.
+</span><span class="line">
+</span><span class="line">  free g_regex_ref.
 </span><span class="line">
 </span><span class="line">endfunction.</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ol>
+  <li>使用方法</li>
+</ol>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">data: i_str type string value '1000',
+</span><span class="line">      i_mark type string value '\d+',
+</span><span class="line">      o_num type char1.
+</span><span class="line">     
+</span><span class="line">call function 'ZG001_IS_NUMBER_CHECK'
+</span><span class="line">  exporting
+</span><span class="line">    i_string       = i_str
+</span><span class="line">    i_marker       = i_mark
+</span><span class="line"> IMPORTING
+</span><span class="line">   O_IS_NUM       = o_num
+</span><span class="line">          .</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 </div>
 
@@ -293,7 +221,7 @@ function zcurr2chinese.
   
 
 
-<time datetime="2013-12-25T11:33:41+08:00" pubdate data-updated="true">2013-12-25 Wed</time>
+<time datetime="2013-12-25T11:50:56+08:00" pubdate data-updated="true">2013-12-25 Wed</time>
       
 
 <span class="categories">
@@ -314,10 +242,10 @@ function zcurr2chinese.
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/20131224/qu-sdping-zheng-liu-rv-order-flow-information/" title="Previous Post: 取SD凭证流 - RV_ORDER_FLOW_INFORMATION">&laquo; 取SD凭证流 - RV_ORDER_FLOW_INFORMATION</a>
+        <a class="basic-alignment left" href="/blog/20131225/jin-e-zhuan-da-xie-ying-wen/" title="Previous Post: 金额转大写英文">&laquo; 金额转大写英文</a>
       
       
-        <a class="basic-alignment right" href="/blog/20131225/jin-e-zhuan-da-xie-ying-wen/" title="Next Post: 金额转大写英文">金额转大写英文 &raquo;</a>
+        <a class="basic-alignment right" href="/blog/20131225/jin-e-ge-shi-hua-qian-fen-fu/" title="Next Post: 金额格式化 - 千分符">金额格式化 - 千分符 &raquo;</a>
       
     </p>
   </footer>
@@ -404,8 +332,8 @@ function zcurr2chinese.
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://lomozm.github.io/blog/20131225/jin-e-zhuan-da-xie-zhong-wen/';
-        var disqus_url = 'http://lomozm.github.io/blog/20131225/jin-e-zhuan-da-xie-zhong-wen/';
+        var disqus_identifier = 'http://lomozm.github.io/blog/20131225/shu-zi-jian-cha-tong-guo-zheng-ze-biao-da-shi/';
+        var disqus_url = 'http://lomozm.github.io/blog/20131225/shu-zi-jian-cha-tong-guo-zheng-ze-biao-da-shi/';
         var disqus_script = 'embed.js';
       
     (function () {
