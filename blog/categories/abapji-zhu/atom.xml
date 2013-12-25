@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ABAP技术 | lomozm’s Journal]]></title>
+  <link href="http://lomozm.github.io/blog/categories/abapji-zhu/atom.xml" rel="self"/>
+  <link href="http://lomozm.github.io/"/>
+  <updated>2013-12-25T14:45:40+08:00</updated>
+  <id>http://lomozm.github.io/</id>
+  <author>
+    <name><![CDATA[lomozm]]></name>
+    <email><![CDATA[18064095@qq.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[针对SAP程序强出窗口的调试]]></title>
+    <link href="http://lomozm.github.io/blog/20131225/zhen-dui-sapcheng-xu-qiang-chu-chuang-kou-de-diao-shi/"/>
+    <updated>2013-12-25T14:21:15+08:00</updated>
+    <id>http://lomozm.github.io/blog/20131225/zhen-dui-sapcheng-xu-qiang-chu-chuang-kou-de-diao-shi</id>
+    <content type="html"><![CDATA[<p>常会碰到对SAP程序进行调试，无非有以下几种
+</p>
+<p>1. 在程序中打断点或者加入breakpoint语名
+</p>
+<p>2. 输入/H命令
+</p>
+<!--more-->
+<p>
+如果是在系统程序中，想对强出窗口对进调试的话，只能使用第1种方法，找到相应的代码加断点，非常麻烦</p>
+<p>
+感谢以前项目组一同事，提供了一断[代码][1],只需要把它写入到txt文件中，在弹出窗口时，把这个文件拖至弹出窗口上，相当于加入了<code>/h</code>命令</p>
+<p>代码入下：</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[FUNCTION]&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>Command=/H
+</span><span class='line'>Title=Barry Test
+</span><span class='line'>Type=SystemCommand</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+]]></content>
+  </entry>
+  
+</feed>

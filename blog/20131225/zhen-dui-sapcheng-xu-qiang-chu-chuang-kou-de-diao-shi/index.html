@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: SAP自建函数 - lomozm’s Journal</title>
+  <title>针对SAP程序强出窗口的调试 - lomozm’s Journal</title>
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="Category: SAP自建函数">
+  <meta name="description" content="常会碰到对SAP程序进行调试，无非有以下几种 1. 在程序中打断点或者加入breakpoint语名 2. 输入/H命令 如果是在系统程序中，想对强出窗口对进调试的话，只能使用第1种方法，找到相应的代码加断点，非常麻烦 感谢以前项目组一同事，提供了一断[代码][1],只需要把它写入到txt文件中， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://lomozm.github.ioblog/categories/sapzi-jian-han-shu/">
+  <link rel="canonical" href="http://lomozm.github.io/blog/20131225/zhen-dui-sapcheng-xu-qiang-chu-chuang-kou-de-diao-shi/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -65,78 +65,116 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: SAP自建函数</h1>
+    
+      
+        <h1 class="entry-title">针对SAP程序强出窗口的调试</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-25T14:21:15+08:00" pubdate data-updated="true">2013-12-25 Wed</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>常会碰到对SAP程序进行调试，无非有以下几种
+</p>
+<p>1. 在程序中打断点或者加入breakpoint语名
+</p>
+<p>2. 输入/H命令
+</p>
+<!--more-->
+<p>
+如果是在系统程序中，想对强出窗口对进调试的话，只能使用第1种方法，找到相应的代码加断点，非常麻烦</p>
+<p>
+感谢以前项目组一同事，提供了一断[代码][1],只需要把它写入到txt文件中，在弹出窗口时，把这个文件拖至弹出窗口上，相当于加入了<code>/h</code>命令</p>
+<p>代码入下：</p>
 
-  
-  <h2>2013</h2>
-
-<article>
-  
-<h1><a href="/blog/20131225/jin-e-ge-shi-hua-qian-fen-fu/">金额格式化 - 千分符</a></h1>
-<time datetime="2013-12-25T11:55:59+08:00" pubdate><span class='month'>Dec</span> <span class='day'>25</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/20131225/shu-zi-jian-cha-tong-guo-zheng-ze-biao-da-shi/">数字检查 - 通过正则表达式</a></h1>
-<time datetime="2013-12-25T11:50:56+08:00" pubdate><span class='month'>Dec</span> <span class='day'>25</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/20131225/jin-e-zhuan-da-xie-ying-wen/">金额转大写英文</a></h1>
-<time datetime="2013-12-25T11:46:25+08:00" pubdate><span class='month'>Dec</span> <span class='day'>25</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/20131225/jin-e-zhuan-da-xie-zhong-wen/">金额转大写中文</a></h1>
-<time datetime="2013-12-25T11:33:41+08:00" pubdate><span class='month'>Dec</span> <span class='day'>25</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数</a></span>
-</footer>
-
-
-</article>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">[FUNCTION]
+</span><span class="line">
+</span><span class="line">Command=/H
+</span><span class="line">Title=Barry Test
+</span><span class="line">Type=SystemCommand</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">lomozm</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-25T14:21:15+08:00" pubdate data-updated="true">2013-12-25 Wed</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/abapji-zhu/'>ABAP技术</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/20131225/jin-e-ge-shi-hua-qian-fen-fu/" title="Previous Post: 金额格式化 - 千分符">&laquo; 金额格式化 - 千分符</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -212,7 +250,10 @@
       var disqus_shortname = 'lomozm';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://lomozm.github.io/blog/20131225/zhen-dui-sapcheng-xu-qiang-chu-chuang-kou-de-diao-shi/';
+        var disqus_url = 'http://lomozm.github.io/blog/20131225/zhen-dui-sapcheng-xu-qiang-chu-chuang-kou-de-diao-shi/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
