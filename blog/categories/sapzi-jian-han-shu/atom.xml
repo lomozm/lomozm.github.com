@@ -4,7 +4,7 @@
   <title><![CDATA[Category: SAP自建函数 | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/sapzi-jian-han-shu/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-25T11:36:30+08:00</updated>
+  <updated>2013-12-25T11:37:59+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -106,9 +106,9 @@
 </span><span class='line'>*”     REFERENCE(EV_MONEY) TYPE  STRING
 </span><span class='line'>*”  EXCEPTIONS
 </span><span class='line'>*”      WRONG_MONEY
-</span><span class='line'>*”———————————————————————-&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p>types: cur6  type p decimals 6 ,
+</span><span class='line'>*”———————————————————————-
+</span><span class='line'>&lt;!--more-->
+</span><span class='line'>  types: cur6  type p decimals 6 ,
 </span><span class='line'>         cur2  type  bf_dmbtr.
 </span><span class='line'>  data va1 type cur2.
 </span><span class='line'>  data f_source type cur2.
