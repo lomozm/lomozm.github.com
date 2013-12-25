@@ -4,7 +4,7 @@
   <title><![CDATA[Category: WorkFlow | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/workflow/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-25T22:55:16+08:00</updated>
+  <updated>2013-12-25T23:07:47+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -574,8 +574,6 @@ Forms——<br />
 <span class='line-number'>37</span>
 <span class='line-number'>38</span>
 <span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>FUNCTION ZTRIGGERWF.
 </span><span class='line'>&lt;em>”———————————————————————-
 </span><span class='line'>*”&lt;/em>“Local interface:
@@ -613,10 +611,9 @@ Forms——<br />
 </span><span class='line'>  CATCH cx_swf_evt_invalid_event .
 </span><span class='line'>    rc = 2.
 </span><span class='line'>ENDTRY.
-</span><span class='line'>COMMIT WORK AND WAIT.&lt;/li>
-</span><span class='line'>&lt;/ul>
-</span><span class='line'>
-</span><span class='line'>&lt;p>ENDFUNCTION. </span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span><span class='line'>COMMIT WORK AND WAIT.
+</span><span class='line'>ENDFUNCTION.</span></code></pre></td></tr></table></div></figure></notextile></div></li>
+</ul>
 
 <h3 id="tcode-se80-">步骤6 – Tcode: se80 创建工作流处理类</h3>
 <p>创建类<code>ZTEST_SWF01_01</code>用于响应工作流处理过程中的事件<br /></p>
@@ -625,11 +622,15 @@ Forms——<br />
 最后，激活该类<br /></p>
 
 <h3 id="tcodese24">步骤7 – Tcode:se24事件完成后执行该类中事件</h3>
-<p>新类<code>ZTEST_SWF01_EXIT</code>从demo类<code>CL_SWF_WORKITEM_EXIT_TST</code>拷贝过来，再改方法<code>CHANGE_CONT_ELEMENT</code>基本不需要更改<br />
-### 步骤8 – Tcode: PFAC_INS 创建审批规则
-### 步骤9 – Tcode: swdb 新建工作流
-### 步骤10 – Tcode: se38 新增程序去触发流程开始
-完整代码<br /></p>
+<p>新类<code>ZTEST_SWF01_EXIT</code>从demo类<code>CL_SWF_WORKITEM_EXIT_TST</code>拷贝过来，再改方法<code>CHANGE_CONT_ELEMENT</code>基本不需要更改<br /></p>
+
+<h3 id="tcode-pfacins-">步骤8 – Tcode: PFAC_INS 创建审批规则</h3>
+
+<h3 id="tcode-swdb-">步骤9 – Tcode: swdb 新建工作流</h3>
+<p>新建工作流zwf_test001<br /></p>
+
+<h3 id="tcode-se38-">步骤10 – Tcode: se38 新增程序去触发流程开始</h3>
+<p>完整代码<br /></p>
 
 <p>方法1:<br />
 <div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
