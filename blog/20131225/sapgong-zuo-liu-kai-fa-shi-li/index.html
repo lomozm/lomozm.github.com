@@ -13,7 +13,7 @@
 SWE2：显示/维护事件类型链接
 SWEL：显示事件记录
   准备 – Tcode: su01创建接收工作流用户
-创建用户名: GW-TEST2, 密码: ******；当工作流提交后，下一步处理的用户 *图片太多影响速度，详细请下载文档 &hellip;">
+创建用户名: GW-TEST2, 密码: ******；当工作流提交后，下一步处理的用户 图片太多影响速度，详细请下载文档 步骤1 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -111,7 +111,7 @@ SWEL：显示事件记录<br />
 <h3 id="tcode-su01">准备 – Tcode: su01创建接收工作流用户</h3>
 <p>创建用户名: GW-TEST2, 密码: ******；当工作流提交后，下一步处理的用户<br /></p>
 
-<p>*图片太多影响速度，详细请<a href="/appendix/SAPWorlFlowStepbyStep.docx">下载文档</a><br /></p>
+<p>图片太多影响速度，详细请<a href="/appendix/SAPWorlFlowStepbyStep.docx">下载文档</a><br /></p>
 
 <h3 id="tcode-se11-">步骤1 – Tcode: se11 建表存储工作流数据</h3>
 <p>表ZWFTST01用于存放工作流审批数据<br />
@@ -559,12 +559,7 @@ Data define——<br /></p>
 </span><span class="line">ENDFORM.</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <h3 id="tcodese37">步骤4 – Tcode:se37创建获取审批人函数</h3>
-<p>创建函数<code>ZTEST_SWF_GET_APPROVER</code>取得工作流的审批人<br />
-![m017][m017]<br />
-参数<br />
-![m018][m018]<br />
-源代码截屏<br />
-![m019][m019]<br /></p>
+<p>创建函数<code>ZTEST_SWF_GET_APPROVER</code>取得工作流的审批人<br /></p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -722,10 +717,11 @@ Data define——<br /></p>
 最后，激活该类<br /></p>
 
 <h3 id="tcodese24">步骤7 – Tcode:se24事件完成后执行该类中事件</h3>
-<p>新类<code>ZTEST_SWF01_EXIT</code>从demo类<code>CL_SWF_WORKITEM_EXIT_TST</code>拷贝过来，再改方法<code>CHANGE_CONT_ELEMENT</code>基本不需要更改<br /></p>
-
-<h3 id="tcode-se38-">步骤10 – Tcode: se38 新增程序去触发流程开始</h3>
-<p>完整代码<br /></p>
+<p>新类<code>ZTEST_SWF01_EXIT</code>从demo类<code>CL_SWF_WORKITEM_EXIT_TST</code>拷贝过来，再改方法<code>CHANGE_CONT_ELEMENT</code>基本不需要更改<br />
+### 步骤8 – Tcode: PFAC_INS 创建审批规则
+### 步骤9 – Tcode: swdb 新建工作流
+### 步骤10 – Tcode: se38 新增程序去触发流程开始
+完整代码<br /></p>
 
 <p>方法1:<br /></p>
 
