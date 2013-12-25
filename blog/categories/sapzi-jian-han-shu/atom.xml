@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: SAP自建函数 | lomozm’s Journal]]></title>
+  <link href="http://lomozm.github.io/blog/categories/sapzi-jian-han-shu/atom.xml" rel="self"/>
+  <link href="http://lomozm.github.io/"/>
+  <updated>2013-12-25T11:36:30+08:00</updated>
+  <id>http://lomozm.github.io/</id>
+  <author>
+    <name><![CDATA[lomozm]]></name>
+    <email><![CDATA[18064095@qq.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[金额转大写中文]]></title>
+    <link href="http://lomozm.github.io/blog/20131225/jin-e-zhuan-da-xie-zhong-wen/"/>
+    <updated>2013-12-25T11:33:41+08:00</updated>
+    <id>http://lomozm.github.io/blog/20131225/jin-e-zhuan-da-xie-zhong-wen</id>
+    <content type="html"><![CDATA[<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function zcurr2chinese.
+</span><span class='line'>&lt;em>”———————————————————————-
+</span><span class='line'>*”&lt;/em>“本地接口：
+</span><span class='line'>*”  IMPORTING
+</span><span class='line'>*”     REFERENCE(IV_MONEY) TYPE  DMBTR
+</span><span class='line'>*”  EXPORTING
+</span><span class='line'>*”     REFERENCE(EV_MONEY) TYPE  STRING
+</span><span class='line'>*”  EXCEPTIONS
+</span><span class='line'>*”      WRONG_MONEY
+</span><span class='line'>*”———————————————————————-&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>types: cur6  type p decimals 6 ,
+</span><span class='line'>         cur2  type  bf_dmbtr.
+</span><span class='line'>  data va1 type cur2.
+</span><span class='line'>  data f_source type cur2.
+</span><span class='line'>  data str(40) type c .
+</span><span class='line'>  va1 = iv_money.
+</span><span class='line'>  f_source = va1.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>data: scr(30) type c, res(60) type c,fen(2) type c .
+</span><span class='line'>  data: len type i, c1 type i, c2 type i, c3 type i, c4 type i.
+</span><span class='line'>  data: d1(1) type c, d2(1) type c, d3 type i.
+</span><span class='line'>  data: digit(2) type c, weight(2) type c.
+</span><span class='line'>  data: rule1(20) type c value ‘零壹贰叁肆伍陆柒捌玖’.
+</span><span class='line'>  data: rule2(30) type c value ‘分角元拾佰仟万拾佰仟亿拾佰仟万拾佰仟’.
+</span><span class='line'>  scr = f_source * 100.
+</span><span class='line'>  condense scr no-gaps.
+</span><span class='line'>  if scr = ‘0’.
+</span><span class='line'>    res = ‘零元’.
+</span><span class='line'>  else.
+</span><span class='line'>    len = strlen( scr ).
+</span><span class='line'>    c1 = 0.
+</span><span class='line'>    d1 = ‘0’.
+</span><span class='line'>    clear res.
+</span><span class='line'>    do len times.
+</span><span class='line'>      c1 = c1 + 1.
+</span><span class='line'>      c2 = len - c1.
+</span><span class='line'>      d2 = scr+c2(1) .
+</span><span class='line'>      if d2 = ‘0’.
+</span><span class='line'>        d3 = 0.
+</span><span class='line'>      else.
+</span><span class='line'>        d3 = d2.
+</span><span class='line'>      endif.
+</span><span class='line'>      digit = rule1+d3(1) .
+</span><span class='line'>      c3 = ( c1 - 1 ) .
+</span><span class='line'>      weight = rule2+c3(1) .
+</span><span class='line'>      if d2 = ‘0’.
+</span><span class='line'>        if c1 = 3.
+</span><span class='line'>          digit = ‘’.
+</span><span class='line'>        elseif c1 = 7.
+</span><span class='line'>          digit = ‘’.
+</span><span class='line'>          if len &gt; 10 .
+</span><span class='line'>            c4 = len - 10.
+</span><span class='line'>            if scr+c4(4) = ‘0000’.
+</span><span class='line'>              weight = ‘’.
+</span><span class='line'>            endif.
+</span><span class='line'>          endif.
+</span><span class='line'>        elseif c1 = 11.
+</span><span class='line'>          digit = ‘’.
+</span><span class='line'>        elseif d1 = ‘0’.
+</span><span class='line'>          digit = ‘’.
+</span><span class='line'>          weight = ‘’.
+</span><span class='line'>        else.
+</span><span class='line'>          weight = ‘’.
+</span><span class='line'>        endif.
+</span><span class='line'>      endif.
+</span><span class='line'>      concatenate digit weight res into res .
+</span><span class='line'>      d1 = d2.
+</span><span class='line'>    enddo.
+</span><span class='line'>  endif.
+</span><span class='line'>  len = strlen( res ) - 1.
+</span><span class='line'>  fen = res+len(1).
+</span><span class='line'>  if fen &lt;&gt; ‘分’ .
+</span><span class='line'>    concatenate res ‘整’ into ev_money.
+</span><span class='line'>  else.
+</span><span class='line'>    ev_money = res.
+</span><span class='line'>  endif.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>endfunction.</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+</feed>
