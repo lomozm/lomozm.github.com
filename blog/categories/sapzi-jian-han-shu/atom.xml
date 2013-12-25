@@ -4,7 +4,7 @@
   <title><![CDATA[Category: SAP自建函数 | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/sapzi-jian-han-shu/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-25T11:37:59+08:00</updated>
+  <updated>2013-12-25T11:41:20+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -19,6 +19,27 @@
     <updated>2013-12-25T11:33:41+08:00</updated>
     <id>http://lomozm.github.io/blog/20131225/jin-e-zhuan-da-xie-zhong-wen</id>
     <content type="html"><![CDATA[<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function zcurr2chinese.
+</span><span class='line'>&lt;em>”———————————————————————-
+</span><span class='line'>*”&lt;/em>“本地接口：
+</span><span class='line'>*”  IMPORTING
+</span><span class='line'>*”     REFERENCE(IV_MONEY) TYPE  DMBTR
+</span><span class='line'>*”  EXPORTING
+</span><span class='line'>*”     REFERENCE(EV_MONEY) TYPE  STRING
+</span><span class='line'>*”  EXCEPTIONS
+</span><span class='line'>*”      WRONG_MONEY
+</span><span class='line'>*”———————————————————————-</span></code></pre></td></tr></table></div></figure></notextile></div>
+<!--more-->
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -86,29 +107,7 @@
 <span class='line-number'>66</span>
 <span class='line-number'>67</span>
 <span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>function zcurr2chinese.
-</span><span class='line'>&lt;em>”———————————————————————-
-</span><span class='line'>*”&lt;/em>“本地接口：
-</span><span class='line'>*”  IMPORTING
-</span><span class='line'>*”     REFERENCE(IV_MONEY) TYPE  DMBTR
-</span><span class='line'>*”  EXPORTING
-</span><span class='line'>*”     REFERENCE(EV_MONEY) TYPE  STRING
-</span><span class='line'>*”  EXCEPTIONS
-</span><span class='line'>*”      WRONG_MONEY
-</span><span class='line'>*”———————————————————————-
-</span><span class='line'>&lt;!--more-->
-</span><span class='line'>  types: cur6  type p decimals 6 ,
+</pre></td><td class='code'><pre><code class=''><span class='line'>types: cur6  type p decimals 6 ,
 </span><span class='line'>         cur2  type  bf_dmbtr.
 </span><span class='line'>  data va1 type cur2.
 </span><span class='line'>  data f_source type cur2.
