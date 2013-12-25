@@ -4,7 +4,7 @@
   <title><![CDATA[Category: WorkFlow | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/workflow/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-25T17:49:33+08:00</updated>
+  <updated>2013-12-25T17:59:57+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -68,53 +68,53 @@ Forms——<br />
 
 <h3 id="tcodese37">步骤4 – Tcode:se37创建获取审批人函数</h3>
 <p>创建函数ZTEST_SWF_GET_APPROVER取得工作流的审批人<br />
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image013.png" alt="m013" /><br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image017.png" alt="m017" /><br />
 参数<br />
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image014.png" alt="m014" /><br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image018.png" alt="m018" /><br />
 源代码截屏<br />
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image015.png" alt="m015" /><br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image019.png" alt="m019" /><br />
 <div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"></pre></td><td class='code'><pre><code class=''></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h3 id="tcode-se37--1">步骤5 – Tcode: se37 创建工作流触发函数</h3>
 <p>创建函数ZTRIGGERWF，在程序中调用该函数触发工作流<br />
 参数<br />
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image016.png" alt="m016" /><br />
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image017.png" alt="m017" /><br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image020.png" alt="m020" /><br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image021.png" alt="m021" /><br />
 代码截屏<br />
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image018.png" alt="m018" /><br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image022.png" alt="m022" /><br />
 <div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>FUNCTION ZTRIGGERWF. </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h3 id="tcode-se80-">步骤6 – Tcode: se80 创建工作流处理类</h3>
 <p>创建类ZTEST_SWF01_01用于响应工作流处理过程中的事件<br />
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image019.png" alt="m019" /><br />
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image020.png" alt="m020" /><br />
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image021.png" alt="m021" /><br />
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image022.png" alt="m022" /><br />
-新增 3 接口(仅需这3个就行了)：BI_OBJECT，BI_PERSISTENT，IF_WORKFLOW<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image023.png" alt="m023" /><br />
-新增属性，SIBFLPOR是必需的<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image024.png" alt="m024" /><br />
-新增方法，CONSTRUCTOR是必需的<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image025.png" alt="m025" /><br />
-各方法的参数<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image026.png" alt="m026" /><br />
+新增 3 接口(仅需这3个就行了)：BI_OBJECT，BI_PERSISTENT，IF_WORKFLOW<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image027.png" alt="m027" /><br />
+新增属性，SIBFLPOR是必需的<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image028.png" alt="m028" /><br />
-方法CONSTRUCTOR代码<br />
+新增方法，CONSTRUCTOR是必需的<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image029.png" alt="m029" /><br />
-方法 BI_PERSISTENT~FIND_BY_LPOR代码<br />
+各方法的参数<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image030.png" alt="m030" /><br />
-方法BI_PERSISTENT~LPOR 代码<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image031.png" alt="m031" /><br />
-方法METH_DISPLAY代码<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image032.png" alt="m032" /><br />
-方法APPROVE代码<br />
+方法CONSTRUCTOR代码<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image033.png" alt="m033" /><br />
-新增事件<br />
+方法 BI_PERSISTENT~FIND_BY_LPOR代码<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image034.png" alt="m034" /><br />
-事件参数<br />
+方法BI_PERSISTENT~LPOR 代码<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image035.png" alt="m035" /><br />
+方法METH_DISPLAY代码<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image036.png" alt="m036" /><br />
+方法APPROVE代码<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image037.png" alt="m037" /><br />
+新增事件<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image038.png" alt="m038" /><br />
+事件参数<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image039.png" alt="m039" /><br />
 最后，激活该类<br />
  
 ### 步骤7 – Tcode:se24事件完成后执行该类中事件
