@@ -559,7 +559,12 @@ Data define——<br /></p>
 </span><span class="line">ENDFORM.</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <h3 id="tcodese37">步骤4 – Tcode:se37创建获取审批人函数</h3>
-<p>创建函数<code>ZTEST_SWF_GET_APPROVER</code>取得工作流的审批人<br /></p>
+<p>创建函数<code>ZTEST_SWF_GET_APPROVER</code>取得工作流的审批人<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image017.png" alt="m017" /><br />
+参数<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image018.png" alt="m018" /><br />
+源代码截屏<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image019.png" alt="m019" /><br /></p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -718,9 +723,10 @@ Data define——<br /></p>
 <p>新类<code>ZTEST_SWF01_EXIT</code>从demo类<code>CL_SWF_WORKITEM_EXIT_TST</code>拷贝过来，再改方法<code>CHANGE_CONT_ELEMENT</code>基本不需要更改<br /></p>
 
 <h3 id="tcode-pfacins-">步骤8 – Tcode: PFAC_INS 创建审批规则</h3>
+<p><img src="/images/images/SAPWorkFlowStepbyStep.files/image060.png" alt="m060" /><br /></p>
 
 <h3 id="tcode-swdb-">步骤9 – Tcode: swdb 新建工作流</h3>
-<p>新建工作流zwf_test001<br /></p>
+<p>新建工作流<code>zwf_test001</code><br /></p>
 
 <h3 id="tcode-se38-">步骤10 – Tcode: se38 新增程序去触发流程开始</h3>
 <p>完整代码<br /></p>
