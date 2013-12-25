@@ -9,8 +9,7 @@
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content=" 
-开发事务代码目录截屏 其他可能使用到的事务代码——
+  <meta name="description" content="开发事务代码目录截屏 其他可能使用到的事务代码——
 SWE2：显示/维护事件类型链接
 SWEL：显示事件记录
   准备 – Tcode: su01创建接收工作流用户
@@ -101,8 +100,8 @@ SWEL：显示事件记录
   </header>
 
 
-<div class="entry-content"><p> 
-开发事务代码目录截屏<br />
+<div class="entry-content">
+<p>开发事务代码目录截屏<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image001.png" alt="m001" /><br />
 其他可能使用到的事务代码——<br />
 SWE2：显示/维护事件类型链接<br />
@@ -142,19 +141,435 @@ SWEL：显示事件记录<br />
 附函数源代码<br />
 Data define——<br /></p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers" /></td><td class="code"><pre><code class="" /></pre></td></tr></table></div></figure></notextile></div>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">FUNCTION-POOL ZTEST_SWF.                    "MESSAGE-ID ..
+</span><span class="line">INCLUDE &lt;cntn01&gt;. "操作工作流的容器元素
+</span><span class="line">
+</span><span class="line">data: gwa_02 type ZWFTST02,
+</span><span class="line">      gwa_01 type zwftst01.
+</span><span class="line">
+</span><span class="line">DATA: OK_CODE TYPE SY-UCOMM.
+</span><span class="line">
+</span><span class="line">data: it_pa0001 type table of pa0001 with header line.
+</span><span class="line">data: g_string type char20.
+</span><span class="line">
+</span><span class="line">*&amp;SPWIZARD: DECLARATION OF TABLECONTROL 'TAB_CONTROL' ITSELF
+</span><span class="line">CONTROLS: TAB_CONTROL TYPE TABLEVIEW USING SCREEN 0100.</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Before output——<br /></p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers" /></td><td class="code"><pre><code class="" /></pre></td></tr></table></div></figure></notextile></div>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">***INCLUDE LZTEST_SWFO01 .
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp;      Module  STATUS_0100  OUTPUT
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*       text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">MODULE STATUS_0100 OUTPUT.
+</span><span class="line">  SET PF-STATUS '0100'.
+</span><span class="line">  SET TITLEBAR '100'.
+</span><span class="line">
+</span><span class="line">  clear: ok_code.
+</span><span class="line">  perform get_initial using gwa_02-wfcode.
+</span><span class="line">
+</span><span class="line">ENDMODULE.                 " STATUS_0100  OUTPUT
+</span><span class="line">
+</span><span class="line">*&amp;SPWIZARD: OUTPUT MODULE FOR TC 'TAB_CONTROL'. DO NOT CHANGE THIS LINE!
+</span><span class="line">*&amp;SPWIZARD: UPDATE LINES FOR EQUIVALENT SCROLLBAR
+</span><span class="line">MODULE TAB_CONTROL_CHANGE_TC_ATTR OUTPUT.
+</span><span class="line">  DESCRIBE TABLE IT_PA0001 LINES TAB_CONTROL-lines.
+</span><span class="line">ENDMODULE.                    "TAB_CONTROL_CHANGE_TC_ATTR OUTPUT
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp;      Module  GET_INITIAL_DATA  OUTPUT
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*       text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">MODULE GET_INITIAL_DATA OUTPUT.
+</span><span class="line">  select * into table it_pa0001 from pa0001 up to 2 rows.
+</span><span class="line">ENDMODULE.                 " GET_INITIAL_DATA  OUTPUT</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>After input——<br /></p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers" /></td><td class="code"><pre><code class="" /></pre></td></tr></table></div></figure></notextile></div>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">***INCLUDE LZTEST_SWFI01 .
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp;      Module  SCREEN_EXIT  INPUT
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*       text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">MODULE SCREEN_EXIT INPUT.
+</span><span class="line">  leave program.
+</span><span class="line">ENDMODULE.                 " SCREEN_EXIT  INPUT
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp;      Module  USER_COMMAND_0100  INPUT
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*       text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">MODULE USER_COMMAND_0100 INPUT.
+</span><span class="line">  case ok_code.
+</span><span class="line">    when 'APPRO'.
+</span><span class="line">      PERFORM CALL_APPROVAL_WF.
+</span><span class="line">      LEAVE TO SCREEN 0.
+</span><span class="line">    WHEN 'REJEC'.
+</span><span class="line">      PERFORM CALL_REJECT_WF.
+</span><span class="line">      LEAVE TO SCREEN 0.
+</span><span class="line">    when 'CLICK'.
+</span><span class="line">      PERFORM DOUBLE_CLICK_PROCESS." '-然后，进行处理
+</span><span class="line">    WHEN 'BACK'.
+</span><span class="line">      LEAVE TO SCREEN 0.
+</span><span class="line">  ENDCASE.
+</span><span class="line">ENDMODULE.                 " USER_COMMAND_0100  INPUT</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Forms——<br /></p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers" /></td><td class="code"><pre><code class="" /></pre></td></tr></table></div></figure></notextile></div>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+<span class="line-number">62</span>
+<span class="line-number">63</span>
+<span class="line-number">64</span>
+<span class="line-number">65</span>
+<span class="line-number">66</span>
+<span class="line-number">67</span>
+<span class="line-number">68</span>
+<span class="line-number">69</span>
+<span class="line-number">70</span>
+<span class="line-number">71</span>
+<span class="line-number">72</span>
+<span class="line-number">73</span>
+<span class="line-number">74</span>
+<span class="line-number">75</span>
+<span class="line-number">76</span>
+<span class="line-number">77</span>
+<span class="line-number">78</span>
+<span class="line-number">79</span>
+<span class="line-number">80</span>
+<span class="line-number">81</span>
+<span class="line-number">82</span>
+<span class="line-number">83</span>
+<span class="line-number">84</span>
+<span class="line-number">85</span>
+<span class="line-number">86</span>
+<span class="line-number">87</span>
+<span class="line-number">88</span>
+<span class="line-number">89</span>
+<span class="line-number">90</span>
+<span class="line-number">91</span>
+<span class="line-number">92</span>
+<span class="line-number">93</span>
+<span class="line-number">94</span>
+<span class="line-number">95</span>
+<span class="line-number">96</span>
+<span class="line-number">97</span>
+<span class="line-number">98</span>
+<span class="line-number">99</span>
+<span class="line-number">100</span>
+<span class="line-number">101</span>
+<span class="line-number">102</span>
+<span class="line-number">103</span>
+<span class="line-number">104</span>
+<span class="line-number">105</span>
+<span class="line-number">106</span>
+<span class="line-number">107</span>
+<span class="line-number">108</span>
+<span class="line-number">109</span>
+<span class="line-number">110</span>
+<span class="line-number">111</span>
+<span class="line-number">112</span>
+<span class="line-number">113</span>
+<span class="line-number">114</span>
+<span class="line-number">115</span>
+<span class="line-number">116</span>
+<span class="line-number">117</span>
+<span class="line-number">118</span>
+<span class="line-number">119</span>
+<span class="line-number">120</span>
+<span class="line-number">121</span>
+<span class="line-number">122</span>
+<span class="line-number">123</span>
+<span class="line-number">124</span>
+<span class="line-number">125</span>
+<span class="line-number">126</span>
+<span class="line-number">127</span>
+<span class="line-number">128</span>
+<span class="line-number">129</span>
+<span class="line-number">130</span>
+<span class="line-number">131</span>
+<span class="line-number">132</span>
+<span class="line-number">133</span>
+<span class="line-number">134</span>
+<span class="line-number">135</span>
+<span class="line-number">136</span>
+<span class="line-number">137</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">***INCLUDE LZTEST_SWFF01 .
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp;      Form  GET_INITIAL
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*       text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">*      --&gt;P_GWA_02_WFCODE  text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">FORM GET_INITIAL  USING    P_GWA_02_WFCODE.
+</span><span class="line">
+</span><span class="line">  select single * into gwa_01 from ZWFTST01
+</span><span class="line">    where wfcode eq P_GWA_02_WFCODE.
+</span><span class="line">
+</span><span class="line">ENDFORM.                    " GET_INITIAL
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp;      Form  CALL_APPROVAL_WF
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*       text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">*  --&gt;  p1        text
+</span><span class="line">*  &lt;--  p2        text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">FORM CALL_APPROVAL_WF .
+</span><span class="line">  DATA: ls_instanceid TYPE char32,
+</span><span class="line">        ls_event TYPE char61,
+</span><span class="line">        ls_workflowname TYPE char30.
+</span><span class="line">  DATA: im_event_container TYPE REF TO if_swf_ifs_parameter_container.
+</span><span class="line">  DATA: ls_rc TYPE sy-subrc.
+</span><span class="line">
+</span><span class="line">  CONCATENATE 'Z##' gwa_02-wFcode  INTO LS_INSTANCEID.  "工作流号码
+</span><span class="line">
+</span><span class="line">  LS_EVENT        = 'APPROVED'.
+</span><span class="line">  LS_WORKFLOWNAME = 'ZTEST_SWF01_01'.
+</span><span class="line">  CALL METHOD CL_SWF_EVT_EVENT=&gt;GET_EVENT_CONTAINER
+</span><span class="line">    EXPORTING
+</span><span class="line">      IM_OBJCATEG  = CL_SWF_EVT_EVENT=&gt;MC_OBJCATEG_CL
+</span><span class="line">      IM_OBJTYPE   = LS_WORKFLOWNAME
+</span><span class="line">      IM_EVENT     = LS_EVENT
+</span><span class="line">    RECEIVING
+</span><span class="line">      RE_REFERENCE = IM_EVENT_CONTAINER.
+</span><span class="line">
+</span><span class="line">** because APPROVED event have not parameters
+</span><span class="line">
+</span><span class="line">*  CALL METHOD IM_EVENT_CONTAINER-&gt;SET
+</span><span class="line">*    EXPORTING
+</span><span class="line">*      NAME  = 'PARA_EV_SIGN'
+</span><span class="line">*      VALUE = l_PARA_EV_SIGN.
+</span><span class="line">
+</span><span class="line">  CALL FUNCTION 'ZTRIGGERWF'
+</span><span class="line">    EXPORTING
+</span><span class="line">      INSTANCEID         = LS_INSTANCEID
+</span><span class="line">      EVENT              = LS_EVENT
+</span><span class="line">      WORKFLOWNAME       = LS_WORKFLOWNAME
+</span><span class="line">      IM_EVENT_CONTAINER = IM_EVENT_CONTAINER
+</span><span class="line">    IMPORTING
+</span><span class="line">      RC                 = LS_RC.
+</span><span class="line">  IF LS_RC = 0.
+</span><span class="line">    gwa_02-state = 'M'.   "to modify text
+</span><span class="line">    modify ZWFTST02 from gwa_02.
+</span><span class="line">
+</span><span class="line">    LEAVE TO SCREEN 0.
+</span><span class="line">  endif.
+</span><span class="line">
+</span><span class="line">ENDFORM.                    " CALL_APPROVAL_WF
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp;      Form  CALL_REJECT_WF
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*       text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">*  --&gt;  p1        text
+</span><span class="line">*  &lt;--  p2        text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">FORM CALL_REJECT_WF .
+</span><span class="line">  DATA: ls_instanceid TYPE char32,
+</span><span class="line">        ls_event TYPE char61,
+</span><span class="line">        ls_workflowname TYPE char30.
+</span><span class="line">  DATA: im_event_container TYPE REF TO if_swf_ifs_parameter_container.
+</span><span class="line">  DATA: ls_rc TYPE sy-subrc.
+</span><span class="line">
+</span><span class="line">  CONCATENATE 'Z##' gwa_02-wFcode  INTO LS_INSTANCEID.  "工作流号码
+</span><span class="line">
+</span><span class="line">  LS_EVENT        = 'REJECTED'.
+</span><span class="line">  LS_WORKFLOWNAME = 'ZTEST_SWF01_01'.
+</span><span class="line">  CALL METHOD CL_SWF_EVT_EVENT=&gt;GET_EVENT_CONTAINER
+</span><span class="line">    EXPORTING
+</span><span class="line">      IM_OBJCATEG  = CL_SWF_EVT_EVENT=&gt;MC_OBJCATEG_CL
+</span><span class="line">      IM_OBJTYPE   = LS_WORKFLOWNAME
+</span><span class="line">      IM_EVENT     = LS_EVENT
+</span><span class="line">    RECEIVING
+</span><span class="line">      RE_REFERENCE = IM_EVENT_CONTAINER.
+</span><span class="line">
+</span><span class="line">** because REJECTED event have not parameters
+</span><span class="line">
+</span><span class="line">*  CALL METHOD IM_EVENT_CONTAINER-&gt;SET
+</span><span class="line">*    EXPORTING
+</span><span class="line">*      NAME  = 'PARA_EV_SIGN'
+</span><span class="line">*      VALUE = l_PARA_EV_SIGN.
+</span><span class="line">
+</span><span class="line">  CALL FUNCTION 'ZTRIGGERWF'
+</span><span class="line">    EXPORTING
+</span><span class="line">      INSTANCEID         = LS_INSTANCEID
+</span><span class="line">      EVENT              = LS_EVENT
+</span><span class="line">      WORKFLOWNAME       = LS_WORKFLOWNAME
+</span><span class="line">      IM_EVENT_CONTAINER = IM_EVENT_CONTAINER
+</span><span class="line">    IMPORTING
+</span><span class="line">      RC                 = LS_RC.
+</span><span class="line">  IF LS_RC = 0.
+</span><span class="line">    gwa_02-state = 'E'.   "to mail
+</span><span class="line">    modify ZWFTST02 from gwa_02.
+</span><span class="line">
+</span><span class="line">    LEAVE TO SCREEN 0.
+</span><span class="line">  endif.
+</span><span class="line">ENDFORM.                    " CALL_REJECT_WF
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp;      Form  DOUBLE_CLICK_PROCESS
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*       text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">*  --&gt;  p1        text
+</span><span class="line">*  &lt;--  p2        text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">FORM DOUBLE_CLICK_PROCESS .
+</span><span class="line">  DATA: LV_LINE       TYPE I,
+</span><span class="line">          LV_CUR_LINE   TYPE I.
+</span><span class="line">
+</span><span class="line">* GET CURSOR FIELD f LINE l OFFSET o.
+</span><span class="line">  GET CURSOR LINE LV_CUR_LINE.  "--先取得光标所在的行
+</span><span class="line">  LV_LINE = TAB_CONTROL-TOP_LINE + LV_CUR_LINE - 1.  "--然后，计算对应着的内表中的行
+</span><span class="line">
+</span><span class="line">*  READ TABLE GT_ZESTSR01 INDEX LV_LINE. " --然后读取内表中双击行的内容，进行下的处理
+</span><span class="line">*  IF GT_ZESTSR01-END_IL NE '99991231'.
+</span><span class="line">*    ......processing......
+</span><span class="line">*  ENDIF.
+</span><span class="line">
+</span><span class="line">ENDFORM.                    " DOUBLE_CLICK_PROCESS</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <h3 id="tcodese37">步骤4 – Tcode:se37创建获取审批人函数</h3>
 <p>创建函数ZTEST_SWF_GET_APPROVER取得工作流的审批人<br />
@@ -164,7 +579,70 @@ Data define——<br /></p>
 源代码截屏<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image019.png" alt="m019" /><br /></p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers" /></td><td class="code"><pre><code class="" /></pre></td></tr></table></div></figure></notextile></div>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">FUNCTION ZTEST_SWF_GET_APPROVER.
+</span><span class="line">*"----------------------------------------------------------------------
+</span><span class="line">*"*"Local interface:
+</span><span class="line">*"  TABLES
+</span><span class="line">*"      AC_CONTAINER STRUCTURE  SWCONT
+</span><span class="line">*"      ACTOR_TAB STRUCTURE  SWHACTOR
+</span><span class="line">*"----------------------------------------------------------------------
+</span><span class="line">
+</span><span class="line">*  DATA:l_czlx TYPE char02,
+</span><span class="line">*       l_hzdh TYPE z00hrhzdh,
+</span><span class="line">*       l_hcws TYPE z00hrhcws.
+</span><span class="line">  data: wf_code_cont type char20,
+</span><span class="line">        wa_ZWFTST01 type ZWFTST01.
+</span><span class="line">  swc_container_to_runtime ac_container.
+</span><span class="line">  REFRESH actor_tab.
+</span><span class="line">*&amp; 获取工作流中的容器元素值
+</span><span class="line">*  swc_get_element ac_container 'CZLX'    l_czlx.
+</span><span class="line">*  swc_get_element ac_container 'HZDH'    l_hzdh.
+</span><span class="line">*  swc_get_element ac_container 'HCWS'    l_hcws.
+</span><span class="line">  swc_get_element ac_container 'WF_CODE_CONT'    wf_code_cont.
+</span><span class="line">**加入审批用户
+</span><span class="line">  select single * into corresponding fields of wa_ZWFTST01
+</span><span class="line">    from ZWFTST01
+</span><span class="line">    where WFCODE eq wf_code_cont.
+</span><span class="line">  if sy-subrc eq 0.
+</span><span class="line">    actor_tab-objid = wa_ZWFTST01-APPRO.
+</span><span class="line">  else.
+</span><span class="line">    actor_tab-objid = 'GW-ZM'.
+</span><span class="line">  endif.
+</span><span class="line">  actor_tab-otype = 'US'.   "用户类型
+</span><span class="line">  APPEND actor_tab.
+</span><span class="line">ENDFUNCTION.</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <h3 id="tcode-se37--1">步骤5 – Tcode: se37 创建工作流触发函数</h3>
 <p>创建函数ZTRIGGERWF，在程序中调用该函数触发工作流<br />
@@ -175,7 +653,85 @@ Data define——<br /></p>
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image022.png" alt="m022" /><br /></p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">FUNCTION ZTRIGGERWF. </span></code></pre></td></tr></table></div></figure></notextile></div>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">FUNCTION ZTRIGGERWF.
+</span><span class="line">*"----------------------------------------------------------------------
+</span><span class="line">*"*"Local interface:
+</span><span class="line">*"  IMPORTING
+</span><span class="line">*"     VALUE(INSTANCEID) TYPE  CHAR32
+</span><span class="line">*"     VALUE(EVENT) TYPE  CHAR61
+</span><span class="line">*"     VALUE(WORKFLOWNAME) TYPE  CHAR30
+</span><span class="line">*"     REFERENCE(IM_EVENT_CONTAINER) TYPE REF TO
+</span><span class="line">*"        IF_SWF_IFS_PARAMETER_CONTAINER OPTIONAL
+</span><span class="line">*"  EXPORTING
+</span><span class="line">*"     REFERENCE(RC) TYPE  SY-SUBRC
+</span><span class="line">*"----------------------------------------------------------------------
+</span><span class="line">  DATA:
+</span><span class="line">           lv_objtype       TYPE sibftypeid,
+</span><span class="line">           lv_event         TYPE sibfevent,
+</span><span class="line">           lv_objkey        TYPE sibfinstid.
+</span><span class="line">
+</span><span class="line">  lv_objtype = workflowname.
+</span><span class="line">  lv_event   = event.
+</span><span class="line">  lv_objkey = instanceid.
+</span><span class="line">
+</span><span class="line">* Raise the event
+</span><span class="line">  TRY.
+</span><span class="line">      CALL METHOD cl_swf_evt_event=&gt;raise
+</span><span class="line">        EXPORTING
+</span><span class="line">          im_objcateg = cl_swf_evt_event=&gt;mc_objcateg_cl
+</span><span class="line">          im_objtype  = lv_objtype
+</span><span class="line">          im_event    = lv_event
+</span><span class="line">          im_objkey   = lv_objkey
+</span><span class="line">          im_event_container = im_event_container.
+</span><span class="line">      rc = 0.
+</span><span class="line">    CATCH cx_swf_evt_invalid_objtype .
+</span><span class="line">      rc = 1.
+</span><span class="line">    CATCH cx_swf_evt_invalid_event .
+</span><span class="line">      rc = 2.
+</span><span class="line">  ENDTRY.
+</span><span class="line">  COMMIT WORK AND WAIT.
+</span><span class="line">
+</span><span class="line">ENDFUNCTION.
+</span><span class="line"> </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <h3 id="tcode-se80-">步骤6 – Tcode: se80 创建工作流处理类</h3>
 <p>创建类ZTEST_SWF01_01用于响应工作流处理过程中的事件<br />
@@ -210,82 +766,312 @@ Data define——<br /></p>
 最后，激活该类<br />
  
 ### 步骤7 – Tcode:se24事件完成后执行该类中事件
-新类ZTEST_SWF01_EXIT从demo类CL_SWF_WORKITEM_EXIT_TST拷贝过来，再改方法CHANGE_CONT_ELEMENT基本不需要更改<br /></p>
-
-<p> 
-### 步骤8 – Tcode: PFAC_INS 创建审批规则</p>
-
-<h3 id="tcode-swdb-">步骤9 – Tcode: swdb 新建工作流</h3>
-<p>新建工作流zwf_test001<br /></p>
-
-<p>选择工作流容器<br /></p>
-
-<p>向容器中新增元素<br /></p>
-
-<p>保存该工作流，系统会自动分配工作流编号<br /></p>
-
-<p>维护工作流头部信息<br /></p>
-
-<p>设置开始事件<br /></p>
-
-<p>为该事件绑定输入参数<br /></p>
-
-<p>注意: 参数传输过程!!<br />
-激活开始事件<br /></p>
-
-<p>回到工作流设计主界面, 双击 , 选择 创建任务<br /></p>
-
-<p>输入文本信息, 因为不需要参数传输，不需要点击<br /></p>
-
-<p>新增元素WF_code_cont到容器中<br /></p>
-
-<p>新增结束事件，当前事件结束后，可能触发的事件，主要用于事件之间的参数传递<br /></p>
-
-<p>保存并回退, 如果出现下面屏幕, 选 <br /></p>
-
-<p> 
-分配审批规则，选择步骤8定义的规则<br /></p>
-
-<p>参数绑定<br /></p>
-
-<p>该事件完成了，屏幕如下<br /></p>
-
-<p>再把ZTEST_SWF01_EXIT类加入program exits中<br /></p>
-
-<p>如果出现下面信息：<br /></p>
-
-<p>点击<br /></p>
-
-<p>选“一般任务”，再  就行了<br />
+新类ZTEST_SWF01_EXIT从demo类CL_SWF_WORKITEM_EXIT_TST拷贝过来，再改方法CHANGE_CONT_ELEMENT基本不需要更改<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image040.png" alt="m040" /><br />
+### 步骤8 – Tcode: PFAC_INS 创建审批规则
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image041.png" alt="m041" /><br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image042.png" alt="m042" /><br />
+### 步骤9 – Tcode: swdb 新建工作流
+新建工作流zwf_test001<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image043.png" alt="m043" /><br />
+选择工作流容器<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image044.png" alt="m044" /><br />
+向容器中新增元素<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image045.png" alt="m045" /><br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image046.png" alt="m046" /><br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image047.png" alt="m047" /><br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image048.png" alt="m048" /><br />
+保存该工作流，系统会自动分配工作流编号<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image049.png" alt="m049" /><br />
+维护工作流头部信息<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image050.png" alt="m050" /><br />
+设置开始事件<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image051.png" alt="m051" /><br />
+为该事件绑定输入参数<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image052.png" alt="m052" /><br />
+<em>注意: 参数传输过程</em>!!<br />
+激活开始事件<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image053.png" alt="m053" /><br />
+回到工作流设计主界面, 双击<img src="/images/images/SAPWorkFlowStepbyStep.files/image054.png" alt="m054" />, 选择<img src="/images/images/SAPWorkFlowStepbyStep.files/image055.png" alt="m055" />创建任务<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image056.png" alt="m056" /><br />
+输入文本信息, 因为不需要参数传输，不需要点击<img src="/images/images/SAPWorkFlowStepbyStep.files/image057.png" alt="m057" /><br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image058.png" alt="m058" /><br />
+新增元素WF_code_cont到容器中<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image059.png" alt="m059" /><br />
+新增结束事件，当前事件结束后，可能触发的事件，主要用于事件之间的参数传递<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image060.png" alt="m060" /><br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image061.png" alt="m061" /><br />
+保存并回退, 如果出现下面屏幕, 选<img src="/images/images/SAPWorkFlowStepbyStep.files/image062.png" alt="m062" /><br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image063.png" alt="m063" /><br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image064.png" alt="m064" /><br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image065.png" alt="m065" /><br />
  
-新增邮件事件在拒绝线上，右击鼠标<br /></p>
+分配审批规则，选择步骤8定义的规则<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image066.png" alt="m066" /><br />
+参数绑定<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image067.png" alt="m067" /><br />
+该事件完成了，屏幕如下<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image068.png" alt="m068" /><br />
+再把<code>ZTEST_SWF01_EXIT</code>类加入<code>program exits</code>中<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image069.png" alt="m069" /><br />
+如果出现下面信息：<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image070.png" alt="m070" /><br />
+点击<img src="/images/images/SAPWorkFlowStepbyStep.files/image071.png" alt="m071" /><br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image072.png" alt="m072" /><br />
+选“一般任务”，再<img src="/images/images/SAPWorkFlowStepbyStep.files/image073.png" alt="m073" />就行了<br /></p>
 
-<p>点击  完成步聚<br />
+<p>新增邮件事件在拒绝线上，右击鼠标<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image074.png" alt="m074" /><br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image075.png" alt="m075" /><br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image076.png" alt="m076" /><br />
+点击<img src="/images/images/SAPWorkFlowStepbyStep.files/image073.png" alt="m073" />完成步聚<br />
  
-再新增一个事件<br /></p>
-
-<p>点击  完成步聚<br />
+再新增一个事件<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image077.png" alt="m077" /><br />
+点击<img src="/images/images/SAPWorkFlowStepbyStep.files/image073.png" alt="m073" />完成步聚<br />
  
-最终流程图<br /></p>
-
-<p> 
+最终流程图<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image078.png" alt="m078" /><br />
+ 
 ### 步骤10 – Tcode: se38 新增程序去触发流程开始
 完整代码<br /></p>
 
 <p>方法1:<br /></p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">FORM CREATE_WORKFLOW .</span></code></pre></td></tr></table></div></figure></notextile></div>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">FORM CREATE_WORKFLOW .
+</span><span class="line">  DATA: ls_instanceid TYPE char32,
+</span><span class="line">        ls_event TYPE char61,
+</span><span class="line">        ls_workflowname TYPE char30.
+</span><span class="line">  DATA: im_event_container TYPE REF TO if_swf_ifs_parameter_container.
+</span><span class="line">  DATA: ls_rc TYPE sy-subrc.
+</span><span class="line">
+</span><span class="line">  data: l_PARA_EV_SIGN type char10,
+</span><span class="line">        lwa_test02 type ZWFTST02,
+</span><span class="line">        lwa_test01 type zwftst01.
+</span><span class="line">
+</span><span class="line">  check p_wcode is not initial.
+</span><span class="line">  lwa_test02-wfcode = p_wcode.
+</span><span class="line">  lwa_test02-ctext = p_ctext.
+</span><span class="line">
+</span><span class="line">  lwa_test01-wfcode = p_wcode.
+</span><span class="line">  lwa_test01-CUSER = sy-uname.
+</span><span class="line">  lwa_test01-CDATE = sy-datum.
+</span><span class="line">  lwa_test01-appro = p_appro.
+</span><span class="line">  modify zwftst01 from  lwa_test01.
+</span><span class="line">
+</span><span class="line">  CONCATENATE 'Z##' p_wcode  INTO LS_INSTANCEID.  "工作流号码
+</span><span class="line">  lwa_test02-WFCODENO = LS_INSTANCEID.
+</span><span class="line">  lwa_test02-state = 'C'.
+</span><span class="line">  modify ZWFTST02 from lwa_test02.
+</span><span class="line">
+</span><span class="line">  LS_EVENT        = 'CREATED'.
+</span><span class="line">  LS_WORKFLOWNAME = 'ZTEST_SWF01_01'.
+</span><span class="line">  CALL METHOD CL_SWF_EVT_EVENT=&gt;GET_EVENT_CONTAINER
+</span><span class="line">    EXPORTING
+</span><span class="line">      IM_OBJCATEG  = CL_SWF_EVT_EVENT=&gt;MC_OBJCATEG_CL
+</span><span class="line">      IM_OBJTYPE   = LS_WORKFLOWNAME
+</span><span class="line">      IM_EVENT     = LS_EVENT
+</span><span class="line">    RECEIVING
+</span><span class="line">      RE_REFERENCE = IM_EVENT_CONTAINER.
+</span><span class="line">
+</span><span class="line">  l_PARA_EV_SIGN = p_wcode.
+</span><span class="line">  CALL METHOD IM_EVENT_CONTAINER-&gt;SET
+</span><span class="line">    EXPORTING
+</span><span class="line">      NAME  = 'PARA_EV_SIGN'
+</span><span class="line">      VALUE = l_PARA_EV_SIGN.
+</span><span class="line">
+</span><span class="line">  CALL FUNCTION 'ZTRIGGERWF'
+</span><span class="line">    EXPORTING
+</span><span class="line">      INSTANCEID         = LS_INSTANCEID
+</span><span class="line">      EVENT              = LS_EVENT
+</span><span class="line">      WORKFLOWNAME       = LS_WORKFLOWNAME
+</span><span class="line">      IM_EVENT_CONTAINER = IM_EVENT_CONTAINER
+</span><span class="line">    IMPORTING
+</span><span class="line">      RC                 = LS_RC.
+</span><span class="line">  IF LS_RC = 0.
+</span><span class="line">    lwa_test02-state = 'A'.
+</span><span class="line">    modify ZWFTST02 from lwa_test02.
+</span><span class="line">    if sy-subrc eq 0.
+</span><span class="line">      write: / 'The work flow: ',
+</span><span class="line">                p_wcode,
+</span><span class="line">                ' is started'.
+</span><span class="line">    endif.
+</span><span class="line">  endif.
+</span><span class="line">
+</span><span class="line">ENDFORM.</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>方法2:<br /></p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">FORM CREATE_WORKFLOW2 .</span></code></pre></td></tr></table></div></figure></notextile></div>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">FORM CREATE_WORKFLOW2 .
+</span><span class="line">  DATA: ZAGENTS  LIKE TABLE OF SWHACTOR WITH HEADER LINE.   "agents
+</span><span class="line">  DATA WF_INITIATOR LIKE SWHACTOR   OCCURS 1 WITH HEADER LINE.
+</span><span class="line">  DATA BEGIN OF WI_CONTAINER OCCURS 0.
+</span><span class="line">          INCLUDE STRUCTURE SWCONT.
+</span><span class="line">  DATA END OF WI_CONTAINER.
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">  DATA: ls_instanceid TYPE char32.
+</span><span class="line">  data: l_PARA_EV_SIGN type char10,
+</span><span class="line">      lwa_test02 type ZWFTST02,
+</span><span class="line">      lwa_test01 type zwftst01.
+</span><span class="line">
+</span><span class="line">  check p_wcode is not initial.
+</span><span class="line">  lwa_test02-wfcode = p_wcode.
+</span><span class="line">  lwa_test02-ctext = p_ctext.
+</span><span class="line">
+</span><span class="line">  lwa_test01-wfcode = p_wcode.
+</span><span class="line">  lwa_test01-CUSER = sy-uname.
+</span><span class="line">  lwa_test01-CDATE = sy-datum.
+</span><span class="line">  lwa_test01-appro = p_appro.
+</span><span class="line">  modify zwftst01 from  lwa_test01.
+</span><span class="line">
+</span><span class="line">  CONCATENATE 'Z##' p_wcode  INTO LS_INSTANCEID.  "工作流号码
+</span><span class="line">  lwa_test02-WFCODENO = LS_INSTANCEID.
+</span><span class="line">  lwa_test02-state = 'C'.
+</span><span class="line">  modify ZWFTST02 from lwa_test02.
+</span><span class="line">
+</span><span class="line">* Some workflow-specific initializing
+</span><span class="line">  WF_INITIATOR-OTYPE = 'US'.
+</span><span class="line">  WF_INITIATOR-OBJID = 'GW-ZM'.
+</span><span class="line">
+</span><span class="line">  SWC_SET_ELEMENT WI_CONTAINER '_WF_INITIATOR' WF_INITIATOR.
+</span><span class="line">  SWC_SET_ELEMENT WI_CONTAINER 'WF_SIGN_TEXT'  p_wcode."
+</span><span class="line">  SWC_SET_ELEMENT WI_CONTAINER 'WF_CODE_CONT'  p_wcode."
+</span><span class="line">
+</span><span class="line">  CALL FUNCTION 'SWW_WI_START_SIMPLE'
+</span><span class="line">    EXPORTING
+</span><span class="line">      TASK         = 'WS91100048'
+</span><span class="line">    TABLES
+</span><span class="line">      AGENTS       = ZAGENTS
+</span><span class="line">      WI_CONTAINER = WI_CONTAINER.
+</span><span class="line">  IF SY-SUBRC &lt;&gt; 0.
+</span><span class="line">    MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+</span><span class="line">            WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+</span><span class="line">  else.
+</span><span class="line">    write: / 'The work flow 2: ',
+</span><span class="line">              p_wcode,
+</span><span class="line">              ' is started'.
+</span><span class="line">  ENDIF.
+</span><span class="line">
+</span><span class="line">ENDFORM.</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <h3 id="section">问题解决——</h3>
-<p>1.       如果出现：<br /></p>
-
-<p>解决方法：<br />
+<p>1. 如果出现：<br />
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image080.png" alt="m080" /><br />
+解决方法：<br />
 在工作流类中，加入BI_PERSISTENT~FIND_BY_LPOR函数代码；注意函数SWF_UTL_INVOKE_CLIF_METHOD在所有工作流调用时，都会使这个函数；如果更改了类的方法，没有激活的话，也会报这种异常<br /></p>
 
 </div>
