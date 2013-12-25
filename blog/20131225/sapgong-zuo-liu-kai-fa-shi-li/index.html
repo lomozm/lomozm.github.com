@@ -115,18 +115,18 @@ SWEL：显示事件记录<br />
 <h3 id="tcode-se11-">步骤1 – Tcode: se11 建表存储工作流数据</h3>
 <p>表ZWFTST01用于存放工作流审批数据<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image003.png" alt="m003" /><br />
-表ZWFTST02用于存放工作流内容数据<br />
+表<code>ZWFTST02</code>用于存放工作流内容数据<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image004.png" alt="m004" /><br /></p>
 
 <h3 id="tcode-se80">步骤2 - Tcode: se80函数组</h3>
 <p>工作流的数据操作使用函数方式调用，必需放在在函数组中<br />
-函数组名：ZTEST_SWF，创建后，使它激活<br />
+函数组名：<code>ZTEST_SWF</code>，创建后，使它激活<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image005.png" alt="m005" /><br />
-进入函数组，在 INCLUDE LZTEST_SWFTOP中加入全局定义数据<br />
+进入函数组，在<code>INCLUDE LZTEST_SWFTOP</code>中加入全局定义数据<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image006.png" alt="m006" /><br /></p>
 
 <h3 id="tcode-se37-">步骤3 – Tcode: se37 创建工作流界面处理函数</h3>
-<p>工作流处理过程中，需要对数据进行操作，同时，数据处理完成后，提交到下一个节点处理。这些都是函数ZTEST_SWF_SCREEN_01的功能<br />
+<p>工作流处理过程中，需要对数据进行操作，同时，数据处理完成后，提交到下一个节点处理。这些都是函数<code>ZTEST_SWF_SCREEN_01</code>的功能<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image007.png" alt="m007" /><br />
 输入参数<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image008.png" alt="m008" /><br />
@@ -434,7 +434,7 @@ Data define——<br /></p>
 <span class="line-number">136</span>
 <span class="line-number">137</span>
 </pre></td><td class="code"><pre><code class=""><span class="line">*----------------------------------------------------------------------*
-</span><span class="line">***INCLUDE LZTEST_SWFF01 .
+</span><span class="line">*  INCLUDE LZTEST_SWFF01 .
 </span><span class="line">*----------------------------------------------------------------------*
 </span><span class="line">*&amp;---------------------------------------------------------------------*
 </span><span class="line">*&amp;      Form  GET_INITIAL
@@ -569,10 +569,10 @@ Data define——<br /></p>
 </span><span class="line">*    ......processing......
 </span><span class="line">*  ENDIF.
 </span><span class="line">
-</span><span class="line">ENDFORM.                    " DOUBLE_CLICK_PROCESS</span></code></pre></td></tr></table></div></figure></notextile></div>
+</span><span class="line">ENDFORM.</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <h3 id="tcodese37">步骤4 – Tcode:se37创建获取审批人函数</h3>
-<p>创建函数ZTEST_SWF_GET_APPROVER取得工作流的审批人<br />
+<p>创建函数<code>ZTEST_SWF_GET_APPROVER</code>取得工作流的审批人<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image017.png" alt="m017" /><br />
 参数<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image018.png" alt="m018" /><br />
@@ -645,7 +645,7 @@ Data define——<br /></p>
 </span><span class="line">ENDFUNCTION.</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <h3 id="tcode-se37--1">步骤5 – Tcode: se37 创建工作流触发函数</h3>
-<p>创建函数ZTRIGGERWF，在程序中调用该函数触发工作流<br />
+<p>创建函数<code>ZTRIGGERWF</code>，在程序中调用该函数触发工作流<br />
 参数<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image020.png" alt="m020" /><br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image021.png" alt="m021" /><br />
@@ -691,7 +691,6 @@ Data define——<br /></p>
 <span class="line-number">37</span>
 <span class="line-number">38</span>
 <span class="line-number">39</span>
-<span class="line-number">40</span>
 </pre></td><td class="code"><pre><code class=""><span class="line">FUNCTION ZTRIGGERWF.
 </span><span class="line">*"----------------------------------------------------------------------
 </span><span class="line">*"*"Local interface:
@@ -730,43 +729,42 @@ Data define——<br /></p>
 </span><span class="line">  ENDTRY.
 </span><span class="line">  COMMIT WORK AND WAIT.
 </span><span class="line">
-</span><span class="line">ENDFUNCTION.
-</span><span class="line"> </span></code></pre></td></tr></table></div></figure></notextile></div>
+</span><span class="line">ENDFUNCTION. </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <h3 id="tcode-se80-">步骤6 – Tcode: se80 创建工作流处理类</h3>
-<p>创建类ZTEST_SWF01_01用于响应工作流处理过程中的事件<br />
+<p>创建类<code>ZTEST_SWF01_01</code>用于响应工作流处理过程中的事件<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image023.png" alt="m023" /><br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image024.png" alt="m024" /><br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image025.png" alt="m025" /><br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image026.png" alt="m026" /><br />
-新增 3 接口(仅需这3个就行了)：BI_OBJECT，BI_PERSISTENT，IF_WORKFLOW<br />
+新增 3 接口(仅需这3个就行了)：<code>BI_OBJECT</code>，<code>BI_PERSISTENT</code>，<code>IF_WORKFLOW</code><br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image027.png" alt="m027" /><br />
-新增属性，SIBFLPOR是必需的<br />
+新增属性，<code>SIBFLPOR</code>是必需的<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image028.png" alt="m028" /><br />
-新增方法，CONSTRUCTOR是必需的<br />
+新增方法，<code>CONSTRUCTOR</code>是必需的<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image029.png" alt="m029" /><br />
 各方法的参数<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image030.png" alt="m030" /><br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image031.png" alt="m031" /><br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image032.png" alt="m032" /><br />
-方法CONSTRUCTOR代码<br />
+方法<code>CONSTRUCTOR</code>代码<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image033.png" alt="m033" /><br />
-方法 BI_PERSISTENT~FIND_BY_LPOR代码<br />
+方法 <code>BI_PERSISTENT~FIND_BY_LPOR</code>代码<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image034.png" alt="m034" /><br />
-方法BI_PERSISTENT~LPOR 代码<br />
+方法<code>BI_PERSISTENT~LPOR</code>代码<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image035.png" alt="m035" /><br />
-方法METH_DISPLAY代码<br />
+方法<code>METH_DISPLAY</code>代码<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image036.png" alt="m036" /><br />
-方法APPROVE代码<br />
+方法<code>APPROVE</code>代码<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image037.png" alt="m037" /><br />
 新增事件<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image038.png" alt="m038" /><br />
 事件参数<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image039.png" alt="m039" /><br />
-最后，激活该类<br />
- 
-### 步骤7 – Tcode:se24事件完成后执行该类中事件
-新类ZTEST_SWF01_EXIT从demo类CL_SWF_WORKITEM_EXIT_TST拷贝过来，再改方法CHANGE_CONT_ELEMENT基本不需要更改<br />
+最后，激活该类<br /></p>
+
+<h3 id="tcodese24">步骤7 – Tcode:se24事件完成后执行该类中事件</h3>
+<p>新类<code>ZTEST_SWF01_EXIT</code>从demo类<code>CL_SWF_WORKITEM_EXIT_TST</code>拷贝过来，再改方法<code>CHANGE_CONT_ELEMENT</code>基本不需要更改<br />
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image040.png" alt="m040" /><br />
 ### 步骤8 – Tcode: PFAC_INS 创建审批规则
 <img src="/images/images/SAPWorkFlowStepbyStep.files/image041.png" alt="m041" /><br />
@@ -831,10 +829,10 @@ Data define——<br /></p>
 点击<img src="/images/images/SAPWorkFlowStepbyStep.files/image073.png" alt="m073" />完成步聚<br />
  
 最终流程图<br />
-<img src="/images/images/SAPWorkFlowStepbyStep.files/image078.png" alt="m078" /><br />
- 
-### 步骤10 – Tcode: se38 新增程序去触发流程开始
-完整代码<br /></p>
+<img src="/images/images/SAPWorkFlowStepbyStep.files/image078.png" alt="m078" /><br /></p>
+
+<h3 id="tcode-se38-">步骤10 – Tcode: se38 新增程序去触发流程开始</h3>
+<p>完整代码<br /></p>
 
 <p>方法1:<br /></p>
 
