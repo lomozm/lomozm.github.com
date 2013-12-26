@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-26T11:21:35+08:00</updated>
+  <updated>2013-12-26T11:27:52+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -20,10 +20,10 @@
     <id>http://lomozm.github.io/blog/20131226/bwceng-ci-zhu-shu-ju-jia-zai</id>
     <content type="html"><![CDATA[
 <h3 id="r3ksh2">R3系统中，事务代码KSH2，在源数据中新增成本中心</h3>
-<p><img src="http://lomozm.github.io/images/images/hierarchyloadetl.files/image001.png" alt="m001" /><br /></p>
-
-<h3 id="bwrsa10costcenter">BW系统中，事务代码RSA1，上载成本中心（0COSTCENTER）数据，可以看出层次更新有两个，在此分别表示中/英文</h3>
-<p><img src="http://lomozm.github.io/images/images/hierarchyloadetl.files/image003.png" alt="m002" /><br /></p>
+<p><img src="http://lomozm.github.io/images/images/hierarchyloadetl.files/image001.png" alt="m001" /><br />
+<!--more-->
+### BW系统中，事务代码RSA1，上载成本中心（0COSTCENTER）数据，可以看出层次更新有两个，在此分别表示中/英文
+<img src="http://lomozm.github.io/images/images/hierarchyloadetl.files/image003.png" alt="m002" /><br /></p>
 
 <h3 id="full">上载路径：文本 -&gt; 属性 -&gt; 层次结构，且只用FULL上载就可以了，因为主数据上载是覆盖性的</h3>
 <p><img src="http://lomozm.github.io/images/images/hierarchyloadetl.files/image005.png" alt="m003" /><br />
