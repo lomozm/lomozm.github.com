@@ -9,9 +9,11 @@
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="业务要求，销售定单里的行项目交货完成后，自动更改其开票冻结标识；同时，当取消交货后，又改回冻结状态
-### 实现方法：
-通过实现badi:LE_SHP_DELIVERY_PROC的save_and_publish_document方法，可以完成；因为销售交货及取消都用到这个badi 源代码： 1 &hellip;">
+  <meta name="description" content="业务要求，销售定单里的行项目交货完成后，自动更改其开票冻结标识；同时，当取消交货后，又改回冻结状态 实现方法
+通过实现badi:LE_SHP_DELIVERY_PROC的save_and_publish_document方法，可以完成；因为销售交货及取消都用到这个badi 源代码 1
+2
+3
+4 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -99,13 +101,14 @@
 
 
 <div class="entry-content">
-<p>业务要求，销售定单里的行项目交货完成后，自动更改其开票冻结标识；同时，当取消交货后，又改回冻结状态<br />
-### 实现方法：
-通过实现<code>badi:LE_SHP_DELIVERY_PROC</code>的<code>save_and_publish_document</code>方法，可以完成；因为销售交货及取消都用到这个badi<br />
+<p>业务要求，销售定单里的行项目交货完成后，自动更改其开票冻结标识；同时，当取消交货后，又改回冻结状态<br /></p>
+
+<h3 id="section">实现方法</h3>
+<p>通过实现<code>badi:LE_SHP_DELIVERY_PROC</code>的<code>save_and_publish_document</code>方法，可以完成；因为销售交货及取消都用到这个badi<br />
 <!--more-->
 <img src="/images/images/157a73d626f831258455b03c20b5fd96.jpeg" alt="m001" /><br /></p>
 
-<p>源代码：<br /></p>
+<h3 id="section-1">源代码</h3>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
