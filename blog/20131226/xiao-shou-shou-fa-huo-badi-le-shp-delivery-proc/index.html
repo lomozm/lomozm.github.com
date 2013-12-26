@@ -5,25 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>金额转大写中文 - lomozm’s Journal</title>
+  <title>销售售发货badi - LE_SHP_DELIVERY_PROC - lomozm’s Journal</title>
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-function zcurr2chinese.
-*"----------------------------------------------------------------------
-*"*"本地接口：
-*" IMPORTING
-*" &hellip;">
+  <meta name="description" content="业务要求，销售定单里的行项目交货完成后，自动更改其开票冻结标识；同时，当取消交货后，又改回冻结状态
+### 实现方法：
+通过实现badi:LE_SHP_DELIVERY_PROC的save_and_publish_document方法，可以完成；因为销售交货及取消都用到这个badi 源代码： 1 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -32,7 +20,7 @@ function zcurr2chinese.
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://lomozm.github.io/blog/20131225/jin-e-zhuan-da-xie-zhong-wen/">
+  <link rel="canonical" href="http://lomozm.github.io/blog/20131226/xiao-shou-shou-fa-huo-badi-le-shp-delivery-proc/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -84,7 +72,7 @@ function zcurr2chinese.
   <header>
     
       
-        <h1 class="entry-title">金额转大写中文</h1>
+        <h1 class="entry-title">销售售发货badi - LE_SHP_DELIVERY_PROC</h1>
       
     
     
@@ -101,7 +89,7 @@ function zcurr2chinese.
   
 
 
-<time datetime="2013-12-25T11:33:41+08:00" pubdate data-updated="true">2013-12-25 Wed</time>
+<time datetime="2013-12-26T15:17:42+08:00" pubdate data-updated="true">2013-12-26 Thu</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -111,28 +99,13 @@ function zcurr2chinese.
 
 
 <div class="entry-content">
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">function zcurr2chinese.
-</span><span class="line">*"----------------------------------------------------------------------
-</span><span class="line">*"*"本地接口：
-</span><span class="line">*"  IMPORTING
-</span><span class="line">*"     REFERENCE(IV_MONEY) TYPE  DMBTR
-</span><span class="line">*"  EXPORTING
-</span><span class="line">*"     REFERENCE(EV_MONEY) TYPE  STRING
-</span><span class="line">*"  EXCEPTIONS
-</span><span class="line">*"      WRONG_MONEY
-</span><span class="line">*"----------------------------------------------------------------------</span></code></pre></td></tr></table></div></figure></notextile></div>
-
+<p>业务要求，销售定单里的行项目交货完成后，自动更改其开票冻结标识；同时，当取消交货后，又改回冻结状态<br />
+### 实现方法：
+通过实现<code>badi:LE_SHP_DELIVERY_PROC</code>的<code>save_and_publish_document</code>方法，可以完成；因为销售交货及取消都用到这个badi<br />
 <!--more-->
+<img src="/images/images/157a73d626f831258455b03c20b5fd96.jpeg" alt="m001" /><br /></p>
+
+<p>源代码：<br /></p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -202,74 +175,74 @@ function zcurr2chinese.
 <span class="line-number">66</span>
 <span class="line-number">67</span>
 <span class="line-number">68</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">types: cur6  type p decimals 6 ,
-</span><span class="line">         cur2  type  bf_dmbtr.
-</span><span class="line">  data va1 type cur2.
-</span><span class="line">  data f_source type cur2.
-</span><span class="line">  data str(40) type c .
-</span><span class="line">  va1 = iv_money.
-</span><span class="line">  f_source = va1.
+</pre></td><td class="code"><pre><code class=""><span class="line">method if_ex_le_shp_delivery_proc~save_and_publish_document.
+</span><span class="line">*  message I001(00) with 'test!'.
+</span><span class="line">  data: begin of wa_vbelv_so,
+</span><span class="line">          vbelv type vbeln_von,
+</span><span class="line">          posnv type posnr_von,
+</span><span class="line">          sign type c,
+</span><span class="line">      end of wa_vbelv_so.
+</span><span class="line">  data: it_vbelv_so like table of wa_vbelv_so.
 </span><span class="line">
-</span><span class="line">  data: scr(30) type c, res(60) type c,fen(2) type c .
-</span><span class="line">  data: len type i, c1 type i, c2 type i, c3 type i, c4 type i.
-</span><span class="line">  data: d1(1) type c, d2(1) type c, d3 type i.
-</span><span class="line">  data: digit(2) type c, weight(2) type c.
-</span><span class="line">  data: rule1(20) type c value '零壹贰叁肆伍陆柒捌玖'.
-</span><span class="line">  data: rule2(30) type c value '分角元拾佰仟万拾佰仟亿拾佰仟万拾佰仟'.
-</span><span class="line">  scr = f_source * 100.
-</span><span class="line">  condense scr no-gaps.
-</span><span class="line">  if scr = '0'.
-</span><span class="line">    res = '零元'.
-</span><span class="line">  else.
-</span><span class="line">    len = strlen( scr ).
-</span><span class="line">    c1 = 0.
-</span><span class="line">    d1 = '0'.
-</span><span class="line">    clear res.
-</span><span class="line">    do len times.
-</span><span class="line">      c1 = c1 + 1.
-</span><span class="line">      c2 = len - c1.
-</span><span class="line">      d2 = scr+c2(1) .
-</span><span class="line">      if d2 = '0'.
-</span><span class="line">        d3 = 0.
-</span><span class="line">      else.
-</span><span class="line">        d3 = d2.
+</span><span class="line">  data: it_vbak type table of vbak,
+</span><span class="line">        wa_vbak type vbak,
+</span><span class="line">        it_shp_vl10_vbfa_t type shp_vl10_vbfa_t,
+</span><span class="line">        wa_shp_vl10_vbfa_t type vbfavb,
+</span><span class="line">        it_return type table of bapiret2,
+</span><span class="line">        wa_return type bapiret2,
+</span><span class="line">        wa_xvbuk type vbukvb.
+</span><span class="line">
+</span><span class="line">  data: wa_bapisdh1 type bapisdh1,
+</span><span class="line">        wa_bapisdh1x type bapisdh1x.
+</span><span class="line">
+</span><span class="line">  if ( if_tcode eq 'VL02N' or if_tcode eq 'VL01N' ) ."and ( sy-ucomm eq 'WABU_T' )." or sy-ucomm eq 'SICH_T' ).  "事物代码vl01n,vl02n时，当出现发货过帐'WABU_T'事件
+</span><span class="line">    loop at it_xvbfa into wa_shp_vl10_vbfa_t where vbtyp_n eq 'J'.  "后续单据为交货单
+</span><span class="line">      append wa_shp_vl10_vbfa_t to it_shp_vl10_vbfa_t.
+</span><span class="line">
+</span><span class="line">      move-corresponding wa_shp_vl10_vbfa_t to wa_vbelv_so.
+</span><span class="line">      clear: wa_vbelv_so-sign.
+</span><span class="line">      append wa_vbelv_so to it_vbelv_so.    "取销售定单号
+</span><span class="line">    endloop.
+</span><span class="line">
+</span><span class="line">    sort it_vbelv_so by vbelv posnv.
+</span><span class="line">    delete adjacent duplicates from it_vbelv_so comparing vbelv." posnv.
+</span><span class="line">    loop at it_vbelv_so into wa_vbelv_so.
+</span><span class="line">      select single * into wa_vbak from vbak where vbeln eq wa_vbelv_so-vbelv and auart eq 'ZSPT'.  "只针对订单类型'ZSPT'
+</span><span class="line">      if sy-subrc ne 0.
+</span><span class="line">        wa_vbelv_so-sign = 'X'.
+</span><span class="line">        modify it_vbelv_so index sy-tabix from wa_vbelv_so transporting sign.
 </span><span class="line">      endif.
-</span><span class="line">      digit = rule1+d3(1) .
-</span><span class="line">      c3 = ( c1 - 1 ) .
-</span><span class="line">      weight = rule2+c3(1) .
-</span><span class="line">      if d2 = '0'.
-</span><span class="line">        if c1 = 3.
-</span><span class="line">          digit = ''.
-</span><span class="line">        elseif c1 = 7.
-</span><span class="line">          digit = ''.
-</span><span class="line">          if len &gt; 10 .
-</span><span class="line">            c4 = len - 10.
-</span><span class="line">            if scr+c4(4) = '0000'.
-</span><span class="line">              weight = ''.
-</span><span class="line">            endif.
-</span><span class="line">          endif.
-</span><span class="line">        elseif c1 = 11.
-</span><span class="line">          digit = ''.
-</span><span class="line">        elseif d1 = '0'.
-</span><span class="line">          digit = ''.
-</span><span class="line">          weight = ''.
+</span><span class="line">    endloop.
+</span><span class="line">    delete it_vbelv_so where sign eq 'X'.
+</span><span class="line">
+</span><span class="line">    loop at it_xvbuk into wa_xvbuk.
+</span><span class="line">      read table it_vbelv_so into wa_vbelv_so  with key vbelv = wa_xvbuk-vbeln binary search.
+</span><span class="line">      if sy-subrc eq 0 and wa_xvbuk-lfgsk eq 'C'.   "销售定单为全部交货
+</span><span class="line">        if sy-tcode eq 'VL09' and sy-ucomm eq 'YES'.  "取消发货过帐
+</span><span class="line">          wa_bapisdh1-bill_block = '05'.  "开票冻结“检查交货条款”
+</span><span class="line">        elseif sy-ucomm eq 'WABU_T'.   "发货过帐'WABU_T'事件
+</span><span class="line">          clear:  wa_bapisdh1-bill_block.
 </span><span class="line">        else.
-</span><span class="line">          weight = ''.
+</span><span class="line">          exit.
 </span><span class="line">        endif.
+</span><span class="line">        wa_bapisdh1x-updateflag = 'U'.
+</span><span class="line">        wa_bapisdh1x-bill_block = 'X'.
+</span><span class="line">        call function 'BAPI_SALESORDER_CHANGE'     "更改销售定单
+</span><span class="line">          exporting
+</span><span class="line">            salesdocument    = wa_xvbuk-vbeln
+</span><span class="line">            order_header_in  = wa_bapisdh1
+</span><span class="line">            order_header_inx = wa_bapisdh1x
+</span><span class="line">          tables
+</span><span class="line">            return           = it_return.
+</span><span class="line">        loop at it_return into wa_return where type eq 'E' or type eq 'A'.
+</span><span class="line">          message e001(00) with wa_return-message.
+</span><span class="line">          return.
+</span><span class="line">        endloop.
 </span><span class="line">      endif.
-</span><span class="line">      concatenate digit weight res into res .
-</span><span class="line">      d1 = d2.
-</span><span class="line">    enddo.
-</span><span class="line">  endif.
-</span><span class="line">  len = strlen( res ) - 1.
-</span><span class="line">  fen = res+len(1).
-</span><span class="line">  if fen &lt;&gt; '分' .
-</span><span class="line">    concatenate res '整' into ev_money.
-</span><span class="line">  else.
-</span><span class="line">    ev_money = res.
-</span><span class="line">  endif.
+</span><span class="line">    endloop.
 </span><span class="line">
-</span><span class="line">endfunction.</span></code></pre></td></tr></table></div></figure></notextile></div>
+</span><span class="line">  endif.
+</span><span class="line">endmethod.</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 </div>
 
@@ -293,12 +266,12 @@ function zcurr2chinese.
   
 
 
-<time datetime="2013-12-25T11:33:41+08:00" pubdate data-updated="true">2013-12-25 Wed</time>
+<time datetime="2013-12-26T15:17:42+08:00" pubdate data-updated="true">2013-12-26 Thu</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数</a>
+    <a class='category' href='/blog/categories/badis/'>BADIs</a>, <a class='category' href='/blog/categories/sdchu-kou/'>SD出口</a>
   
 </span>
 
@@ -314,10 +287,8 @@ function zcurr2chinese.
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/20131224/qu-sdping-zheng-liu-rv-order-flow-information/" title="Previous Post: 取SD凭证流 - RV_ORDER_FLOW_INFORMATION">&laquo; 取SD凭证流 - RV_ORDER_FLOW_INFORMATION</a>
+        <a class="basic-alignment left" href="/blog/20131226/xiao-shou-ding-dan-cheng-ben-xian-shi-zeng-qiang-lv69afzz/" title="Previous Post: 销售定单成本显示增强 - LV69AFZZ">&laquo; 销售定单成本显示增强 - LV69AFZZ</a>
       
-      
-        <a class="basic-alignment right" href="/blog/20131225/jin-e-zhuan-da-xie-ying-wen/" title="Next Post: 金额转大写英文">金额转大写英文 &raquo;</a>
       
     </p>
   </footer>
@@ -410,8 +381,8 @@ function zcurr2chinese.
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://lomozm.github.io/blog/20131225/jin-e-zhuan-da-xie-zhong-wen/';
-        var disqus_url = 'http://lomozm.github.io/blog/20131225/jin-e-zhuan-da-xie-zhong-wen/';
+        var disqus_identifier = 'http://lomozm.github.io/blog/20131226/xiao-shou-shou-fa-huo-badi-le-shp-delivery-proc/';
+        var disqus_url = 'http://lomozm.github.io/blog/20131226/xiao-shou-shou-fa-huo-badi-le-shp-delivery-proc/';
         var disqus_script = 'embed.js';
       
     (function () {
