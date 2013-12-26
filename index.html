@@ -9,11 +9,7 @@
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="
-开发事务代码目录截屏 其他可能使用到的事务代码——
-SWE2：显示/维护事件类型链接
-SWEL：显示事件记录
- ">
+  <meta name="description" content="R3系统中，事务代码KSH2，在源数据中新增成本中心 BW系统中，事务代码RSA1，上载成本中心（0COSTCENTER）数据，可以看出层次更新有两个，在此分别表示中/英文 上载路径：文本 -&gt; 属性 -&gt; 层次结构，且只用FULL上载就可以了，因为主数据上载是覆盖性的 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,6 +66,62 @@ SWEL：显示事件记录
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/20131226/bwceng-ci-zhu-shu-ju-jia-zai/">BW层次主数据加载</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-26T11:12:19+08:00" pubdate data-updated="true">2013-12-26 Thu</time>
+        
+         | <a href="/blog/20131226/bwceng-ci-zhu-shu-ju-jia-zai/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+<h3 id="r3ksh2">R3系统中，事务代码KSH2，在源数据中新增成本中心</h3>
+<p><img src="/images/images/hierarchyloadetl.files/image001.png" alt="m001" /><br /></p>
+
+<h3 id="bwrsa10costcenter">BW系统中，事务代码RSA1，上载成本中心（0COSTCENTER）数据，可以看出层次更新有两个，在此分别表示中/英文</h3>
+<p><img src="/images/images/hierarchyloadetl.files/image003.png" alt="m002" /><br /></p>
+
+<h3 id="full">上载路径：文本 -&gt; 属性 -&gt; 层次结构，且只用FULL上载就可以了，因为主数据上载是覆盖性的</h3>
+<p><img src="/images/images/hierarchyloadetl.files/image005.png" alt="m003" /><br />
+可以看出这个上载已在处理链中，单击开始进行文本上载，同时对于主数据属性的更新也是如此<br />
+<img src="/images/images/hierarchyloadetl.files/image007.png" alt="m004" /><br /></p>
+
+<h3 id="r3infopackage">对于层次上载，在“层次结构选择”中可以看到来自R3的所有成本中心层次；如果需要上载多个层次结构，则需要建多个InfoPackage来上载相应数据，然后开始上载</h3>
+<p><img src="/images/images/hierarchyloadetl.files/image009.png" alt="m005" /><br /></p>
+
+<h3 id="bwrsh1">上载成功后，BW系统中，事务代码RSH1，可以看到更新的内容</h3>
+<p><img src="/images/images/hierarchyloadetl.files/image011.png" alt="m006" /><br /></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -623,6 +675,10 @@ octopress主要优点就是可以绑定自己的域名<br />
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/20131226/bwceng-ci-zhu-shu-ju-jia-zai/">BW层次主数据加载</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/20131225/sapgong-zuo-liu-kai-fa-shi-li/">SAP工作流开发实例</a>
       </li>
     
@@ -638,10 +694,6 @@ octopress主要优点就是可以绑定自己的域名<br />
         <a href="/blog/20131225/shu-zi-jian-cha-tong-guo-zheng-ze-biao-da-shi/">数字检查 - 通过正则表达式</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/20131225/jin-e-zhuan-da-xie-ying-wen/">金额转大写英文</a>
-      </li>
-    
   </ul>
 </section>
 <section>
@@ -652,6 +704,7 @@ octopress主要优点就是可以绑定自己的域名<br />
   <h1>文章分类</h1> 
   <ul id="categories"> 
     <li class='category'><a href='/blog/categories/abapji-zhu/'>ABAP技术 (1)</a></li>
+<li class='category'><a href='/blog/categories/bwetl/'>BWETL (1)</a></li>
 <li class='category'><a href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数 (2)</a></li>
 <li class='category'><a href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数 (4)</a></li>
 <li class='category'><a href='/blog/categories/workflow/'>Workflow (1)</a></li>

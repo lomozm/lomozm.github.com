@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>针对SAP程序强出窗口的调试 - lomozm’s Journal</title>
+  <title>BW层次主数据加载 - lomozm’s Journal</title>
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="常会碰到对SAP程序进行调试，无非有以下几种 1. 在程序中打断点或者加入breakpoint语名 2. 输入/H命令 如果是在系统程序中，想对强出窗口对进调试的话，只能使用第1种方法，找到相应的代码加断点，非常麻烦 感谢以前项目组一同事，提供了一断代码，只需要把它写入到txt文件中， &hellip;">
+  <meta name="description" content="R3系统中，事务代码KSH2，在源数据中新增成本中心 BW系统中，事务代码RSA1，上载成本中心（0COSTCENTER）数据，可以看出层次更新有两个，在此分别表示中/英文 上载路径：文本 -&gt; 属性 -&gt; 层次结构，且只用FULL上载就可以了，因为主数据上载是覆盖性的 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://lomozm.github.io/blog/20131225/zhen-dui-sapcheng-xu-qiang-chu-chuang-kou-de-diao-shi/">
+  <link rel="canonical" href="http://lomozm.github.io/blog/20131226/bwceng-ci-zhu-shu-ju-jia-zai/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -70,7 +70,7 @@
   <header>
     
       
-        <h1 class="entry-title">针对SAP程序强出窗口的调试</h1>
+        <h1 class="entry-title">BW层次主数据加载</h1>
       
     
     
@@ -87,7 +87,7 @@
   
 
 
-<time datetime="2013-12-25T14:21:15+08:00" pubdate data-updated="true">2013-12-25 Wed</time>
+<time datetime="2013-12-26T11:12:19+08:00" pubdate data-updated="true">2013-12-26 Thu</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -97,30 +97,22 @@
 
 
 <div class="entry-content">
-<p>常会碰到对SAP程序进行调试，无非有以下几种
-</p>
-<p>1. 在程序中打断点或者加入breakpoint语名
-</p>
-<p>2. 输入<code>/H</code>命令
-</p>
-<!--more-->
-<p>
-如果是在系统程序中，想对强出窗口对进调试的话，只能使用第1种方法，找到相应的代码加断点，非常麻烦</p>
+<h3 id="r3ksh2">R3系统中，事务代码KSH2，在源数据中新增成本中心</h3>
+<p><img src="/images/images/hierarchyloadetl.files/image001.png" alt="m001" /><br /></p>
 
-<p>感谢以前项目组一同事，提供了一断<a href="/appendix/popup debug.txt" title="File download">代码</a>，只需要把它写入到txt文件中，在弹出窗口时，把这个文件拖至弹出窗口上，相当于加入了<code>/h</code>命令<br /></p>
-<p>代码入下：</p>
+<h3 id="bwrsa10costcenter">BW系统中，事务代码RSA1，上载成本中心（0COSTCENTER）数据，可以看出层次更新有两个，在此分别表示中/英文</h3>
+<p><img src="/images/images/hierarchyloadetl.files/image003.png" alt="m002" /><br /></p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">[FUNCTION]
-</span><span class="line">
-</span><span class="line">Command=/H
-</span><span class="line">Title=Barry Test
-</span><span class="line">Type=SystemCommand</span></code></pre></td></tr></table></div></figure></notextile></div>
+<h3 id="full">上载路径：文本 -&gt; 属性 -&gt; 层次结构，且只用FULL上载就可以了，因为主数据上载是覆盖性的</h3>
+<p><img src="/images/images/hierarchyloadetl.files/image005.png" alt="m003" /><br />
+可以看出这个上载已在处理链中，单击开始进行文本上载，同时对于主数据属性的更新也是如此<br />
+<img src="/images/images/hierarchyloadetl.files/image007.png" alt="m004" /><br /></p>
 
+<h3 id="r3infopackage">对于层次上载，在“层次结构选择”中可以看到来自R3的所有成本中心层次；如果需要上载多个层次结构，则需要建多个InfoPackage来上载相应数据，然后开始上载</h3>
+<p><img src="/images/images/hierarchyloadetl.files/image009.png" alt="m005" /><br /></p>
+
+<h3 id="bwrsh1">上载成功后，BW系统中，事务代码RSH1，可以看到更新的内容</h3>
+<p><img src="/images/images/hierarchyloadetl.files/image011.png" alt="m006" /><br /></p>
 </div>
 
 
@@ -143,12 +135,12 @@
   
 
 
-<time datetime="2013-12-25T14:21:15+08:00" pubdate data-updated="true">2013-12-25 Wed</time>
+<time datetime="2013-12-26T11:12:19+08:00" pubdate data-updated="true">2013-12-26 Thu</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/abapji-zhu/'>ABAP技术</a>
+    <a class='category' href='/blog/categories/bwetl/'>BWETL</a>
   
 </span>
 
@@ -164,10 +156,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/20131225/jin-e-ge-shi-hua-qian-fen-fu/" title="Previous Post: 金额格式化 - 千分符">&laquo; 金额格式化 - 千分符</a>
+        <a class="basic-alignment left" href="/blog/20131225/sapgong-zuo-liu-kai-fa-shi-li/" title="Previous Post: SAP工作流开发实例">&laquo; SAP工作流开发实例</a>
       
-      
-        <a class="basic-alignment right" href="/blog/20131225/sapgong-zuo-liu-kai-fa-shi-li/" title="Next Post: SAP工作流开发实例">SAP工作流开发实例 &raquo;</a>
       
     </p>
   </footer>
@@ -256,8 +246,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://lomozm.github.io/blog/20131225/zhen-dui-sapcheng-xu-qiang-chu-chuang-kou-de-diao-shi/';
-        var disqus_url = 'http://lomozm.github.io/blog/20131225/zhen-dui-sapcheng-xu-qiang-chu-chuang-kou-de-diao-shi/';
+        var disqus_identifier = 'http://lomozm.github.io/blog/20131226/bwceng-ci-zhu-shu-ju-jia-zai/';
+        var disqus_url = 'http://lomozm.github.io/blog/20131226/bwceng-ci-zhu-shu-ju-jia-zai/';
         var disqus_script = 'embed.js';
       
     (function () {
