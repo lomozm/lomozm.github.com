@@ -9,8 +9,12 @@
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="
-R3系统中，事务代码KSH2，在源数据中新增成本中心 ">
+  <meta name="description" content="业务有时需要部分用户不能看到销售定单的价格，这时我们可以在增强中实现
+分两步：1. 在销售定单中处理；2. 在凭证流中处理 在销售定单中
+更改INCLUDE LV69AFZZ各个form，先在include中增加下面定义 1
+2
+3
+DATA: OLD_KOMV LIKE KOMV, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +71,63 @@ R3系统中，事务代码KSH2，在源数据中新增成本中心 ">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/20131226/xiao-shou-ding-dan-cheng-ben-xian-shi-zeng-qiang-lv69afzz/">销售定单成本显示增强 - LV69AFZZ</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-26T13:53:22+08:00" pubdate data-updated="true">2013-12-26 Thu</time>
+        
+         | <a href="/blog/20131226/xiao-shou-ding-dan-cheng-ben-xian-shi-zeng-qiang-lv69afzz/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+<p>业务有时需要部分用户不能看到销售定单的价格，这时我们可以在增强中实现<br />
+分两步：1. 在销售定单中处理；2. 在凭证流中处理<br /></p>
+
+<h3 id="section">在销售定单中</h3>
+<p>更改<code>INCLUDE LV69AFZZ</code>各个form，先在<code>include</code>中增加下面定义<br /></p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">DATA: OLD_KOMV LIKE KOMV,
+</span><span class="line"> OLD_KOMK LIKE KOMK.
+</span><span class="line"> DATA: AUTH_SUBRC LIKE SY-SUBRC.</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/20131226/xiao-shou-ding-dan-cheng-ben-xian-shi-zeng-qiang-lv69afzz/">阅读全文…</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -594,54 +655,9 @@ SWEL：显示事件记录<br />
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
-        <h1 class="entry-title"><a href="/blog/20131223/my-first-octopress-blog/">My First Octopress Blog</a></h1>
-      
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-23T13:14:39+08:00" pubdate data-updated="true">2013-12-23 Mon</time>
-        
-         | <a href="/blog/20131223/my-first-octopress-blog/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-<p>话说第一篇blog是关于octopress的，魔咒啊！<br />
-很早就有建自己blog的想法，最近项目空闲，总算是实现了，也不尽完美<br /><br />
-octopress主要优点就是可以绑定自己的域名<br />
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/20131223/my-first-octopress-blog/">阅读全文…</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -666,6 +682,10 @@ octopress主要优点就是可以绑定自己的域名<br />
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/20131226/xiao-shou-ding-dan-cheng-ben-xian-shi-zeng-qiang-lv69afzz/">销售定单成本显示增强 - LV69AFZZ</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/20131226/bwceng-ci-zhu-shu-ju-jia-zai/">BW层次主数据加载</a>
       </li>
     
@@ -681,10 +701,6 @@ octopress主要优点就是可以绑定自己的域名<br />
         <a href="/blog/20131225/jin-e-ge-shi-hua-qian-fen-fu/">金额格式化 - 千分符</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/20131225/shu-zi-jian-cha-tong-guo-zheng-ze-biao-da-shi/">数字检查 - 通过正则表达式</a>
-      </li>
-    
   </ul>
 </section>
 <section>
@@ -696,8 +712,10 @@ octopress主要优点就是可以绑定自己的域名<br />
   <ul id="categories"> 
     <li class='category'><a href='/blog/categories/abapji-zhu/'>ABAP技术 (1)</a></li>
 <li class='category'><a href='/blog/categories/bwetl/'>BWETL (1)</a></li>
+<li class='category'><a href='/blog/categories/exits/'>Exits (1)</a></li>
 <li class='category'><a href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数 (2)</a></li>
 <li class='category'><a href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数 (4)</a></li>
+<li class='category'><a href='/blog/categories/sdzeng-qiang/'>SD增强 (1)</a></li>
 <li class='category'><a href='/blog/categories/workflow/'>Workflow (1)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
  

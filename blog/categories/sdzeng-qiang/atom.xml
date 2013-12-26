@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: SD增强 | lomozm’s Journal]]></title>
+  <link href="http://lomozm.github.io/blog/categories/sdzeng-qiang/atom.xml" rel="self"/>
+  <link href="http://lomozm.github.io/"/>
+  <updated>2013-12-26T14:09:19+08:00</updated>
+  <id>http://lomozm.github.io/</id>
+  <author>
+    <name><![CDATA[lomozm]]></name>
+    <email><![CDATA[18064095@qq.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[销售定单成本显示增强 - LV69AFZZ]]></title>
+    <link href="http://lomozm.github.io/blog/20131226/xiao-shou-ding-dan-cheng-ben-xian-shi-zeng-qiang-lv69afzz/"/>
+    <updated>2013-12-26T13:53:22+08:00</updated>
+    <id>http://lomozm.github.io/blog/20131226/xiao-shou-ding-dan-cheng-ben-xian-shi-zeng-qiang-lv69afzz</id>
+    <content type="html"><![CDATA[
+<p>业务有时需要部分用户不能看到销售定单的价格，这时我们可以在增强中实现<br />
+分两步：1. 在销售定单中处理；2. 在凭证流中处理<br /></p>
+
+<h3 id="section">在销售定单中</h3>
+<p>更改<code>INCLUDE LV69AFZZ</code>各个form，先在<code>include</code>中增加下面定义<br />
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>DATA: OLD_KOMV LIKE KOMV,
+</span><span class='line'> OLD_KOMK LIKE KOMK.
+</span><span class='line'> DATA: AUTH_SUBRC LIKE SY-SUBRC.</span></code></pre></td></tr></table></div></figure></notextile></div>
+<!--more--></p>
+
+<p>然后更改<br />
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>form userexit_field_modific_leer.
+</span><span class='line'>  INCLUDE ZZAUTH01.
+</span><span class='line'> &lt;em>}   INSERT
+</span><span class='line'> endform.                        “ USEREXIT_FIELD_MODIFIC_LEER
+</span><span class='line'> *&amp;———————————————————————&lt;/em>
+</span><span class='line'> &lt;em>&amp;      Form  USEREXIT_FIELD_MODIFIC_KZWI
+</span><span class='line'> *&amp;———————————————————————&lt;/em>
+</span><span class='line'> *       text
+</span><span class='line'> &lt;em>———————————————————————-&lt;/em>
+</span><span class='line'> *  –&gt;  p1        text
+</span><span class='line'> *  &lt;–  p2        text
+</span><span class='line'> &lt;em>———————————————————————-&lt;/em>
+</span><span class='line'> form userexit_field_modific_kzwi.
+</span><span class='line'>  INCLUDE ZZAUTH01.
+</span><span class='line'> &lt;em>}   INSERT
+</span><span class='line'> endform.                        “ USEREXIT_FIELD_MODIFIC_KZWI
+</span><span class='line'> *&amp;———————————————————————&lt;/em>
+</span><span class='line'> &lt;em>&amp;      Form  USEREXIT_FIELD_MODIFIC_KOPF
+</span><span class='line'> *&amp;———————————————————————&lt;/em>
+</span><span class='line'> *       text
+</span><span class='line'> &lt;em>———————————————————————-&lt;/em>
+</span><span class='line'> *  –&gt;  p1        text
+</span><span class='line'> *  &lt;–  p2        text
+</span><span class='line'> &lt;em>———————————————————————-&lt;/em>
+</span><span class='line'> form userexit_field_modific_kopf.
+</span><span class='line'>  INCLUDE ZZAUTH01.
+</span><span class='line'> &lt;em>}   INSERT
+</span><span class='line'> endform.                   “ USEREXIT_FIELD_MODIFIC_KOPF
+</span><span class='line'> *&amp;———————————————————————&lt;/em>
+</span><span class='line'> &lt;em>&amp;      Form  USEREXIT_FIELD_MODIFICATION
+</span><span class='line'> *&amp;———————————————————————&lt;/em>
+</span><span class='line'> *       text
+</span><span class='line'> &lt;em>———————————————————————-&lt;/em>
+</span><span class='line'> *  –&gt;  p1        text
+</span><span class='line'> *  &lt;–  p2        text
+</span><span class='line'> &lt;em>———————————————————————-&lt;/em>
+</span><span class='line'> form userexit_field_modification.
+</span><span class='line'>  INCLUDE ZZAUTH01.
+</span><span class='line'> &lt;em>}   INSERT
+</span><span class='line'> endform.                       “ USEREXIT_FIELD_MODIFICATION
+</span><span class='line'> *&amp;———————————————————————&lt;/em>
+</span><span class='line'> &lt;em>&amp;      Form  USEREXIT_PRICING_CHECK
+</span><span class='line'> *&amp;———————————————————————&lt;/em>
+</span><span class='line'> *       text
+</span><span class='line'> &lt;em>———————————————————————-&lt;/em>
+</span><span class='line'> *  –&gt;  p1        text
+</span><span class='line'> *  &lt;–  p2        text
+</span><span class='line'> &lt;em>———————————————————————-&lt;/em>
+</span><span class='line'> form userexit_pricing_check.
+</span><span class='line'>  INCLUDE ZZAUTH02.
+</span><span class='line'> &lt;em>}   INSERT
+</span><span class='line'> endform.                             “ USEREXIT_PRICING_CHECK
+</span><span class='line'> *&amp;———————————————————————&lt;/em>
+</span><span class='line'> &lt;em>&amp;      Form  USEREXIT_CHANGE_PRICING_RULE
+</span><span class='line'> *&amp;———————————————————————&lt;/em>
+</span><span class='line'> *       text
+</span><span class='line'> &lt;em>———————————————————————-&lt;/em>
+</span><span class='line'> *      –&gt;P_RV61A_KSTEU  text
+</span><span class='line'> &lt;em>———————————————————————-&lt;/em>
+</span><span class='line'> form userexit_change_pricing_rule using    p_rv61a_ksteu.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>endform.                        “ USEREXIT_CHANGE_PRICING_RULE</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>程序名：<br />
+<code>ZZAUTH01:   Authorization check for the condition screen</code><br />
+<code>ZZAUTH02:   Authorization check for the creation of conditions</code><br />
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>&lt;em>&amp;———————————————————————&lt;/em>
+</span><span class='line'> &lt;em>&amp;  Include           ZZAUTH01
+</span><span class='line'> *&amp;———————————————————————&lt;/em>
+</span><span class='line'> * Beim ersten Aufruf ist KOMV initial; OLD_KOMK löschen,
+</span><span class='line'> * damit auf jeden Fall Berechtigungsprüfung durchgeführt wird.
+</span><span class='line'> * Sicherheitshalber zunächst Berechtigung verweigern.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;ul>
+</span><span class='line'>  &lt;li>
+</span><span class='line'>    &lt;p>if komv is initial.
+</span><span class='line'>  IF SCREEN-NAME = ‘FCODE’.
+</span><span class='line'> CLEAR OLD_KOMK.
+</span><span class='line'> AUTH_SUBRC = 4.
+</span><span class='line'>  ENDIF.&lt;/p>
+</span><span class='line'>  &lt;/li>
+</span><span class='line'>  &lt;li>Berechtigungsprüfung auf Kalkulationsschema und Stufen-Nr.&lt;/li>
+</span><span class='line'>  &lt;li>Beim Wechsel der KOMV-Zeile einmalig eine Berechtigungsprüfung&lt;/li>
+</span><span class='line'>  &lt;li>durchführen
+</span><span class='line'>  IF KOMK-KALSM NE OLD_KOMK-KALSM OR KOMV-STUNR NE OLD_KOMV-STUNR.
+</span><span class='line'> AUTHORITY-CHECK OBJECT ‘Z_KONH_KLS’
+</span><span class='line'>            ID ‘ZKALSM’ FIELD KOMK-KALSM
+</span><span class='line'>            ID ‘ZSTUNR’ FIELD KOMV-STUNR
+</span><span class='line'>            ID ‘ACTVT’ DUMMY.
+</span><span class='line'> AUTH_SUBRC = SY-SUBRC.
+</span><span class='line'> OLD_KOMK = KOMK.
+</span><span class='line'> OLD_KOMV = KOMV.
+</span><span class='line'>  ENDIF.&lt;/li>
+</span><span class='line'>&lt;/ul>
+</span><span class='line'>
+</span><span class='line'>&lt;p>IF AUTH_SUBRC NE 0 AND ( SCREEN-NAME = ‘RV61A-SELKZ’
+</span><span class='line'>                    OR   SCREEN-NAME = ‘KOMV-KAWRT’“条件基值
+</span><span class='line'>                    OR   SCREEN-NAME = ‘RV61A-AWEIN’
+</span><span class='line'>                    OR   SCREEN-NAME = ‘KOMV-KBETR’ “VK11中金额
+</span><span class='line'>                    OR   SCREEN-NAME = ‘RV61A-KOEIN’“VK11-货币
+</span><span class='line'>                    OR   SCREEN-NAME = ‘KOMV-KPEIN’“VK11-单位
+</span><span class='line'>                    OR   SCREEN-NAME = ‘KOMV-KMEIN’“VK11-UoM
+</span><span class='line'>                    OR   SCREEN-NAME = ‘KOMV-KWERT’ ).”定价值
+</span><span class='line'>    SCREEN-ACTIVE = 0.
+</span><span class='line'>  ENDIF.
+</span><span class='line'>  MODIFY SCREEN.
+</span><span class='line'> * Ende Berechtigungsprüfung————————————-
+</span><span class='line'> &lt;em>&amp;———————————————————————&lt;/em>&lt;br />
+</span><span class='line'> 2）ZZAUTH02
+</span><span class='line'> ***INCLUDE ZZAUTH02.
+</span><span class='line'>    AUTHORITY-CHECK OBJECT ‘Z_KONH_KLS’
+</span><span class='line'>               ID ‘ZKALSM’ FIELD KOMK-KALSM
+</span><span class='line'>               ID ‘ZSTUNR’ FIELD KOMV-STUNR
+</span><span class='line'>               ID ‘ACTVT’ DUMMY.
+</span><span class='line'>    IF SY-SUBRC NE 0.
+</span><span class='line'>      MESSAGE E609(VH).
+</span><span class='line'>    ENDIF.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;ul>
+</span><span class='line'>  &lt;li>Ende Berechtigungsprüfung</span></code></pre></td></tr></table></div></figure></notextile></div>
+<img src="/images/images/a95fb0bdc96efb93da5b8d3331cfd91d.jpeg" alt="m001" /><br /></li>
+</ul>
+
+<h3 id="section-1">在凭证流中</h3>
+<p>在<code>include LDOCUMENT_FLOW_ALVF01</code>中的<code>FORM DISPLAY_DOCUMENT_FLOW</code>前端添加增强，删除参考值和货币数据即可，使金额不显示：<br />
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>FIELD-SYMBOLS: &lt;wa_docflow> TYPE DOCUMENT_FLOW_ALV_STRUC.
+</span><span class='line'>  LOOP AT GT_DOCFLOW ASSIGNING &lt;wa_docflow>.
+</span><span class='line'>     CLEAR: &lt;wa_docflow>-RFWRT,
+</span><span class='line'>            &lt;wa_docflow>-WAERS.
+</span><span class='line'>*    modify gt_docflow.
+</span><span class='line'>  ENDLOOP.</span></code></pre></td></tr></table></div></figure></notextile></div>
+![m002][m02]<br /></wa_docflow></wa_docflow></wa_docflow></wa_docflow></p>
+]]></content>
+  </entry>
+  
+</feed>
