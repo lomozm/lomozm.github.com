@@ -4,7 +4,7 @@
   <title><![CDATA[Category: BWETL | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/bwetl/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-26T15:47:26+08:00</updated>
+  <updated>2013-12-26T16:07:00+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -31,7 +31,7 @@
 <img src="/images/images/hierarchyloadetl.files/image007.png" alt="m004" /><br /></p>
 
 <h3 id="r3infopackage">对于层次上载，在“层次结构选择”中可以看到来自R3的所有成本中心层次；如果需要上载多个层次结构，则需要建多个InfoPackage来上载相应数据，然后开始上载</h3>
-<p><img src="/images/images/hierarchyloadetl.files/image009.png" alt="m005" /><br /></p>
+<p><img src="/images/images/hierarchyloadetl.files/image009.jpg" alt="m005" /><br /></p>
 
 <h3 id="bwrsh1">上载成功后，BW系统中，事务代码RSH1，可以看到更新的内容</h3>
 <p><img src="/images/images/hierarchyloadetl.files/image011.png" alt="m006" /><br /></p>
