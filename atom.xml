@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-27T14:02:17+08:00</updated>
+  <updated>2013-12-27T14:05:32+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -241,8 +241,8 @@
 <p>For unique batch number try these exits</p>
 <p><code>SAPLV01Z-LV01ZU05 XVBZ-&gt;EXIT_V01Z_002</code> <code>SAPLV01Z</code> CFCs for internal batch number assignment</p>
 <p><code>SAPLV01Z-LV01ZU07 XVBZ-&gt;EXIT_V01Z_003</code> <code>SAPLV1ZE</code> CFCs for external batch number assignment</p>
-<p>&lt;/p&gt;Also refer this link,&lt;/p&gt;
-<a href="http://help.sap.com/saphelp_40b/helpdata/ru/dc/1d4b6e5733d1118b3f0060b03ca329/content.htm">http://help.sap.com/saphelp_40b/helpdata/ru/dc/1d4b6e5733d1118b3f0060b03ca329/content.htm</a></p>
+<p>Also refer this link:</p>
+<p><a href="http://help.sap.com/saphelp_40b/helpdata/ru/dc/1d4b6e5733d1118b3f0060b03ca329/content.htm">http://help.sap.com/saphelp_40b/helpdata/ru/dc/1d4b6e5733d1118b3f0060b03ca329/content.htm</a></p>
 
 ]]></content>
   </entry>
