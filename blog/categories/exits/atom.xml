@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Exits | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/exits/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-27T14:32:07+08:00</updated>
+  <updated>2013-12-27T17:02:32+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -12,6 +12,24 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[物料编码生成/校验增强（MM01）]]></title>
+    <link href="http://lomozm.github.io/blog/20131227/wu-liao-bian-ma-sheng-cheng-slash-xiao-yan-zeng-qiang-%28mm01%29/"/>
+    <updated>2013-12-27T16:37:25+08:00</updated>
+    <id>http://lomozm.github.io/blog/20131227/wu-liao-bian-ma-sheng-cheng-slash-xiao-yan-zeng-qiang-(mm01)</id>
+    <content type="html"><![CDATA[
+<p>用事务代码MM01建物料时，物料号生成有两种方式，系统自动分配和用户指定<br />
+客户要求比较复杂的情况下（如：编号与物料组有关联），系统提供了相应出口进行编号的生成和校验<br />
+tcode: smod<br />
+增强：<code>MGA00002</code>:物料主文档（工业）：编号分配<br />
+<!--more-->
+<img src="/images/images/79d709262d17ae188283ff911bf5e1a8.jpeg" alt="m001" /><br /></p>
+
+<h3 id="section">相关增强</h3>
+<p><img src="/images/images/1177fb9b1742db2696a12ae3eabae1e4.jpeg" alt="m002" /><br /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[销售开票更改凭证抬头和行项目 - RV60AFZC]]></title>
