@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: octopress - lomozm’s Journal</title>
+  <title>MB1A - Goods movements - for unique batch number - lomozm’s Journal</title>
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="Category: octopress">
+  <meta name="description" content="Question: I am using the batch management for the raw materials ,When i do the GI to production order i enterd the batch number .But when i return &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://lomozm.github.ioblog/categories/octopress/">
+  <link rel="canonical" href="http://lomozm.github.io/blog/20131227/mb1a-goods-movements-for-unique-batch-number/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -65,36 +65,109 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Octopress</h1>
+    
+      
+        <h1 class="entry-title">MB1A - Goods Movements - for Unique Batch Number</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T13:48:36+08:00" pubdate data-updated="true">2013-12-27 Fri</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content">
+<h3 id="question">Question:</h3>
 
-  
-  <h2>2013</h2>
+<p>I am using the batch management for the raw materials ,When i do the GI to production order i enterd the batch number .But when i return excess material /defect material to wh (reversal of GI ) , system gave the message that &#8220;Caution! Internal number allocation for materials handled in batches&#8221; . As this is information message , The system  should allow same batch number which is used at the time of GI .</p>
+<!--more-->
+<p>What is name the user exit ? Or with the help of the configuaration can we control….</p>
 
-<article>
-  
-<h1><a href="/blog/20131223/my-first-octopress-blog/">My first octopress blog</a></h1>
-<time datetime="2013-12-23T13:14:39+08:00" pubdate><span class='month'>Dec</span> <span class='day'>23</span> <span class='year'>2013</span></time>
+<h3 id="answer">Answer:</h3>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/octopress/'>octopress</a></span>
-</footer>
-
-
-</article>
+<p>For unique batch number try these exits</p>
+<p><code>SAPLV01Z-LV01ZU05 XVBZ-&gt;EXIT_V01Z_002</code> <code>SAPLV01Z</code> CFCs for internal batch number assignment</p>
+<p><code>SAPLV01Z-LV01ZU07 XVBZ-&gt;EXIT_V01Z_003</code> <code>SAPLV1ZE</code> CFCs for external batch number assignment</p>
+<p>&lt;/p&gt;Also refer this link,&lt;/p&gt;
+<a href="http://help.sap.com/saphelp_40b/helpdata/ru/dc/1d4b6e5733d1118b3f0060b03ca329/content.htm">http://help.sap.com/saphelp_40b/helpdata/ru/dc/1d4b6e5733d1118b3f0060b03ca329/content.htm</a></p>
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">lomozm</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T13:48:36+08:00" pubdate data-updated="true">2013-12-27 Fri</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/exits/'>Exits</a>, <a class='category' href='/blog/categories/mmzeng-qiang/'>MM增强</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/20131226/xiao-shou-shou-fa-huo-badi-le-shp-delivery-proc/" title="Previous Post: 销售售发货badi - LE_SHP_DELIVERY_PROC">&laquo; 销售售发货badi - LE_SHP_DELIVERY_PROC</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/20131227/xiao-shou-kai-piao-geng-gai-ping-zheng-tai-tou-he-xing-xiang-mu-rv60afzc/" title="Next Post: 销售开票更改凭证抬头和行项目 - RV60AFZC">销售开票更改凭证抬头和行项目 - RV60AFZC &raquo;</a>
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -176,7 +249,10 @@
       var disqus_shortname = 'lomozm';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://lomozm.github.io/blog/20131227/mb1a-goods-movements-for-unique-batch-number/';
+        var disqus_url = 'http://lomozm.github.io/blog/20131227/mb1a-goods-movements-for-unique-batch-number/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

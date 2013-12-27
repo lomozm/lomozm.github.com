@@ -1,0 +1,501 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>销售开票更改凭证抬头和行项目 - RV60AFZC - lomozm’s Journal</title>
+  <meta name="author" content="lomozm">
+
+  
+  <meta name="description" content="该增强用于在开票过程中定制凭证抬头和行项目信息
+直接在se80中更改即可 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://lomozm.github.io/blog/20131227/xiao-shou-kai-piao-geng-gai-ping-zheng-tai-tou-he-xing-xiang-mu-rv60afzc/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="lomozm’s Journal" type="application/atom+xml">
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">lomozm’s Journal</a></h1>
+  
+    <h2>长得不帅，跑得不快；一如既往，永往向前...</h2>
+  
+  <div class="clear"></div>
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:lomozm.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">归档</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      
+        <h1 class="entry-title">销售开票更改凭证抬头和行项目 - RV60AFZC</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T13:56:31+08:00" pubdate data-updated="true">2013-12-27 Fri</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>该增强用于在开票过程中定制凭证抬头和行项目信息<br />
+直接在se80中更改即可<br />
+<!--more--></p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+<span class="line-number">62</span>
+<span class="line-number">63</span>
+<span class="line-number">64</span>
+<span class="line-number">65</span>
+<span class="line-number">66</span>
+<span class="line-number">67</span>
+<span class="line-number">68</span>
+<span class="line-number">69</span>
+<span class="line-number">70</span>
+<span class="line-number">71</span>
+<span class="line-number">72</span>
+<span class="line-number">73</span>
+<span class="line-number">74</span>
+<span class="line-number">75</span>
+<span class="line-number">76</span>
+<span class="line-number">77</span>
+<span class="line-number">78</span>
+<span class="line-number">79</span>
+<span class="line-number">80</span>
+<span class="line-number">81</span>
+<span class="line-number">82</span>
+<span class="line-number">83</span>
+<span class="line-number">84</span>
+<span class="line-number">85</span>
+<span class="line-number">86</span>
+<span class="line-number">87</span>
+<span class="line-number">88</span>
+<span class="line-number">89</span>
+<span class="line-number">90</span>
+<span class="line-number">91</span>
+<span class="line-number">92</span>
+<span class="line-number">93</span>
+<span class="line-number">94</span>
+<span class="line-number">95</span>
+<span class="line-number">96</span>
+<span class="line-number">97</span>
+<span class="line-number">98</span>
+<span class="line-number">99</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">***INCLUDE RV60AFZC.
+</span><span class="line">
+</span><span class="line">************************************************************************
+</span><span class="line">*                                                                      *
+</span><span class="line">* This include is reserved for user modifications                      *
+</span><span class="line">* Forms for invoicing                                                  *
+</span><span class="line">* The name of modification modules should begin with 'ZZ'.             *
+</span><span class="line">*                                                                      *
+</span><span class="line">************************************************************************
+</span><span class="line">*       USEREXIT_NUMBER_RANGE_INV_DATE                                 *
+</span><span class="line">*       USEREXIT_FILL_VBRK_VBRP                                        *
+</span><span class="line">************************************************************************
+</span><span class="line">
+</span><span class="line">*---------------------------------------------------------------------*
+</span><span class="line">*       FORM USEREXIT_NUMBER_RANGE_INV_DATE                           *
+</span><span class="line">*---------------------------------------------------------------------*
+</span><span class="line">*       This userexit can be used to determine the numberranges for   *
+</span><span class="line">*       the internal document number. This userexit can be used when  *
+</span><span class="line">*       the number_ranger should impact the invoice date via table    *
+</span><span class="line">*       TVFKD.                                                        *
+</span><span class="line">*       If this userexit is active the USEREXIT_NUMBER_RANGE is not   *
+</span><span class="line">*       processed anymore, that means this userexit has priority.     *
+</span><span class="line">*       US_RANGE_INTERN - internal number range                       *
+</span><span class="line">*       This form is called from form LV60AU02 and LV60AU11           *
+</span><span class="line">*---------------------------------------------------------------------*
+</span><span class="line">form userexit_number_range_inv_date using us_range_intern.
+</span><span class="line">
+</span><span class="line">* Example: Number range from TVFK like in standard
+</span><span class="line">* US_RANGE_INTERN = TVFK-NUMKI.
+</span><span class="line">
+</span><span class="line">endform.
+</span><span class="line">
+</span><span class="line">*---------------------------------------------------------------------*
+</span><span class="line">*       FORM USEREXIT_FILL_VBRK_VBRP                                  *
+</span><span class="line">*---------------------------------------------------------------------*
+</span><span class="line">*       This userexit can be used to fill fields in VBRK and VBRP     *
+</span><span class="line">*       Be aware, that at this time the work areas KUAGV KURGV        *
+</span><span class="line">*       KUWEV and KUREV are not filled.                               *
+</span><span class="line">*       This form is called from FORM VBRK_VBRP_FUELLEN.              *
+</span><span class="line">*---------------------------------------------------------------------*
+</span><span class="line">form userexit_fill_vbrk_vbrp.
+</span><span class="line">
+</span><span class="line">* Example: change Tax country
+</span><span class="line">*{   INSERT         DEVK900070                                        1
+</span><span class="line">*
+</span><span class="line">*  主机销售业务VF01开票时（根据销售业务的产品组判断是否为主机销售业务：10 装载机类、11  平地机类、12 挖掘装载机类、13 矿用自卸车、14  其他整机类），
+</span><span class="line">*查找销售订单行项目主机物料主数据中“销售组织数据2”中的“物料组2（MVGR2）”字段信息；查找销售订单行项目所对应的产品序列号（SERNR）；
+</span><span class="line">*  替换VBRK-ZUONR字段内容为“物料组2（MVGR2）&amp;序列号（SERNR）“
+</span><span class="line">
+</span><span class="line">*
+</span><span class="line">*if sy-uname eq ‘LOMOZM'.
+</span><span class="line">**RETURN.
+</span><span class="line">*BREAK-POINT.
+</span><span class="line">*ENDIF.
+</span><span class="line">
+</span><span class="line">*data: lt_xvbrk like TABLE OF xvbrk WITH HEADER LINE.
+</span><span class="line">*lt_xvbrk[] = xvbrk[].
+</span><span class="line">
+</span><span class="line">if vbak-spart eq '10' or vbak-spart eq '11' or vbak-spart eq '12' or vbak-spart eq '13' or vbak-spart eq '14'.
+</span><span class="line">
+</span><span class="line">  check vbak-auart ne 'ZHOR'.  "排除自营出口销售定单类型
+</span><span class="line">
+</span><span class="line">  data: l_sernr type gernr,
+</span><span class="line">        l_bezei type bezei40.
+</span><span class="line">  clear: l_sernr.
+</span><span class="line">  if lips is not initial.
+</span><span class="line">     select single d~sernr into l_sernr
+</span><span class="line">       from  ser01 as c inner join objk as d on c~obknr eq d~obknr
+</span><span class="line">       where c~lief_nr eq lips-vbeln
+</span><span class="line">*         and c~POSNR eq lips-POSNR
+</span><span class="line">         and d~sernr ne ''
+</span><span class="line">         and c~posnr eq ( select posnr from lips as a inner join mara as b on a~matnr eq b~matnr
+</span><span class="line">                                              where vbeln eq lips-vbeln and b~mtart eq 'FERT' ).
+</span><span class="line">  else.
+</span><span class="line">     select single d~sernr into l_sernr
+</span><span class="line">       from  ser02 as c inner join objk as d on c~obknr eq d~obknr
+</span><span class="line">       where c~sdaufnr eq vbap-vbeln
+</span><span class="line">*         and c~POSNR eq VBAP-POSNR
+</span><span class="line">         and d~sernr ne ''
+</span><span class="line">         and c~posnr eq ( select posnr from vbap as a inner join mara as b on a~matnr eq b~matnr
+</span><span class="line">                                              where vbeln eq vbap-vbeln and b~mtart eq 'FERT' ).
+</span><span class="line">
+</span><span class="line">  endif.
+</span><span class="line">  if l_sernr is not initial. " and vbap-MVGR2 is not INITIAL.
+</span><span class="line">*     select SINGLE BEZEI into l_BEZEI from TVM2T where MVGR2 eq vbap-MVGR2 and spras eq sy-langu.
+</span><span class="line">*     if l_BEZEI is not INITIAL.
+</span><span class="line">*         CONCATENATE l_BEZEI l_sernr+8(10) into VBRK-ZUONR SEPARATED BY '&amp;'.
+</span><span class="line">*     endif.
+</span><span class="line">     vbrk-zuonr = l_sernr.
+</span><span class="line">  else.
+</span><span class="line">*     MESSAGE E001(00) WITH '无法确定主机销售业务机型机号'.
+</span><span class="line">  endif.
+</span><span class="line">endif.
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">*}   INSERT
+</span><span class="line">* VBRK-LANDTX = T001-LAND1.
+</span><span class="line">
+</span><span class="line">endform.</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">lomozm</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T13:56:31+08:00" pubdate data-updated="true">2013-12-27 Fri</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/exits/'>Exits</a>, <a class='category' href='/blog/categories/sdzeng-qiang/'>SD增强</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/20131227/mb1a-goods-movements-for-unique-batch-number/" title="Previous Post: MB1A - Goods movements - for unique batch number">&laquo; MB1A - Goods movements - for unique batch number</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    
+<section> 
+    <img class="center" src="/images/myTitle/title.jpg">
+
+ <h1>关于我</h1>
+ <ul>
+    <li>
+    做过些SAP项目，时有心得<br>
+    其它种种....
+    </li>
+ </ul> 
+</section>
+<section>
+  <h1>最新文章</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/20131227/xiao-shou-kai-piao-geng-gai-ping-zheng-tai-tou-he-xing-xiang-mu-rv60afzc/">销售开票更改凭证抬头和行项目 - RV60AFZC</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20131227/mb1a-goods-movements-for-unique-batch-number/">MB1A - Goods Movements - for Unique Batch Number</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20131226/xiao-shou-shou-fa-huo-badi-le-shp-delivery-proc/">销售售发货badi - LE_SHP_DELIVERY_PROC</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20131226/xiao-shou-ding-dan-cheng-ben-xian-shi-zeng-qiang-lv69afzz/">销售定单成本显示增强 - LV69AFZZ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20131226/bwceng-ci-zhu-shu-ju-jia-zai/">BW层次主数据加载</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>最新评论</h1>
+  <script type="text/javascript" src="http://lomozm.disqus.com/recent_comments_widget.js?num_items=8&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
+</section>
+<section> 
+  <h1>文章分类</h1> 
+  <ul id="categories"> 
+    <li class='category'><a href='/blog/categories/abapji-zhu/'>ABAP技术 (1)</a></li>
+<li class='category'><a href='/blog/categories/badis/'>BADIs (1)</a></li>
+<li class='category'><a href='/blog/categories/bwetl/'>BWETL (1)</a></li>
+<li class='category'><a href='/blog/categories/exits/'>Exits (3)</a></li>
+<li class='category'><a href='/blog/categories/mmzeng-qiang/'>MM增强 (1)</a></li>
+<li class='category'><a href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数 (2)</a></li>
+<li class='category'><a href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数 (4)</a></li>
+<li class='category'><a href='/blog/categories/sdzeng-qiang/'>SD增强 (3)</a></li>
+<li class='category'><a href='/blog/categories/workflow/'>Workflow (1)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
+ 
+  </ul> 
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - lomozm -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'lomozm';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://lomozm.github.io/blog/20131227/xiao-shou-kai-piao-geng-gai-ping-zheng-tai-tou-he-xing-xiang-mu-rv60afzc/';
+        var disqus_url = 'http://lomozm.github.io/blog/20131227/xiao-shou-kai-piao-geng-gai-ping-zheng-tai-tou-he-xing-xiang-mu-rv60afzc/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Exits | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/exits/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-26T16:08:43+08:00</updated>
+  <updated>2013-12-27T14:02:17+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -12,6 +12,248 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[销售开票更改凭证抬头和行项目 - RV60AFZC]]></title>
+    <link href="http://lomozm.github.io/blog/20131227/xiao-shou-kai-piao-geng-gai-ping-zheng-tai-tou-he-xing-xiang-mu-rv60afzc/"/>
+    <updated>2013-12-27T13:56:31+08:00</updated>
+    <id>http://lomozm.github.io/blog/20131227/xiao-shou-kai-piao-geng-gai-ping-zheng-tai-tou-he-xing-xiang-mu-rv60afzc</id>
+    <content type="html"><![CDATA[<p>该增强用于在开票过程中定制凭证抬头和行项目信息<br />
+直接在se80中更改即可<br />
+<!--more-->
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>***INCLUDE RV60AFZC.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;hr />
+</span><span class='line'>&lt;ul>
+</span><span class='line'>  &lt;li>*&lt;/li>
+</span><span class='line'>  &lt;li>This include is reserved for user modifications                      *&lt;/li>
+</span><span class='line'>  &lt;li>Forms for invoicing                                                  *&lt;/li>
+</span><span class='line'>  &lt;li>The name of modification modules should begin with ‘ZZ’.             *&lt;/li>
+</span><span class='line'>  &lt;li>*
+</span><span class='line'>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;/li>
+</span><span class='line'>  &lt;li>USEREXIT_NUMBER_RANGE_INV_DATE                                 *&lt;/li>
+</span><span class='line'>  &lt;li>USEREXIT_FILL_VBRK_VBRP                                        *
+</span><span class='line'>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;/li>
+</span><span class='line'>&lt;/ul>
+</span><span class='line'>
+</span><span class='line'>&lt;p>&lt;em>———————————————————————&lt;/em>
+</span><span class='line'>*       FORM USEREXIT_NUMBER_RANGE_INV_DATE                           *
+</span><span class='line'>&lt;em>———————————————————————&lt;/em>
+</span><span class='line'>*       This userexit can be used to determine the numberranges for   *
+</span><span class='line'>*       the internal document number. This userexit can be used when  *
+</span><span class='line'>*       the number_ranger should impact the invoice date via table    *
+</span><span class='line'>*       TVFKD.                                                        *
+</span><span class='line'>*       If this userexit is active the USEREXIT_NUMBER_RANGE is not   *
+</span><span class='line'>*       processed anymore, that means this userexit has priority.     *
+</span><span class='line'>*       US_RANGE_INTERN - internal number range                       *
+</span><span class='line'>*       This form is called from form LV60AU02 and LV60AU11           *
+</span><span class='line'>&lt;em>———————————————————————&lt;/em>
+</span><span class='line'>form userexit_number_range_inv_date using us_range_intern.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;ul>
+</span><span class='line'>  &lt;li>Example: Number range from TVFK like in standard&lt;/li>
+</span><span class='line'>  &lt;li>US_RANGE_INTERN = TVFK-NUMKI.&lt;/li>
+</span><span class='line'>&lt;/ul>
+</span><span class='line'>
+</span><span class='line'>&lt;p>endform.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>&lt;em>———————————————————————&lt;/em>
+</span><span class='line'>*       FORM USEREXIT_FILL_VBRK_VBRP                                  *
+</span><span class='line'>&lt;em>———————————————————————&lt;/em>
+</span><span class='line'>*       This userexit can be used to fill fields in VBRK and VBRP     *
+</span><span class='line'>*       Be aware, that at this time the work areas KUAGV KURGV        *
+</span><span class='line'>*       KUWEV and KUREV are not filled.                               *
+</span><span class='line'>*       This form is called from FORM VBRK_VBRP_FUELLEN.              *
+</span><span class='line'>&lt;em>———————————————————————&lt;/em>
+</span><span class='line'>form userexit_fill_vbrk_vbrp.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;ul>
+</span><span class='line'>  &lt;li>Example: change Tax country
+</span><span class='line'>*{   INSERT         DEVK900070                                        1
+</span><span class='line'>*
+</span><span class='line'>*  主机销售业务VF01开票时（根据销售业务的产品组判断是否为主机销售业务：10 装载机类、11  平地机类、12 挖掘装载机类、13 矿用自卸车、14  其他整机类），
+</span><span class='line'>*查找销售订单行项目主机物料主数据中“销售组织数据2”中的“物料组2（MVGR2）”字段信息；查找销售订单行项目所对应的产品序列号（SERNR）；
+</span><span class='line'>*  替换VBRK-ZUONR字段内容为“物料组2（MVGR2）&amp;序列号（SERNR）“&lt;/li>
+</span><span class='line'>&lt;/ul>
+</span><span class='line'>
+</span><span class='line'>&lt;p>*
+</span><span class='line'>*if sy-uname eq ‘LOMOZM’.
+</span><span class='line'>**RETURN.
+</span><span class='line'>*BREAK-POINT.
+</span><span class='line'>*ENDIF.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>*data: lt_xvbrk like TABLE OF xvbrk WITH HEADER LINE.
+</span><span class='line'>*lt_xvbrk[] = xvbrk[].&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>if vbak-spart eq ‘10’ or vbak-spart eq ‘11’ or vbak-spart eq ‘12’ or vbak-spart eq ‘13’ or vbak-spart eq ‘14’.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>check vbak-auart ne ‘ZHOR’.  “排除自营出口销售定单类型&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>data: l_sernr type gernr,
+</span><span class='line'>        l_bezei type bezei40.
+</span><span class='line'>  clear: l_sernr.
+</span><span class='line'>  if lips is not initial.
+</span><span class='line'>     select single d~sernr into l_sernr
+</span><span class='line'>       from  ser01 as c inner join objk as d on c~obknr eq d~obknr
+</span><span class='line'>       where c~lief_nr eq lips-vbeln
+</span><span class='line'>*         and c~POSNR eq lips-POSNR
+</span><span class='line'>         and d~sernr ne ‘’
+</span><span class='line'>         and c~posnr eq ( select posnr from lips as a inner join mara as b on a~matnr eq b~matnr
+</span><span class='line'>                                              where vbeln eq lips-vbeln and b~mtart eq ‘FERT’ ).
+</span><span class='line'>  else.
+</span><span class='line'>     select single d~sernr into l_sernr
+</span><span class='line'>       from  ser02 as c inner join objk as d on c~obknr eq d~obknr
+</span><span class='line'>       where c~sdaufnr eq vbap-vbeln
+</span><span class='line'>*         and c~POSNR eq VBAP-POSNR
+</span><span class='line'>         and d~sernr ne ‘’
+</span><span class='line'>         and c~posnr eq ( select posnr from vbap as a inner join mara as b on a~matnr eq b~matnr
+</span><span class='line'>                                              where vbeln eq vbap-vbeln and b~mtart eq ‘FERT’ ).&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>endif.
+</span><span class='line'>  if l_sernr is not initial. “ and vbap-MVGR2 is not INITIAL.
+</span><span class='line'>*     select SINGLE BEZEI into l_BEZEI from TVM2T where MVGR2 eq vbap-MVGR2 and spras eq sy-langu.
+</span><span class='line'>*     if l_BEZEI is not INITIAL.
+</span><span class='line'>*         CONCATENATE l_BEZEI l_sernr+8(10) into VBRK-ZUONR SEPARATED BY ‘&amp;’.
+</span><span class='line'>*     endif.
+</span><span class='line'>     vbrk-zuonr = l_sernr.
+</span><span class='line'>  else.
+</span><span class='line'>*     MESSAGE E001(00) WITH ‘无法确定主机销售业务机型机号’.
+</span><span class='line'>  endif.
+</span><span class='line'>endif.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>*}   INSERT
+</span><span class='line'>* VBRK-LANDTX = T001-LAND1.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>endform.</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[MB1A - Goods movements - for unique batch number]]></title>
+    <link href="http://lomozm.github.io/blog/20131227/mb1a-goods-movements-for-unique-batch-number/"/>
+    <updated>2013-12-27T13:48:36+08:00</updated>
+    <id>http://lomozm.github.io/blog/20131227/mb1a-goods-movements-for-unique-batch-number</id>
+    <content type="html"><![CDATA[
+<h3 id="question">Question:</h3>
+
+<p>I am using the batch management for the raw materials ,When i do the GI to production order i enterd the batch number .But when i return excess material /defect material to wh (reversal of GI ) , system gave the message that "Caution! Internal number allocation for materials handled in batches" . As this is information message , The system  should allow same batch number which is used at the time of GI .</p>
+<!--more-->
+<p>What is name the user exit ? Or with the help of the configuaration can we control….</p>
+
+<h3 id="answer">Answer:</h3>
+
+<p>For unique batch number try these exits</p>
+<p><code>SAPLV01Z-LV01ZU05 XVBZ-&gt;EXIT_V01Z_002</code> <code>SAPLV01Z</code> CFCs for internal batch number assignment</p>
+<p><code>SAPLV01Z-LV01ZU07 XVBZ-&gt;EXIT_V01Z_003</code> <code>SAPLV1ZE</code> CFCs for external batch number assignment</p>
+<p>&lt;/p&gt;Also refer this link,&lt;/p&gt;
+<a href="http://help.sap.com/saphelp_40b/helpdata/ru/dc/1d4b6e5733d1118b3f0060b03ca329/content.htm">http://help.sap.com/saphelp_40b/helpdata/ru/dc/1d4b6e5733d1118b3f0060b03ca329/content.htm</a></p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[销售定单成本显示增强 - LV69AFZZ]]></title>

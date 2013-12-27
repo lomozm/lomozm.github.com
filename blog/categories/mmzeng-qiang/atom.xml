@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: MM增强 | lomozm’s Journal]]></title>
+  <link href="http://lomozm.github.io/blog/categories/mmzeng-qiang/atom.xml" rel="self"/>
+  <link href="http://lomozm.github.io/"/>
+  <updated>2013-12-27T14:02:17+08:00</updated>
+  <id>http://lomozm.github.io/</id>
+  <author>
+    <name><![CDATA[lomozm]]></name>
+    <email><![CDATA[18064095@qq.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[MB1A - Goods movements - for unique batch number]]></title>
+    <link href="http://lomozm.github.io/blog/20131227/mb1a-goods-movements-for-unique-batch-number/"/>
+    <updated>2013-12-27T13:48:36+08:00</updated>
+    <id>http://lomozm.github.io/blog/20131227/mb1a-goods-movements-for-unique-batch-number</id>
+    <content type="html"><![CDATA[
+<h3 id="question">Question:</h3>
+
+<p>I am using the batch management for the raw materials ,When i do the GI to production order i enterd the batch number .But when i return excess material /defect material to wh (reversal of GI ) , system gave the message that "Caution! Internal number allocation for materials handled in batches" . As this is information message , The system  should allow same batch number which is used at the time of GI .</p>
+<!--more-->
+<p>What is name the user exit ? Or with the help of the configuaration can we control….</p>
+
+<h3 id="answer">Answer:</h3>
+
+<p>For unique batch number try these exits</p>
+<p><code>SAPLV01Z-LV01ZU05 XVBZ-&gt;EXIT_V01Z_002</code> <code>SAPLV01Z</code> CFCs for internal batch number assignment</p>
+<p><code>SAPLV01Z-LV01ZU07 XVBZ-&gt;EXIT_V01Z_003</code> <code>SAPLV1ZE</code> CFCs for external batch number assignment</p>
+<p>&lt;/p&gt;Also refer this link,&lt;/p&gt;
+<a href="http://help.sap.com/saphelp_40b/helpdata/ru/dc/1d4b6e5733d1118b3f0060b03ca329/content.htm">http://help.sap.com/saphelp_40b/helpdata/ru/dc/1d4b6e5733d1118b3f0060b03ca329/content.htm</a></p>
+
+]]></content>
+  </entry>
+  
+</feed>
