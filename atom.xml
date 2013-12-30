@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-30T17:03:10+08:00</updated>
+  <updated>2013-12-30T17:07:46+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -18,7 +18,8 @@
     <link href="http://lomozm.github.io/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi/"/>
     <updated>2013-12-30T00:00:00+08:00</updated>
     <id>http://lomozm.github.io/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi</id>
-    <content type="html"><![CDATA[<h2 id="httplomozmgithubioappendixpopup-debugtxt-file-download">[1]: http://lomozm.github.io/appendix/popup debug.txt “File download”</h2>
+    <content type="html"><![CDATA[
+<hr />
 <p>layout: post
 title: “EVAL_FORMULA 公式计算测试”
 date: 2013-12-30 16:36:25 +0800
