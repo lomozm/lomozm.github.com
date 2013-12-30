@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ABAP技术 | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/abapji-zhu/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-30T16:54:21+08:00</updated>
+  <updated>2013-12-30T16:58:54+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -12,30 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[EVAL_FORMULA 公式计算测试]]></title>
-    <link href="http://lomozm.github.io/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi/"/>
-    <updated>2013-12-30T16:36:25+08:00</updated>
-    <id>http://lomozm.github.io/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi</id>
-    <content type="html"><![CDATA[
-<h3 id="section">应用场景</h3>
-<p>当客户需要的报表逻辑较复杂，同一种类的数据进行数据运算，或者再累计计算，或者排除等；如果在程序中写死的话，业务的变更会导致程序的变更，使维持工作量加大<br />
-SAP提供了一个函数，使报表运算过程可配置，提高了开发的灵活性<br />
-<!--more--></p>
-
-<h3 id="section-1">表定义</h3>
-<p><img src="/images/images/EVAL_FORMULA_test.files/image001.png" alt="m001" /><br />
-### 值输入
-<img src="/images/images/EVAL_FORMULA_test.files/image002.png" alt="m002" /><br />
-### 输出结果
-<img src="/images/images/EVAL_FORMULA_test.files/image003.png" alt="m003" /><br />
-### 程序代码
-<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;em>&amp;———————————————————————&lt;/em> &lt;em>&amp; Report  ZTEST03 &lt;/em>&amp; 公式计算测试 &lt;em>&amp;———————————————————————&lt;/em> &lt;em>&amp; &lt;/em>&amp; &lt;em>&amp;———————————————————————&lt;/em>  REPORT  ZTEST03. TYPE-POOLS:  slis. TABLES: ZTEST03_TB.  DATA: w_repid LIKE sy-repid,    w_title TYPE lvc_title,    tb_fieldcat TYPE slis_t_fieldcat_alv WITH HEADER LINE,    wa_fields TYPE LINE OF slis_t_fieldcat_alv,    tb_events TYPE slis_t_event WITH HEADER LINE,    wa_layout   TYPE lvc_s_layo,    wa_is_layout     TYPE slis_layout_alv. DATA: gs_layout   TYPE lvc_s_layo.  DATA: IT_TAB TYPE TABLE OF ZTEST03_TB WITH HEADER LINE. DATA: IT_TAB2 TYPE TABLE OF ZTEST03_TB WITH HEADER LINE.  START-OF-SELECTION.    REFRESH: IT_TAB, IT_TAB2.   SELECT &lt;em> INTO TABLE IT_TAB FROM ZTEST03_TB.   IT_TAB2[] = IT_TAB[].   LOOP AT IT_TAB WHERE CHAR02 IS NOT INITIAL.     PERFORM FRM_CALCULATE_VALUE USING IT_TAB-DATA1                                       IT_TAB-CHAR02.      MODIFY IT_TAB.   ENDLOOP.  END-OF-SELECTION.   PERFORM append_alv USING ’NUMBE’ ’行号’.   PERFORM append_alv USING ’CHAR01’ ’标识组1’.   PERFORM append_alv USING ’CHAR02’ ’标识组2’.   PERFORM append_alv USING ’DATA1’ ’值’.   PERFORM append_alv USING ’MEINS’ ’单位’.  perform display_alv tables it_tab.   FORM append_alv USING value(fieldname) TYPE c                     value(fieldtxt) TYPE c.   tb_fieldcat-fieldname    = fieldname.   tb_fieldcat-reptext_ddic = fieldtxt.   APPEND tb_fieldcat.CLEAR  tb_fieldcat. ENDFORM.                    ”append_alv  &lt;/em>&amp;———————————————————————&lt;em> &lt;/em>&amp;      Form  FRM_CALCULATE_VALUE &lt;em>&amp;———————————————————————&lt;/em> &lt;em>       text &lt;/em>———————————————————————-&lt;em> &lt;/em>      –&gt;P_ZVALUE   text &lt;em>      –&gt;P_ZJSGS    text &lt;/em>———————————————————————-&lt;em> FORM FRM_CALCULATE_VALUE USING P_ZVALUE                                P_ZJSGS. &lt;/em>  DATA: FORMEL TYPE FORMEL.   DATA: FORMEL(255) TYPE C.   DATA: G_REPID LIKE SY-REPID.   DATA: L_CC TYPE F.    FORMEL = P_ZJSGS.   G_REPID = SY-REPID. &lt;em> Work out formula   CALL FUNCTION ’EVAL_FORMULA’     EXPORTING       FORMULA = FORMEL       PROGRAM = G_REPID       ROUTINE = ’FRM_VAR_GET’ &lt;/em>        UNIT_OF_MEASURE = ’RMB’     IMPORTING       VALUE   =  L_CC     EXCEPTIONS       OTHERS  = 1.    P_ZVALUE = L_CC. ENDFORM.                    ” FRM_CALCULATE_VALUE &lt;em>&amp;———————————————————————&lt;/em> &lt;em>&amp;      Form  FRM_VAR_GET &lt;/em>&amp;———————————————————————&lt;em> &lt;/em>       text &lt;em>———————————————————————-&lt;/em> &lt;em>      –&gt;VALUE(NAME)   text &lt;/em>      –&gt;VALUE(VALUE)  text &lt;em>      –&gt;VALUE(SUBRC)  text &lt;/em>———————————————————————-&lt;em> FORM FRM_VAR_GET USING VALUE(NAME)          CHANGING VALUE(VALUE)                   VALUE(SUBRC).   SUBRC = 0.   VALUE = 0.   READ TABLE IT_TAB2 WITH KEY CHAR01 = NAME.   IF SY-SUBRC = 0.     VALUE = IT_TAB2-DATA1.   ELSE.     VALUE = 1.   ENDIF.  ENDFORM.                    ”FRM_VAR_GET &lt;/em>&amp;———————————————————————&lt;em> &lt;/em>&amp;      Form  DISPLAY_ALV &lt;em>&amp;———————————————————————&lt;/em> &lt;em>       text &lt;/em>———————————————————————-&lt;em> &lt;/em>      –&gt;P_IT_DATA  text &lt;em>———————————————————————-&lt;/em> FORM DISPLAY_ALV  tables  P_IT_DATA.   w_repid = sy-repid.   wa_is_layout-colwidth_optimize = ’X’.     ”adjust line width automatic   wa_is_layout-min_linesize      =  100.    ”   wa_is_layout-zebra      =  ’X’.    ”    CALL FUNCTION ’REUSE_ALV_GRID_DISPLAY’     EXPORTING       i_callback_program       = w_repid       is_layout                = wa_is_layout       it_fieldcat              = tb_fieldcat[] &lt;em>      i_save                   = ’A’ &lt;/em>      it_events                = tb_events[] &lt;em>      i_callback_pf_status_set = ’SET_PF_STATUS’ &lt;/em>      I_CALLBACK_USER_COMMAND  = L_USER_COMMAND     TABLES       t_outtab                 = P_IT_DATA[]     EXCEPTIONS       program_error            = 1       OTHERS                   = 2.    IF sy-subrc &lt;&gt; 0.     MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno            WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.   ENDIF.  ENDFORM.                    </span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[针对SAP程序强出窗口的调试]]></title>

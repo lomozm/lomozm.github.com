@@ -1,290 +1,308 @@
+<h2 id="httplomozmgithubioappendixpopup-debugtxt-file-download">[1]: http://lomozm.github.io/appendix/popup debug.txt “File download”</h2>
+<p>layout: post
+title: “EVAL_FORMULA 公式计算测试”
+date: 2013-12-30 16:36:25 +0800
+comments: true
+categories: ABAP技术
+—
+[m01]: /images/images/EVAL_FORMULA_test.files/image001.png
+[m02]: /images/images/EVAL_FORMULA_test.files/image002.png
+[m03]: /images/images/EVAL_FORMULA_test.files/image003.png</p>
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>EVAL_FORMULA 公式计算测试 - lomozm’s Journal</title>
-  <meta name="author" content="lomozm">
-
-  
-  <meta name="description" content="应用场景
-当客户需要的报表逻辑较复杂，同一种类的数据进行数据运算，或者再累计计算，或者排除等；如果在程序中写死的话，业务的变更会导致程序的变更，使维持工作量加大
-SAP提供了一个函数，使报表运算过程可配置，提高了开发的灵活性 表定义 ### 值输入 ### 输出结果 ### 程序代码 1
-*& &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://lomozm.github.io/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="lomozm’s Journal" type="application/atom+xml">
-  <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">lomozm’s Journal</a></h1>
-  
-    <h2>长得不帅，跑得不快；一如既往，永往向前...</h2>
-  
-  <div class="clear"></div>
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:lomozm.github.io" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">首页</a></li>
-  <li><a href="/blog/archives">文章列表</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      
-        <h1 class="entry-title">EVAL_FORMULA 公式计算测试</h1>
-      
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-30T16:36:25+08:00" pubdate data-updated="true">2013-12-30 Mon</time>
-        
-         | <a href="#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content">
 <h3 id="section">应用场景</h3>
 <p>当客户需要的报表逻辑较复杂，同一种类的数据进行数据运算，或者再累计计算，或者排除等；如果在程序中写死的话，业务的变更会导致程序的变更，使维持工作量加大<br />
 SAP提供了一个函数，使报表运算过程可配置，提高了开发的灵活性<br />
 <!--more--></p>
 
 <h3 id="section-1">表定义</h3>
-<p><img src="/images/images/EVAL_FORMULA_test.files/image001.png" alt="m001" /><br />
-### 值输入
-<img src="/images/images/EVAL_FORMULA_test.files/image002.png" alt="m002" /><br />
-### 输出结果
-<img src="/images/images/EVAL_FORMULA_test.files/image003.png" alt="m003" /><br />
-### 程序代码</p>
+<p>![m001][m01]<br /></p>
+
+<h3 id="section-2">值输入</h3>
+<p>![m002][m02]<br /></p>
+
+<h3 id="section-3">输出结果</h3>
+<p>![m003][m03]<br /></p>
+
+<h3 id="section-4">程序代码</h3>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">*&amp;---------------------------------------------------------------------* *&amp; Report  ZTEST03 *&amp; 公式计算测试 *&amp;---------------------------------------------------------------------* *&amp; *&amp; *&amp;---------------------------------------------------------------------*  REPORT  ZTEST03. TYPE-POOLS:  slis. TABLES: ZTEST03_TB.  DATA: w_repid LIKE sy-repid,    w_title TYPE lvc_title,    tb_fieldcat TYPE slis_t_fieldcat_alv WITH HEADER LINE,    wa_fields TYPE LINE OF slis_t_fieldcat_alv,    tb_events TYPE slis_t_event WITH HEADER LINE,    wa_layout   TYPE lvc_s_layo,    wa_is_layout     TYPE slis_layout_alv. DATA: gs_layout   TYPE lvc_s_layo.  DATA: IT_TAB TYPE TABLE OF ZTEST03_TB WITH HEADER LINE. DATA: IT_TAB2 TYPE TABLE OF ZTEST03_TB WITH HEADER LINE.  START-OF-SELECTION.    REFRESH: IT_TAB, IT_TAB2.   SELECT * INTO TABLE IT_TAB FROM ZTEST03_TB.   IT_TAB2[] = IT_TAB[].   LOOP AT IT_TAB WHERE CHAR02 IS NOT INITIAL.     PERFORM FRM_CALCULATE_VALUE USING IT_TAB-DATA1                                       IT_TAB-CHAR02.      MODIFY IT_TAB.   ENDLOOP.  END-OF-SELECTION.   PERFORM append_alv USING 'NUMBE' '行号'.   PERFORM append_alv USING 'CHAR01' '标识组1'.   PERFORM append_alv USING 'CHAR02' '标识组2'.   PERFORM append_alv USING 'DATA1' '值'.   PERFORM append_alv USING 'MEINS' '单位'.  perform display_alv tables it_tab.   FORM append_alv USING value(fieldname) TYPE c                     value(fieldtxt) TYPE c.   tb_fieldcat-fieldname    = fieldname.   tb_fieldcat-reptext_ddic = fieldtxt.   APPEND tb_fieldcat.CLEAR  tb_fieldcat. ENDFORM.                    "append_alv  *&amp;---------------------------------------------------------------------* *&amp;      Form  FRM_CALCULATE_VALUE *&amp;---------------------------------------------------------------------* *       text *----------------------------------------------------------------------* *      --&gt;P_ZVALUE   text *      --&gt;P_ZJSGS    text *----------------------------------------------------------------------* FORM FRM_CALCULATE_VALUE USING P_ZVALUE                                P_ZJSGS. *  DATA: FORMEL TYPE FORMEL.   DATA: FORMEL(255) TYPE C.   DATA: G_REPID LIKE SY-REPID.   DATA: L_CC TYPE F.    FORMEL = P_ZJSGS.   G_REPID = SY-REPID. * Work out formula   CALL FUNCTION 'EVAL_FORMULA'     EXPORTING       FORMULA = FORMEL       PROGRAM = G_REPID       ROUTINE = 'FRM_VAR_GET' *        UNIT_OF_MEASURE = 'RMB'     IMPORTING       VALUE   =  L_CC     EXCEPTIONS       OTHERS  = 1.    P_ZVALUE = L_CC. ENDFORM.                    " FRM_CALCULATE_VALUE *&amp;---------------------------------------------------------------------* *&amp;      Form  FRM_VAR_GET *&amp;---------------------------------------------------------------------* *       text *----------------------------------------------------------------------* *      --&gt;VALUE(NAME)   text *      --&gt;VALUE(VALUE)  text *      --&gt;VALUE(SUBRC)  text *----------------------------------------------------------------------* FORM FRM_VAR_GET USING VALUE(NAME)          CHANGING VALUE(VALUE)                   VALUE(SUBRC).   SUBRC = 0.   VALUE = 0.   READ TABLE IT_TAB2 WITH KEY CHAR01 = NAME.   IF SY-SUBRC = 0.     VALUE = IT_TAB2-DATA1.   ELSE.     VALUE = 1.   ENDIF.  ENDFORM.                    "FRM_VAR_GET *&amp;---------------------------------------------------------------------* *&amp;      Form  DISPLAY_ALV *&amp;---------------------------------------------------------------------* *       text *----------------------------------------------------------------------* *      --&gt;P_IT_DATA  text *----------------------------------------------------------------------* FORM DISPLAY_ALV  tables  P_IT_DATA.   w_repid = sy-repid.   wa_is_layout-colwidth_optimize = 'X'.     "adjust line width automatic   wa_is_layout-min_linesize      =  100.    "   wa_is_layout-zebra      =  'X'.    "    CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'     EXPORTING       i_callback_program       = w_repid       is_layout                = wa_is_layout       it_fieldcat              = tb_fieldcat[] *      i_save                   = 'A' *      it_events                = tb_events[] *      i_callback_pf_status_set = 'SET_PF_STATUS' *      I_CALLBACK_USER_COMMAND  = L_USER_COMMAND     TABLES       t_outtab                 = P_IT_DATA[]     EXCEPTIONS       program_error            = 1       OTHERS                   = 2.    IF sy-subrc &lt;&gt; 0.     MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno            WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.   ENDIF.  ENDFORM.                    </span></code></pre></td></tr></table></div></figure></notextile></div>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+<span class="line-number">62</span>
+<span class="line-number">63</span>
+<span class="line-number">64</span>
+<span class="line-number">65</span>
+<span class="line-number">66</span>
+<span class="line-number">67</span>
+<span class="line-number">68</span>
+<span class="line-number">69</span>
+<span class="line-number">70</span>
+<span class="line-number">71</span>
+<span class="line-number">72</span>
+<span class="line-number">73</span>
+<span class="line-number">74</span>
+<span class="line-number">75</span>
+<span class="line-number">76</span>
+<span class="line-number">77</span>
+<span class="line-number">78</span>
+<span class="line-number">79</span>
+<span class="line-number">80</span>
+<span class="line-number">81</span>
+<span class="line-number">82</span>
+<span class="line-number">83</span>
+<span class="line-number">84</span>
+<span class="line-number">85</span>
+<span class="line-number">86</span>
+<span class="line-number">87</span>
+<span class="line-number">88</span>
+<span class="line-number">89</span>
+<span class="line-number">90</span>
+<span class="line-number">91</span>
+<span class="line-number">92</span>
+<span class="line-number">93</span>
+<span class="line-number">94</span>
+<span class="line-number">95</span>
+<span class="line-number">96</span>
+<span class="line-number">97</span>
+<span class="line-number">98</span>
+<span class="line-number">99</span>
+<span class="line-number">100</span>
+<span class="line-number">101</span>
+<span class="line-number">102</span>
+<span class="line-number">103</span>
+<span class="line-number">104</span>
+<span class="line-number">105</span>
+<span class="line-number">106</span>
+<span class="line-number">107</span>
+<span class="line-number">108</span>
+<span class="line-number">109</span>
+<span class="line-number">110</span>
+<span class="line-number">111</span>
+<span class="line-number">112</span>
+<span class="line-number">113</span>
+<span class="line-number">114</span>
+<span class="line-number">115</span>
+<span class="line-number">116</span>
+<span class="line-number">117</span>
+<span class="line-number">118</span>
+<span class="line-number">119</span>
+<span class="line-number">120</span>
+<span class="line-number">121</span>
+<span class="line-number">122</span>
+<span class="line-number">123</span>
+<span class="line-number">124</span>
+<span class="line-number">125</span>
+<span class="line-number">126</span>
+<span class="line-number">127</span>
+<span class="line-number">128</span>
+<span class="line-number">129</span>
+<span class="line-number">130</span>
+<span class="line-number">131</span>
+<span class="line-number">132</span>
+<span class="line-number">133</span>
+<span class="line-number">134</span>
+<span class="line-number">135</span>
+<span class="line-number">136</span>
+<span class="line-number">137</span>
+<span class="line-number">138</span>
+<span class="line-number">139</span>
+<span class="line-number">140</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp; Report  ZTEST03
+</span><span class="line">*&amp; 公式计算测试
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp;
+</span><span class="line">*&amp;
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">
+</span><span class="line">REPORT  ZTEST03.
+</span><span class="line">TYPE-POOLS:  slis.
+</span><span class="line">TABLES: ZTEST03_TB.
+</span><span class="line">
+</span><span class="line">DATA: w_repid LIKE sy-repid,
+</span><span class="line">   w_title TYPE lvc_title,
+</span><span class="line">   tb_fieldcat TYPE slis_t_fieldcat_alv WITH HEADER LINE,
+</span><span class="line">   wa_fields TYPE LINE OF slis_t_fieldcat_alv,
+</span><span class="line">   tb_events TYPE slis_t_event WITH HEADER LINE,
+</span><span class="line">   wa_layout   TYPE lvc_s_layo,
+</span><span class="line">   wa_is_layout     TYPE slis_layout_alv.
+</span><span class="line">DATA: gs_layout   TYPE lvc_s_layo.
+</span><span class="line">
+</span><span class="line">DATA: IT_TAB TYPE TABLE OF ZTEST03_TB WITH HEADER LINE.
+</span><span class="line">DATA: IT_TAB2 TYPE TABLE OF ZTEST03_TB WITH HEADER LINE.
+</span><span class="line">
+</span><span class="line">START-OF-SELECTION.
+</span><span class="line">
+</span><span class="line">  REFRESH: IT_TAB, IT_TAB2.
+</span><span class="line">  SELECT * INTO TABLE IT_TAB FROM ZTEST03_TB.
+</span><span class="line">  IT_TAB2[] = IT_TAB[].
+</span><span class="line">  LOOP AT IT_TAB WHERE CHAR02 IS NOT INITIAL.
+</span><span class="line">    PERFORM FRM_CALCULATE_VALUE USING IT_TAB-DATA1
+</span><span class="line">                                      IT_TAB-CHAR02.
+</span><span class="line">
+</span><span class="line">    MODIFY IT_TAB.
+</span><span class="line">  ENDLOOP.
+</span><span class="line">
+</span><span class="line">END-OF-SELECTION.
+</span><span class="line">  PERFORM append_alv USING 'NUMBE' '行号'.
+</span><span class="line">  PERFORM append_alv USING 'CHAR01' '标识组1'.
+</span><span class="line">  PERFORM append_alv USING 'CHAR02' '标识组2'.
+</span><span class="line">  PERFORM append_alv USING 'DATA1' '值'.
+</span><span class="line">  PERFORM append_alv USING 'MEINS' '单位'.
+</span><span class="line">
+</span><span class="line">perform display_alv tables it_tab.
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">FORM append_alv USING value(fieldname) TYPE c
+</span><span class="line">                    value(fieldtxt) TYPE c.
+</span><span class="line">  tb_fieldcat-fieldname    = fieldname.
+</span><span class="line">  tb_fieldcat-reptext_ddic = fieldtxt.
+</span><span class="line">  APPEND tb_fieldcat.CLEAR  tb_fieldcat.
+</span><span class="line">ENDFORM.                    "append_alv
+</span><span class="line">
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp;      Form  FRM_CALCULATE_VALUE
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*       text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">*      --&gt;P_ZVALUE   text
+</span><span class="line">*      --&gt;P_ZJSGS    text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">FORM FRM_CALCULATE_VALUE USING P_ZVALUE
+</span><span class="line">                               P_ZJSGS.
+</span><span class="line">*  DATA: FORMEL TYPE FORMEL.
+</span><span class="line">  DATA: FORMEL(255) TYPE C.
+</span><span class="line">  DATA: G_REPID LIKE SY-REPID.
+</span><span class="line">  DATA: L_CC TYPE F.
+</span><span class="line">
+</span><span class="line">  FORMEL = P_ZJSGS.
+</span><span class="line">  G_REPID = SY-REPID.
+</span><span class="line">* Work out formula
+</span><span class="line">  CALL FUNCTION 'EVAL_FORMULA'
+</span><span class="line">    EXPORTING
+</span><span class="line">      FORMULA = FORMEL
+</span><span class="line">      PROGRAM = G_REPID
+</span><span class="line">      ROUTINE = 'FRM_VAR_GET'
+</span><span class="line">*        UNIT_OF_MEASURE = 'RMB'
+</span><span class="line">    IMPORTING
+</span><span class="line">      VALUE   =  L_CC
+</span><span class="line">    EXCEPTIONS
+</span><span class="line">      OTHERS  = 1.
+</span><span class="line">
+</span><span class="line">  P_ZVALUE = L_CC.
+</span><span class="line">ENDFORM.                    " FRM_CALCULATE_VALUE
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp;      Form  FRM_VAR_GET
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*       text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">*      --&gt;VALUE(NAME)   text
+</span><span class="line">*      --&gt;VALUE(VALUE)  text
+</span><span class="line">*      --&gt;VALUE(SUBRC)  text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">FORM FRM_VAR_GET USING VALUE(NAME)
+</span><span class="line">         CHANGING VALUE(VALUE)
+</span><span class="line">                  VALUE(SUBRC).
+</span><span class="line">  SUBRC = 0.
+</span><span class="line">  VALUE = 0.
+</span><span class="line">  READ TABLE IT_TAB2 WITH KEY CHAR01 = NAME.
+</span><span class="line">  IF SY-SUBRC = 0.
+</span><span class="line">    VALUE = IT_TAB2-DATA1.
+</span><span class="line">  ELSE.
+</span><span class="line">    VALUE = 1.
+</span><span class="line">  ENDIF.
+</span><span class="line">
+</span><span class="line">ENDFORM.                    "FRM_VAR_GET
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp;      Form  DISPLAY_ALV
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*       text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">*      --&gt;P_IT_DATA  text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">FORM DISPLAY_ALV  tables  P_IT_DATA.
+</span><span class="line">  w_repid = sy-repid.
+</span><span class="line">  wa_is_layout-colwidth_optimize = 'X'.     "adjust line width automatic
+</span><span class="line">  wa_is_layout-min_linesize      =  100.    "
+</span><span class="line">  wa_is_layout-zebra      =  'X'.    "
+</span><span class="line">
+</span><span class="line">  CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+</span><span class="line">    EXPORTING
+</span><span class="line">      i_callback_program       = w_repid
+</span><span class="line">      is_layout                = wa_is_layout
+</span><span class="line">      it_fieldcat              = tb_fieldcat[]
+</span><span class="line">*      i_save                   = 'A'
+</span><span class="line">*      it_events                = tb_events[]
+</span><span class="line">*      i_callback_pf_status_set = 'SET_PF_STATUS'
+</span><span class="line">*      I_CALLBACK_USER_COMMAND  = L_USER_COMMAND
+</span><span class="line">    TABLES
+</span><span class="line">      t_outtab                 = P_IT_DATA[]
+</span><span class="line">    EXCEPTIONS
+</span><span class="line">      program_error            = 1
+</span><span class="line">      OTHERS                   = 2.
+</span><span class="line">
+</span><span class="line">  IF sy-subrc &lt;&gt; 0.
+</span><span class="line">    MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno
+</span><span class="line">           WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
+</span><span class="line">  ENDIF.
+</span><span class="line">
+</span><span class="line">ENDFORM.</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">lomozm</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-30T16:36:25+08:00" pubdate data-updated="true">2013-12-30 Mon</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/abapji-zhu/'>ABAP技术</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/20131227/wu-liao-bian-ma-sheng-cheng-slash-xiao-yan-zeng-qiang-%28mm01%29/" title="Previous Post: 物料编码生成/校验增强（MM01）">&laquo; 物料编码生成/校验增强（MM01）</a>
-      
-      
-    </p>
-  </footer>
-</article>
-
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    
-<section> 
-    <img class="center" src="/images/myTitle/title.jpg">
-
- <h1>关于我</h1>
- <ul>
-    <li>
-    做过些SAP项目，时有心得<br>
-    其它种种....
-    </li>
- </ul> 
-</section>
-<section>
-  <h1>最新文章</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi/">EVAL_FORMULA 公式计算测试</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/20131227/wu-liao-bian-ma-sheng-cheng-slash-xiao-yan-zeng-qiang-%28mm01%29/">物料编码生成/校验增强（MM01）</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/20131227/xiao-shou-kai-piao-geng-gai-ping-zheng-tai-tou-he-xing-xiang-mu-rv60afzc/">销售开票更改凭证抬头和行项目 - RV60AFZC</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/20131227/mb1a-goods-movements-for-unique-batch-number/">MB1A - Goods Movements - for Unique Batch Number</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/20131226/xiao-shou-shou-fa-huo-badi-le-shp-delivery-proc/">销售售发货badi - LE_SHP_DELIVERY_PROC</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/20131226/xiao-shou-ding-dan-cheng-ben-xian-shi-zeng-qiang-lv69afzz/">销售定单成本显示增强 - LV69AFZZ</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/20131226/bwceng-ci-zhu-shu-ju-jia-zai/">BW层次主数据加载</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/20131225/sapgong-zuo-liu-kai-fa-shi-li/">SAP工作流开发实例</a>
-      </li>
-    
-  </ul>
-</section>
-<section>
-  <h1>最新评论</h1>
-  <script type="text/javascript" src="http://lomozm.disqus.com/recent_comments_widget.js?num_items=10&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
-</section>
-<section> 
-  <h1>文章分类</h1> 
-  <ul id="categories"> 
-    <li class='category'><a href='/blog/categories/abapji-zhu/'>ABAP技术 (2)</a></li>
-<li class='category'><a href='/blog/categories/badis/'>BADIs (1)</a></li>
-<li class='category'><a href='/blog/categories/bwetl/'>BWETL (1)</a></li>
-<li class='category'><a href='/blog/categories/exits/'>Exits (4)</a></li>
-<li class='category'><a href='/blog/categories/mmzeng-qiang/'>MM增强 (2)</a></li>
-<li class='category'><a href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数 (2)</a></li>
-<li class='category'><a href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数 (4)</a></li>
-<li class='category'><a href='/blog/categories/sdzeng-qiang/'>SD增强 (3)</a></li>
-<li class='category'><a href='/blog/categories/workflow/'>Workflow (1)</a></li>
-<li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
- 
-  </ul> 
-</section>
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - lomozm -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'lomozm';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://lomozm.github.io/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi/';
-        var disqus_url = 'http://lomozm.github.io/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-
-
-
-
-
-
-
-
-</body>
-</html>
