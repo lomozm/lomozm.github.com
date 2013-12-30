@@ -1,28 +1,125 @@
 
-<hr />
-<p>layout: post
-title: “EVAL_FORMULA 公式计算测试”
-date: 2013-12-30 16:36:25 +0800
-comments: true
-categories: ABAP技术
-—
-[m01]: /images/images/EVAL_FORMULA_test.files/image001.png
-[m02]: /images/images/EVAL_FORMULA_test.files/image003.png
-[m03]: /images/images/EVAL_FORMULA_test.files/image005.png</p>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>EVAL_FORMULA 公式计算测试 - lomozm’s Journal</title>
+  <meta name="author" content="lomozm">
 
+  
+  <meta name="description" content="应用场景
+当客户需要的报表逻辑较复杂，同一种类的数据进行数据运算，或者再累计计算，或者排除等；如果在程序中写死的话，业务的变更会导致程序的变更，使维持工作量加大
+SAP提供了一个函数，使报表运算过程可配置，提高了开发的灵活性 表定义 值输入 输出结果 程序代码 1
+2
+3
+4
+5
+6
+7
+8
+9 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://lomozm.github.io/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="lomozm’s Journal" type="application/atom+xml">
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">lomozm’s Journal</a></h1>
+  
+    <h2>长得不帅，跑得不快；一如既往，永往向前...</h2>
+  
+  <div class="clear"></div>
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:lomozm.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">文章列表</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      
+        <h1 class="entry-title">EVAL_FORMULA 公式计算测试</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-30T16:36:25+08:00" pubdate data-updated="true">2013-12-30 Mon</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">
 <h3 id="section">应用场景</h3>
 <p>当客户需要的报表逻辑较复杂，同一种类的数据进行数据运算，或者再累计计算，或者排除等；如果在程序中写死的话，业务的变更会导致程序的变更，使维持工作量加大<br />
 SAP提供了一个函数，使报表运算过程可配置，提高了开发的灵活性<br />
 <!--more--></p>
 
 <h3 id="section-1">表定义</h3>
-<p>![m001][m01]</p>
+<p><img src="/images/images/EVAL_FORMULA_test.files/image001.png" alt="m001" /></p>
 
 <h3 id="section-2">值输入</h3>
-<p>![m002][m02]</p>
+<p><img src="/images/images/EVAL_FORMULA_test.files/image003.png" alt="m002" /></p>
 
 <h3 id="section-3">输出结果</h3>
-<p>![m003][m03]</p>
+<p><img src="/images/images/EVAL_FORMULA_test.files/image005.png" alt="m003" /></p>
 
 <h3 id="section-4">程序代码</h3>
 
@@ -307,3 +404,175 @@ SAP提供了一个函数，使报表运算过程可配置，提高了开发的�
 </span><span class="line">
 </span><span class="line">ENDFORM.</span></code></pre></td></tr></table></div></figure></notextile></div>
 
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">lomozm</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-30T16:36:25+08:00" pubdate data-updated="true">2013-12-30 Mon</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/abapji-zhu/'>ABAP技术</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/20131227/wu-liao-bian-ma-sheng-cheng-slash-xiao-yan-zeng-qiang-%28mm01%29/" title="Previous Post: 物料编码生成/校验增强（MM01）">&laquo; 物料编码生成/校验增强（MM01）</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    
+<section> 
+    <img class="center" src="/images/myTitle/title.jpg">
+
+ <h1>关于我</h1>
+ <ul>
+    <li>
+    做过些SAP项目，时有心得<br>
+    其它种种....
+    </li>
+ </ul> 
+</section>
+<section>
+  <h1>最新文章</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi/">EVAL_FORMULA 公式计算测试</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20131227/wu-liao-bian-ma-sheng-cheng-slash-xiao-yan-zeng-qiang-%28mm01%29/">物料编码生成/校验增强（MM01）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20131227/xiao-shou-kai-piao-geng-gai-ping-zheng-tai-tou-he-xing-xiang-mu-rv60afzc/">销售开票更改凭证抬头和行项目 - RV60AFZC</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20131227/mb1a-goods-movements-for-unique-batch-number/">MB1A - Goods Movements - for Unique Batch Number</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20131226/xiao-shou-shou-fa-huo-badi-le-shp-delivery-proc/">销售售发货badi - LE_SHP_DELIVERY_PROC</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20131226/xiao-shou-ding-dan-cheng-ben-xian-shi-zeng-qiang-lv69afzz/">销售定单成本显示增强 - LV69AFZZ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20131226/bwceng-ci-zhu-shu-ju-jia-zai/">BW层次主数据加载</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20131225/sapgong-zuo-liu-kai-fa-shi-li/">SAP工作流开发实例</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>最新评论</h1>
+  <script type="text/javascript" src="http://lomozm.disqus.com/recent_comments_widget.js?num_items=10&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
+</section>
+<section> 
+  <h1>文章分类</h1> 
+  <ul id="categories"> 
+    <li class='category'><a href='/blog/categories/abapji-zhu/'>ABAP技术 (2)</a></li>
+<li class='category'><a href='/blog/categories/badis/'>BADIs (1)</a></li>
+<li class='category'><a href='/blog/categories/bwetl/'>BWETL (1)</a></li>
+<li class='category'><a href='/blog/categories/exits/'>Exits (4)</a></li>
+<li class='category'><a href='/blog/categories/mmzeng-qiang/'>MM增强 (2)</a></li>
+<li class='category'><a href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数 (2)</a></li>
+<li class='category'><a href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数 (4)</a></li>
+<li class='category'><a href='/blog/categories/sdzeng-qiang/'>SD增强 (3)</a></li>
+<li class='category'><a href='/blog/categories/workflow/'>Workflow (1)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
+ 
+  </ul> 
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - lomozm -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'lomozm';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://lomozm.github.io/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi/';
+        var disqus_url = 'http://lomozm.github.io/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

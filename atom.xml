@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-30T17:10:08+08:00</updated>
+  <updated>2013-12-30T17:11:59+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -14,35 +14,24 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Eval Formula Gong Shi Ji Suan Ce Shi]]></title>
+    <title type="html"><![CDATA[EVAL_FORMULA 公式计算测试]]></title>
     <link href="http://lomozm.github.io/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi/"/>
-    <updated>2013-12-30T00:00:00+08:00</updated>
+    <updated>2013-12-30T16:36:25+08:00</updated>
     <id>http://lomozm.github.io/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi</id>
     <content type="html"><![CDATA[
-<hr />
-<p>layout: post
-title: “EVAL_FORMULA 公式计算测试”
-date: 2013-12-30 16:36:25 +0800
-comments: true
-categories: ABAP技术
-—
-[m01]: /images/images/EVAL_FORMULA_test.files/image001.png
-[m02]: /images/images/EVAL_FORMULA_test.files/image003.png
-[m03]: /images/images/EVAL_FORMULA_test.files/image005.png</p>
-
 <h3 id="section">应用场景</h3>
 <p>当客户需要的报表逻辑较复杂，同一种类的数据进行数据运算，或者再累计计算，或者排除等；如果在程序中写死的话，业务的变更会导致程序的变更，使维持工作量加大<br />
 SAP提供了一个函数，使报表运算过程可配置，提高了开发的灵活性<br />
 <!--more--></p>
 
 <h3 id="section-1">表定义</h3>
-<p>![m001][m01]</p>
+<p><img src="http://lomozm.github.io/images/images/EVAL_FORMULA_test.files/image001.png" alt="m001" /></p>
 
 <h3 id="section-2">值输入</h3>
-<p>![m002][m02]</p>
+<p><img src="http://lomozm.github.io/images/images/EVAL_FORMULA_test.files/image003.png" alt="m002" /></p>
 
 <h3 id="section-3">输出结果</h3>
-<p>![m003][m03]</p>
+<p><img src="http://lomozm.github.io/images/images/EVAL_FORMULA_test.files/image005.png" alt="m003" /></p>
 
 <h3 id="section-4">程序代码</h3>
 

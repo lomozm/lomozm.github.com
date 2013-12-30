@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ABAP技术 | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/abapji-zhu/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-30T17:10:08+08:00</updated>
+  <updated>2013-12-30T17:11:59+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -12,6 +12,313 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[EVAL_FORMULA 公式计算测试]]></title>
+    <link href="http://lomozm.github.io/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi/"/>
+    <updated>2013-12-30T16:36:25+08:00</updated>
+    <id>http://lomozm.github.io/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi</id>
+    <content type="html"><![CDATA[
+<h3 id="section">应用场景</h3>
+<p>当客户需要的报表逻辑较复杂，同一种类的数据进行数据运算，或者再累计计算，或者排除等；如果在程序中写死的话，业务的变更会导致程序的变更，使维持工作量加大<br />
+SAP提供了一个函数，使报表运算过程可配置，提高了开发的灵活性<br />
+<!--more--></p>
+
+<h3 id="section-1">表定义</h3>
+<p><img src="/images/images/EVAL_FORMULA_test.files/image001.png" alt="m001" /></p>
+
+<h3 id="section-2">值输入</h3>
+<p><img src="/images/images/EVAL_FORMULA_test.files/image003.png" alt="m002" /></p>
+
+<h3 id="section-3">输出结果</h3>
+<p><img src="/images/images/EVAL_FORMULA_test.files/image005.png" alt="m003" /></p>
+
+<h3 id="section-4">程序代码</h3>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;em>&amp;———————————————————————&lt;/em>
+</span><span class='line'>&lt;em>&amp; Report  ZTEST03
+</span><span class='line'>*&amp; 公式计算测试
+</span><span class='line'>*&amp;———————————————————————&lt;/em>
+</span><span class='line'>&lt;em>&amp;
+</span><span class='line'>*&amp;
+</span><span class='line'>*&amp;———————————————————————&lt;/em>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>REPORT  ZTEST03.
+</span><span class='line'>TYPE-POOLS:  slis.
+</span><span class='line'>TABLES: ZTEST03_TB.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>DATA: w_repid LIKE sy-repid,
+</span><span class='line'>   w_title TYPE lvc_title,
+</span><span class='line'>   tb_fieldcat TYPE slis_t_fieldcat_alv WITH HEADER LINE,
+</span><span class='line'>   wa_fields TYPE LINE OF slis_t_fieldcat_alv,
+</span><span class='line'>   tb_events TYPE slis_t_event WITH HEADER LINE,
+</span><span class='line'>   wa_layout   TYPE lvc_s_layo,
+</span><span class='line'>   wa_is_layout     TYPE slis_layout_alv.
+</span><span class='line'>DATA: gs_layout   TYPE lvc_s_layo.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>DATA: IT_TAB TYPE TABLE OF ZTEST03_TB WITH HEADER LINE.
+</span><span class='line'>DATA: IT_TAB2 TYPE TABLE OF ZTEST03_TB WITH HEADER LINE.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>START-OF-SELECTION.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>REFRESH: IT_TAB, IT_TAB2.
+</span><span class='line'>  SELECT * INTO TABLE IT_TAB FROM ZTEST03_TB.
+</span><span class='line'>  IT_TAB2[] = IT_TAB[].
+</span><span class='line'>  LOOP AT IT_TAB WHERE CHAR02 IS NOT INITIAL.
+</span><span class='line'>    PERFORM FRM_CALCULATE_VALUE USING IT_TAB-DATA1
+</span><span class='line'>                                      IT_TAB-CHAR02.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>MODIFY IT_TAB.   ENDLOOP.
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>END-OF-SELECTION.
+</span><span class='line'>  PERFORM append_alv USING ‘NUMBE’ ‘行号’.
+</span><span class='line'>  PERFORM append_alv USING ‘CHAR01’ ‘标识组1’.
+</span><span class='line'>  PERFORM append_alv USING ‘CHAR02’ ‘标识组2’.
+</span><span class='line'>  PERFORM append_alv USING ‘DATA1’ ‘值’.
+</span><span class='line'>  PERFORM append_alv USING ‘MEINS’ ‘单位’.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>perform display_alv tables it_tab.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>FORM append_alv USING value(fieldname) TYPE c
+</span><span class='line'>                    value(fieldtxt) TYPE c.
+</span><span class='line'>  tb_fieldcat-fieldname    = fieldname.
+</span><span class='line'>  tb_fieldcat-reptext_ddic = fieldtxt.
+</span><span class='line'>  APPEND tb_fieldcat.CLEAR  tb_fieldcat.
+</span><span class='line'>ENDFORM.                    “append_alv&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>&lt;em>&amp;———————————————————————&lt;/em>
+</span><span class='line'>&lt;em>&amp;      Form  FRM_CALCULATE_VALUE
+</span><span class='line'>*&amp;———————————————————————&lt;/em>
+</span><span class='line'>*       text
+</span><span class='line'>&lt;em>———————————————————————-&lt;/em>
+</span><span class='line'>*      –&gt;P_ZVALUE   text
+</span><span class='line'>*      –&gt;P_ZJSGS    text
+</span><span class='line'>&lt;em>———————————————————————-&lt;/em>
+</span><span class='line'>FORM FRM_CALCULATE_VALUE USING P_ZVALUE
+</span><span class='line'>                               P_ZJSGS.
+</span><span class='line'>*  DATA: FORMEL TYPE FORMEL.
+</span><span class='line'>  DATA: FORMEL(255) TYPE C.
+</span><span class='line'>  DATA: G_REPID LIKE SY-REPID.
+</span><span class='line'>  DATA: L_CC TYPE F.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>FORMEL = P_ZJSGS.
+</span><span class='line'>  G_REPID = SY-REPID.
+</span><span class='line'>* Work out formula
+</span><span class='line'>  CALL FUNCTION ‘EVAL_FORMULA’
+</span><span class='line'>    EXPORTING
+</span><span class='line'>      FORMULA = FORMEL
+</span><span class='line'>      PROGRAM = G_REPID
+</span><span class='line'>      ROUTINE = ‘FRM_VAR_GET’
+</span><span class='line'>*        UNIT_OF_MEASURE = ‘RMB’
+</span><span class='line'>    IMPORTING
+</span><span class='line'>      VALUE   =  L_CC
+</span><span class='line'>    EXCEPTIONS
+</span><span class='line'>      OTHERS  = 1.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>P_ZVALUE = L_CC.
+</span><span class='line'>ENDFORM.                    “ FRM_CALCULATE_VALUE
+</span><span class='line'>&lt;em>&amp;———————————————————————&lt;/em>
+</span><span class='line'>&lt;em>&amp;      Form  FRM_VAR_GET
+</span><span class='line'>*&amp;———————————————————————&lt;/em>
+</span><span class='line'>*       text
+</span><span class='line'>&lt;em>———————————————————————-&lt;/em>
+</span><span class='line'>*      –&gt;VALUE(NAME)   text
+</span><span class='line'>*      –&gt;VALUE(VALUE)  text
+</span><span class='line'>*      –&gt;VALUE(SUBRC)  text
+</span><span class='line'>&lt;em>———————————————————————-&lt;/em>
+</span><span class='line'>FORM FRM_VAR_GET USING VALUE(NAME)
+</span><span class='line'>         CHANGING VALUE(VALUE)
+</span><span class='line'>                  VALUE(SUBRC).
+</span><span class='line'>  SUBRC = 0.
+</span><span class='line'>  VALUE = 0.
+</span><span class='line'>  READ TABLE IT_TAB2 WITH KEY CHAR01 = NAME.
+</span><span class='line'>  IF SY-SUBRC = 0.
+</span><span class='line'>    VALUE = IT_TAB2-DATA1.
+</span><span class='line'>  ELSE.
+</span><span class='line'>    VALUE = 1.
+</span><span class='line'>  ENDIF.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>ENDFORM.                    “FRM_VAR_GET
+</span><span class='line'>&lt;em>&amp;———————————————————————&lt;/em>
+</span><span class='line'>&lt;em>&amp;      Form  DISPLAY_ALV
+</span><span class='line'>*&amp;———————————————————————&lt;/em>
+</span><span class='line'>*       text
+</span><span class='line'>&lt;em>———————————————————————-&lt;/em>
+</span><span class='line'>*      –&gt;P_IT_DATA  text
+</span><span class='line'>&lt;em>———————————————————————-&lt;/em>
+</span><span class='line'>FORM DISPLAY_ALV  tables  P_IT_DATA.
+</span><span class='line'>  w_repid = sy-repid.
+</span><span class='line'>  wa_is_layout-colwidth_optimize = ‘X’.     “adjust line width automatic
+</span><span class='line'>  wa_is_layout-min_linesize      =  100.    “
+</span><span class='line'>  wa_is_layout-zebra      =  ‘X’.    “&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>CALL FUNCTION ‘REUSE_ALV_GRID_DISPLAY’
+</span><span class='line'>    EXPORTING
+</span><span class='line'>      i_callback_program       = w_repid
+</span><span class='line'>      is_layout                = wa_is_layout
+</span><span class='line'>      it_fieldcat              = tb_fieldcat[]
+</span><span class='line'>*      i_save                   = ‘A’
+</span><span class='line'>*      it_events                = tb_events[]
+</span><span class='line'>*      i_callback_pf_status_set = ‘SET_PF_STATUS’
+</span><span class='line'>*      I_CALLBACK_USER_COMMAND  = L_USER_COMMAND
+</span><span class='line'>    TABLES
+</span><span class='line'>      t_outtab                 = P_IT_DATA[]
+</span><span class='line'>    EXCEPTIONS
+</span><span class='line'>      program_error            = 1
+</span><span class='line'>      OTHERS                   = 2.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>IF sy-subrc &lt;&gt; 0.
+</span><span class='line'>    MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno
+</span><span class='line'>           WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
+</span><span class='line'>  ENDIF.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>ENDFORM. &lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[针对SAP程序强出窗口的调试]]></title>
