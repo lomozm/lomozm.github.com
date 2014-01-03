@@ -11,8 +11,8 @@
   
   <meta name="description" content="场景
 用户在使用migo收货时，发现同一物料同一批次不能同时处理，错误消息是：物料###的批次##被用户##锁定 解决方法
-见notes:1523750 - MIGO: Message M3682 during goods movement to same batch 注意：
-1. &hellip;">
+见notes:1523750 - MIGO: Message M3682 during goods movement to same batch
+使用badi: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -105,11 +105,13 @@
 
 <h3 id="section-1">解决方法</h3>
 <p>见notes:1523750 - MIGO: Message M3682 during goods movement to same batch<br />
+使用badi: BATCH_MASTER<br />
+method: LOCK_BATCH_MASTER_IN_MIGO<br />
 <!--more--></p>
 
 <p>注意：<br />
 1. notes中关于版本的描述，打这个notes时，相关notes也必须打上<br />
-2. 锁数据查看事务代码：sm12
+2. 锁数据查看事务代码：sm12<br />
 3. badi调用的函数：VB_ENQUEUE_BATCH<br /></p>
 
 <h3 id="section-2">出口代码</h3>

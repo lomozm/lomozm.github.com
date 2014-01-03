@@ -9,11 +9,10 @@
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="
-场景
+  <meta name="description" content="场景
 用户在使用migo收货时，发现同一物料同一批次不能同时处理，错误消息是：物料###的批次##被用户##锁定 解决方法
 见notes:1523750 - MIGO: Message M3682 during goods movement to same batch
-">
+使用badi: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -109,6 +108,8 @@
 
 <h3 id="section-1">解决方法</h3>
 <p>见notes:1523750 - MIGO: Message M3682 during goods movement to same batch<br />
+使用badi: BATCH_MASTER<br />
+method: LOCK_BATCH_MASTER_IN_MIGO<br />
 </div>
   
   
