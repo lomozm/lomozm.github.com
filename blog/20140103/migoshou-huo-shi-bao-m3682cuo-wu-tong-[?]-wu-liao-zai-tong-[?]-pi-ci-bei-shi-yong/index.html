@@ -5,15 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>My first octopress blog - lomozm’s Journal</title>
+  <title>MIGO收货时报M3682错误(同一物料在同一批次被使用) - lomozm’s Journal</title>
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="话说第一篇blog是关于octopress的，魔咒啊！
-很早就有建自己blog的想法，最近项目空闲，总算是实现了，也不尽完美
-octopress主要优点就是可以绑定自己的域名 基础搭建
-参船长的文档利用Octopress搭建一个Github博客 导航和评论
-参照冯威的Octopress博客设置 &hellip;">
+  <meta name="description" content="场景
+用户在使用migo收货时，发现同一物料同一批次不能同时处理，错误消息是：物料###的批次##被用户##锁定 解决方法
+见notes:1523750 - MIGO: Message M3682 during goods movement to same batch 注意：
+1. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -22,7 +21,7 @@ octopress主要优点就是可以绑定自己的域名 基础搭建
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://lomozm.github.io/blog/20131223/my-first-octopress-blog/">
+  <link rel="canonical" href="http://lomozm.github.io/blog/20140103/migoshou-huo-shi-bao-m3682cuo-wu-tong-%5B%3F%5D-wu-liao-zai-tong-%5B%3F%5D-pi-ci-bei-shi-yong/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -74,7 +73,7 @@ octopress主要优点就是可以绑定自己的域名 基础搭建
   <header>
     
       
-        <h1 class="entry-title">My First Octopress Blog</h1>
+        <h1 class="entry-title">MIGO收货时报M3682错误(同一物料在同一批次被使用)</h1>
       
     
     
@@ -91,7 +90,7 @@ octopress主要优点就是可以绑定自己的域名 基础搭建
   
 
 
-<time datetime="2013-12-23T13:14:39+08:00" pubdate data-updated="true">2013-12-23 Mon</time>
+<time datetime="2014-01-03T16:21:47+08:00" pubdate data-updated="true">2014-01-03 Fri</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -101,74 +100,19 @@ octopress主要优点就是可以绑定自己的域名 基础搭建
 
 
 <div class="entry-content">
-<p>话说第一篇blog是关于octopress的，魔咒啊！<br />
-很早就有建自己blog的想法，最近项目空闲，总算是实现了，也不尽完美<br /><br />
-octopress主要优点就是可以绑定自己的域名<br />
+<h3 id="section">场景</h3>
+<p>用户在使用migo收货时，发现同一物料同一批次不能同时处理，错误消息是：物料###的批次##被用户##锁定<br /></p>
+
+<h3 id="section-1">解决方法</h3>
+<p>见notes:1523750 - MIGO: Message M3682 during goods movement to same batch<br />
 <!--more--></p>
-<h3>基础搭建</h3>
-<p>参船长的文档<a href="http://beyondvincent.com/blog/2013/08/03/108-creating-a-github-blog-using-octopress">利用Octopress搭建一个Github博客</a>
-<br /></p>
-<h3>导航和评论</h3>
-<p>参照冯威的<a href="http://www.cnblogs.com/oec2003/archive/2013/05/31/3109577.html">Octopress博客设置</a>
-<br /></p>
-<p>说明一下，里面<code>category_list_tag.rb</code>文件内容要做些更改，因为github地址栏不支持中文
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">module Jekyll 
-</span><span class="line">  class CategoryListTag &lt; Liquid::Tag 
-</span><span class="line">    def render(context) 
-</span><span class="line">      html = "" 
-</span><span class="line">      categories = context.registers[:site].categories.keys 
-</span><span class="line">      categories.sort.each do |category| 
-</span><span class="line">        posts_in_category = context.registers[:site].categories[category].size 
-</span><span class="line">        category_dir = context.registers[:site].config['category_dir']
-</span><span class="line">        category_url = File.join(category_dir, category.to_url)
-</span><span class="line">        html &lt;&lt; "&lt;li class='category'&gt;&lt;a href='/#{category_url}/'&gt;#{category} (#{posts_in_category})&lt;/a&gt;&lt;/li&gt;\n" 
-</span><span class="line">      end 
-</span><span class="line">      html 
-</span><span class="line">    end 
-</span><span class="line">  end 
-</span><span class="line">end
-</span><span class="line">
-</span><span class="line">Liquid::Template.register_tag('category_list', Jekyll::CategoryListTag)
-</span><span class="line">require 'stringex'</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>注意：<br />
+1. notes中关于版本的描述，打这个notes时，相关notes也必须打上<br />
+2. 锁数据查看事务代码：sm12
+3. badi调用的函数：VB_ENQUEUE_BATCH<br /></p>
 
-</p>
-
-<h3>其它</h3>
-<p>改变图标<a href="http://brianbuccola.github.io/blog/2012-11-29-how-to-change-the-favicon-in-octopress.html">How to Change the Favicon in Octopress</a><br />
-插入链接<a href="http://wowubuntu.com/markdown">Markdown 语法说明</a>(注意：如果链接是以”/“结尾的，需把它去掉)<br />
-其它技巧<a href="http://blog.jackphil.com/blog/2012/05/16/octopress-tips">Octopress技巧集</a><br /></p>
-<p>对于配置文件<code>_config.yml</code>的一些更改
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">permalink: /blog/:year:month:day/:title/
-</span><span class="line">markdown: kramdown
-</span><span class="line">excerpt_link: "阅读全文…” 
-</span><span class="line">default_asides: [asides/title_pic.html, asides/recent_posts.html, custom/asides/recent_comment.html, asides/category_list.html]</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-</p>
-<h3>附上整理的Markdown部分语法</h3>
+<h3 id="section-2">出口代码</h3>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -191,30 +135,106 @@ octopress主要优点就是可以绑定自己的域名<br />
 <span class="line-number">19</span>
 <span class="line-number">20</span>
 <span class="line-number">21</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">octopress发布blog常用格式
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">method IF_EX_BATCH_MASTER~LOCK_BATCH_MASTER_IN_MIGO.
 </span><span class="line">
-</span><span class="line">sudo rake new_post[“    “]
-</span><span class="line">sudo rake generate
-</span><span class="line">sudo rake deploy
+</span><span class="line">  data: it_sel type TABLE OF seqg3,
+</span><span class="line">        wa_sel type seqg3,
+</span><span class="line">        it_enq type table of seqg3,
+</span><span class="line">        wa_enq type seqg3.
 </span><span class="line">
-</span><span class="line">&lt;code&gt;  &lt;/code&gt;
-</span><span class="line">&lt;h3&gt;    &lt;/h3&gt;
-</span><span class="line">&lt;p&gt; 	&lt;/p&gt;
+</span><span class="line">  data: gname    type  seqg3-gname.
+</span><span class="line">  data: garg     type  seqg3-garg.
+</span><span class="line">  data: gtarg    type  seqg3-gtarg.
+</span><span class="line">  data: guname   type  seqg3-guname.
+</span><span class="line">  data: gclient  type  seqg3-gclient.
+</span><span class="line">  data: subrc type i.
+</span><span class="line">*
+</span><span class="line">  if sy-tcode eq 'MIGO'.  "事务代码判断
 </span><span class="line">
-</span><span class="line">&lt;ol&gt;或者&lt;ul&gt;
-</span><span class="line">  &lt;li&gt;  &lt;/li&gt;
-</span><span class="line">  &lt;li&gt;  &lt;/li&gt;
-</span><span class="line">&lt;/ol&gt;或者&lt;/ul&gt;
+</span><span class="line">    gname   = 'MCH1'.   "锁定的表
+</span><span class="line">    guname  = ''. "sy-uname.  “如果不指定用户，系统默认当前用户，就不能解锁其它用户锁定的数据，所以指定为空
+</span><span class="line">    gclient = sy-mandt.
+</span><span class="line">    concatenate gclient i_matnr i_charg into garg.  "锁定的对象
+</span><span class="line">*读取锁定数据
+</span><span class="line">    CALL FUNCTION 'ENQUEUE_READ'
+</span><span class="line">      EXPORTING
+</span><span class="line">        gclient               = gclient
+</span><span class="line">        guname                = guname
+</span><span class="line">        gname                 = gname
+</span><span class="line">      IMPORTING
+</span><span class="line">        subrc                 = subrc
+</span><span class="line">      TABLES
+</span><span class="line">        enq                   = it_enq
+</span><span class="line">      EXCEPTIONS
+</span><span class="line">        communication_failure = 2
+</span><span class="line">        others                = 1.
+</span><span class="line">    if sy-subrc = 0.
+</span><span class="line">      C_LOCK_MODE = 'S'.  "更改排它锁为共享锁
 </span><span class="line">
-</span><span class="line">插入链接[Markdown 语法说明][2]
-</span><span class="line">[2]: http://wowubuntu.com/markdown “说明”
+</span><span class="line">      delete it_enq where garg ne garg and gmode eq C_LOCK_MODE.
 </span><span class="line">
-</span><span class="line">*或者**     *或者**
-</span><span class="line">&lt;!--more—&gt;
-</span><span class="line">转义符反斜杠\</span></code></pre></td></tr></table></div></figure></notextile></div>
+</span><span class="line">      if it_enq is not initial.
+</span><span class="line">*删除锁定数据
+</span><span class="line">        CALL FUNCTION 'ENQUE_DELETE'
+</span><span class="line">          EXPORTING
+</span><span class="line">            check_upd_requests = 1
+</span><span class="line">          IMPORTING
+</span><span class="line">            subrc              = subrc
+</span><span class="line">          TABLES
+</span><span class="line">            enq                = it_enq.
+</span><span class="line">
+</span><span class="line">        if subrc eq 0.
+</span><span class="line">          clear it_enq.
+</span><span class="line">        endif.
+</span><span class="line">      endif.
+</span><span class="line">    elseif sy-subrc = 2.
+</span><span class="line">      exit.
+</span><span class="line">    endif.
+</span><span class="line">
+</span><span class="line">  ENDIF.
+</span><span class="line">
+</span><span class="line">endmethod.</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>最后，感谢万能的google！</p>
-<p><br /></p>
+<p>其它有用的链接<br />
+<a href="http://help.sap.com/saphelp_erp60_sp/helpdata/en/02/e0b24188b3e534e10000000a1550b0/content.htm">http://help.sap.com/saphelp_erp60_sp/helpdata/en/02/e0b24188b3e534e10000000a1550b0/content.htm</a><br /></p>
 </div>
 
 
@@ -237,12 +257,12 @@ octopress主要优点就是可以绑定自己的域名<br />
   
 
 
-<time datetime="2013-12-23T13:14:39+08:00" pubdate data-updated="true">2013-12-23 Mon</time>
+<time datetime="2014-01-03T16:21:47+08:00" pubdate data-updated="true">2014-01-03 Fri</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/octopress/'>octopress</a>
+    <a class='category' href='/blog/categories/badis/'>BADIs</a>, <a class='category' href='/blog/categories/mmzeng-qiang/'>MM增强</a>
   
 </span>
 
@@ -258,8 +278,8 @@ octopress主要优点就是可以绑定自己的域名<br />
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi/" title="Previous Post: EVAL_FORMULA 公式计算测试">&laquo; EVAL_FORMULA 公式计算测试</a>
       
-        <a class="basic-alignment right" href="/blog/20131223/yin-xing-dai-ma-f4bang-zhu-search-bank-address/" title="Next Post: 银行代码F4帮助 - SEARCH_BANK_ADDRESS">银行代码F4帮助 - SEARCH_BANK_ADDRESS &raquo;</a>
       
     </p>
   </footer>
@@ -364,8 +384,8 @@ octopress主要优点就是可以绑定自己的域名<br />
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://lomozm.github.io/blog/20131223/my-first-octopress-blog/';
-        var disqus_url = 'http://lomozm.github.io/blog/20131223/my-first-octopress-blog/';
+        var disqus_identifier = 'http://lomozm.github.io/blog/20140103/migoshou-huo-shi-bao-m3682cuo-wu-tong-%5B%3F%5D-wu-liao-zai-tong-%5B%3F%5D-pi-ci-bei-shi-yong/';
+        var disqus_url = 'http://lomozm.github.io/blog/20140103/migoshou-huo-shi-bao-m3682cuo-wu-tong-%5B%3F%5D-wu-liao-zai-tong-%5B%3F%5D-pi-ci-bei-shi-yong/';
         var disqus_script = 'embed.js';
       
     (function () {

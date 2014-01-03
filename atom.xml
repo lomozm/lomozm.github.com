@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2013-12-30T17:11:59+08:00</updated>
+  <updated>2014-01-03T16:38:50+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -12,6 +12,150 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[MIGO收货时报M3682错误(同一物料在同一批次被使用)]]></title>
+    <link href="http://lomozm.github.io/blog/20140103/migoshou-huo-shi-bao-m3682cuo-wu-tong-%5B%3F%5D-wu-liao-zai-tong-%5B%3F%5D-pi-ci-bei-shi-yong/"/>
+    <updated>2014-01-03T16:21:47+08:00</updated>
+    <id>http://lomozm.github.io/blog/20140103/migoshou-huo-shi-bao-m3682cuo-wu-tong-[?]-wu-liao-zai-tong-[?]-pi-ci-bei-shi-yong</id>
+    <content type="html"><![CDATA[
+<h3 id="section">场景</h3>
+<p>用户在使用migo收货时，发现同一物料同一批次不能同时处理，错误消息是：物料###的批次##被用户##锁定<br /></p>
+
+<h3 id="section-1">解决方法</h3>
+<p>见notes:1523750 - MIGO: Message M3682 during goods movement to same batch<br />
+<!--more--></p>
+
+<p>注意：<br />
+1. notes中关于版本的描述，打这个notes时，相关notes也必须打上<br />
+2. 锁数据查看事务代码：sm12
+3. badi调用的函数：VB_ENQUEUE_BATCH<br /></p>
+
+<h3 id="section-2">出口代码</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">method IF_EX_BATCH_MASTER~LOCK_BATCH_MASTER_IN_MIGO.
+</span><span class="line">
+</span><span class="line">  data: it_sel type TABLE OF seqg3,
+</span><span class="line">        wa_sel type seqg3,
+</span><span class="line">        it_enq type table of seqg3,
+</span><span class="line">        wa_enq type seqg3.
+</span><span class="line">
+</span><span class="line">  data: gname    type  seqg3-gname.
+</span><span class="line">  data: garg     type  seqg3-garg.
+</span><span class="line">  data: gtarg    type  seqg3-gtarg.
+</span><span class="line">  data: guname   type  seqg3-guname.
+</span><span class="line">  data: gclient  type  seqg3-gclient.
+</span><span class="line">  data: subrc type i.
+</span><span class="line">*
+</span><span class="line">  if sy-tcode eq 'MIGO'.  "事务代码判断
+</span><span class="line">
+</span><span class="line">    gname   = 'MCH1'.   "锁定的表
+</span><span class="line">    guname  = ''. "sy-uname.  “如果不指定用户，系统默认当前用户，就不能解锁其它用户锁定的数据，所以指定为空
+</span><span class="line">    gclient = sy-mandt.
+</span><span class="line">    concatenate gclient i_matnr i_charg into garg.  "锁定的对象
+</span><span class="line">*读取锁定数据
+</span><span class="line">    CALL FUNCTION 'ENQUEUE_READ'
+</span><span class="line">      EXPORTING
+</span><span class="line">        gclient               = gclient
+</span><span class="line">        guname                = guname
+</span><span class="line">        gname                 = gname
+</span><span class="line">      IMPORTING
+</span><span class="line">        subrc                 = subrc
+</span><span class="line">      TABLES
+</span><span class="line">        enq                   = it_enq
+</span><span class="line">      EXCEPTIONS
+</span><span class="line">        communication_failure = 2
+</span><span class="line">        others                = 1.
+</span><span class="line">    if sy-subrc = 0.
+</span><span class="line">      C_LOCK_MODE = 'S'.  "更改排它锁为共享锁
+</span><span class="line">
+</span><span class="line">      delete it_enq where garg ne garg and gmode eq C_LOCK_MODE.
+</span><span class="line">
+</span><span class="line">      if it_enq is not initial.
+</span><span class="line">*删除锁定数据
+</span><span class="line">        CALL FUNCTION 'ENQUE_DELETE'
+</span><span class="line">          EXPORTING
+</span><span class="line">            check_upd_requests = 1
+</span><span class="line">          IMPORTING
+</span><span class="line">            subrc              = subrc
+</span><span class="line">          TABLES
+</span><span class="line">            enq                = it_enq.
+</span><span class="line">
+</span><span class="line">        if subrc eq 0.
+</span><span class="line">          clear it_enq.
+</span><span class="line">        endif.
+</span><span class="line">      endif.
+</span><span class="line">    elseif sy-subrc = 2.
+</span><span class="line">      exit.
+</span><span class="line">    endif.
+</span><span class="line">
+</span><span class="line">  ENDIF.
+</span><span class="line">
+</span><span class="line">endmethod.</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>其它有用的链接<br />
+<a href="http://help.sap.com/saphelp_erp60_sp/helpdata/en/02/e0b24188b3e534e10000000a1550b0/content.htm">http://help.sap.com/saphelp_erp60_sp/helpdata/en/02/e0b24188b3e534e10000000a1550b0/content.htm</a><br /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[EVAL_FORMULA 公式计算测试]]></title>

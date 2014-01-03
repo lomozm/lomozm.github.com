@@ -10,9 +10,9 @@
 
   
   <meta name="description" content="
-应用场景
-当客户需要的报表逻辑较复杂，同一种类的数据进行数据运算，或者再累计计算，或者排除等；如果在程序中写死的话，业务的变更会导致程序的变更，使维持工作量加大
-SAP提供了一个函数，使报表运算过程可配置，提高了开发的灵活性
+场景
+用户在使用migo收货时，发现同一物料同一批次不能同时处理，错误消息是：物料###的批次##被用户##锁定 解决方法
+见notes:1523750 - MIGO: Message M3682 during goods movement to same batch
 ">
   
 
@@ -70,6 +70,55 @@ SAP提供了一个函数，使报表运算过程可配置，提高了开发的�
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/20140103/migoshou-huo-shi-bao-m3682cuo-wu-tong-%5B%3F%5D-wu-liao-zai-tong-%5B%3F%5D-pi-ci-bei-shi-yong/">MIGO收货时报M3682错误(同一物料在同一批次被使用)</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-03T16:21:47+08:00" pubdate data-updated="true">2014-01-03 Fri</time>
+        
+         | <a href="/blog/20140103/migoshou-huo-shi-bao-m3682cuo-wu-tong-%5B%3F%5D-wu-liao-zai-tong-%5B%3F%5D-pi-ci-bei-shi-yong/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+<h3 id="section">场景</h3>
+<p>用户在使用migo收货时，发现同一物料同一批次不能同时处理，错误消息是：物料###的批次##被用户##锁定<br /></p>
+
+<h3 id="section-1">解决方法</h3>
+<p>见notes:1523750 - MIGO: Message M3682 during goods movement to same batch<br />
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/20140103/migoshou-huo-shi-bao-m3682cuo-wu-tong-%5B%3F%5D-wu-liao-zai-tong-%5B%3F%5D-pi-ci-bei-shi-yong/">阅读全文…</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -508,67 +557,6 @@ SWEL：显示事件记录<br />
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
-        <h1 class="entry-title"><a href="/blog/20131225/jin-e-ge-shi-hua-qian-fen-fu/">金额格式化 - 千分符</a></h1>
-      
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-25T11:55:59+08:00" pubdate data-updated="true">2013-12-25 Wed</time>
-        
-         | <a href="/blog/20131225/jin-e-ge-shi-hua-qian-fen-fu/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">function z_num2str.
-</span><span class="line">*"----------------------------------------------------------------------
-</span><span class="line">*"*"本地接口：
-</span><span class="line">*"  IMPORTING
-</span><span class="line">*"     REFERENCE(INUM) TYPE  STRING
-</span><span class="line">*"  EXPORTING
-</span><span class="line">*"     REFERENCE(ZSTR) TYPE  STRING
-</span><span class="line">*"----------------------------------------------------------------------</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/20131225/jin-e-ge-shi-hua-qian-fen-fu/">阅读全文…</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -594,6 +582,10 @@ SWEL：显示事件记录<br />
 <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/20140103/migoshou-huo-shi-bao-m3682cuo-wu-tong-%5B%3F%5D-wu-liao-zai-tong-%5B%3F%5D-pi-ci-bei-shi-yong/">MIGO收货时报M3682错误(同一物料在同一批次被使用)</a>
+      </li>
     
       <li class="post">
         <a href="/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi/">EVAL_FORMULA 公式计算测试</a>
@@ -623,10 +615,6 @@ SWEL：显示事件记录<br />
         <a href="/blog/20131226/bwceng-ci-zhu-shu-ju-jia-zai/">BW层次主数据加载</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/20131225/sapgong-zuo-liu-kai-fa-shi-li/">SAP工作流开发实例</a>
-      </li>
-    
   </ul>
 </section>
 <section>
@@ -637,10 +625,10 @@ SWEL：显示事件记录<br />
   <h1>文章分类</h1> 
   <ul id="categories"> 
     <li class='category'><a href='/blog/categories/abapji-zhu/'>ABAP技术 (2)</a></li>
-<li class='category'><a href='/blog/categories/badis/'>BADIs (1)</a></li>
+<li class='category'><a href='/blog/categories/badis/'>BADIs (2)</a></li>
 <li class='category'><a href='/blog/categories/bwetl/'>BWETL (1)</a></li>
 <li class='category'><a href='/blog/categories/exits/'>Exits (4)</a></li>
-<li class='category'><a href='/blog/categories/mmzeng-qiang/'>MM增强 (2)</a></li>
+<li class='category'><a href='/blog/categories/mmzeng-qiang/'>MM增强 (3)</a></li>
 <li class='category'><a href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数 (2)</a></li>
 <li class='category'><a href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数 (4)</a></li>
 <li class='category'><a href='/blog/categories/sdzeng-qiang/'>SD增强 (3)</a></li>
@@ -655,7 +643,7 @@ SWEL：显示事件记录<br />
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - lomozm -
+  Copyright &copy; 2014 - lomozm -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
