@@ -1,0 +1,195 @@
+{	patterns = (
+		{	name = 'comment.line.full.abap';
+			match = '^\*.*\n?';
+			captures = { 1 = { name = 'punctuation.definition.comment.abap'; }; };
+		},
+		{	name = 'comment.line.partial.abap';
+			match = '".*\n?';
+			captures = { 1 = { name = 'punctuation.definition.comment.abap'; }; };
+		},
+		{	name = 'string.quoted.single.abap';
+			begin = "'";
+			end = "'";
+			patterns = (
+				{	name = 'constant.character.escape.abap';
+					match = "''";
+				},
+			);
+		},
+		{	name = 'meta.block.begin.implementation.abap';
+			begin = '(?i)^\s*(class|method|form|methods|perform)\s+(?=[a-z_][a-z_0-9])';
+			end = '(?![A-Za-z0-9_])';
+			beginCaptures = { 1 = { name = 'storage.type.block.abap'; }; };
+			patterns = (
+				{	begin = '(?=[A-Za-z_][A-Za-z0-9_]*)';
+					end = '(?![A-Za-z0-9_])';
+					contentName = 'entity.name.type.block.abap';
+					patterns = ( { include = '#generic_names'; } );
+				},
+			);
+		},
+		{	name = 'storage.type.block.end.abap';
+			match = '(endclass|endmethod|endform)';
+		},
+		{	name = 'meta.variable.other.field.symbol.abap';
+			match = '(?i)(<[A-Za-z_][A-Za-z0-9_]*>)';
+		},
+		{	include = '#keywords'; },
+		{	include = '#abap_constants'; },
+		{	include = '#system_variable'; },
+		{	include = '#operators'; },
+		{	include = '#abaptypes'; },
+	);
+	repository = {
+		abap_constants = {
+			name = 'constant.language.abap';
+			match = '(?ix)(initial|null|space)(?=\s|\.)';
+		};
+		abaptypes = {
+			name = 'support.type.abap';
+			match = '(?ix)\s(string|xstring|any|c|n|i|p|f|d|t|x)(?=\s|\.|,)';
+		};
+		arithmetic_operator = {
+			name = 'keyword.operator.arithmetic.abap';
+			match = '\s(\+|\-|\*|\*\*|/|%|mod|div)(?=\s)';
+		};
+		comparison_operator = {
+			name = 'keyword.operator.comparison.abap';
+			match = '(?i)\s(<|>|<\=|>\=|\=|<>|eq|ne|lt|le|gt|ge|cs|in)\s';
+		};
+		control_keywords = {
+			name = 'keyword.control.flow.abap';
+			match = '(?ix)\s(
+	        at|case|catch|continue|do|elseif|else|endat|endcase|enddo|endif|
+	        endloop|endon|if|loop|on|raise|try|endtry
+	        )(?=\s|\.|:)';
+		};
+		generic_names = { match = '[A-Za-z_][A-Za-z0-9_]*'; };
+		hyphenated_keywords = {
+			name = 'keyword.control.hyphenated.abap';
+			match = '(?ix)(^|\s)(add-corresponding|
+	         authority-check|
+	         break-point|
+	         class-data|
+	         class-method|
+	         class-methods|
+	         divide-corresponding|
+	         display-mode|
+	         editor-call|
+	         end-of-definition|
+	         end-of-page|
+	         end-of-selection|
+	         field-groups|
+	         field-symbols|
+	         function-pool|
+	         line-count|
+	         line-size|
+	         message-id|
+	         move-corresponding|
+	         multiply-corresponding|
+	         new-line|
+	         new-page|
+	         new-section|
+	         print-control|
+			 pf-status|
+	         read-only|
+	         rp-provide-from-last|
+	         select-options|
+	         selection-screen|
+	         start-of-selection|
+	         subtract-corresponding|
+	         syntax-check|
+	         syntax-trace|
+	         system-call|
+	         top-of-page|
+	         type-pool|
+	         type-pools|
+			 initialization
+	         )(?=\s|\.|:|,)';
+		};
+		keywords = {
+			patterns = (
+				{	include = '#hyphenated_keywords'; },
+				{	include = '#main_keywords'; },
+				{	include = '#control_keywords'; },
+				{	include = '#short_keywords'; },
+			);
+		};
+		logical_operator = {
+			name = 'keyword.operator.arithmetic.abap';
+			match = '(?i)\s(is|not|or|and)(?=\s)';
+		};
+		main_keywords = {
+			name = 'keyword.control.simple.abap';
+			match = '(?ix)\s(
+	        alias|aliases|assert|assign|assigning|corresponding|adjacent|as|
+			append|
+	        back|bound|byte|begin|block|by|
+	        call|check|clear|close|cnt|collect|commit|character|
+	        communication|compute|concatenate|condense|constants|
+	        controls|convert|create|currency|comparing|changing|
+	        data|define|definition|deferred|delete|describe|detail|divide|
+	        deleting|duplicates|default|display|
+	        endexec|endfunction|
+	        endinterface|endmodule|
+	        endprovide|endselect|endtry|endwhile|event|events|exec|exit|export|
+	        exporting|extract|exceptions|end|
+	        fetch|fields|format|free|function|find|from|field|first|for|frame|
+	        generate|group|
+	        hide|header|
+	        import|importing|index|infotypes|include|
+	        interface|interfaces|input|insert|implementation|into|inner|
+			id|
+			join|
+			key|
+	        leave|like|line|load|local|length|left|leading|lines|
+	        method|message|methods|modify|module|move|multiply|match|
+	        object|overlay|optional|others|occurrences|offset|occurs|obligatory|
+	        pack|parameters|position|program|provide|public|parameter|
+	        ranges|receive|redefinition|reference|refresh|reject|results|
+	        replace|report|reserve|restore|returning|rollback|read|
+			radiobutton|
+	        scan|scroll|search|select|shift|skip|sort|sorted|split|standard| 
+	        statics|step|stop|submit|subtract|summary|suppress|section|
+			single|skip|submit|screen|
+	        tables|table|times|transfer|translate|types|type|transaction|
+			title|
+	        unassign|uline|unpack|update|using|
+	        value|
+	        when|while|window|write|where|with
+	        )(?=\s|\.|:|,)';
+		};
+		math_operators = {
+			name = 'keyword.operator.math.abap';
+			match = '(?ix)\s(abs|sign|ceil|floor|trunc|frac|acos|asin|
+	                atan|cos|sin|tan|cosh|sinh|tanh|exp|log|log10|sqrt)\(';
+		};
+		operators = {
+			patterns = (
+				{	include = '#other_operator'; },
+				{	include = '#math_operators'; },
+				{	include = '#string_operators'; },
+				{	include = '#arithmetic_operator'; },
+				{	include = '#comparison_operator'; },
+				{	include = '#logical_operator'; },
+				{	include = '#short_keywords'; },
+			);
+		};
+		other_operator = {
+			name = 'keyword.operator.other.abap';
+			match = '\s(&&|\?\=)\s';
+		};
+		short_keywords = {
+			name = 'keyword.control.short.abap';
+			match = '(?i)\s(add|all|get|of|put|ref|set|sum|to)(?=\s|\.|:)';
+		};
+		string_operators = {
+			name = 'keyword.operator.string.abap';
+			match = '(?ix)\s(strlen|xstrlen|charlen|lines|numofchar|dbmaxlen)\(';
+		};
+		system_variable = {
+			name = 'invalid.language.abap';
+			match = '(?ix)(sy-([A-Za-z_][A-Za-z0-9_]*))(?=\s|\.|\()';
+		};
+	};
+}
