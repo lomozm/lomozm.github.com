@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2014-02-21T00:35:32+08:00</updated>
+  <updated>2014-02-21T00:36:12+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -25,14 +25,14 @@
 
 <h3 id="section-1">效果</h3>
 <p>闲话少说，看一下效果先<br />
-<img src="http://lomozm.github.io/images/images/QQ20140220-2@2x.png" alt="001" /><br /></p>
+<img src="http://lomozm.github.io/images/images/QQ20140220-2@2x.jpg" alt="001" /><br /></p>
 
 <h3 id="section-2">过程</h3>
 <ol>
   <li>下载<a href="http://lomozm.github.io/appendix/ABAP.tmLanguage">ABAP.tmLanguage</a>和<a href="http://lomozm.github.io/appendix/ABAP.textmate">ABAP.textmate</a>两文件到本地<br /></li>
   <li>先新建bundle，取名为ABAP，然后双击<code>ABAP.tmLanguage</code>文件安装，更新abap内容<br /></li>
   <li>进入bundle编器，将<code>ABAP.textmate</code>内容去覆盖原来的。原来的很多标签没加入进去，我进行了引些更改，又懒得改<code>ABAP.tmLanguage</code>文件<br />
-<img src="http://lomozm.github.io/images/images/QQ20140221-1@2x.png" alt="002" /><br />
+<img src="http://lomozm.github.io/images/images/QQ20140221-1@2x.jpg" alt="002" /><br />
 最后大功告成了，好好享受编程的乐子吧！！<br /></li>
 </ol>
 
