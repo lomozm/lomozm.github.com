@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2014-02-27T17:02:54+08:00</updated>
+  <updated>2014-02-27T17:04:50+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -23,11 +23,11 @@
 <!-- more -->
 <br />
 先看效果:<br />
-<img src="http://lomozm.github.io/images/images/QQ20140227-3@2x.jpg" alt="i001" /><br />
+<img src="http://lomozm.github.io/images/images/QQ20140227-1@2x.jpg" alt="i001" /><br />
 <br />
 单击Create1或Create2时分别弹出:<br />
-![i002][I002]<br />
-![i003][I003]<br />
+<img src="http://lomozm.github.io/images/images/QQ20140227-2@2x.jpg" alt="i002" /><br />
+<img src="http://lomozm.github.io/images/images/QQ20140227-3@2x.jpg" alt="i003" /><br />
 这样就可以在程序中分别实现不同功能<br />
 <br />
 源程序:<br /></p>
