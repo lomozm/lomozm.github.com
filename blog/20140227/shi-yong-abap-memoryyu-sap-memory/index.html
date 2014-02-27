@@ -101,27 +101,27 @@
 
 
 <div class="entry-content">
-<h3 id="section">术语</h3>
-<p>#####SAP Memory/ABAP Memory：
-为实现数据传递，SAP系统在服务器分配的内存空间，其分配的区域不同 
-#####User Session: 
-用户登录系统时产生，用户登陆一次产生一个
-#####External Session：
+<h3 id="br">术语<br /></h3>
+<p>#####SAP Memory/ABAP Memory：<br />
+为实现数据传递，SAP系统在服务器分配的内存空间，其分配的区域不同 <br />
+#####User Session: <br />
+用户登录系统时产生，用户登陆一次产生一个<br />
+#####External Session：<br />
 也称main session，用户开启的一个窗口对应一个external session；其中一个logon user session中可以最大6个external session<br />
-#####Internal Session：
+#####Internal Session：<br />
 程序运行中，系统为程序分配的session，一个程序可以分配多个internal session，也可能只有一个session，一个external session中最大可以使用20个Internal session<br />
 <!-- more -->
-User Session、External Session与Internal Session关系图：<br />
-<a href="/images/images/ABAPMemoryAndSAPMemory/image002.gif">i001</a><br />
+User Session、External Session与Internal Session关系图：
+<img src="/images/images/ABAPMemoryAndSAPMemory/image002.gif" alt="i001" /><br />
 <br />
-###技术背景
-####总览
+###技术背景<br />
+####总览<br />
 ABAP开发过程中，常需要在session之进行数据传递和共享，SAP提供了两种技术来实现它：SAP Memory和ABAP Memory<br />
 一个external session对应着一个ABAP session，所以，一个window里的internal session共用着同一个ABAP session；所以，在一个user logon session中不同的window(external session)共同使用一个SAP memory<br />
 SAP Memory、ABAP Memory、Main Session与Internal Session关系图：<br />
-<a href="/images/images/ABAPMemoryAndSAPMemory/image004.gif">i002</a><br />
-####区别
-#####1、读取和使用方法不同
+<img src="/images/images/ABAPMemoryAndSAPMemory/image004.gif" alt="i002" /><br />
+####区别<br />
+#####1、读取和使用方法不同<br />
 SAP内存使用<code>SET/GET parameters</code>方法：<br /></p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
@@ -136,7 +136,7 @@ SAP内存使用<code>SET/GET parameters</code>方法：<br /></p>
 </pre></td><td class="code"><pre><code class=""><span class="line">&lt;!--StartFragment --&gt;EXPORT P_MATNR = P_MATNR TO MEMORY ID 'ZTESTMAT'.
 </span><span class="line">IMPORT P_MATNR = P_MATNR FROM MEMORY ID 'ZTESTMAT'</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<h5 id="section-1">2、共享范围不同</h5>
+<h5 id="section">2、共享范围不同</h5>
 <p>SAP内存可以被所有的主session访问，内存数据可以在同一个session中不同程序之间，或者不同session之间共享数据；<br />
 ABAP内存只能在同个session的不同程序之间共享数据；<br />
 #####3、作用范围不同
@@ -149,11 +149,11 @@ ABAP内存用于模块之间传递数据<br />
 ####LINK PROGRAM介绍
 使用ABAP/SAP Memory，是因为它们可以在SAP中充当着“数据存储器”的作用，就比如DB、File等，同时程序中，因为我们大量地使用着Link program，所以为了数据的共享或者传递。<br />
 首先简要地总结一下Link program。从大类上来分，主要可以通过以下的图示表述:<br />
-<a href="/images/images/ABAPMemoryAndSAPMemory/image006.gif">i003</a><br />
+<img src="/images/images/ABAPMemoryAndSAPMemory/image006.gif" alt="i003" /><br />
 说明：<br />
 “被调用程序插入型”是指：调用程序(calling program)并不结束，当遇到Link 语句时，会去执行被调用程序(called program)，当被调用程序结束后，调用程序继续执行;<br />
 “调用程序中止型”是指：调用程序(calling program)当遇到Link 语句时会中止，然后去执行被调用程序(called program)<br />
-####LINK PROGRAM与MEMORY的关系
+####LINK PROGRAM与MEMORY的关系<br />
 #####1、对于FM:
 当一个FM被调用时，它对应的Function Group被load进当前的这个 internal session，当其处理完了，calling program继续被处理;(该Function Group下的global data可以继续被使用).<br />
 #####2、对于CALL TRANSACTION或SUBMIT AND RETURN
@@ -185,7 +185,7 @@ ABAP内存用于模块之间传递数据<br />
 2、从memory ID取得一个<code>Internal table</code>
 3、从memory ID取得一个<code>Parameter并同时赋给选择屏幕上的<code>parameter</code></code></p>
 
-<h5 id="section-2">程序代码</h5>
+<h5 id="section-1">程序代码</h5>
 <p>ZTEST_ABAP_MEM_PROG1</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
