@@ -17,7 +17,7 @@
 			);
 		},
 		{	name = 'meta.block.begin.implementation.abap';
-			begin = '(?i)^\s*(class|method|form|methods|perform)\s+(?=[a-z_][a-z_0-9])';
+			begin = '(?i)^\s*((class|method|form|methods|perform|define)(\s*|:))\s+(?=[a-z_][a-z_0-9])';
 			end = '(?![A-Za-z0-9_])';
 			beginCaptures = { 1 = { name = 'storage.type.block.abap'; }; };
 			patterns = (
@@ -29,7 +29,7 @@
 			);
 		},
 		{	name = 'storage.type.block.end.abap';
-			match = '(endclass|endmethod|endform)';
+			match = '(?i)(endclass|endmethod|endform)';
 		},
 		{	name = 'meta.variable.other.field.symbol.abap';
 			match = '(?i)(<[A-Za-z_][A-Za-z0-9_]*>)';
@@ -104,6 +104,7 @@
 	         top-of-page|
 	         type-pool|
 	         type-pools|
+			 process|
 			 initialization
 	         )(?=\s|\.|:|,)';
 		};
@@ -121,10 +122,10 @@
 		};
 		main_keywords = {
 			name = 'keyword.control.simple.abap';
-			match = '(?ix)\s(
+			match = '(?ix)(^|\s)(
 	        alias|aliases|assert|assign|assigning|corresponding|adjacent|as|
-			append|
-	        back|bound|byte|begin|block|by|
+			append|after|
+	        back|bound|byte|begin|block|by|before|
 	        call|check|clear|close|cnt|collect|commit|character|
 	        communication|compute|concatenate|condense|constants|
 	        controls|convert|create|currency|comparing|changing|
@@ -144,7 +145,8 @@
 			key|
 	        leave|like|line|load|local|length|left|leading|lines|
 	        method|message|methods|modify|module|move|multiply|match|
-	        object|overlay|optional|others|occurrences|offset|occurs|obligatory|
+	        object|overlay|optional|others|occurrences|offset|occurs|
+			obligatory|output|
 	        pack|parameters|position|program|provide|public|parameter|
 	        ranges|receive|redefinition|reference|refresh|reject|results|
 	        replace|report|reserve|restore|returning|rollback|read|
