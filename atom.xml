@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2014-02-27T15:16:19+08:00</updated>
+  <updated>2014-02-27T17:02:54+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -12,6 +12,182 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[为Report选择屏幕添加事件按钮]]></title>
+    <link href="http://lomozm.github.io/blog/20140227/wei-reportxuan-ze-ping-mu-tian-jia-gong-neng-an-niu/"/>
+    <updated>2014-02-27T16:28:30+08:00</updated>
+    <id>http://lomozm.github.io/blog/20140227/wei-reportxuan-ze-ping-mu-tian-jia-gong-neng-an-niu</id>
+    <content type="html"><![CDATA[
+<p>以前也有用户要这个需求，就是运行程序的第一个屏幕添加其它的事件按钮，以实现对当前程序进行预操作，或者是功能补充。我用set PF-STATUS进行测试，发现程序进入选择屏幕后，不能捕捉到新增加的事件，也就作罢（说不能实现）；最近空闲一下，发现sap在选择屏幕可以加入function key功能可以实现<br />
+<!-- more -->
+<br />
+先看效果:<br />
+<img src="http://lomozm.github.io/images/images/QQ20140227-3@2x.jpg" alt="i001" /><br />
+<br />
+单击Create1或Create2时分别弹出:<br />
+![i002][I002]<br />
+![i003][I003]<br />
+这样就可以在程序中分别实现不同功能<br />
+<br />
+源程序:<br /></p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+<span class="line-number">62</span>
+<span class="line-number">63</span>
+<span class="line-number">64</span>
+<span class="line-number">65</span>
+<span class="line-number">66</span>
+<span class="line-number">67</span>
+<span class="line-number">68</span>
+<span class="line-number">69</span>
+<span class="line-number">70</span>
+<span class="line-number">71</span>
+<span class="line-number">72</span>
+<span class="line-number">73</span>
+<span class="line-number">74</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">report  ztest12 no standard page heading
+</span><span class="line">                               line-size 132
+</span><span class="line">                               line-count 65
+</span><span class="line">                               message-id z001.
+</span><span class="line">
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp; Report  ZTEST1
+</span><span class="line">*&amp;
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp;
+</span><span class="line">*&amp;å
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">tables: sscrfields.
+</span><span class="line">type-pools: icon,vrm.
+</span><span class="line">data functxt type smp_dyntxt.
+</span><span class="line">
+</span><span class="line">selection-screen: function key 1,
+</span><span class="line">                  function key 2. "此为两个触点定义
+</span><span class="line">
+</span><span class="line">selection-screen: begin of block 1 with frame.
+</span><span class="line">
+</span><span class="line">parameters: p_list type c as listbox visible length 10.
+</span><span class="line">
+</span><span class="line">selection-screen: end of block 1.
+</span><span class="line">
+</span><span class="line">initialization.
+</span><span class="line">
+</span><span class="line">  functxt-icon_id = icon_create.
+</span><span class="line">  functxt-icon_text = 'Create1'.
+</span><span class="line">  sscrfields-functxt_01 = functxt.
+</span><span class="line">
+</span><span class="line">  functxt-icon_id = '@0V@'.
+</span><span class="line">  functxt-icon_text = 'Create2'.
+</span><span class="line">  functxt-quickinfo = 'Create new'.
+</span><span class="line">  sscrfields-functxt_02 = functxt.
+</span><span class="line">
+</span><span class="line">  clear: p_list.
+</span><span class="line">  perform selectlist changing p_list.
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">at selection-screen.
+</span><span class="line">  case sscrfields-ucomm.
+</span><span class="line">    when 'FC01'.
+</span><span class="line">      clear p_list.
+</span><span class="line">      message 'Create1' type 'I'.
+</span><span class="line">    when 'FC02'.
+</span><span class="line">      message 'Create2' type 'I'.
+</span><span class="line">  endcase.
+</span><span class="line">
+</span><span class="line">end-of-selection.
+</span><span class="line">
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp;      Form  selectlist
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*       text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">*      --&gt;P_LIST     text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">form selectlist changing p_list.
+</span><span class="line">  data: it_list type vrm_values,
+</span><span class="line">  wa_list like line of it_list.
+</span><span class="line">  wa_list-key = '01'.
+</span><span class="line">  wa_list-text = '普通领料'.
+</span><span class="line">  append wa_list to it_list.
+</span><span class="line">  wa_list-key = '02'.
+</span><span class="line">  wa_list-text = '批次领料'.
+</span><span class="line">  append wa_list to it_list.
+</span><span class="line">
+</span><span class="line">  call function 'VRM_SET_VALUES'
+</span><span class="line">    exporting
+</span><span class="line">      id     = 'P_LIST'
+</span><span class="line">      values = it_list.
+</span><span class="line">  refresh it_list.
+</span><span class="line">endform.                    "selectlist</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><br />
+最后是程序说明:<br />
+1. selection-screen: function key最多可以定义5个，否则系统语法检查会出错<br />
+2. FC01代码捕捉后如果没有clear p_list的话，系统会添加一条新数据<br />
+3. <a href="http://help.sap.com/abapdocu_70/en/ABAPSELECTION-SCREEN_FUNCTIONKEY.htm">SAP系统help和demo</a><br /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[使用ABAP MEMORY与SAP MEMORY讨论]]></title>

@@ -5,15 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>My first octopress blog - lomozm’s Journal</title>
+  <title>为Report选择屏幕添加事件按钮 - lomozm’s Journal</title>
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="话说第一篇blog是关于octopress的，魔咒啊！
-很早就有建自己blog的想法，最近项目空闲，总算是实现了，也不尽完美
-octopress主要优点就是可以绑定自己的域名 基础搭建
-参船长的文档利用Octopress搭建一个Github博客 导航和评论
-参照冯威的Octopress博客设置 &hellip;">
+  <meta name="description" content="以前也有用户要这个需求，就是运行程序的第一个屏幕添加其它的事件按钮，以实现对当前程序进行预操作，或者是功能补充。我用set PF-STATUS进行测试，发现程序进入选择屏幕后，不能捕捉到新增加的事件，也就作罢（说不能实现）；最近空闲一下，发现sap在选择屏幕可以加入function &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -22,7 +18,7 @@ octopress主要优点就是可以绑定自己的域名 基础搭建
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://lomozm.github.io/blog/20131223/my-first-octopress-blog/">
+  <link rel="canonical" href="http://lomozm.github.io/blog/20140227/wei-reportxuan-ze-ping-mu-tian-jia-gong-neng-an-niu/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -74,7 +70,7 @@ octopress主要优点就是可以绑定自己的域名 基础搭建
   <header>
     
       
-        <h1 class="entry-title">My First Octopress Blog</h1>
+        <h1 class="entry-title">为Report选择屏幕添加事件按钮</h1>
       
     
     
@@ -91,7 +87,7 @@ octopress主要优点就是可以绑定自己的域名 基础搭建
   
 
 
-<time datetime="2013-12-23T13:14:39+08:00" pubdate data-updated="true">2013-12-23 Mon</time>
+<time datetime="2014-02-27T16:28:30+08:00" pubdate data-updated="true">2014-02-27 Thu</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -101,75 +97,18 @@ octopress主要优点就是可以绑定自己的域名 基础搭建
 
 
 <div class="entry-content">
-<p>话说第一篇blog是关于octopress的，魔咒啊！<br />
-很早就有建自己blog的想法，最近项目空闲，总算是实现了，也不尽完美<br /><br />
-octopress主要优点就是可以绑定自己的域名<br />
-<!--more--></p>
-<h3>基础搭建</h3>
-<p>参船长的文档<a href="http://beyondvincent.com/blog/2013/08/03/108-creating-a-github-blog-using-octopress">利用Octopress搭建一个Github博客</a>
-<br /></p>
-<h3>导航和评论</h3>
-<p>参照冯威的<a href="http://www.cnblogs.com/oec2003/archive/2013/05/31/3109577.html">Octopress博客设置</a>
-<br /></p>
-<p>说明一下，里面<code>category_list_tag.rb</code>文件内容要做些更改，因为github地址栏不支持中文
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">module Jekyll 
-</span><span class="line">  class CategoryListTag &lt; Liquid::Tag 
-</span><span class="line">    def render(context) 
-</span><span class="line">      html = "" 
-</span><span class="line">      categories = context.registers[:site].categories.keys 
-</span><span class="line">      categories.sort.each do |category| 
-</span><span class="line">        posts_in_category = context.registers[:site].categories[category].size 
-</span><span class="line">        category_dir = context.registers[:site].config['category_dir']
-</span><span class="line">        category_url = File.join(category_dir, category.to_url)
-</span><span class="line">        html &lt;&lt; "&lt;li class='category'&gt;&lt;a href='/#{category_url}/'&gt;#{category} (#{posts_in_category})&lt;/a&gt;&lt;/li&gt;\n" 
-</span><span class="line">      end 
-</span><span class="line">      html 
-</span><span class="line">    end 
-</span><span class="line">  end 
-</span><span class="line">end
-</span><span class="line">
-</span><span class="line">Liquid::Template.register_tag('category_list', Jekyll::CategoryListTag)
-</span><span class="line">require 'stringex'</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-</p>
-
-<h3>其它</h3>
-<p>添加分享<a href="http://blog.csdn.net/jackystudio/article/details/16838525">【像黑客一样写博客之七】分享功能</a><br />
-改变图标<a href="http://brianbuccola.github.io/blog/2012-11-29-how-to-change-the-favicon-in-octopress.html">How to Change the Favicon in Octopress</a><br />
-插入链接<a href="http://wowubuntu.com/markdown">Markdown 语法说明</a>(注意：如果链接是以”/“结尾的，需把它去掉)<br />
-其它技巧<a href="http://blog.jackphil.com/blog/2012/05/16/octopress-tips">Octopress技巧集</a><br /></p>
-<p>对于配置文件<code>_config.yml</code>的一些更改
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">permalink: /blog/:year:month:day/:title/
-</span><span class="line">markdown: kramdown
-</span><span class="line">excerpt_link: "阅读全文…” 
-</span><span class="line">default_asides: [asides/title_pic.html, asides/recent_posts.html, custom/asides/recent_comment.html, asides/category_list.html]</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-</p>
-<h3>附上整理的Markdown部分语法</h3>
+<p>以前也有用户要这个需求，就是运行程序的第一个屏幕添加其它的事件按钮，以实现对当前程序进行预操作，或者是功能补充。我用set PF-STATUS进行测试，发现程序进入选择屏幕后，不能捕捉到新增加的事件，也就作罢（说不能实现）；最近空闲一下，发现sap在选择屏幕可以加入function key功能可以实现<br />
+<!-- more -->
+<br />
+先看效果:<br />
+<img src="/images/images/QQ20140227-3@2x.jpg" alt="i001" /><br />
+<br />
+单击Create1或Create2时分别弹出:<br />
+![i002][I002]<br />
+![i003][I003]<br />
+这样就可以在程序中分别实现不同功能<br />
+<br />
+源程序:<br /></p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -192,30 +131,139 @@ octopress主要优点就是可以绑定自己的域名<br />
 <span class="line-number">19</span>
 <span class="line-number">20</span>
 <span class="line-number">21</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">octopress发布blog常用格式
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+<span class="line-number">62</span>
+<span class="line-number">63</span>
+<span class="line-number">64</span>
+<span class="line-number">65</span>
+<span class="line-number">66</span>
+<span class="line-number">67</span>
+<span class="line-number">68</span>
+<span class="line-number">69</span>
+<span class="line-number">70</span>
+<span class="line-number">71</span>
+<span class="line-number">72</span>
+<span class="line-number">73</span>
+<span class="line-number">74</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">report  ztest12 no standard page heading
+</span><span class="line">                               line-size 132
+</span><span class="line">                               line-count 65
+</span><span class="line">                               message-id z001.
 </span><span class="line">
-</span><span class="line">sudo rake new_post[“    “]
-</span><span class="line">sudo rake generate
-</span><span class="line">sudo rake deploy
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp; Report  ZTEST1
+</span><span class="line">*&amp;
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp;
+</span><span class="line">*&amp;å
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">tables: sscrfields.
+</span><span class="line">type-pools: icon,vrm.
+</span><span class="line">data functxt type smp_dyntxt.
 </span><span class="line">
-</span><span class="line">&lt;code&gt;  &lt;/code&gt;
-</span><span class="line">&lt;h3&gt;    &lt;/h3&gt;
-</span><span class="line">&lt;p&gt; 	&lt;/p&gt;
+</span><span class="line">selection-screen: function key 1,
+</span><span class="line">                  function key 2. "此为两个触点定义
 </span><span class="line">
-</span><span class="line">&lt;ol&gt;或者&lt;ul&gt;
-</span><span class="line">  &lt;li&gt;  &lt;/li&gt;
-</span><span class="line">  &lt;li&gt;  &lt;/li&gt;
-</span><span class="line">&lt;/ol&gt;或者&lt;/ul&gt;
+</span><span class="line">selection-screen: begin of block 1 with frame.
 </span><span class="line">
-</span><span class="line">插入链接[Markdown 语法说明][2]
-</span><span class="line">[2]: http://wowubuntu.com/markdown “说明”
+</span><span class="line">parameters: p_list type c as listbox visible length 10.
 </span><span class="line">
-</span><span class="line">*或者**     *或者**
-</span><span class="line">&lt;!--more—&gt;
-</span><span class="line">转义符反斜杠\</span></code></pre></td></tr></table></div></figure></notextile></div>
+</span><span class="line">selection-screen: end of block 1.
+</span><span class="line">
+</span><span class="line">initialization.
+</span><span class="line">
+</span><span class="line">  functxt-icon_id = icon_create.
+</span><span class="line">  functxt-icon_text = 'Create1'.
+</span><span class="line">  sscrfields-functxt_01 = functxt.
+</span><span class="line">
+</span><span class="line">  functxt-icon_id = '@0V@'.
+</span><span class="line">  functxt-icon_text = 'Create2'.
+</span><span class="line">  functxt-quickinfo = 'Create new'.
+</span><span class="line">  sscrfields-functxt_02 = functxt.
+</span><span class="line">
+</span><span class="line">  clear: p_list.
+</span><span class="line">  perform selectlist changing p_list.
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">at selection-screen.
+</span><span class="line">  case sscrfields-ucomm.
+</span><span class="line">    when 'FC01'.
+</span><span class="line">      clear p_list.
+</span><span class="line">      message 'Create1' type 'I'.
+</span><span class="line">    when 'FC02'.
+</span><span class="line">      message 'Create2' type 'I'.
+</span><span class="line">  endcase.
+</span><span class="line">
+</span><span class="line">end-of-selection.
+</span><span class="line">
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp;      Form  selectlist
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*       text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">*      --&gt;P_LIST     text
+</span><span class="line">*----------------------------------------------------------------------*
+</span><span class="line">form selectlist changing p_list.
+</span><span class="line">  data: it_list type vrm_values,
+</span><span class="line">  wa_list like line of it_list.
+</span><span class="line">  wa_list-key = '01'.
+</span><span class="line">  wa_list-text = '普通领料'.
+</span><span class="line">  append wa_list to it_list.
+</span><span class="line">  wa_list-key = '02'.
+</span><span class="line">  wa_list-text = '批次领料'.
+</span><span class="line">  append wa_list to it_list.
+</span><span class="line">
+</span><span class="line">  call function 'VRM_SET_VALUES'
+</span><span class="line">    exporting
+</span><span class="line">      id     = 'P_LIST'
+</span><span class="line">      values = it_list.
+</span><span class="line">  refresh it_list.
+</span><span class="line">endform.                    "selectlist</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>最后，感谢万能的google！</p>
-<p><br /></p>
+<p><br />
+最后是程序说明:<br />
+1. selection-screen: function key最多可以定义5个，否则系统语法检查会出错<br />
+2. FC01代码捕捉后如果没有clear p_list的话，系统会添加一条新数据<br />
+3. <a href="http://help.sap.com/abapdocu_70/en/ABAPSELECTION-SCREEN_FUNCTIONKEY.htm">SAP系统help和demo</a><br /></p>
 </div>
 
 
@@ -238,12 +286,12 @@ octopress主要优点就是可以绑定自己的域名<br />
   
 
 
-<time datetime="2013-12-23T13:14:39+08:00" pubdate data-updated="true">2013-12-23 Mon</time>
+<time datetime="2014-02-27T16:28:30+08:00" pubdate data-updated="true">2014-02-27 Thu</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/octopress/'>octopress</a>
+    <a class='category' href='/blog/categories/abapji-zhu/'>ABAP技术</a>
   
 </span>
 
@@ -275,8 +323,8 @@ octopress主要优点就是可以绑定自己的域名<br />
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/blog/20140227/shi-yong-abap-memoryyu-sap-memory/" title="Previous Post: 使用ABAP MEMORY与SAP MEMORY讨论">&laquo; 使用ABAP MEMORY与SAP MEMORY讨论</a>
       
-        <a class="basic-alignment right" href="/blog/20131223/yin-xing-dai-ma-f4bang-zhu-search-bank-address/" title="Next Post: 银行代码F4帮助 - SEARCH_BANK_ADDRESS">银行代码F4帮助 - SEARCH_BANK_ADDRESS &raquo;</a>
       
     </p>
   </footer>
@@ -382,8 +430,8 @@ octopress主要优点就是可以绑定自己的域名<br />
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://lomozm.github.io/blog/20131223/my-first-octopress-blog/';
-        var disqus_url = 'http://lomozm.github.io/blog/20131223/my-first-octopress-blog/';
+        var disqus_identifier = 'http://lomozm.github.io/blog/20140227/wei-reportxuan-ze-ping-mu-tian-jia-gong-neng-an-niu/';
+        var disqus_url = 'http://lomozm.github.io/blog/20140227/wei-reportxuan-ze-ping-mu-tian-jia-gong-neng-an-niu/';
         var disqus_script = 'embed.js';
       
     (function () {
