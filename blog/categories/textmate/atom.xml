@@ -4,7 +4,7 @@
   <title><![CDATA[Category: TextMate | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/textmate/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2014-02-27T17:04:50+08:00</updated>
+  <updated>2014-02-28T17:57:25+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -38,7 +38,11 @@
 
 <h3 id="section-3">有用链接</h3>
 <p><a href="https://github.com/pvl/abap.tmbundle">源始ABAP.tmLanguage文件下载</a><br />
-<a href="http://wiki.macromates.com/Themes/UserSubmittedThemes">textmate和theme效果</a><br /></p>
+<a href="http://wiki.macromates.com/Themes/UserSubmittedThemes">textmate和theme效果</a><br />
+<a href="http://hiltmon.com/blog/2013/11/09/textmate-2-basics/">textmate基础知识</a><br /></p>
+
+<h3 id="section-4">补充</h3>
+<p>今天在目录<code>~/Library/Application Support/Avian/Bundles/</code>下找到了文件<a href="/appendix/ABAP.tmbundle">ABAP.tmbundle</a>，下载安装即可跳过之前的安装步骤</p>
 
 ]]></content>
   </entry>

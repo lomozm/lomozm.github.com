@@ -104,6 +104,8 @@
 	         top-of-page|
 	         type-pool|
 	         type-pools|
+			 user-command|
+			 value-request|
 			 process|
 			 initialization
 	         )(?=\s|\.|:|,)';
@@ -134,7 +136,7 @@
 	        endexec|endfunction|
 	        endinterface|endmodule|
 	        endprovide|endselect|endtry|endwhile|event|events|exec|exit|export|
-	        exporting|extract|exceptions|end|
+	        exporting|extract|exceptions|end|excluding|
 	        fetch|fields|format|free|function|find|from|field|first|for|frame|
 	        generate|group|
 	        hide|header|
@@ -145,6 +147,7 @@
 			key|
 	        leave|like|line|load|local|length|left|leading|lines|
 	        method|message|methods|modify|module|move|multiply|match|
+			modif|
 	        object|overlay|optional|others|occurrences|offset|occurs|
 			obligatory|output|
 	        pack|parameters|position|program|provide|public|parameter|
@@ -153,7 +156,7 @@
 			radiobutton|
 	        scan|scroll|search|select|shift|skip|sort|sorted|split|standard| 
 	        statics|step|stop|submit|subtract|summary|suppress|section|
-			single|skip|submit|screen|
+			single|skip|submit|screen|structure|
 	        tables|table|times|transfer|translate|types|type|transaction|
 			title|
 	        unassign|uline|unpack|update|using|
@@ -191,7 +194,7 @@
 		};
 		system_variable = {
 			name = 'invalid.language.abap';
-			match = '(?ix)(sy-([A-Za-z_][A-Za-z0-9_]*))(?=\s|\.|\()';
+			match = '(?ix)(((sy)|(screen))-([A-Za-z_][A-Za-z0-9_]*))(?=\s|\.|\(|,)';
 		};
 	};
 }
