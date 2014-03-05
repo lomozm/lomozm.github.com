@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2014-02-28T17:57:25+08:00</updated>
+  <updated>2014-03-05T11:21:55+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -12,6 +12,155 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[为SAP ABAP编辑环境添加模式(pattern)]]></title>
+    <link href="http://lomozm.github.io/blog/20140304/wei-sap-abapbian-ji-huan-jing-tian-jia-mo-shi-pattern/"/>
+    <updated>2014-03-04T15:24:26+08:00</updated>
+    <id>http://lomozm.github.io/blog/20140304/wei-sap-abapbian-ji-huan-jing-tian-jia-mo-shi-pattern</id>
+    <content type="html"><![CDATA[
+<h3 id="section">背景</h3>
+<p>本文技术来源于<a href="http://scnblogs.techweb.com.cn/tcsapbw/archives/2515.html">edison_tc的&lt;【ABAP】创建ABAP Coding Pattern或Template&gt;</a>，只是再实现一遍，记录下来，以后有机会玩玩<br />
+正如文中所说，分三种情况来实现，分别是：<br /></p>
+
+<h4 id="pattern">1. 静态pattern</h4>
+<p>直接在pattern中写入需要显示内容，在编辑器中显示的与之一致<br /></p>
+
+<h4 id="pattern-1">2. 动态pattern</h4>
+<p>接下来会详细介绍<br /></p>
+
+<h4 id="template">3. template</h4>
+<p>编辑器中自定义关键字，写代码时只需要输入关键字，系统自动把定义内容补上<br />
+<!-- more --></p>
+
+<h3 id="pattern-2">动态pattern实现</h3>
+<p>考虑到每个报表的头部都要这部分，拷来拷去有点烦，就用这个了
+1. 进入代码编辑环境，创建pattern<br />
+<img src="http://lomozm.github.io/images/images/QQ20140304-1@2x.jpg" alt="01" /><br />
+2. 输入交量<code>*$&amp;$EXIT</code>，然后保存<br />
+<img src="http://lomozm.github.io/images/images/QQ20140304-2@2x.jpg" alt="02" /><br />
+3. 找到出口：SEUED001，实现function：<code>EXIT_SAPLLOCAL_EDT1_001</code><br />
+<img src="http://lomozm.github.io/images/images/QQ20140304-5@2x.jpg" alt="03" /><br />
+<img src="http://lomozm.github.io/images/images/QQ20140304-6@2x.jpg" alt="04" /><br />
+代码实例：<br /></p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">* BREAK lomozm.
+</span><span class="line">
+</span><span class="line">data: w_buffer type string,
+</span><span class="line">l_note_line type string,
+</span><span class="line">w_temp type string.
+</span><span class="line">case keyword.
+</span><span class="line">  when 'ZM01'.
+</span><span class="line">    l_note_line = '*&amp;---------------------------------------------------------------------*"'
+</span><span class="line">    append l_note_line to buffer.
+</span><span class="line">    w_buffer = '*&amp; Responsibility'.
+</span><span class="line">    append w_buffer to buffer.
+</span><span class="line">	append l_note_line to buffer.
+</span><span class="line">    w_buffer = '* Program Name:'.
+</span><span class="line">    concatenate w_buffer sy-title into w_buffer separated by space.
+</span><span class="line">    append w_buffer to buffer.
+</span><span class="line">    w_buffer = '* Date written:'.
+</span><span class="line">    concatenate w_buffer sy-datum into w_buffer separated by space.
+</span><span class="line">    append w_buffer to buffer.
+</span><span class="line">    w_buffer = '* Author''s name:'
+</span><span class="line">    concatenate w_buffer sy-uname into w_buffer separated by space.
+</span><span class="line">    append w_buffer to buffer.
+</span><span class="line">    w_buffer = '* Last update:'.
+</span><span class="line">    concatenate w_buffer sy-datum into w_buffer separated by space.
+</span><span class="line">    append w_buffer to buffer.
+</span><span class="line">    w_buffer = '* Project Name:'.
+</span><span class="line">    append w_buffer to buffer.
+</span><span class="line">    w_buffer = '* Version:1.0'.
+</span><span class="line">    append w_buffer to buffer.
+</span><span class="line">	
+</span><span class="line">	append l_note_line to buffer.
+</span><span class="line">    w_buffer = '* Description: (Incl. Related Function Area and System)'.
+</span><span class="line">    append w_buffer to buffer.
+</span><span class="line">	append l_note_line to buffer.
+</span><span class="line">    w_buffer = '*'.
+</span><span class="line">    append w_buffer to buffer.
+</span><span class="line">	
+</span><span class="line">	append l_note_line to buffer.
+</span><span class="line">	w_buffer = '* Change History'.
+</span><span class="line">    append w_buffer to buffer.
+</span><span class="line">	append l_note_line to buffer.
+</span><span class="line">	w_buffer = '*     Date   |   Programmer   |   Corr. #   |   Description'.
+</span><span class="line">    append w_buffer to buffer.
+</span><span class="line">	concatenate '*  ' sy-datum '  |    ' sy-uname(12) '|    @@@@@    |   create' 
+</span><span class="line">		into w_buffer  RESPECTING BLANKS.
+</span><span class="line">    append w_buffer to buffer.
+</span><span class="line">	w_buffer = '*            |                |             |'.
+</span><span class="line">    append w_buffer to buffer.
+</span><span class="line">	append l_note_line to buffer.
+</span><span class="line">	
+</span><span class="line">  when others.
+</span><span class="line">* Do nothing
+</span><span class="line">endcase.</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ol>
+  <li>在编辑环境选择自建的pattern<br />
+<img src="http://lomozm.github.io/images/images/QQ20140304-3@2x.jpg" alt="05" /><br /></li>
+  <li>效果<br />
+<img src="http://lomozm.github.io/images/images/QQ20140304-4@2x.jpg" alt="06" /><br /></li>
+</ol>
+
+<h3 id="section-1">后记</h3>
+<p>个人觉得template还是很有用的，主要是每次改程序的时候都要用begin/end之类的，自己建一个template是个不错的选择<br /></p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[为Report选择屏幕添加事件按钮]]></title>
@@ -4852,130 +5001,6 @@ Data define——<br /></p>
 <!--more-->
 <p><img src="http://lomozm.github.io/images/images/daa36f17829e2b3321a7f0c3e99cfe82.jpeg" /></p>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[My first octopress blog]]></title>
-    <link href="http://lomozm.github.io/blog/20131223/my-first-octopress-blog/"/>
-    <updated>2013-12-23T13:14:39+08:00</updated>
-    <id>http://lomozm.github.io/blog/20131223/my-first-octopress-blog</id>
-    <content type="html"><![CDATA[
-<p>话说第一篇blog是关于octopress的，魔咒啊！<br />
-很早就有建自己blog的想法，最近项目空闲，总算是实现了，也不尽完美<br /><br />
-octopress主要优点就是可以绑定自己的域名<br />
-<!--more--></p>
-<h3>基础搭建</h3>
-<p>参船长的文档<a href="http://beyondvincent.com/blog/2013/08/03/108-creating-a-github-blog-using-octopress">利用Octopress搭建一个Github博客</a>
-<br /></p>
-<h3>导航和评论</h3>
-<p>参照冯威的<a href="http://www.cnblogs.com/oec2003/archive/2013/05/31/3109577.html">Octopress博客设置</a>
-<br /></p>
-<p>说明一下，里面<code>category_list_tag.rb</code>文件内容要做些更改，因为github地址栏不支持中文
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">module Jekyll 
-</span><span class="line">  class CategoryListTag &lt; Liquid::Tag 
-</span><span class="line">    def render(context) 
-</span><span class="line">      html = "" 
-</span><span class="line">      categories = context.registers[:site].categories.keys 
-</span><span class="line">      categories.sort.each do |category| 
-</span><span class="line">        posts_in_category = context.registers[:site].categories[category].size 
-</span><span class="line">        category_dir = context.registers[:site].config['category_dir']
-</span><span class="line">        category_url = File.join(category_dir, category.to_url)
-</span><span class="line">        html &lt;&lt; "&lt;li class='category'&gt;&lt;a href='http://lomozm.github.io/#{category_url}/'&gt;#{category} (#{posts_in_category})&lt;/a&gt;&lt;/li&gt;\n" 
-</span><span class="line">      end 
-</span><span class="line">      html 
-</span><span class="line">    end 
-</span><span class="line">  end 
-</span><span class="line">end
-</span><span class="line">
-</span><span class="line">Liquid::Template.register_tag('category_list', Jekyll::CategoryListTag)
-</span><span class="line">require 'stringex'</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-</p>
-
-<h3>其它</h3>
-<p>添加分享<a href="http://blog.csdn.net/jackystudio/article/details/16838525">【像黑客一样写博客之七】分享功能</a><br />
-改变图标<a href="http://brianbuccola.github.io/blog/2012-11-29-how-to-change-the-favicon-in-octopress.html">How to Change the Favicon in Octopress</a><br />
-插入链接<a href="http://wowubuntu.com/markdown">Markdown 语法说明</a>(注意：如果链接是以”/“结尾的，需把它去掉)<br />
-其它技巧<a href="http://blog.jackphil.com/blog/2012/05/16/octopress-tips">Octopress技巧集</a><br /></p>
-<p>对于配置文件<code>_config.yml</code>的一些更改
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">permalink: /blog/:year:month:day/:title/
-</span><span class="line">markdown: kramdown
-</span><span class="line">excerpt_link: "阅读全文…” 
-</span><span class="line">default_asides: [asides/title_pic.html, asides/recent_posts.html, custom/asides/recent_comment.html, asides/category_list.html]</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-</p>
-<h3>附上整理的Markdown部分语法</h3>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-<span class="line-number">19</span>
-<span class="line-number">20</span>
-<span class="line-number">21</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">octopress发布blog常用格式
-</span><span class="line">
-</span><span class="line">sudo rake new_post[“    “]
-</span><span class="line">sudo rake generate
-</span><span class="line">sudo rake deploy
-</span><span class="line">
-</span><span class="line">&lt;code&gt;  &lt;/code&gt;
-</span><span class="line">&lt;h3&gt;    &lt;/h3&gt;
-</span><span class="line">&lt;p&gt; 	&lt;/p&gt;
-</span><span class="line">
-</span><span class="line">&lt;ol&gt;或者&lt;ul&gt;
-</span><span class="line">  &lt;li&gt;  &lt;/li&gt;
-</span><span class="line">  &lt;li&gt;  &lt;/li&gt;
-</span><span class="line">&lt;/ol&gt;或者&lt;/ul&gt;
-</span><span class="line">
-</span><span class="line">插入链接[Markdown 语法说明][2]
-</span><span class="line">[2]: http://wowubuntu.com/markdown “说明”
-</span><span class="line">
-</span><span class="line">*或者**     *或者**
-</span><span class="line">&lt;!--more—&gt;
-</span><span class="line">转义符反斜杠\</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>最后，感谢万能的google！</p>
-<p><br /></p>
 ]]></content>
   </entry>
   

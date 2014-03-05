@@ -5,11 +5,15 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>BW层次主数据加载 - lomozm’s Journal</title>
+  <title>lomozm’s Journal</title>
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="R3系统中，事务代码KSH2，在源数据中新增成本中心 ### BW系统中，事务代码RSA1，上载成本中心（0COSTCENTER）数据，可以看出层次更新有两个，在此分别表示中/英文 上载路径：文本 -&gt; 属性 -&gt; 层次结构，且只用FULL上载就可以了，因为主数据上载是覆盖性的 &hellip;">
+  <meta name="description" content="
+话说第一篇blog是关于octopress的，魔咒啊！
+很早就有建自己blog的想法，最近项目空闲，总算是实现了，也不尽完美
+octopress主要优点就是可以绑定自己的域名
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://lomozm.github.io/blog/20131226/bwceng-ci-zhu-shu-ju-jia-zai/">
+  <link rel="canonical" href="http://lomozm.github.io/blog/page/3/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -64,13 +68,16 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div>
-<article class="hentry" role="article">
+      <div class="blog-index">
   
+  
+  
+    <article>
+      
   <header>
     
-      
-        <h1 class="entry-title">BW层次主数据加载</h1>
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/20131223/my-first-octopress-blog/">My First Octopress Blog</a></h1>
       
     
     
@@ -87,108 +94,38 @@
   
 
 
-<time datetime="2013-12-26T11:12:19+08:00" pubdate data-updated="true">2013-12-26 Thu</time>
+<time datetime="2013-12-23T13:14:39+08:00" pubdate data-updated="true">2013-12-23 Mon</time>
         
-         | <a href="#disqus_thread">Comments</a>
+         | <a href="/blog/20131223/my-first-octopress-blog/#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content">
-<h3 id="r3ksh2">R3系统中，事务代码KSH2，在源数据中新增成本中心</h3>
-<p><img src="/images/images/hierarchyloadetl.files/image001.png" alt="m001" /><br />
-<!--more-->
-### BW系统中，事务代码RSA1，上载成本中心（0COSTCENTER）数据，可以看出层次更新有两个，在此分别表示中/英文
-<img src="/images/images/hierarchyloadetl.files/image003.png" alt="m002" /><br /></p>
-
-<h3 id="full">上载路径：文本 -&gt; 属性 -&gt; 层次结构，且只用FULL上载就可以了，因为主数据上载是覆盖性的</h3>
-<p><img src="/images/images/hierarchyloadetl.files/image005.png" alt="m003" /><br />
-可以看出这个上载已在处理链中，单击开始进行文本上载，同时对于主数据属性的更新也是如此<br />
-<img src="/images/images/hierarchyloadetl.files/image007.png" alt="m004" /><br /></p>
-
-<h3 id="r3infopackage">对于层次上载，在“层次结构选择”中可以看到来自R3的所有成本中心层次；如果需要上载多个层次结构，则需要建多个InfoPackage来上载相应数据，然后开始上载</h3>
-<p><img src="/images/images/hierarchyloadetl.files/image009.jpg" alt="m005" /><br /></p>
-
-<h3 id="bwrsh1">上载成功后，BW系统中，事务代码RSH1，可以看到更新的内容</h3>
-<p><img src="/images/images/hierarchyloadetl.files/image011.png" alt="m006" /><br /></p>
+  <div class="entry-content">
+<p>话说第一篇blog是关于octopress的，魔咒啊！<br />
+很早就有建自己blog的想法，最近项目空闲，总算是实现了，也不尽完美<br /><br />
+octopress主要优点就是可以绑定自己的域名<br />
 </div>
-
-
-  <footer>
-    <p class="meta">
-      
   
-
-<span class="byline author vcard">Posted by <span class="fn">lomozm</span></span>
-
-      
-
-
-
-
-
-
-
-
+  
+    <footer>
+      <a rel="full-article" href="/blog/20131223/my-first-octopress-blog/">阅读全文…</a>
+    </footer>
   
 
 
-<time datetime="2013-12-26T11:12:19+08:00" pubdate data-updated="true">2013-12-26 Thu</time>
-      
-
-<span class="categories">
+    </article>
   
-    <a class='category' href='/blog/categories/bwetl/'>BWETL</a>
-  
-</span>
-
-
-    </p>
+  <div class="pagination">
     
-      <div class="sharing">
-     
-      <!-- aThis Button BEGIN -->
-<div class="jiathis_style_32x32">
-	<a class="jiathis_button_qzone"></a>
-	<a class="jiathis_button_tsina"></a>
-	<a class="jiathis_button_tqq"></a>
-	<a class="jiathis_button_weixin"></a>
-	<a class="jiathis_button_renren"></a>
-	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-	<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1372549893240163" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-  
-      <h1> </h1>
+    <a href="/blog/archives">Blog Archives</a>
     
-  
-  
-  
-</div>
-
+    <a class="next" href="/blog/page/2/">Newer &rarr;</a>
     
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/20131225/sapgong-zuo-liu-kai-fa-shi-li/" title="Previous Post: SAP工作流开发实例">&laquo; SAP工作流开发实例</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/20131226/xiao-shou-ding-dan-cheng-ben-xian-shi-zeng-qiang-lv69afzz/" title="Next Post: 销售定单成本显示增强 - LV69AFZZ">销售定单成本显示增强 - LV69AFZZ &raquo;</a>
-      
-    </p>
-  </footer>
-</article>
-
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
 </div>
-  </section>
-
-</div>
-
 <aside class="sidebar">
   
     
@@ -265,7 +202,6 @@
   
 </aside>
 
-
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -280,10 +216,7 @@
       var disqus_shortname = 'lomozm';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://lomozm.github.io/blog/20131226/bwceng-ci-zhu-shu-ju-jia-zai/';
-        var disqus_url = 'http://lomozm.github.io/blog/20131226/bwceng-ci-zhu-shu-ju-jia-zai/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
