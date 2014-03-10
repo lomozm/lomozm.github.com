@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2014-03-05T11:21:55+08:00</updated>
+  <updated>2014-03-10T18:40:27+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -12,6 +12,56 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[洛阳龙门石窟]]></title>
+    <link href="http://lomozm.github.io/blog/20140310/luo-yang-long-men-shi-ku/"/>
+    <updated>2014-03-10T15:32:18+08:00</updated>
+    <id>http://lomozm.github.io/blog/20140310/luo-yang-long-men-shi-ku</id>
+    <content type="html"><![CDATA[
+<p>在郑州呆了个周末，项目组同事介绍去郑州市里逛，什么王府井、曼哈顿啥的，周五晚上通过google卫星地图发现很多都还在修，再说都是商务楼又不是去采购的话，一个人逛也太没劲了<br />
+然后搜了一下有没有啥一日游的，最后确定龙门石窟，原因嘛，谁叫我是个文艺青年呢<br />
+后面就是订车票，个人出去又不报销，选最便宜的火车票，快车单程1小时50分钟19.5元，现实中我发现快车晚点现象严重，两趟车都再少晚点20分钟～～<br />
+门票120元/人，淘宝网上有110块的价格，不过要3人以上才给送票，要不就得去某某地方取，我的神拉，打车票都不只10块了，果断选择现场买<br />
+<!-- more -->
+洛阳比郑州要干净些，虽然树叶上也有些沙尘，街道上还有挺干净的<br />
+分享一篇游记，[001][山水之胜——龙门首焉]非常不错，图文并茂哦。至对相关知识极度困乏的我，感受就是一个人又没带相机的旅游真他X的无聊，虽然龙门石窟是个出照片的好地方<br />
+我最喜欢的两个雕塑<br /></p>
+
+<h4 id="section">武士</h4>
+<p><img src="http://lomozm.github.io/images/images/QQ20140310-1@2x.png" alt="001" /><br /></p>
+
+<h4 id="section-1">菩萨</h4>
+<p><img src="http://lomozm.github.io/images/images/QQ20140310-2@2x.png" alt="001" /><br />
+![001][P003]<br />
+<br />
+列一下出行的时间表吧<br />
+4：50起床
+5：03从中方园出发
+5：20到达陈寨公交车站
+5：32乘上Y806公交车
+6：05到达郑州火车站
+6：20取票完全（本想改签6：40的车，因之前改签过一次，不能再改签）
+6：30进候车室3号
+7：25检票进入K329，10号车箱（车的始点站是天津，洛阳是终点站）
+7：45从郑州站出发，晚点27分钟（和旁边一哥们聊起，他说这车晚点很正常）
+8：47到巩义车站停靠
+9：24到达洛阳火车站
+9：34乘上K81路公交车去龙门石窟
+10：15到达终点站
+10：35检票进入景点
+12：44西山景点完成
+14：00坐上K81返回火车站
+14：58到达郑州火车站
+15：05改签票到15：50发车K1028
+16：10火车从洛阳站出发
+18：20到达郑州站
+19：05乘上B20公交车
+19：38到达丰庆路庙李站
+20：02到达住处中方园的205室</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[为SAP ABAP编辑环境添加模式(pattern)]]></title>
@@ -4962,44 +5012,6 @@ Data define——<br /></p>
 </span><span class="line">    if sy-subrc &lt;&gt; 0.
 </span><span class="line">* Implement suitable error handling here
 </span><span class="line">    endif.</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[银行代码F4帮助 - SEARCH_BANK_ADDRESS]]></title>
-    <link href="http://lomozm.github.io/blog/20131223/yin-xing-dai-ma-f4bang-zhu-search-bank-address/"/>
-    <updated>2013-12-23T15:55:56+08:00</updated>
-    <id>http://lomozm.github.io/blog/20131223/yin-xing-dai-ma-f4bang-zhu-search-bank-address</id>
-    <content type="html"><![CDATA[<p>说明：输入国家代码，运行时弹出选择窗口</p>
-
-<p>示例：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">data: lwa_bnka type bnka.
-</span><span class="line">
-</span><span class="line">  call function 'SEARCH_BANK_ADDRESS'
-</span><span class="line">    exporting
-</span><span class="line">      i_banks = p_banks
-</span><span class="line">*     I_MORE  = 'X'
-</span><span class="line">    importing
-</span><span class="line">      e_bnka  = lwa_bnka.
-</span><span class="line">  if lwa_bnka is not initial.
-</span><span class="line">    p_0026  = lwa_bnka-bankl.
-</span><span class="line">  endif.</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<!--more-->
-<p><img src="http://lomozm.github.io/images/images/daa36f17829e2b3321a7f0c3e99cfe82.jpeg" /></p>
 
 ]]></content>
   </entry>
