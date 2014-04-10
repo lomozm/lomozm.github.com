@@ -1,4 +1,10 @@
-############################################################ # # file    : /Users/Lomozm/Library/Preferences/SAP/connections # created : 13.06.2013 16:16:39 CDT # encoding: UTF-8 # ############################################################
+############################################################
+#
+# file    : /Users/Lomozm/Library/Preferences/SAP/connections
+# created : 13.06.2013 16:16:39 CDT
+# encoding: UTF-8
+#
+############################################################
 #成都工程机械有限公司
 CG DEV:conn=/H/172.16.20.152/S/3200
 CG DEV with Router:conn=/H/218.89.185.247/H/172.16.20.152/S/3200
@@ -7,3 +13,10 @@ Biz demo:conn=/H/cdbiz.xicp.net/S/3200
 #米老头
 unclepop DEV:conn=/H/192.168.0.12/S/3200
 unclepop DEV with Router:conn=/H/125.64.74.156/H/192.168.0.12/S/3200
+#剑南春
+JNC DEV:conn=/H/192.168.101.31/S/3200
+JNC DEV with router:conn=/H/218.6.162.26/H/192.168.101.31/S/3200
+JNC QAS:conn=/H/192.168.101.41/S/3200
+JNC PRD:conn=/H/192.168.101.68/S/3201
+#新都化工
+XDHG DEV with router:conn=/H/182.148.121.104/H/10.0.0.241/S/3200
