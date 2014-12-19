@@ -23,6 +23,9 @@ JNC PRD with router:conn=/H/218.6.162.26/H/192.168.101.68/S/3200
 XDHG DEV with router:conn=/H/182.148.121.104/H/10.0.0.241/S/3200
 #CPIC
 CPIC DEV with router:conn=/H/222.178.34.162/W/Cpic123/H/bhsapdev.cpicfiber.com/S/3200
-#泰山玻纤IDES
-TB IDES:conn=/H/192.168.90.174/S/3200
+#泰山玻纤
+TB DEV with router:conn=/H/123.135.125.162/H/192.168.90.162/S/3200
 TB DEV:conn=/H/192.168.90.162/S/3200
+TB QAS with router:conn=/H/123.135.125.162/H/192.168.90.162/S/3210
+TB QAS:conn=/H/192.168.90.162/S/3210
+
