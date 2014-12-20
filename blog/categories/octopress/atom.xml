@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2014-12-20T12:40:31+08:00</updated>
+  <updated>2014-12-20T13:52:31+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -12,6 +12,64 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[MacOS 10+ Octopress问题解决]]></title>
+    <link href="http://lomozm.github.io/blog/20141220/macos-10-plus-octopresswen-ti-jie-jue/"/>
+    <updated>2014-12-20T12:51:16+08:00</updated>
+    <id>http://lomozm.github.io/blog/20141220/macos-10-plus-octopresswen-ti-jie-jue</id>
+    <content type="html"><![CDATA[
+<p>说明一下，在这个神奇的国度，上外网或进行外网交互真是个技术话，别人都觉得不会翻墙都不好意思说自己是搞IT的！<br /><br />
+最后近一直很忙，几乎都成了31天工作制了，昨天突发奇想更新下自已的blog，问题来了<br />
+1、首先不记得rake命命，我的那个神拉，快速翻开第1篇，真慢。算了，用<code>sudo rake preview</code>，再用<code>http://localhost:4000</code>找到，瞬间找到了些感觉，高兴<br />
+2、什么，<code>fatal: Authentication failed for https://github.com/....</code>，使用<code>sudo rake deploy</code>认证失败，网速慢，多试了几次，还是一样的，是不是os升级到10.2后一些认证丢了呢，关键我都不记得github的密码了，在github里把密码改了，然后就是把系统存的钥匙串也改了，如下：<br />
+<img src="/images/images/QQ20141220-1@2x.png" alt="001" /><br />
+<img src="/images/images/A9A6910E-81F5-43F6-B2ED-98235A7986E3.png" alt="002" /><br />
+3、然后就出现了<code>fatal: unable to access 'https://github.com/lomozm/lomozm.github.com/': Empty reply from server</code>，我的github客户端都能联通的呀，开启baidu搜（自从最近用不了google之后，就只有这东西可用了）<br />
+<a href="http://segmentfault.com/q/1010000002169878">升级Yosemite后github for Mac的客户端出错</a>中说用<code>ssh -vT git@github.com</code>查看结果，其中包括：<br />
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>debug1: Offering DSA public key: /Users/&lt;strong>&lt;em>/.ssh/id_dsa
+</span><span class='line'>debug1: Authentications that can continue: publickey
+</span><span class='line'>debug1: Offering RSA public key: /Users/&lt;/em>&lt;/strong>/.ssh/github_rsa
+</span><span class='line'>debug1: Server accepts key: pkalg ssh-rsa blen 279
+</span><span class='line'>debug1: Authentication succeeded (publickey).
+</span><span class='line'>Authenticated to github.com ([192.30.252.128]:22).
+</span><span class='line'>debug1: channel 0: new [client-session]
+</span><span class='line'>debug1: Entering interactive session.
+</span><span class='line'>debug1: Sending environment.
+</span><span class='line'>debug1: Sending env LANG = zh_CN.UTF-8
+</span><span class='line'>debug1: client_input_channel_req: channel 0 rtype exit-status reply 0
+</span><span class='line'>Hi lomozm! You’ve successfully authenticated, but GitHub does not provide shell access.
+</span><span class='line'>debug1: channel 0: free: client-session, nchannels 1
+</span><span class='line'>Transferred: sent 3640, received 1992 bytes, in 40.3 seconds
+</span><span class='line'>Bytes per second: sent 90.3, received 49.4
+</span><span class='line'>debug1: Exit status 1</span></code></pre></td></tr></table></div></figure></notextile></div>
+&lt;/p&gt;
+正常的啊，deploy还是出现不能访问，郁闷！！！网速也很慢，先睡觉，明日再战<br />
+今天加班，处理完手里的事情后，看到一篇文章<a href="http://www.cocoachina.com/bbs/read.php?tid=271942">升级10。10yihougithub无法提交代码了</a>,里面说和我情况差不多吧，就是不能访问，4楼的方法出其简单，就是增加DNS：8.8.8.8和搜索域：github.com，要不有截图，我定认为是忽悠，这个DNS太不正常了吧，就这张图：<br />
+<img src="/images/images/21_335670_6d4fee0fb339a56.png" alt="003" /><br />
+同时，这个贴子里还提到如何为自已的账号生成ssh key<a href="https://help.github.com/articles/generating-ssh-keys/#step-3-add-your-ssh-key-to-your-account">Generating SSH keys</a><br /><br /></p>
+
+<p>最后，当然是deploy successful了，而且，速度挺快<br />
+感谢baidu.<br /></p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[My first octopress blog]]></title>
