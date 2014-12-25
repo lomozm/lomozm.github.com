@@ -1,0 +1,757 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>基于工艺路线的检验计划导入函数 - CPCC_S_TASK_LIST_MAINTAIN - lomozm’s Journal</title>
+  <meta name="author" content="lomozm">
+
+  
+  <meta name="description" content="说明一下，这里主要是针对的时生产过程检验(tcode:QP01)，结果检验和来料检验，这个函数貌似也可以来做这些，所以很强大；同时，这个函数执行完后会锁定该工艺路线，必须程序退出后才释放
+除了这个函数外，还有个BAPI:BAPI_INSPECTIONPLAN_CREATE, Function: &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://lomozm.github.io/blog/20141225/ji-yu-gong-yi-lu-xian-de-jian-yan-ji-hua-dao-ru-han-shu-cpcc-s-task-list-maintain/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="lomozm’s Journal" type="application/atom+xml">
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">lomozm’s Journal</a></h1>
+  
+    <h2>长得不帅，跑得不快；一如既往，永往向前...</h2>
+  
+  <div class="clear"></div>
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:lomozm.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">文章列表</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      
+        <h1 class="entry-title">基于工艺路线的检验计划导入函数 - CPCC_S_TASK_LIST_MAINTAIN</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-25T21:15:37+08:00" pubdate data-updated="true">2014-12-25 Thu</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>说明一下，这里主要是针对的时生产过程检验(tcode:QP01)，结果检验和来料检验，这个函数貌似也可以来做这些，所以很强大；同时，这个函数执行完后会锁定该工艺路线，必须程序退出后才释放<br />
+除了这个函数外，还有个<code>BAPI:BAPI_INSPECTIONPLAN_CREATE, Function: ROUTING_MAINTAIN</code>也可以做；同时,<code>FUNCTION:QPCP_CHARACTERISTICS_CREATE</code>可以完成对表PLMK单条行数据的更改<br />
+之所以没有用BAPI，当时业务顾问直接拿张表过来说，你把这些数据导进去吧，都没说是哪个事务代码，于是就自己折腾。。。<br /><br />
+<!-- more -->
+先提到几张表——<br />
+PLKO: 任务清单 - 表头<br />
+PLPO: 任务清单 - 工序/作业<br />
+PLMK: 检验计划特性(与工艺路线关联)，存放检验特性数据，数据从表QPMK带过来<br />
+QPMK: 检验主特性<br />
+QPMT: 主检验特性文本<br /></p>
+
+<h4 id="section">示例：</h4>
+<p>数据定义<br /></p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+<span class="line-number">62</span>
+<span class="line-number">63</span>
+<span class="line-number">64</span>
+<span class="line-number">65</span>
+<span class="line-number">66</span>
+<span class="line-number">67</span>
+<span class="line-number">68</span>
+<span class="line-number">69</span>
+<span class="line-number">70</span>
+<span class="line-number">71</span>
+<span class="line-number">72</span>
+<span class="line-number">73</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">TYPES: BEGIN OF TY_STAT,
+</span><span class="line">         NO       TYPE I,
+</span><span class="line">         STATUS   TYPE ICONNAME,
+</span><span class="line">         ERR_INFO TYPE CHAR100,
+</span><span class="line">         CHECKED  TYPE C,
+</span><span class="line">       END OF TY_STAT.
+</span><span class="line">
+</span><span class="line">TYPES: BEGIN OF TY_XLS,
+</span><span class="line">         PLNNR         TYPE PLNNR, "任务清单组码
+</span><span class="line">         PMSTR_CHAR    TYPE WERKS_D, "工厂
+</span><span class="line">         GROUP_COUNTER TYPE PLNAL, "组计数器
+</span><span class="line">         VORNR         TYPE VORNR, "操作/活动编号
+</span><span class="line">         VERWMERKM     TYPE QMERKNR,  "检验特性编号
+</span><span class="line">         SMPL_UNIT     TYPE QPROBME,  "采样计量单位
+</span><span class="line">         SMPL_QUANT    TYPE QPROBEFAK, "采样的采样数量因子（多重采样计量单位）
+</span><span class="line">
+</span><span class="line">         STICHPRVER    TYPE QSTICHVERF, "检验特性中的采样程序
+</span><span class="line">         QPMK_ZAEHL    TYPE QZAEHLER, "主检验特性的工厂
+</span><span class="line">         MKVERSION     TYPE QVERSNRMK, "主检验特性的版本号
+</span><span class="line">         PMETHODE      TYPE QPMETHODE, "检验方法
+</span><span class="line">         PMETHOD       TYPE Q_METH_PLANT, "检验方法的工厂
+</span><span class="line">         PMTVERSION    TYPE QVERSNRPM,  "检验方法的版本号
+</span><span class="line">
+</span><span class="line">         PLNKN         TYPE PLNKN, "任务清单节点数
+</span><span class="line">         ZAEHL         TYPE CIM_COUNT, "内部计数器
+</span><span class="line">         GUELTIGAB     TYPE DATUV.  "有效起始日期
+</span><span class="line">
+</span><span class="line">        INCLUDE       TYPE TY_STAT.
+</span><span class="line">TYPES: END OF TY_XLS.
+</span><span class="line">DATA: GIT_XLS TYPE TABLE OF TY_XLS WITH HEADER LINE,
+</span><span class="line">      GWA_XLS TYPE          TY_XLS.
+</span><span class="line">
+</span><span class="line">TYPES: BEGIN OF TY_DATA,
+</span><span class="line">
+</span><span class="line">         PLNNR         TYPE PLNNR, "任务清单组码
+</span><span class="line">         GROUP_COUNTER TYPE PLNAL, "组计数器
+</span><span class="line">         ZAEHL         TYPE CIM_COUNT, "内部计数器
+</span><span class="line">         PLNKN         TYPE PLNKN, "任务清单节点数
+</span><span class="line">
+</span><span class="line">         PMSTR_CHAR    TYPE WERKS_D, "工厂
+</span><span class="line">         VORNR         TYPE VORNR, "操作/活动编号
+</span><span class="line">         VERWMERKM     TYPE QMERKNR,  "检验特性编号
+</span><span class="line">         SMPL_UNIT     TYPE QPROBME,  "采样计量单位
+</span><span class="line">         SMPL_QUANT    TYPE QPROBEFAK, "采样的采样数量因子（多重采样计量单位）
+</span><span class="line">
+</span><span class="line">         STICHPRVER    TYPE QSTICHVERF, "检验特性中的采样程序
+</span><span class="line">         QPMK_ZAEHL    TYPE QZAEHLER, "主检验特性的工厂
+</span><span class="line">         MKVERSION     TYPE QVERSNRMK, "主检验特性的版本号
+</span><span class="line">         PMETHODE      TYPE QPMETHODE, "检验方法
+</span><span class="line">         PMETHOD       TYPE Q_METH_PLANT, "检验方法的工厂
+</span><span class="line">         PMTVERSION    TYPE QVERSNRPM,  "检验方法的版本号
+</span><span class="line">
+</span><span class="line">         ARBID         TYPE OBJEKTID,
+</span><span class="line">         INDEX         TYPE I,
+</span><span class="line">
+</span><span class="line">         KURZTEXT      TYPE QKURZTEXT, "短文本
+</span><span class="line">         CHARACT_ID1   TYPE QCHARACT_ID1, "质量数据交换的特性描述
+</span><span class="line">         STELLEN       TYPE QSTELLEN,   "小数点右边的位数（精确的）
+</span><span class="line">         SOLLWERT      TYPE QSOLLWERTE, "一个数量特性的目标值
+</span><span class="line">         SOLLWNI       TYPE QNINITIAL,
+</span><span class="line">         TOLERANZOB    TYPE QTOLOB,  "规范上限
+</span><span class="line">         TOLOBNI       TYPE QNINITIAL,
+</span><span class="line">         TOLERANZUN    TYPE QTOLUN,  "容差下限
+</span><span class="line">         TOLUNNI       TYPE QNINITIAL,
+</span><span class="line">
+</span><span class="line">         GUELTIGAB     TYPE DATUV.  "有效起始日期
+</span><span class="line">
+</span><span class="line">        INCLUDE       TYPE TY_STAT.
+</span><span class="line">TYPES: END OF TY_DATA.
+</span><span class="line">
+</span><span class="line">DATA: GIT_DATA TYPE TABLE OF TY_DATA WITH HEADER LINE,
+</span><span class="line">      GWA_DATA TYPE          TY_DATA.
+</span><span class="line">FIELD-SYMBOLS: &lt;DATA&gt; TYPE TY_DATA.</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>函数调用<br /></p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+<span class="line-number">62</span>
+<span class="line-number">63</span>
+<span class="line-number">64</span>
+<span class="line-number">65</span>
+<span class="line-number">66</span>
+<span class="line-number">67</span>
+<span class="line-number">68</span>
+<span class="line-number">69</span>
+<span class="line-number">70</span>
+<span class="line-number">71</span>
+<span class="line-number">72</span>
+<span class="line-number">73</span>
+<span class="line-number">74</span>
+<span class="line-number">75</span>
+<span class="line-number">76</span>
+<span class="line-number">77</span>
+<span class="line-number">78</span>
+<span class="line-number">79</span>
+<span class="line-number">80</span>
+<span class="line-number">81</span>
+<span class="line-number">82</span>
+<span class="line-number">83</span>
+<span class="line-number">84</span>
+<span class="line-number">85</span>
+<span class="line-number">86</span>
+<span class="line-number">87</span>
+<span class="line-number">88</span>
+<span class="line-number">89</span>
+<span class="line-number">90</span>
+<span class="line-number">91</span>
+<span class="line-number">92</span>
+<span class="line-number">93</span>
+<span class="line-number">94</span>
+<span class="line-number">95</span>
+<span class="line-number">96</span>
+<span class="line-number">97</span>
+<span class="line-number">98</span>
+<span class="line-number">99</span>
+<span class="line-number">100</span>
+<span class="line-number">101</span>
+<span class="line-number">102</span>
+<span class="line-number">103</span>
+<span class="line-number">104</span>
+<span class="line-number">105</span>
+<span class="line-number">106</span>
+<span class="line-number">107</span>
+<span class="line-number">108</span>
+<span class="line-number">109</span>
+<span class="line-number">110</span>
+<span class="line-number">111</span>
+<span class="line-number">112</span>
+<span class="line-number">113</span>
+<span class="line-number">114</span>
+<span class="line-number">115</span>
+<span class="line-number">116</span>
+<span class="line-number">117</span>
+<span class="line-number">118</span>
+<span class="line-number">119</span>
+<span class="line-number">120</span>
+<span class="line-number">121</span>
+<span class="line-number">122</span>
+<span class="line-number">123</span>
+<span class="line-number">124</span>
+<span class="line-number">125</span>
+<span class="line-number">126</span>
+<span class="line-number">127</span>
+<span class="line-number">128</span>
+<span class="line-number">129</span>
+<span class="line-number">130</span>
+<span class="line-number">131</span>
+<span class="line-number">132</span>
+<span class="line-number">133</span>
+<span class="line-number">134</span>
+<span class="line-number">135</span>
+<span class="line-number">136</span>
+<span class="line-number">137</span>
+<span class="line-number">138</span>
+<span class="line-number">139</span>
+<span class="line-number">140</span>
+<span class="line-number">141</span>
+<span class="line-number">142</span>
+<span class="line-number">143</span>
+<span class="line-number">144</span>
+<span class="line-number">145</span>
+<span class="line-number">146</span>
+<span class="line-number">147</span>
+<span class="line-number">148</span>
+<span class="line-number">149</span>
+<span class="line-number">150</span>
+<span class="line-number">151</span>
+<span class="line-number">152</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">DATA:
+</span><span class="line">    LS_TSK     TYPE                   CPS_TASK_LIST_MAINT_TSK,
+</span><span class="line">    LS_TSK_X   TYPE                   CPS_TASK_LIST_MAINT_TSK_X,
+</span><span class="line">    LT_CHA     TYPE STANDARD TABLE OF CPS_TASK_LIST_MAINT_CHA,
+</span><span class="line">    LS_CHA     TYPE                   CPS_TASK_LIST_MAINT_CHA,
+</span><span class="line">    LT_CHA_X   TYPE STANDARD TABLE OF CPS_TASK_LIST_MAINT_CHA_X,
+</span><span class="line">    LS_CHA_X   TYPE                   CPS_TASK_LIST_MAINT_CHA_X,
+</span><span class="line">    IT_RETURN  TYPE STANDARD TABLE OF BAPIRET2,
+</span><span class="line">    LS_RETURN  TYPE                   BAPIRET2,
+</span><span class="line">    L_INSPCHAR TYPE                   QMERKNRP.
+</span><span class="line">
+</span><span class="line">  DATA: LV_LINE_COUNTER TYPE I.
+</span><span class="line">
+</span><span class="line">  DATA: LT_DATA TYPE TABLE OF TY_DATA WITH HEADER LINE.
+</span><span class="line">
+</span><span class="line">  CLEAR: LT_DATA[].
+</span><span class="line">
+</span><span class="line">  LOOP AT LT_ROWS INTO LS_ROWS.
+</span><span class="line">    READ TABLE GIT_DATA INDEX LS_ROWS-INDEX.
+</span><span class="line">    CHECK SY-SUBRC EQ 0.
+</span><span class="line">
+</span><span class="line">    GIT_DATA-INDEX =  LS_ROWS-INDEX.
+</span><span class="line">
+</span><span class="line">    CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
+</span><span class="line">      EXPORTING
+</span><span class="line">        INPUT  = GIT_DATA-MKVERSION
+</span><span class="line">      IMPORTING
+</span><span class="line">        OUTPUT = GIT_DATA-MKVERSION.
+</span><span class="line">
+</span><span class="line">    CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
+</span><span class="line">      EXPORTING
+</span><span class="line">        INPUT  = GIT_DATA-PMTVERSION
+</span><span class="line">      IMPORTING
+</span><span class="line">        OUTPUT = GIT_DATA-PMTVERSION.
+</span><span class="line">
+</span><span class="line">    SELECT SINGLE CHARACT_ID1 "质量数据交换的特性描述
+</span><span class="line">          STELLEN   "小数点右边的位数（精确的）
+</span><span class="line">          SOLLWERT "一个数量特性的目标值
+</span><span class="line">          SOLLWNI
+</span><span class="line">          TOLERANZOB "规范上限
+</span><span class="line">          TOLOBNI
+</span><span class="line">          TOLERANZUN  "容差下限
+</span><span class="line">          TOLUNNI
+</span><span class="line">      INTO (GIT_DATA-CHARACT_ID1, "质量数据交换的特性描述
+</span><span class="line">          GIT_DATA-STELLEN,   "小数点右边的位数（精确的）
+</span><span class="line">          GIT_DATA-SOLLWERT, "一个数量特性的目标值
+</span><span class="line">          GIT_DATA-SOLLWNI,
+</span><span class="line">          GIT_DATA-TOLERANZOB, "规范上限
+</span><span class="line">          GIT_DATA-TOLOBNI,
+</span><span class="line">          GIT_DATA-TOLERANZUN,  "容差下限
+</span><span class="line">          GIT_DATA-TOLUNNI)
+</span><span class="line">      FROM QPMK
+</span><span class="line">      WHERE MKMNR EQ GIT_DATA-VERWMERKM
+</span><span class="line">           AND VERSION EQ GIT_DATA-MKVERSION
+</span><span class="line">           AND WERKS EQ GIT_DATA-PMSTR_CHAR
+</span><span class="line">          AND LOEKZ EQ '2'.
+</span><span class="line">
+</span><span class="line">    SELECT SINGLE KURZTEXT INTO GIT_DATA-KURZTEXT FROM QPMT
+</span><span class="line">        WHERE ZAEHLER EQ GIT_DATA-PMSTR_CHAR
+</span><span class="line">          AND MKMNR EQ GIT_DATA-VERWMERKM
+</span><span class="line">               AND VERSION EQ GIT_DATA-MKVERSION
+</span><span class="line">          AND SPRACHE EQ SY-LANGU.
+</span><span class="line">		  
+</span><span class="line">    APPEND GIT_DATA TO LT_DATA.
+</span><span class="line">
+</span><span class="line">  ENDLOOP.
+</span><span class="line">
+</span><span class="line">  SORT LT_DATA BY PLNNR GROUP_COUNTER ZAEHL PLNKN.
+</span><span class="line">  LOOP AT LT_DATA.
+</span><span class="line">
+</span><span class="line">    L_INDEX = LT_DATA-INDEX.
+</span><span class="line">
+</span><span class="line">    LS_CHA-MAINTAIN_MODE      = 'C'.
+</span><span class="line">    LS_CHA-ACTIVITY        = LT_DATA-VORNR.
+</span><span class="line">
+</span><span class="line">    LS_CHA-SEQUENCE_NO = '000000'.
+</span><span class="line">
+</span><span class="line">    LS_CHA-QUANTITATIVE_IND = 'X'.
+</span><span class="line">    LS_CHA-CHAR_DESCR       = LT_DATA-KURZTEXT.
+</span><span class="line">	
+</span><span class="line">    LS_CHA-MSTR_CHAR       = LT_DATA-VERWMERKM.
+</span><span class="line">    LS_CHA-VMSTR_CHAR = LT_DATA-MKVERSION.
+</span><span class="line">    LS_CHA-PMSTR_CHAR      = LT_DATA-PMSTR_CHAR.
+</span><span class="line">    LS_CHA-QUANTITATIVE_IND = 'X'.
+</span><span class="line">    LS_CHA-MEAS_VALUE_CONFIRM_IND = 'X'.
+</span><span class="line">	
+</span><span class="line">    LS_CHA-UP_TOL_LMT_IND = LT_DATA-TOLOBNI.
+</span><span class="line">    LS_CHA-LW_TOL_LMT_IND = LT_DATA-TOLUNNI.
+</span><span class="line">    LS_CHA-TARGET_VAL_CHECK_IND = LT_DATA-SOLLWNI.
+</span><span class="line">    LS_CHA-SCOPE_IND = '='.
+</span><span class="line">    LS_CHA-CONFIRMATION_CATEGORY = 'X'.
+</span><span class="line">    LS_CHA-SAMPLING_PROCEDURE_IND = 'X'.
+</span><span class="line">
+</span><span class="line">    LS_CHA-TARGET_VAL = LT_DATA-SOLLWERT.
+</span><span class="line">    LS_CHA-TARGET_VAL_NI = LT_DATA-SOLLWNI.
+</span><span class="line">    LS_CHA-UP_TOL_LMT = LT_DATA-TOLERANZOB.
+</span><span class="line">    LS_CHA-UP_TOL_LMT_NI = LT_DATA-TOLOBNI.
+</span><span class="line">    LS_CHA-LW_TOL_LMT = LT_DATA-TOLERANZUN.
+</span><span class="line">    LS_CHA-LW_TOL_LMT_NI = LT_DATA-TOLUNNI.
+</span><span class="line">
+</span><span class="line">    LS_CHA-DAT_UP_NEW_LMT = SY-DATUM.
+</span><span class="line">    LS_CHA-DAT_LW_NEW_LMT = '99991231'.
+</span><span class="line">
+</span><span class="line">    LS_CHA-CHARACTERISTIC_NAME = LT_DATA-CHARACT_ID1.
+</span><span class="line">	
+</span><span class="line">    LS_CHA-SMPL_PROCEDURE      = LT_DATA-STICHPRVER.
+</span><span class="line">    LS_CHA-SMPL_UNIT = LT_DATA-SMPL_UNIT.
+</span><span class="line">    LS_CHA-SMPL_QUANT = LT_DATA-SMPL_QUANT.
+</span><span class="line">	
+</span><span class="line">    LS_CHA-DEC_PLACES = LT_DATA-STELLEN.
+</span><span class="line">
+</span><span class="line">    LS_CHA-METHOD = LT_DATA-PMETHODE.
+</span><span class="line">    LS_CHA-PMETHOD = LT_DATA-PMETHOD.
+</span><span class="line">    LS_CHA-VMETHOD = LT_DATA-PMTVERSION.
+</span><span class="line">    APPEND LS_CHA TO LT_CHA.
+</span><span class="line">    CLEAR LS_CHA.
+</span><span class="line">
+</span><span class="line">    AT END OF PLNKN.
+</span><span class="line">
+</span><span class="line">      CALL FUNCTION 'CPCC_S_TASK_LIST_MAINTAIN'
+</span><span class="line">        EXPORTING
+</span><span class="line">          KEY_DATE                   = SY-DATUM
+</span><span class="line">          TASK_LIST_TYPE             = 'N'
+</span><span class="line">          TASK_LIST_GROUP            = LT_DATA-PLNNR
+</span><span class="line">          GROUP_COUNTER              = LT_DATA-GROUP_COUNTER
+</span><span class="line">        TABLES
+</span><span class="line">          INSPECTION_CHARACTERISTICS = LT_CHA
+</span><span class="line">          RETURN                     = IT_RETURN.
+</span><span class="line">
+</span><span class="line">      READ TABLE IT_RETURN INTO LS_RETURN WITH KEY TYPE = 'E'.
+</span><span class="line">      IF SY-SUBRC EQ 0.
+</span><span class="line">        READ TABLE GIT_DATA ASSIGNING &lt;DATA&gt; INDEX L_INDEX.
+</span><span class="line">        IF SY-SUBRC EQ 0.
+</span><span class="line">          CONCATENATE LS_RETURN-MESSAGE LS_RETURN-MESSAGE_V1  LS_RETURN-MESSAGE_V2 LS_RETURN-MESSAGE_V3 LS_RETURN-MESSAGE_V4
+</span><span class="line">                        INTO &lt;DATA&gt;-ERR_INFO.
+</span><span class="line">          &lt;DATA&gt;-STATUS = ICON_LED_RED.
+</span><span class="line">        ENDIF.
+</span><span class="line">      ELSE.
+</span><span class="line">
+</span><span class="line">        COMMIT WORK.
+</span><span class="line">
+</span><span class="line">        READ TABLE GIT_DATA ASSIGNING &lt;DATA&gt; INDEX L_INDEX.
+</span><span class="line">        IF SY-SUBRC EQ 0.
+</span><span class="line">          &lt;DATA&gt;-ERR_INFO = '处理成功'.
+</span><span class="line">          &lt;DATA&gt;-STATUS = ICON_LED_GREEN.
+</span><span class="line">        ENDIF.
+</span><span class="line">      ENDIF.
+</span><span class="line">
+</span><span class="line">      CLEAR: IT_RETURN, LS_RETURN, LT_CHA[], L_INSPCHAR.
+</span><span class="line">    ENDAT.
+</span><span class="line">
+</span><span class="line">  ENDLOOP.</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">lomozm</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-25T21:15:37+08:00" pubdate data-updated="true">2014-12-25 Thu</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+     
+      <!-- aThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1372549893240163" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+  
+      <h1> </h1>
+    
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/20141220/macos-10-plus-octopresswen-ti-jie-jue/" title="Previous Post: MacOS 10+ Octopress问题解决">&laquo; MacOS 10+ Octopress问题解决</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    
+<section> 
+    <img class="center" src="/images/myTitle/title.jpg">
+
+ <h1>关于我</h1>
+ <ul>
+    <li>
+    做过些事，时有心得，以记之<br>
+    lomo.zhong@icloud.com
+    </li>
+ </ul> 
+</section>
+<section>
+  <h1>最新文章</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/20141225/ji-yu-gong-yi-lu-xian-de-jian-yan-ji-hua-dao-ru-han-shu-cpcc-s-task-list-maintain/">基于工艺路线的检验计划导入函数 - CPCC_S_TASK_LIST_MAINTAIN</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20141220/macos-10-plus-octopresswen-ti-jie-jue/">MacOS 10+ Octopress问题解决</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20141219/deng-tai-shan/">登泰山</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20140310/luo-yang-long-men-shi-ku/">洛阳龙门石窟</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20140304/wei-sap-abapbian-ji-huan-jing-tian-jia-mo-shi-pattern/">为SAP ABAP编辑环境添加模式(pattern)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20140227/wei-reportxuan-ze-ping-mu-tian-jia-gong-neng-an-niu/">为Report选择屏幕添加事件按钮</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20140227/shi-yong-abap-memoryyu-sap-memory/">使用ABAP MEMORY与SAP MEMORY讨论</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20140220/textmate-highlight-for-abap/">TextMate Highlight for ABAP</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>最新评论</h1>
+  <script type="text/javascript" src="http://lomozm.disqus.com/recent_comments_widget.js?num_items=10&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
+</section>
+<section> 
+  <h1>文章分类</h1> 
+  <ul id="categories"> 
+    <li class='category'><a href='/blog/categories/abapji-zhu/'>ABAP技术 (5)</a></li>
+<li class='category'><a href='/blog/categories/badis/'>BADIs (2)</a></li>
+<li class='category'><a href='/blog/categories/bwetl/'>BWETL (1)</a></li>
+<li class='category'><a href='/blog/categories/exits/'>Exits (4)</a></li>
+<li class='category'><a href='/blog/categories/mmzeng-qiang/'>MM增强 (3)</a></li>
+<li class='category'><a href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数 (3)</a></li>
+<li class='category'><a href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数 (4)</a></li>
+<li class='category'><a href='/blog/categories/sdzeng-qiang/'>SD增强 (3)</a></li>
+<li class='category'><a href='/blog/categories/textmate/'>TextMate (1)</a></li>
+<li class='category'><a href='/blog/categories/workflow/'>Workflow (1)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (2)</a></li>
+<li class='category'><a href='/blog/categories/lu-xing/'>旅行 (2)</a></li>
+ 
+  </ul> 
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - lomozm -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'lomozm';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://lomozm.github.io/blog/20141225/ji-yu-gong-yi-lu-xian-de-jian-yan-ji-hua-dao-ru-han-shu-cpcc-s-task-list-maintain/';
+        var disqus_url = 'http://lomozm.github.io/blog/20141225/ji-yu-gong-yi-lu-xian-de-jian-yan-ji-hua-dao-ru-han-shu-cpcc-s-task-list-maintain/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

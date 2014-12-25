@@ -9,9 +9,8 @@
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="说明一下，在这个神奇的国度，上外网或进行外网交互真是个技术话，别人都觉得不会翻墙都不好意思说自己是搞IT的！
-最后近一直很忙，几乎都成了31天工作制了，昨天突发奇想更新下自已的blog，问题来了
-1、首先不记得rake命命，我的那个神拉，快速翻开第1篇，真慢。算了，用sudo rake &hellip;">
+  <meta name="description" content="说明一下，这里主要是针对的时生产过程检验(tcode:QP01)，结果检验和来料检验，这个函数貌似也可以来做这些，所以很强大；同时，这个函数执行完后会锁定该工艺路线，必须程序退出后才释放
+除了这个函数外，还有个BAPI:BAPI_INSPECTIONPLAN_CREATE, Function: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,6 +67,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/20141225/ji-yu-gong-yi-lu-xian-de-jian-yan-ji-hua-dao-ru-han-shu-cpcc-s-task-list-maintain/">基于工艺路线的检验计划导入函数 - CPCC_S_TASK_LIST_MAINTAIN</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-25T21:15:37+08:00" pubdate data-updated="true">2014-12-25 Thu</time>
+        
+         | <a href="/blog/20141225/ji-yu-gong-yi-lu-xian-de-jian-yan-ji-hua-dao-ru-han-shu-cpcc-s-task-list-maintain/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>说明一下，这里主要是针对的时生产过程检验(tcode:QP01)，结果检验和来料检验，这个函数貌似也可以来做这些，所以很强大；同时，这个函数执行完后会锁定该工艺路线，必须程序退出后才释放<br />
+除了这个函数外，还有个<code>BAPI:BAPI_INSPECTIONPLAN_CREATE, Function: ROUTING_MAINTAIN</code>也可以做；同时,<code>FUNCTION:QPCP_CHARACTERISTICS_CREATE</code>可以完成对表PLMK单条行数据的更改<br />
+之所以没有用BAPI，当时业务顾问直接拿张表过来说，你把这些数据导进去吧，都没说是哪个事务代码，于是就自己折腾。。。<br /><br />
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/20141225/ji-yu-gong-yi-lu-xian-de-jian-yan-ji-hua-dao-ru-han-shu-cpcc-s-task-list-maintain/">阅读全文…</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -512,54 +557,6 @@ SAP提供了一个函数，使报表运算过程可配置，提高了开发的�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
-        <h1 class="entry-title"><a href="/blog/20131227/wu-liao-bian-ma-sheng-cheng-slash-xiao-yan-zeng-qiang-%28mm01%29/">物料编码生成/校验增强（MM01）</a></h1>
-      
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T16:37:25+08:00" pubdate data-updated="true">2013-12-27 Fri</time>
-        
-         | <a href="/blog/20131227/wu-liao-bian-ma-sheng-cheng-slash-xiao-yan-zeng-qiang-%28mm01%29/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-<p>用事务代码MM01建物料时，物料号生成有两种方式，系统自动分配和用户指定<br />
-客户要求比较复杂的情况下（如：编号与物料组有关联），系统提供了相应出口进行编号的生成和校验<br />
-tcode: smod<br />
-增强：<code>MGA00002</code>:物料主文档（工业）：编号分配<br />
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/20131227/wu-liao-bian-ma-sheng-cheng-slash-xiao-yan-zeng-qiang-%28mm01%29/">阅读全文…</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -585,6 +582,10 @@ tcode: smod<br />
 <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/20141225/ji-yu-gong-yi-lu-xian-de-jian-yan-ji-hua-dao-ru-han-shu-cpcc-s-task-list-maintain/">基于工艺路线的检验计划导入函数 - CPCC_S_TASK_LIST_MAINTAIN</a>
+      </li>
     
       <li class="post">
         <a href="/blog/20141220/macos-10-plus-octopresswen-ti-jie-jue/">MacOS 10+ Octopress问题解决</a>
@@ -614,10 +615,6 @@ tcode: smod<br />
         <a href="/blog/20140220/textmate-highlight-for-abap/">TextMate Highlight for ABAP</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/20140103/migoshou-huo-shi-bao-m3682cuo-wu-tong-%5B%3F%5D-wu-liao-zai-tong-%5B%3F%5D-pi-ci-bei-shi-yong/">MIGO收货时报M3682错误(同一物料在同一批次被使用)</a>
-      </li>
-    
   </ul>
 </section>
 <section>
@@ -632,7 +629,7 @@ tcode: smod<br />
 <li class='category'><a href='/blog/categories/bwetl/'>BWETL (1)</a></li>
 <li class='category'><a href='/blog/categories/exits/'>Exits (4)</a></li>
 <li class='category'><a href='/blog/categories/mmzeng-qiang/'>MM增强 (3)</a></li>
-<li class='category'><a href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数 (2)</a></li>
+<li class='category'><a href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数 (3)</a></li>
 <li class='category'><a href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数 (4)</a></li>
 <li class='category'><a href='/blog/categories/sdzeng-qiang/'>SD增强 (3)</a></li>
 <li class='category'><a href='/blog/categories/textmate/'>TextMate (1)</a></li>
