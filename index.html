@@ -9,8 +9,11 @@
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="说明一下，这里主要是针对的时生产过程检验(tcode:QP01)，结果检验和来料检验，这个函数貌似也可以来做这些，所以很强大；同时，这个函数执行完后会锁定该工艺路线，必须程序退出后才释放
-除了这个函数外，还有个BAPI:BAPI_INSPECTIONPLAN_CREATE, Function: &hellip;">
+  <meta name="description" content="这个函数主要用于
+1、修改交货单拣配数量等信息
+2、批次拆分
+3、不能更改交货数量，如果系统配置拣配数量不能大于交货单数量的话，需要另一个BADIs:SMOD_V50B0001去处理
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +70,53 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/20141227/jiao-huo-dan-jian-pei-bapis-bapi-outb-delivery-change/">交货单拣配BAPIs - BAPI_OUTB_DELIVERY_CHANGE</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-27T20:47:05+08:00" pubdate data-updated="true">2014-12-27 Sat</time>
+        
+         | <a href="/blog/20141227/jiao-huo-dan-jian-pei-bapis-bapi-outb-delivery-change/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>这个函数主要用于<br />
+1、修改交货单拣配数量等信息<br />
+2、批次拆分<br />
+3、不能更改交货数量，如果系统配置拣配数量不能大于交货单数量的话，需要另一个<code>BADIs:SMOD_V50B0001</code>去处理<br />
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/20141227/jiao-huo-dan-jian-pei-bapis-bapi-outb-delivery-change/">阅读全文…</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -510,53 +560,6 @@ method: <code>LOCK_BATCH_MASTER_IN_MIGO</code><br />
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
-        <h1 class="entry-title"><a href="/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi/">EVAL_FORMULA 公式计算测试</a></h1>
-      
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-30T16:36:25+08:00" pubdate data-updated="true">2013-12-30 Mon</time>
-        
-         | <a href="/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-<h3 id="section">应用场景</h3>
-<p>当客户需要的报表逻辑较复杂，同一种类的数据进行数据运算，或者再累计计算，或者排除等；如果在程序中写死的话，业务的变更会导致程序的变更，使维持工作量加大<br />
-SAP提供了一个函数，使报表运算过程可配置，提高了开发的灵活性<br />
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi/">阅读全文…</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -582,6 +585,10 @@ SAP提供了一个函数，使报表运算过程可配置，提高了开发的�
 <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/20141227/jiao-huo-dan-jian-pei-bapis-bapi-outb-delivery-change/">交货单拣配BAPIs - BAPI_OUTB_DELIVERY_CHANGE</a>
+      </li>
     
       <li class="post">
         <a href="/blog/20141225/ji-yu-gong-yi-lu-xian-de-jian-yan-ji-hua-dao-ru-han-shu-cpcc-s-task-list-maintain/">基于工艺路线的检验计划导入函数 - CPCC_S_TASK_LIST_MAINTAIN</a>
@@ -611,10 +618,6 @@ SAP提供了一个函数，使报表运算过程可配置，提高了开发的�
         <a href="/blog/20140227/shi-yong-abap-memoryyu-sap-memory/">使用ABAP MEMORY与SAP MEMORY讨论</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/20140220/textmate-highlight-for-abap/">TextMate Highlight for ABAP</a>
-      </li>
-    
   </ul>
 </section>
 <section>
@@ -626,10 +629,11 @@ SAP提供了一个函数，使报表运算过程可配置，提高了开发的�
   <ul id="categories"> 
     <li class='category'><a href='/blog/categories/abapji-zhu/'>ABAP技术 (5)</a></li>
 <li class='category'><a href='/blog/categories/badis/'>BADIs (2)</a></li>
+<li class='category'><a href='/blog/categories/bapis/'>BAPIs (1)</a></li>
 <li class='category'><a href='/blog/categories/bwetl/'>BWETL (1)</a></li>
 <li class='category'><a href='/blog/categories/exits/'>Exits (4)</a></li>
 <li class='category'><a href='/blog/categories/mmzeng-qiang/'>MM增强 (3)</a></li>
-<li class='category'><a href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数 (3)</a></li>
+<li class='category'><a href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数 (4)</a></li>
 <li class='category'><a href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数 (4)</a></li>
 <li class='category'><a href='/blog/categories/sdzeng-qiang/'>SD增强 (3)</a></li>
 <li class='category'><a href='/blog/categories/textmate/'>TextMate (1)</a></li>

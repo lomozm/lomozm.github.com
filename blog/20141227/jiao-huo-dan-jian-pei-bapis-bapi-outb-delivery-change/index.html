@@ -5,11 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>金额格式化 - 千分符 - lomozm’s Journal</title>
+  <title>交货单拣配BAPIs - BAPI_OUTB_DELIVERY_CHANGE - lomozm’s Journal</title>
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="1
+  <meta name="description" content="这个函数主要用于
+1、修改交货单拣配数量等信息
+2、批次拆分
+3、不能更改交货数量，如果系统配置拣配数量不能大于交货单数量的话，需要另一个BADIs:SMOD_V50B0001去处理 代码示例 1
 2
 3
 4
@@ -17,11 +20,18 @@
 6
 7
 8
-function z_num2str.
-*"----------------------------------------------------------------------
-*"*"本地接口：
-*" IMPORTING
-*" REFERENCE( &hellip;">
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -30,7 +40,7 @@ function z_num2str.
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://lomozm.github.io/blog/20131225/jin-e-ge-shi-hua-qian-fen-fu/">
+  <link rel="canonical" href="http://lomozm.github.io/blog/20141227/jiao-huo-dan-jian-pei-bapis-bapi-outb-delivery-change/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -82,7 +92,7 @@ function z_num2str.
   <header>
     
       
-        <h1 class="entry-title">金额格式化 - 千分符</h1>
+        <h1 class="entry-title">交货单拣配BAPIs - BAPI_OUTB_DELIVERY_CHANGE</h1>
       
     
     
@@ -99,7 +109,7 @@ function z_num2str.
   
 
 
-<time datetime="2013-12-25T11:55:59+08:00" pubdate data-updated="true">2013-12-25 Wed</time>
+<time datetime="2014-12-27T20:47:05+08:00" pubdate data-updated="true">2014-12-27 Sat</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -108,25 +118,13 @@ function z_num2str.
   </header>
 
 
-<div class="entry-content">
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">function z_num2str.
-</span><span class="line">*"----------------------------------------------------------------------
-</span><span class="line">*"*"本地接口：
-</span><span class="line">*"  IMPORTING
-</span><span class="line">*"     REFERENCE(INUM) TYPE  STRING
-</span><span class="line">*"  EXPORTING
-</span><span class="line">*"     REFERENCE(ZSTR) TYPE  STRING
-</span><span class="line">*"----------------------------------------------------------------------</span></code></pre></td></tr></table></div></figure></notextile></div>
+<div class="entry-content"><p>这个函数主要用于<br />
+1、修改交货单拣配数量等信息<br />
+2、批次拆分<br />
+3、不能更改交货数量，如果系统配置拣配数量不能大于交货单数量的话，需要另一个<code>BADIs:SMOD_V50B0001</code>去处理<br />
+<!-- more --></p>
 
-<!--more-->
+<h4 id="section">代码示例</h4>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -177,56 +175,82 @@ function z_num2str.
 <span class="line-number">47</span>
 <span class="line-number">48</span>
 <span class="line-number">49</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">data : zclen type i,
-</span><span class="line">        znum type dmbtr,
-</span><span class="line">  n type i,
-</span><span class="line">  zcstr(20) type c,
-</span><span class="line">  zcstr2(20) type c,
-</span><span class="line">  zctemp(3) type c,
-</span><span class="line">  zflag(1) type c value '.',
-</span><span class="line">  zflag2 type i value 0,
-</span><span class="line">  zcdec(20) type c. "记录小数部分.
-</span><span class="line">  zstr = ''.
-</span><span class="line">  znum = INUM.
-</span><span class="line">  check znum &lt;&gt; 0.
-</span><span class="line">  if znum &lt;= -1000.
-</span><span class="line">    zflag2 = 1.
-</span><span class="line">    znum = abs( znum ).
-</span><span class="line">  endif.
-</span><span class="line">  if znum &gt;= 1000.
-</span><span class="line">    zcstr = znum.
-</span><span class="line">* 压缩字符串，去除前面的空格。
-</span><span class="line">    condense zcstr no-gaps.
-</span><span class="line">* 分离整数与小数，好单独处理整数。
-</span><span class="line">    split zcstr at zflag into zcstr zcdec.
-</span><span class="line">    zclen = strlen( zcstr ).
-</span><span class="line">* 在循环中从右面在每三位的前面加上一个逗号。
-</span><span class="line">    while zclen &gt; 3.
-</span><span class="line">      n = zclen - 3.
-</span><span class="line">      zctemp = zcstr+n(3).
-</span><span class="line">      if not zcstr2 is initial.
-</span><span class="line">        concatenate zctemp zcstr2 into zcstr2 separated by ','.
-</span><span class="line">      else.
-</span><span class="line">        zcstr2 = zctemp.
-</span><span class="line">      endif.
-</span><span class="line">      zclen = zclen - 3.
-</span><span class="line">    endwhile.
-</span><span class="line">* 将不剩下的不足三位数加到前面
-</span><span class="line">    concatenate zcstr+0(zclen) zcstr2 into zcstr2 separated by ','.
-</span><span class="line">    if zflag2 = 1.
-</span><span class="line">      concatenate '-' zcstr2 into zcstr2.
-</span><span class="line">    endif.
-</span><span class="line">    clear zcstr.
-</span><span class="line">* 将处理过的整数与小数连接起来。
-</span><span class="line">    concatenate zcstr2 zcdec into zcstr separated by zflag.
-</span><span class="line">* 将值返回
-</span><span class="line">    zstr = zcstr.
-</span><span class="line">  else.
-</span><span class="line">    zstr = znum.
-</span><span class="line">  endif.
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">*****批次拆分
+</span><span class="line">  DATA: HEAD      TYPE          BAPIOBDLVHDRCHG,
+</span><span class="line">        HEAD_C    TYPE          BAPIOBDLVHDRCTRLCHG,
+</span><span class="line">        TECH_C    TYPE          BAPIDLVCONTROL,
+</span><span class="line">        WA_RETURN TYPE          BAPIRET2,
+</span><span class="line">        EXTENSION TYPE TABLE OF BAPIEXTC WITH HEADER LINE .
+</span><span class="line">		
+</span><span class="line">  CLEAR: HEAD,HEAD_C,TECH_C.
+</span><span class="line">  HEAD-DELIV_NUMB = I_VBELN.
+</span><span class="line">  HEAD_C-DELIV_NUMB = I_VBELN.
+</span><span class="line">  TECH_C-UPD_IND = 'U'.
 </span><span class="line">
-</span><span class="line">endfunction.</span></code></pre></td></tr></table></div></figure></notextile></div>
+</span><span class="line">  CLEAR: ITEM_CONT,ITEM_CONT[].
+</span><span class="line">
+</span><span class="line">  CLEAR:EXTENSION,EXTENSION[] .
+</span><span class="line">
+</span><span class="line">  LOOP AT ITEM_DATA ASSIGNING &lt;F_ITEM&gt;.
+</span><span class="line">
+</span><span class="line">    CLEAR ITEM_CONT.
+</span><span class="line">    ITEM_CONT-DELIV_NUMB = &lt;F_ITEM&gt;-DELIV_NUMB.
+</span><span class="line">    ITEM_CONT-DELIV_ITEM = &lt;F_ITEM&gt;-DELIV_ITEM.
+</span><span class="line">    ITEM_CONT-CHG_DELQTY = 'X'.
+</span><span class="line">    APPEND ITEM_CONT.
+</span><span class="line">	
+</span><span class="line">    EXTENSION-FIELD1 = 'MARK'.
+</span><span class="line">    EXTENSION-FIELD2 = &lt;F_ITEM&gt;-DELIV_NUMB.
+</span><span class="line">    EXTENSION-FIELD3 = &lt;F_ITEM&gt;-DELIV_ITEM.
+</span><span class="line">    APPEND EXTENSION.
+</span><span class="line">  ENDLOOP.
+</span><span class="line">
+</span><span class="line">  CLEAR: RETURN,RETURN[].
+</span><span class="line">  CALL FUNCTION 'BAPI_OUTB_DELIVERY_CHANGE'
+</span><span class="line">    EXPORTING
+</span><span class="line">      HEADER_DATA    = HEAD
+</span><span class="line">      HEADER_CONTROL = HEAD_C
+</span><span class="line">      DELIVERY       = I_VBELN
+</span><span class="line">      TECHN_CONTROL  = TECH_C
+</span><span class="line">    TABLES
+</span><span class="line">      ITEM_DATA      = ITEM_DATA
+</span><span class="line">      ITEM_CONTROL   = ITEM_CONT
+</span><span class="line">      RETURN         = RETURN
+</span><span class="line">      EXTENSION1     = EXTENSION.
+</span><span class="line">
+</span><span class="line">  READ TABLE RETURN TRANSPORTING NO FIELDS WITH KEY TYPE = 'E'.
+</span><span class="line">  IF SY-SUBRC EQ 0.
+</span><span class="line">    CALL FUNCTION 'BAPI_TRANSACTION_ROLLBACK'.
+</span><span class="line">    RETURN.
+</span><span class="line">  ENDIF.
+</span><span class="line">
+</span><span class="line">  CLEAR WA_RETURN.
+</span><span class="line">  CALL FUNCTION 'BAPI_TRANSACTION_COMMIT'
+</span><span class="line">    EXPORTING
+</span><span class="line">      WAIT   = 'X'
+</span><span class="line">    IMPORTING
+</span><span class="line">      RETURN = WA_RETURN.
+</span><span class="line">
+</span><span class="line">  IF WA_RETURN-TYPE EQ 'E'.
+</span><span class="line">    CALL FUNCTION 'BAPI_TRANSACTION_ROLLBACK'.
+</span><span class="line">    APPEND WA_RETURN TO RETURN.
+</span><span class="line">    RETURN.
+</span><span class="line">  ENDIF.</span></code></pre></td></tr></table></div></figure></notextile></div>
 
+<h4 id="section-1">说明</h4>
+<p>加入extension目的是对于接口传过来的交货行项目进行交货数量的更改（初始交货单数量为0），没有传入的行项目数据不做更改</p>
 </div>
 
 
@@ -249,12 +273,12 @@ function z_num2str.
   
 
 
-<time datetime="2013-12-25T11:55:59+08:00" pubdate data-updated="true">2013-12-25 Wed</time>
+<time datetime="2014-12-27T20:47:05+08:00" pubdate data-updated="true">2014-12-27 Sat</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数</a>
+    <a class='category' href='/blog/categories/bapis/'>BAPIs</a>, <a class='category' href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数</a>
   
 </span>
 
@@ -286,10 +310,8 @@ function z_num2str.
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/20131225/shu-zi-jian-cha-tong-guo-zheng-ze-biao-da-shi/" title="Previous Post: 数字检查 - 通过正则表达式">&laquo; 数字检查 - 通过正则表达式</a>
+        <a class="basic-alignment left" href="/blog/20141225/ji-yu-gong-yi-lu-xian-de-jian-yan-ji-hua-dao-ru-han-shu-cpcc-s-task-list-maintain/" title="Previous Post: 基于工艺路线的检验计划导入函数 - CPCC_S_TASK_LIST_MAINTAIN">&laquo; 基于工艺路线的检验计划导入函数 - CPCC_S_TASK_LIST_MAINTAIN</a>
       
-      
-        <a class="basic-alignment right" href="/blog/20131225/zhen-dui-sapcheng-xu-qiang-chu-chuang-kou-de-diao-shi/" title="Next Post: 针对SAP程序强出窗口的调试">针对SAP程序强出窗口的调试 &raquo;</a>
       
     </p>
   </footer>
@@ -397,8 +419,8 @@ function z_num2str.
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://lomozm.github.io/blog/20131225/jin-e-ge-shi-hua-qian-fen-fu/';
-        var disqus_url = 'http://lomozm.github.io/blog/20131225/jin-e-ge-shi-hua-qian-fen-fu/';
+        var disqus_identifier = 'http://lomozm.github.io/blog/20141227/jiao-huo-dan-jian-pei-bapis-bapi-outb-delivery-change/';
+        var disqus_url = 'http://lomozm.github.io/blog/20141227/jiao-huo-dan-jian-pei-bapis-bapi-outb-delivery-change/';
         var disqus_script = 'embed.js';
       
     (function () {

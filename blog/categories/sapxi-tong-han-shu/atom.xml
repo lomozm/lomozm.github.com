@@ -4,7 +4,7 @@
   <title><![CDATA[Category: SAP系统函数 | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/sapxi-tong-han-shu/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2014-12-25T22:08:07+08:00</updated>
+  <updated>2014-12-27T22:04:15+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -12,6 +12,146 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[交货单拣配BAPIs - BAPI_OUTB_DELIVERY_CHANGE]]></title>
+    <link href="http://lomozm.github.io/blog/20141227/jiao-huo-dan-jian-pei-bapis-bapi-outb-delivery-change/"/>
+    <updated>2014-12-27T20:47:05+08:00</updated>
+    <id>http://lomozm.github.io/blog/20141227/jiao-huo-dan-jian-pei-bapis-bapi-outb-delivery-change</id>
+    <content type="html"><![CDATA[<p>这个函数主要用于<br />
+1、修改交货单拣配数量等信息<br />
+2、批次拆分<br />
+3、不能更改交货数量，如果系统配置拣配数量不能大于交货单数量的话，需要另一个<code>BADIs:SMOD_V50B0001</code>去处理<br />
+<!-- more --></p>
+
+<h4 id="section">代码示例</h4>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>*****批次拆分
+</span><span class='line'>  DATA: HEAD      TYPE          BAPIOBDLVHDRCHG,
+</span><span class='line'>        HEAD_C    TYPE          BAPIOBDLVHDRCTRLCHG,
+</span><span class='line'>        TECH_C    TYPE          BAPIDLVCONTROL,
+</span><span class='line'>        WA_RETURN TYPE          BAPIRET2,
+</span><span class='line'>        EXTENSION TYPE TABLE OF BAPIEXTC WITH HEADER LINE .&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>CLEAR: HEAD,HEAD_C,TECH_C.
+</span><span class='line'>  HEAD-DELIV_NUMB = I_VBELN.
+</span><span class='line'>  HEAD_C-DELIV_NUMB = I_VBELN.
+</span><span class='line'>  TECH_C-UPD_IND = ‘U’.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>CLEAR: ITEM_CONT,ITEM_CONT[].&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>CLEAR:EXTENSION,EXTENSION[] .&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>LOOP AT ITEM_DATA ASSIGNING &lt;f_item>.&lt;/f_item>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>CLEAR ITEM_CONT.
+</span><span class='line'>ITEM_CONT-DELIV_NUMB = &lt;F_ITEM&gt;-DELIV_NUMB.
+</span><span class='line'>ITEM_CONT-DELIV_ITEM = &lt;F_ITEM&gt;-DELIV_ITEM.
+</span><span class='line'>ITEM_CONT-CHG_DELQTY = 'X'.
+</span><span class='line'>APPEND ITEM_CONT.
+</span><span class='line'>
+</span><span class='line'>EXTENSION-FIELD1 = 'MARK'.
+</span><span class='line'>EXTENSION-FIELD2 = &lt;F_ITEM&gt;-DELIV_NUMB.
+</span><span class='line'>EXTENSION-FIELD3 = &lt;F_ITEM&gt;-DELIV_ITEM.
+</span><span class='line'>APPEND EXTENSION.   ENDLOOP.
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>CLEAR: RETURN,RETURN[].
+</span><span class='line'>  CALL FUNCTION ‘BAPI_OUTB_DELIVERY_CHANGE’
+</span><span class='line'>    EXPORTING
+</span><span class='line'>      HEADER_DATA    = HEAD
+</span><span class='line'>      HEADER_CONTROL = HEAD_C
+</span><span class='line'>      DELIVERY       = I_VBELN
+</span><span class='line'>      TECHN_CONTROL  = TECH_C
+</span><span class='line'>    TABLES
+</span><span class='line'>      ITEM_DATA      = ITEM_DATA
+</span><span class='line'>      ITEM_CONTROL   = ITEM_CONT
+</span><span class='line'>      RETURN         = RETURN
+</span><span class='line'>      EXTENSION1     = EXTENSION.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>READ TABLE RETURN TRANSPORTING NO FIELDS WITH KEY TYPE = ‘E’.
+</span><span class='line'>  IF SY-SUBRC EQ 0.
+</span><span class='line'>    CALL FUNCTION ‘BAPI_TRANSACTION_ROLLBACK’.
+</span><span class='line'>    RETURN.
+</span><span class='line'>  ENDIF.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>CLEAR WA_RETURN.
+</span><span class='line'>  CALL FUNCTION ‘BAPI_TRANSACTION_COMMIT’
+</span><span class='line'>    EXPORTING
+</span><span class='line'>      WAIT   = ‘X’
+</span><span class='line'>    IMPORTING
+</span><span class='line'>      RETURN = WA_RETURN.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>IF WA_RETURN-TYPE EQ ‘E’.
+</span><span class='line'>    CALL FUNCTION ‘BAPI_TRANSACTION_ROLLBACK’.
+</span><span class='line'>    APPEND WA_RETURN TO RETURN.
+</span><span class='line'>    RETURN.
+</span><span class='line'>  ENDIF.</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h4 id="section-1">说明</h4>
+<p>加入extension目的是对于接口传过来的交货行项目进行交货数量的更改（初始交货单数量为0），没有传入的行项目数据不做更改</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[基于工艺路线的检验计划导入函数 - CPCC_S_TASK_LIST_MAINTAIN]]></title>
