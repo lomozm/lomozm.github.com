@@ -4,7 +4,7 @@
   <title><![CDATA[Category: SD增强 | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/sdzeng-qiang/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2014-12-27T22:04:15+08:00</updated>
+  <updated>2014-12-27T23:58:01+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -12,6 +12,78 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[交货处理过程中数据处理BADIs - SMOD_V50B0001]]></title>
+    <link href="http://lomozm.github.io/blog/20141227/jiao-huo-chu-li-guo-cheng-zhong-shu-ju-chu-li-badis-smod-v50b0001/"/>
+    <updated>2014-12-27T22:48:32+08:00</updated>
+    <id>http://lomozm.github.io/blog/20141227/jiao-huo-chu-li-guo-cheng-zhong-shu-ju-chu-li-badis-smod-v50b0001</id>
+    <content type="html"><![CDATA[<h4 id="section">场景说明</h4>
+<p>1、交货拣配处理<br />
+2、系统配置为拣配数量不能大于交货单数量<br />
+3、个别物料入库和出库时间相隔很短，建交货单时，系统是没有库存的，出库时，过磅确认交货数量；因此建交货单是交货数量为0，过磅后把交货数量改为过磅拣配数量，自动交货<br />
+4、只更改当前行，没有传入的其它行数据不变，把交货单行项目号用extension传到方法中
+5、使用方法EXIT_SAPLV50I_010
+<!-- more --></p>
+
+<h4 id="section-1">示例</h4>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>METHOD IF_EX_SMOD_V50B0001~EXIT_SAPLV50I_010.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>IF EXTENSION1 IS NOT INITIAL .
+</span><span class='line'>  DATA: EXTEND LIKE LINE OF EXTENSION1 .
+</span><span class='line'>  CLEAR: EXTEND .
+</span><span class='line'>  LOOP AT EXTENSION1 INTO EXTEND WHERE FIELD1 = 'MARK' .
+</span><span class='line'>    FIELD-SYMBOLS: &lt;CS_VBPOK&gt; LIKE LINE OF CT_VBPOK .
+</span><span class='line'>
+</span><span class='line'>    LOOP AT CT_VBPOK ASSIGNING &lt;CS_VBPOK&gt; WHERE VBELN_VL EQ EXTEND-FIELD2 AND POSNR_VL EQ EXTEND-FIELD3 .
+</span><span class='line'>      &lt;CS_VBPOK&gt;-PIKMG = &lt;CS_VBPOK&gt;-LFIMG .
+</span><span class='line'>    ENDLOOP.
+</span><span class='line'>  ENDLOOP.
+</span><span class='line'>ENDIF.
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>ENDMETHOD.</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h4 id="section-2">说明</h4>
+<p>1、理论上来说，这里可以改变拣配的所有业务
+2、以SMOD为开头的BADIs主要用于交货后续处理，包括运输、定价
+3、下面是网上搜到关于使用EXIT_SAPLV50I_009去更改inbound数据
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>How to change storage location in inbound delivery use bapi?&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>The paramater ITEM_DATA for bapi_inb_delivery_change has not a field named lgort.
+</span><span class='line'>so we use BADI SMOD_V50B0001, in this BADI has a method EXIT_SAPLV50I_009, use to change data in likp and lips.  &lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>So if you want to change the lgort or werks in the lips, you need to do below steps: 
+</span><span class='line'>1/ you need to pass the value by extension1 to the BAPI, and get it in EXIT_SAPLV50I_009, 
+</span><span class='line'>2/ set the lgort or werks in ct_vbpok accounting to extention1, 
+</span><span class='line'>3/ set the filed kzlgo and xwmpp with ‘X’.</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[销售开票更改凭证抬头和行项目 - RV60AFZC]]></title>
