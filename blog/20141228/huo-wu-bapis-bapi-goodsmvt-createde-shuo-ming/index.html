@@ -5,15 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>销售售发货badi - LE_SHP_DELIVERY_PROC - lomozm’s Journal</title>
+  <title>货物BAPIs - BAPI_GOODSMVT_CREATE的说明 - lomozm’s Journal</title>
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="业务要求，销售定单里的行项目交货完成后，自动更改其开票冻结标识；同时，当取消交货后，又改回冻结状态 实现方法
-通过实现badi:LE_SHP_DELIVERY_PROC的save_and_publish_document方法，可以完成；因为销售交货及取消都用到这个badi 源代码 1
-2
-3
-4 &hellip;">
+  <meta name="description" content="SAP系统里的所有货物移动(好象重复制造的成品入库是用MFBF来做的，针对它的入库有传用的BAPIs，真不确定可以用这个函数来做)，都可以用这个函数来完成，包括：MB1A,MB1B,MB1C,MB31,MIGO等 说明
+1、一般情况下，必须指定输入参数：goodsmvt_code，具体内容在表： &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -22,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://lomozm.github.io/blog/20131226/xiao-shou-shou-fa-huo-badi-le-shp-delivery-proc/">
+  <link rel="canonical" href="http://lomozm.github.io/blog/20141228/huo-wu-bapis-bapi-goodsmvt-createde-shuo-ming/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -74,7 +71,7 @@
   <header>
     
       
-        <h1 class="entry-title">销售售发货badi - LE_SHP_DELIVERY_PROC</h1>
+        <h1 class="entry-title">货物BAPIs - BAPI_GOODSMVT_CREATE的说明</h1>
       
     
     
@@ -91,7 +88,7 @@
   
 
 
-<time datetime="2013-12-26T15:17:42+08:00" pubdate data-updated="true">2013-12-26 Thu</time>
+<time datetime="2014-12-28T21:57:53+08:00" pubdate data-updated="true">2014-12-28 Sun</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -100,15 +97,28 @@
   </header>
 
 
-<div class="entry-content">
-<p>业务要求，销售定单里的行项目交货完成后，自动更改其开票冻结标识；同时，当取消交货后，又改回冻结状态<br /></p>
+<div class="entry-content"><p>SAP系统里的所有货物移动(好象重复制造的成品入库是用MFBF来做的，针对它的入库有传用的BAPIs，真不确定可以用这个函数来做)，都可以用这个函数来完成，包括：MB1A,MB1B,MB1C,MB31,MIGO等<br /></p>
 
-<h3 id="section">实现方法</h3>
-<p>通过实现<code>badi:LE_SHP_DELIVERY_PROC</code>的<code>save_and_publish_document</code>方法，可以完成；因为销售交货及取消都用到这个badi<br />
-<!--more-->
-<img src="/images/images/157a73d626f831258455b03c20b5fd96.jpeg" alt="m001" /><br /></p>
+<h4 id="section">说明</h4>
+<p>1、一般情况下，必须指定输入参数：goodsmvt_code，具体内容在表：T158G可以看到<br />
+01	-	MB01<br />     <br />
+02	-	MB31<br />     <br />
+03	-	MB1A<br />     <br />
+04	-   MB1B<br />     <br />
+05	-	MB1C<br />     <br />
+06	-	MB11<br />     <br />
+07	-	MB04<br />     <br />
+2、一般情况下，必须指定行项目参数（移动标识）：MVT_IND，具体内容在DOMAIN：KZBEW的值范围内可以看到<br />
+空	-	无参考的货物移动<br /> 
+B	-	按采购订单的货物移动<br /> 
+F	-	有关生产单的货物移动<br /> 
+L	-	有关交货通知的货物移动<br /> 
+K	-	看板需求的货物移动（WM－仅限内部）<br /> 
+O	-	“提供物料”消耗的后续调整<br /> 
+W	-	比例的后续调整/产品单位物料<br /> 
+<!-- more --></p>
 
-<h3 id="section-1">源代码</h3>
+<h4 id="section-1">示例代码</h4>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -178,75 +188,112 @@
 <span class="line-number">66</span>
 <span class="line-number">67</span>
 <span class="line-number">68</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">method if_ex_le_shp_delivery_proc~save_and_publish_document.
-</span><span class="line">*  message I001(00) with 'test!'.
-</span><span class="line">  data: begin of wa_vbelv_so,
-</span><span class="line">          vbelv type vbeln_von,
-</span><span class="line">          posnv type posnr_von,
-</span><span class="line">          sign type c,
-</span><span class="line">      end of wa_vbelv_so.
-</span><span class="line">  data: it_vbelv_so like table of wa_vbelv_so.
+<span class="line-number">69</span>
+<span class="line-number">70</span>
+<span class="line-number">71</span>
+<span class="line-number">72</span>
+<span class="line-number">73</span>
+<span class="line-number">74</span>
+<span class="line-number">75</span>
+<span class="line-number">76</span>
+<span class="line-number">77</span>
+<span class="line-number">78</span>
+<span class="line-number">79</span>
+<span class="line-number">80</span>
+<span class="line-number">81</span>
+<span class="line-number">82</span>
+<span class="line-number">83</span>
+<span class="line-number">84</span>
+<span class="line-number">85</span>
+<span class="line-number">86</span>
+<span class="line-number">87</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">DATA: WA_HEAD     TYPE          BAPI2017_GM_HEAD_01 ,                         "表头数据
+</span><span class="line">        L_CODE      TYPE          GM_CODE ,                                     "
+</span><span class="line">        WA_HEADRET  TYPE          BAPI2017_GM_HEAD_RET ,                        "入库完成后传回的物料凭证编号和物料凭证年度
 </span><span class="line">
-</span><span class="line">  data: it_vbak type table of vbak,
-</span><span class="line">        wa_vbak type vbak,
-</span><span class="line">        it_shp_vl10_vbfa_t type shp_vl10_vbfa_t,
-</span><span class="line">        wa_shp_vl10_vbfa_t type vbfavb,
-</span><span class="line">        it_return type table of bapiret2,
-</span><span class="line">        wa_return type bapiret2,
-</span><span class="line">        wa_xvbuk type vbukvb.
+</span><span class="line">        WA_STATUS   TYPE          BAPIRETURN ,      "反馈至地磅的消息
 </span><span class="line">
-</span><span class="line">  data: wa_bapisdh1 type bapisdh1,
-</span><span class="line">        wa_bapisdh1x type bapisdh1x.
+</span><span class="line">        LT_RETURN   TYPE TABLE OF BAPIRET2,    "反馈消息
+</span><span class="line">        WA_RETURN   TYPE          BAPIRET2,
 </span><span class="line">
-</span><span class="line">  if ( if_tcode eq 'VL02N' or if_tcode eq 'VL01N' ) ."and ( sy-ucomm eq 'WABU_T' )." or sy-ucomm eq 'SICH_T' ).  "事物代码vl01n,vl02n时，当出现发货过帐'WABU_T'事件
-</span><span class="line">    loop at it_xvbfa into wa_shp_vl10_vbfa_t where vbtyp_n eq 'J'.  "后续单据为交货单
-</span><span class="line">      append wa_shp_vl10_vbfa_t to it_shp_vl10_vbfa_t.
+</span><span class="line">        LT_ITEM     TYPE TABLE OF BAPI2017_GM_ITEM_CREATE WITH HEADER LINE,    "表数据，采购订单行项目
 </span><span class="line">
-</span><span class="line">      move-corresponding wa_shp_vl10_vbfa_t to wa_vbelv_so.
-</span><span class="line">      clear: wa_vbelv_so-sign.
-</span><span class="line">      append wa_vbelv_so to it_vbelv_so.    "取销售定单号
-</span><span class="line">    endloop.
+</span><span class="line">        G_C(3)      TYPE          C,
+</span><span class="line">        L_KZBEW     TYPE          KZBEW,
+</span><span class="line">        G_CHARG     TYPE          CHARG_D,
+</span><span class="line">        L_MOVE_REAS TYPE          BAPI2017_GM_ITEM_CREATE-MOVE_REAS.
 </span><span class="line">
-</span><span class="line">    sort it_vbelv_so by vbelv posnv.
-</span><span class="line">    delete adjacent duplicates from it_vbelv_so comparing vbelv." posnv.
-</span><span class="line">    loop at it_vbelv_so into wa_vbelv_so.
-</span><span class="line">      select single * into wa_vbak from vbak where vbeln eq wa_vbelv_so-vbelv and auart eq 'ZSPT'.  "只针对订单类型'ZSPT'
-</span><span class="line">      if sy-subrc ne 0.
-</span><span class="line">        wa_vbelv_so-sign = 'X'.
-</span><span class="line">        modify it_vbelv_so index sy-tabix from wa_vbelv_so transporting sign.
-</span><span class="line">      endif.
-</span><span class="line">    endloop.
-</span><span class="line">    delete it_vbelv_so where sign eq 'X'.
+</span><span class="line">  CASE I_TYPE.
+</span><span class="line">    WHEN  'A'.    "采购订单入库
+</span><span class="line">      L_CODE = '01' .
+</span><span class="line">      G_C    = '101' .
+</span><span class="line">      L_KZBEW = 'B'.
+</span><span class="line">      CLEAR:  L_MOVE_REAS .
+</span><span class="line">    WHEN 'B'.    "无采购订单入库
+</span><span class="line">      L_CODE = '05'.
+</span><span class="line">      G_C = '521'.
+</span><span class="line">      CLEAR: L_KZBEW, L_MOVE_REAS .
+</span><span class="line">    WHEN  'C'.    "退货采购订单（已开票）
+</span><span class="line">      L_CODE = '01' .
+</span><span class="line">      G_C    = '161' .
+</span><span class="line">      L_KZBEW = 'B'.
+</span><span class="line">      CLEAR:  L_MOVE_REAS .
+</span><span class="line">    WHEN  'D'.    "采购订单退货（未开票）
+</span><span class="line">      L_CODE = '01' .
+</span><span class="line">      G_C    = '122' .
+</span><span class="line">      L_KZBEW = 'B'.
+</span><span class="line">      L_MOVE_REAS = '0001' .  "移动原因"
+</span><span class="line">  ENDCASE.
 </span><span class="line">
-</span><span class="line">    loop at it_xvbuk into wa_xvbuk.
-</span><span class="line">      read table it_vbelv_so into wa_vbelv_so  with key vbelv = wa_xvbuk-vbeln binary search.
-</span><span class="line">      if sy-subrc eq 0 and wa_xvbuk-lfgsk eq 'C'.   "销售定单为全部交货
-</span><span class="line">        if sy-tcode eq 'VL09' and sy-ucomm eq 'YES'.  "取消发货过帐
-</span><span class="line">          wa_bapisdh1-bill_block = '05'.  "开票冻结“检查交货条款”
-</span><span class="line">        elseif sy-ucomm eq 'WABU_T'.   "发货过帐'WABU_T'事件
-</span><span class="line">          clear:  wa_bapisdh1-bill_block.
-</span><span class="line">        else.
-</span><span class="line">          exit.
-</span><span class="line">        endif.
-</span><span class="line">        wa_bapisdh1x-updateflag = 'U'.
-</span><span class="line">        wa_bapisdh1x-bill_block = 'X'.
-</span><span class="line">        call function 'BAPI_SALESORDER_CHANGE'     "更改销售定单
-</span><span class="line">          exporting
-</span><span class="line">            salesdocument    = wa_xvbuk-vbeln
-</span><span class="line">            order_header_in  = wa_bapisdh1
-</span><span class="line">            order_header_inx = wa_bapisdh1x
-</span><span class="line">          tables
-</span><span class="line">            return           = it_return.
-</span><span class="line">        loop at it_return into wa_return where type eq 'E' or type eq 'A'.
-</span><span class="line">          message e001(00) with wa_return-message.
-</span><span class="line">          return.
-</span><span class="line">        endloop.
-</span><span class="line">      endif.
-</span><span class="line">    endloop.
+</span><span class="line">  CLEAR: WA_HEAD .
+</span><span class="line">  WA_HEAD-PSTNG_DATE = SY-DATUM .
+</span><span class="line">  WA_HEAD-DOC_DATE   = SY-DATUM .
 </span><span class="line">
-</span><span class="line">  endif.
-</span><span class="line">endmethod.</span></code></pre></td></tr></table></div></figure></notextile></div>
-
+</span><span class="line">  LOOP AT I_TABLE INTO WA_TABLE .
+</span><span class="line">
+</span><span class="line">    CLEAR: LT_ITEM .
+</span><span class="line">    LT_ITEM-MATERIAL   = WA_TABLE-MATNR .
+</span><span class="line">    LT_ITEM-STGE_LOC   = WA_TABLE-LGORT .
+</span><span class="line">    LT_ITEM-ENTRY_QNT  = WA_TABLE-MENGE .
+</span><span class="line">    LT_ITEM-ENTRY_UOM  = WA_TABLE-MEINS .
+</span><span class="line">    LT_ITEM-PLANT      = WA_TABLE-WERKS .
+</span><span class="line">    LT_ITEM-PO_NUMBER  = WA_TABLE-EBELN .
+</span><span class="line">    LT_ITEM-PO_ITEM    = WA_TABLE-EBELP .
+</span><span class="line">    LT_ITEM-MOVE_TYPE  = G_C .
+</span><span class="line">    LT_ITEM-MVT_IND    = L_KZBEW.
+</span><span class="line">    LT_ITEM-BATCH      = WA_TABLE-CHARG .
+</span><span class="line">    LT_ITEM-MOVE_REAS  = L_MOVE_REAS.
+</span><span class="line">
+</span><span class="line">    APPEND LT_ITEM .
+</span><span class="line">  ENDLOOP .
+</span><span class="line">
+</span><span class="line">  CALL FUNCTION 'BAPI_GOODSMVT_CREATE'
+</span><span class="line">    EXPORTING
+</span><span class="line">      goodsmvt_header  = WA_HEAD
+</span><span class="line">      goodsmvt_code    = L_CODE
+</span><span class="line">    IMPORTING
+</span><span class="line">      goodsmvt_headret = WA_HEADRET
+</span><span class="line">    TABLES
+</span><span class="line">      goodsmvt_item    = LT_ITEM
+</span><span class="line">      return           = LT_RETURN.
+</span><span class="line">
+</span><span class="line">  READ TABLE LT_RETURN TRANSPORTING NO FIELDS WITH KEY type = 'E'.
+</span><span class="line">  IF sy-subrc EQ 0.
+</span><span class="line">    CALL FUNCTION 'BAPI_TRANSACTION_ROLLBACK'.
+</span><span class="line">  ELSE.
+</span><span class="line">    CLEAR wa_return.
+</span><span class="line">    CALL FUNCTION 'BAPI_TRANSACTION_COMMIT'
+</span><span class="line">      EXPORTING
+</span><span class="line">        wait   = 'X'
+</span><span class="line">      IMPORTING
+</span><span class="line">        return = wa_return.
+</span><span class="line">
+</span><span class="line">    IF wa_return-type EQ 'E'.
+</span><span class="line">      CALL FUNCTION 'BAPI_TRANSACTION_ROLLBACK'.
+</span><span class="line">      APPEND wa_return TO LT_RETURN.
+</span><span class="line">    ENDIF.
+</span><span class="line">
+</span><span class="line">  ENDIF.</span></code></pre></td></tr></table></div></figure></notextile></div>
 </div>
 
 
@@ -269,12 +316,12 @@
   
 
 
-<time datetime="2013-12-26T15:17:42+08:00" pubdate data-updated="true">2013-12-26 Thu</time>
+<time datetime="2014-12-28T21:57:53+08:00" pubdate data-updated="true">2014-12-28 Sun</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/badis/'>BADIs</a>, <a class='category' href='/blog/categories/sdzeng-qiang/'>SD增强</a>
+    <a class='category' href='/blog/categories/bapis/'>BAPIs</a>, <a class='category' href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数</a>
   
 </span>
 
@@ -306,10 +353,10 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/20131226/xiao-shou-ding-dan-cheng-ben-xian-shi-zeng-qiang-lv69afzz/" title="Previous Post: 销售定价显示增强 - LV69AFZZ">&laquo; 销售定价显示增强 - LV69AFZZ</a>
+        <a class="basic-alignment left" href="/blog/20141227/jiao-huo-chu-li-guo-cheng-zhong-shu-ju-chu-li-badis-smod-v50b0001/" title="Previous Post: 交货处理过程中数据处理BADIs - SMOD_V50B0001">&laquo; 交货处理过程中数据处理BADIs - SMOD_V50B0001</a>
       
       
-        <a class="basic-alignment right" href="/blog/20131227/mb1a-goods-movements-for-unique-batch-number/" title="Next Post: MB1A - Goods movements - for unique batch number">MB1A - Goods movements - for unique batch number &raquo;</a>
+        <a class="basic-alignment right" href="/blog/20141228/gong-ying-shang-zhu-shu-ju-xiao-yan-exits-sapmf02k/" title="Next Post: 供应商主数据校验EXITs - SAPMF02K">供应商主数据校验EXITs - SAPMF02K &raquo;</a>
       
     </p>
   </footer>
@@ -417,8 +464,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://lomozm.github.io/blog/20131226/xiao-shou-shou-fa-huo-badi-le-shp-delivery-proc/';
-        var disqus_url = 'http://lomozm.github.io/blog/20131226/xiao-shou-shou-fa-huo-badi-le-shp-delivery-proc/';
+        var disqus_identifier = 'http://lomozm.github.io/blog/20141228/huo-wu-bapis-bapi-goodsmvt-createde-shuo-ming/';
+        var disqus_url = 'http://lomozm.github.io/blog/20141228/huo-wu-bapis-bapi-goodsmvt-createde-shuo-ming/';
         var disqus_script = 'embed.js';
       
     (function () {

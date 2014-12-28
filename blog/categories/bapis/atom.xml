@@ -4,7 +4,7 @@
   <title><![CDATA[Category: BAPIs | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/bapis/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2014-12-27T23:58:01+08:00</updated>
+  <updated>2014-12-28T22:40:33+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -12,6 +12,218 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[货物BAPIs - BAPI_GOODSMVT_CREATE的说明]]></title>
+    <link href="http://lomozm.github.io/blog/20141228/huo-wu-bapis-bapi-goodsmvt-createde-shuo-ming/"/>
+    <updated>2014-12-28T21:57:53+08:00</updated>
+    <id>http://lomozm.github.io/blog/20141228/huo-wu-bapis-bapi-goodsmvt-createde-shuo-ming</id>
+    <content type="html"><![CDATA[<p>SAP系统里的所有货物移动(好象重复制造的成品入库是用MFBF来做的，针对它的入库有传用的BAPIs，真不确定可以用这个函数来做)，都可以用这个函数来完成，包括：MB1A,MB1B,MB1C,MB31,MIGO等<br /></p>
+
+<h4 id="section">说明</h4>
+<p>1、一般情况下，必须指定输入参数：goodsmvt_code，具体内容在表：T158G可以看到<br />
+01	-	MB01<br />     <br />
+02	-	MB31<br />     <br />
+03	-	MB1A<br />     <br />
+04	-   MB1B<br />     <br />
+05	-	MB1C<br />     <br />
+06	-	MB11<br />     <br />
+07	-	MB04<br />     <br />
+2、一般情况下，必须指定行项目参数（移动标识）：MVT_IND，具体内容在DOMAIN：KZBEW的值范围内可以看到<br />
+空	-	无参考的货物移动<br /> 
+B	-	按采购订单的货物移动<br /> 
+F	-	有关生产单的货物移动<br /> 
+L	-	有关交货通知的货物移动<br /> 
+K	-	看板需求的货物移动（WM－仅限内部）<br /> 
+O	-	“提供物料”消耗的后续调整<br /> 
+W	-	比例的后续调整/产品单位物料<br /> 
+<!-- more --></p>
+
+<h4 id="section-1">示例代码</h4>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>DATA: WA_HEAD     TYPE          BAPI2017&lt;em>GM_HEAD&lt;/em>01 ,                         “表头数据
+</span><span class='line'>        L_CODE      TYPE          GM_CODE ,                                     “
+</span><span class='line'>        WA_HEADRET  TYPE          BAPI2017_GM_HEAD_RET ,                        “入库完成后传回的物料凭证编号和物料凭证年度&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>    WA_STATUS   TYPE          BAPIRETURN ,      "反馈至地磅的消息
+</span><span class='line'>
+</span><span class='line'>    LT_RETURN   TYPE TABLE OF BAPIRET2,    "反馈消息
+</span><span class='line'>    WA_RETURN   TYPE          BAPIRET2,
+</span><span class='line'>
+</span><span class='line'>    LT_ITEM     TYPE TABLE OF BAPI2017_GM_ITEM_CREATE WITH HEADER LINE,    "表数据，采购订单行项目
+</span><span class='line'>
+</span><span class='line'>    G_C(3)      TYPE          C,
+</span><span class='line'>    L_KZBEW     TYPE          KZBEW,
+</span><span class='line'>    G_CHARG     TYPE          CHARG_D,
+</span><span class='line'>    L_MOVE_REAS TYPE          BAPI2017_GM_ITEM_CREATE-MOVE_REAS.
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>CASE I_TYPE.
+</span><span class='line'>    WHEN  ‘A’.    “采购订单入库
+</span><span class='line'>      L_CODE = ‘01’ .
+</span><span class='line'>      G_C    = ‘101’ .
+</span><span class='line'>      L_KZBEW = ‘B’.
+</span><span class='line'>      CLEAR:  L_MOVE_REAS .
+</span><span class='line'>    WHEN ‘B’.    “无采购订单入库
+</span><span class='line'>      L_CODE = ‘05’.
+</span><span class='line'>      G_C = ‘521’.
+</span><span class='line'>      CLEAR: L_KZBEW, L_MOVE_REAS .
+</span><span class='line'>    WHEN  ‘C’.    “退货采购订单（已开票）
+</span><span class='line'>      L_CODE = ‘01’ .
+</span><span class='line'>      G_C    = ‘161’ .
+</span><span class='line'>      L_KZBEW = ‘B’.
+</span><span class='line'>      CLEAR:  L_MOVE_REAS .
+</span><span class='line'>    WHEN  ‘D’.    “采购订单退货（未开票）
+</span><span class='line'>      L_CODE = ‘01’ .
+</span><span class='line'>      G_C    = ‘122’ .
+</span><span class='line'>      L_KZBEW = ‘B’.
+</span><span class='line'>      L_MOVE_REAS = ‘0001’ .  “移动原因”
+</span><span class='line'>  ENDCASE.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>CLEAR: WA_HEAD .
+</span><span class='line'>  WA_HEAD-PSTNG_DATE = SY-DATUM .
+</span><span class='line'>  WA_HEAD-DOC_DATE   = SY-DATUM .&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>LOOP AT I_TABLE INTO WA_TABLE .&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>CLEAR: LT_ITEM .
+</span><span class='line'>LT_ITEM-MATERIAL   = WA_TABLE-MATNR .
+</span><span class='line'>LT_ITEM-STGE_LOC   = WA_TABLE-LGORT .
+</span><span class='line'>LT_ITEM-ENTRY_QNT  = WA_TABLE-MENGE .
+</span><span class='line'>LT_ITEM-ENTRY_UOM  = WA_TABLE-MEINS .
+</span><span class='line'>LT_ITEM-PLANT      = WA_TABLE-WERKS .
+</span><span class='line'>LT_ITEM-PO_NUMBER  = WA_TABLE-EBELN .
+</span><span class='line'>LT_ITEM-PO_ITEM    = WA_TABLE-EBELP .
+</span><span class='line'>LT_ITEM-MOVE_TYPE  = G_C .
+</span><span class='line'>LT_ITEM-MVT_IND    = L_KZBEW.
+</span><span class='line'>LT_ITEM-BATCH      = WA_TABLE-CHARG .
+</span><span class='line'>LT_ITEM-MOVE_REAS  = L_MOVE_REAS.
+</span><span class='line'>
+</span><span class='line'>APPEND LT_ITEM .   ENDLOOP .
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>CALL FUNCTION ‘BAPI_GOODSMVT_CREATE’
+</span><span class='line'>    EXPORTING
+</span><span class='line'>      goodsmvt_header  = WA_HEAD
+</span><span class='line'>      goodsmvt_code    = L_CODE
+</span><span class='line'>    IMPORTING
+</span><span class='line'>      goodsmvt_headret = WA_HEADRET
+</span><span class='line'>    TABLES
+</span><span class='line'>      goodsmvt_item    = LT_ITEM
+</span><span class='line'>      return           = LT_RETURN.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>READ TABLE LT_RETURN TRANSPORTING NO FIELDS WITH KEY type = ‘E’.
+</span><span class='line'>  IF sy-subrc EQ 0.
+</span><span class='line'>    CALL FUNCTION ‘BAPI_TRANSACTION_ROLLBACK’.
+</span><span class='line'>  ELSE.
+</span><span class='line'>    CLEAR wa_return.
+</span><span class='line'>    CALL FUNCTION ‘BAPI_TRANSACTION_COMMIT’
+</span><span class='line'>      EXPORTING
+</span><span class='line'>        wait   = ‘X’
+</span><span class='line'>      IMPORTING
+</span><span class='line'>        return = wa_return.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>IF wa_return-type EQ 'E'.
+</span><span class='line'>  CALL FUNCTION 'BAPI_TRANSACTION_ROLLBACK'.
+</span><span class='line'>  APPEND wa_return TO LT_RETURN.
+</span><span class='line'>ENDIF.
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>ENDIF.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[交货单拣配BAPIs - BAPI_OUTB_DELIVERY_CHANGE]]></title>

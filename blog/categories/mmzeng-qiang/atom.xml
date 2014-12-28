@@ -4,7 +4,7 @@
   <title><![CDATA[Category: MM增强 | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/mmzeng-qiang/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2014-12-27T23:58:01+08:00</updated>
+  <updated>2014-12-28T22:40:33+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -12,6 +12,123 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[供应商主数据校验EXITs - SAPMF02K]]></title>
+    <link href="http://lomozm.github.io/blog/20141228/gong-ying-shang-zhu-shu-ju-xiao-yan-exits-sapmf02k/"/>
+    <updated>2014-12-28T22:32:36+08:00</updated>
+    <id>http://lomozm.github.io/blog/20141228/gong-ying-shang-zhu-shu-ju-xiao-yan-exits-sapmf02k</id>
+    <content type="html"><![CDATA[<h4 id="section">应用场景</h4>
+<p>用户创建供应商主数据时检查，其税号是唯一存在的，不能对应多个供应商的情况，防止后续系统错误；出口函数：EXIT_SAPMF02K_001<br />
+<!-- more --></p>
+
+<h4 id="section-1">示例代码</h4>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;em>&amp;———————————————————————&lt;/em>
+</span><span class='line'>&lt;em>&amp;  包括                ZXF05U01
+</span><span class='line'>*&amp;———————————————————————&lt;/em>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>DATA:IT_LFA1 LIKE LFA1 OCCURS 0 WITH HEADER LINE,
+</span><span class='line'>     MSG(999) TYPE C.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>IF SY-TCODE EQ ‘MK01’ OR SY-TCODE EQ ‘XK01’.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>IF I_LFA1-LIFNR IS NOT INITIAL.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code> SELECT * INTO TABLE IT_LFA1
+</span><span class='line'> FROM LFA1
+</span><span class='line'> WHERE LFA1~LIFNR &lt;&gt; I_LFA1-LIFNR AND LFA1~STCEG EQ I_LFA1-STCEG.
+</span><span class='line'>
+</span><span class='line'>ELSE.
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>SELECT * INTO TABLE IT_LFA1
+</span><span class='line'>     FROM LFA1
+</span><span class='line'>     WHERE   LFA1~STCEG EQ I_LFA1-STCEG.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code> ENDIF.
+</span><span class='line'>
+</span><span class='line'> IF IT_LFA1[] IS NOT INITIAL.
+</span><span class='line'>   READ TABLE IT_LFA1 INDEX 1.
+</span><span class='line'>   CLEAR MSG.
+</span><span class='line'>   CONCATENATE '税号：' IT_LFA1-STCEG '已存在，对应供应商编码：' IT_LFA1-LIFNR  '供应商名称： 'IT_LFA1-NAME1 INTO MSG.
+</span><span class='line'>   MESSAGE MSG TYPE 'E'.
+</span><span class='line'>   ENDIF.
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>ENDIF.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>IF SY-TCODE  EQ ‘MK02’ OR SY-TCODE  EQ ‘XK02’.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>SELECT * INTO TABLE IT_LFA1
+</span><span class='line'> FROM LFA1
+</span><span class='line'> WHERE LFA1~LIFNR &lt;&gt; I_LFA1-LIFNR AND  LFA1~STCEG EQ I_LFA1-STCEG.
+</span><span class='line'>
+</span><span class='line'> IF IT_LFA1[] IS NOT INITIAL.
+</span><span class='line'>   READ TABLE IT_LFA1 INDEX 1.
+</span><span class='line'>   CLEAR MSG.
+</span><span class='line'>   CONCATENATE '税号：' IT_LFA1-STCEG '已存在，对应供应商编码：' IT_LFA1-LIFNR  '供应商名称： 'IT_LFA1-NAME1 INTO MSG.
+</span><span class='line'>   MESSAGE MSG TYPE 'E'.
+</span><span class='line'>   ENDIF.
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>ENDIF.
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[MIGO收货时报M3682错误(同一物料在同一批次被使用)]]></title>

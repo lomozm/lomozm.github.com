@@ -5,13 +5,37 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>MacOS 10+ Octopress问题解决 - lomozm’s Journal</title>
+  <title>供应商主数据校验EXITs - SAPMF02K - lomozm’s Journal</title>
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="说明一下，在这个神奇的国度，上外网或进行外网交互真是个技术话，别人都觉得不会翻墙都不好意思说自己是搞IT的！
-最后近一直很忙，几乎都成了31天工作制了，昨天突发奇想更新下自已的blog，问题来了
-1、首先不记得rake命命，我的那个神拉，快速翻开第1篇，真慢。算了，用sudo rake &hellip;">
+  <meta name="description" content="应用场景
+用户创建供应商主数据时检查，其税号是唯一存在的，不能对应多个供应商的情况，防止后续系统错误；出口函数：EXIT_SAPMF02K_001 示例代码 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +44,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://lomozm.github.io/blog/20141220/macos-10-plus-octopresswen-ti-jie-jue/">
+  <link rel="canonical" href="http://lomozm.github.io/blog/20141228/gong-ying-shang-zhu-shu-ju-xiao-yan-exits-sapmf02k/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -72,7 +96,7 @@
   <header>
     
       
-        <h1 class="entry-title">MacOS 10+ Octopress问题解决</h1>
+        <h1 class="entry-title">供应商主数据校验EXITs - SAPMF02K</h1>
       
     
     
@@ -89,7 +113,7 @@
   
 
 
-<time datetime="2014-12-20T12:51:16+08:00" pubdate data-updated="true">2014-12-20 Sat</time>
+<time datetime="2014-12-28T22:32:36+08:00" pubdate data-updated="true">2014-12-28 Sun</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -98,17 +122,11 @@
   </header>
 
 
-<div class="entry-content">
-<p>说明一下，在这个神奇的国度，上外网或进行外网交互真是个技术话，别人都觉得不会翻墙都不好意思说自己是搞IT的！<br /><br />
-最后近一直很忙，几乎都成了31天工作制了，昨天突发奇想更新下自已的blog，问题来了<br />
-1、首先不记得rake命命，我的那个神拉，快速翻开第1篇，真慢。算了，用<code>sudo rake preview</code>，再用<code>http://localhost:4000</code>找到，瞬间找到了些感觉，高兴<br />
-2、什么，<code>fatal: Authentication failed for https://github.com/....</code>，使用<code>sudo rake deploy</code>认证失败，网速慢，多试了几次，还是一样的，是不是os升级到10.2后一些认证丢了呢，关键我都不记得github的密码了，在github里把密码改了，然后就是把系统存的钥匙串也改了，如下：<br />
-<!-- more -->
-<img src="/images/images/QQ20141220-1@2x.png" alt="001" /><br />
-<img src="/images/images/A9A6910E-81F5-43F6-B2ED-98235A7986E3.png" alt="002" /><br />
-3、然后就出现了<br />
-<code>fatal: unable to access 'https://github.com/lomozm/lomozm.github.com/': Empty reply from server</code>，我的github客户端都能联通的呀，开启baidu搜（自从最近用不了google之后，就只有这东西可用了）<br />
-<a href="http://segmentfault.com/q/1010000002169878">升级Yosemite后github for Mac的客户端出错</a>中说用<code>ssh -vT git@github.com</code>查看结果，其中包括：<br /></p>
+<div class="entry-content"><h4 id="section">应用场景</h4>
+<p>用户创建供应商主数据时检查，其税号是唯一存在的，不能对应多个供应商的情况，防止后续系统错误；出口函数：EXIT_SAPMF02K_001<br />
+<!-- more --></p>
+
+<h4 id="section-1">示例代码</h4>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -126,42 +144,92 @@
 <span class="line-number">14</span>
 <span class="line-number">15</span>
 <span class="line-number">16</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">debug1: Offering DSA public key: /Users/***/.ssh/id_dsa
-</span><span class="line">debug1: Authentications that can continue: publickey
-</span><span class="line">debug1: Offering RSA public key: /Users/***/.ssh/github_rsa
-</span><span class="line">debug1: Server accepts key: pkalg ssh-rsa blen 279
-</span><span class="line">debug1: Authentication succeeded (publickey).
-</span><span class="line">Authenticated to github.com ([192.30.252.128]:22).
-</span><span class="line">debug1: channel 0: new [client-session]
-</span><span class="line">debug1: Entering interactive session.
-</span><span class="line">debug1: Sending environment.
-</span><span class="line">debug1: Sending env LANG = zh_CN.UTF-8
-</span><span class="line">debug1: client_input_channel_req: channel 0 rtype exit-status reply 0
-</span><span class="line">Hi lomozm! You've successfully authenticated, but GitHub does not provide shell access.
-</span><span class="line">debug1: channel 0: free: client-session, nchannels 1
-</span><span class="line">Transferred: sent 3640, received 1992 bytes, in 40.3 seconds
-</span><span class="line">Bytes per second: sent 90.3, received 49.4
-</span><span class="line">debug1: Exit status 1</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>正常的啊，deploy还是出现不能访问，郁闷！！！网速也很慢，先睡觉，明日再战<br />
-今天加班，处理完手里的事情后，看到一篇文章<a href="http://www.cocoachina.com/bbs/read.php?tid=271942">升级10。10yihougithub无法提交代码了</a>,里面说和我情况差不多吧，就是不能访问，4楼的方法出其简单，就是增加DNS：8.8.8.8和搜索域：github.com，要不有截图，我定认为是忽悠，这个DNS太不正常了吧，就这张图：<br />
-<img src="/images/images/21_335670_6d4fee0fb339a56.png" alt="003" /><br />
-同时，这个贴子里还提到如何为自已的账号生成ssh key<a href="https://help.github.com/articles/generating-ssh-keys/#step-3-add-your-ssh-key-to-your-account">Generating SSH keys</a><br />
-4、做deploy时，不时的还是会出现<br /></p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">error: RPC failed; result=56, HTTP code = 0
-</span><span class="line">fatal: The remote end hung up unexpectedly
-</span><span class="line">fatal: The remote end hung up unexpectedly</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p><a href="http://segmentfault.com/q/1010000002221288">从 github 执行 git pull 的时候提示 error: RPC failed</a>里面说可能是buffer设得太小，也可能是最近github不稳定造成的，反正我没改啥，再做一次就成功了，仰天长笑！！<br />
-顺便记下设置postBuffer的语名<code>git config --global http.postBuffer 524288000</code><br /><br /></p>
-
-<p>最后，当然是deploy successful了，而且，速度挺快<br />
-感谢baidu.<br /></p>
-
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">*&amp;  包括                ZXF05U01
+</span><span class="line">*&amp;---------------------------------------------------------------------*
+</span><span class="line">
+</span><span class="line">DATA:IT_LFA1 LIKE LFA1 OCCURS 0 WITH HEADER LINE,
+</span><span class="line">     MSG(999) TYPE C.
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">IF SY-TCODE EQ 'MK01' OR SY-TCODE EQ 'XK01'.
+</span><span class="line">
+</span><span class="line">  IF I_LFA1-LIFNR IS NOT INITIAL.
+</span><span class="line">
+</span><span class="line">     SELECT * INTO TABLE IT_LFA1
+</span><span class="line">     FROM LFA1
+</span><span class="line">     WHERE LFA1~LIFNR &lt;&gt; I_LFA1-LIFNR AND LFA1~STCEG EQ I_LFA1-STCEG.
+</span><span class="line">
+</span><span class="line">    ELSE.
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">   SELECT * INTO TABLE IT_LFA1
+</span><span class="line">     FROM LFA1
+</span><span class="line">     WHERE   LFA1~STCEG EQ I_LFA1-STCEG.
+</span><span class="line">
+</span><span class="line">     ENDIF.
+</span><span class="line">
+</span><span class="line">     IF IT_LFA1[] IS NOT INITIAL.
+</span><span class="line">       READ TABLE IT_LFA1 INDEX 1.
+</span><span class="line">       CLEAR MSG.
+</span><span class="line">       CONCATENATE '税号：' IT_LFA1-STCEG '已存在，对应供应商编码：' IT_LFA1-LIFNR  '供应商名称： 'IT_LFA1-NAME1 INTO MSG.
+</span><span class="line">       MESSAGE MSG TYPE 'E'.
+</span><span class="line">       ENDIF.
+</span><span class="line">
+</span><span class="line">  ENDIF.
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">  IF SY-TCODE  EQ 'MK02' OR SY-TCODE  EQ 'XK02'.
+</span><span class="line">
+</span><span class="line">    SELECT * INTO TABLE IT_LFA1
+</span><span class="line">     FROM LFA1
+</span><span class="line">     WHERE LFA1~LIFNR &lt;&gt; I_LFA1-LIFNR AND  LFA1~STCEG EQ I_LFA1-STCEG.
+</span><span class="line">
+</span><span class="line">     IF IT_LFA1[] IS NOT INITIAL.
+</span><span class="line">       READ TABLE IT_LFA1 INDEX 1.
+</span><span class="line">       CLEAR MSG.
+</span><span class="line">       CONCATENATE '税号：' IT_LFA1-STCEG '已存在，对应供应商编码：' IT_LFA1-LIFNR  '供应商名称： 'IT_LFA1-NAME1 INTO MSG.
+</span><span class="line">       MESSAGE MSG TYPE 'E'.
+</span><span class="line">       ENDIF.
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">    ENDIF.</span></code></pre></td></tr></table></div></figure></notextile></div>
 </div>
 
 
@@ -184,12 +252,12 @@
   
 
 
-<time datetime="2014-12-20T12:51:16+08:00" pubdate data-updated="true">2014-12-20 Sat</time>
+<time datetime="2014-12-28T22:32:36+08:00" pubdate data-updated="true">2014-12-28 Sun</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/octopress/'>octopress</a>
+    <a class='category' href='/blog/categories/exits/'>Exits</a>, <a class='category' href='/blog/categories/mmzeng-qiang/'>MM增强</a>
   
 </span>
 
@@ -221,10 +289,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/20141219/deng-tai-shan/" title="Previous Post: 登泰山">&laquo; 登泰山</a>
+        <a class="basic-alignment left" href="/blog/20141228/huo-wu-bapis-bapi-goodsmvt-createde-shuo-ming/" title="Previous Post: 货物BAPIs - BAPI_GOODSMVT_CREATE的说明">&laquo; 货物BAPIs - BAPI_GOODSMVT_CREATE的说明</a>
       
-      
-        <a class="basic-alignment right" href="/blog/20141225/ji-yu-gong-yi-lu-xian-de-jian-yan-ji-hua-dao-ru-han-shu-cpcc-s-task-list-maintain/" title="Next Post: 基于工艺路线的检验计划导入函数 - CPCC_S_TASK_LIST_MAINTAIN">基于工艺路线的检验计划导入函数 - CPCC_S_TASK_LIST_MAINTAIN &raquo;</a>
       
     </p>
   </footer>
@@ -332,8 +398,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://lomozm.github.io/blog/20141220/macos-10-plus-octopresswen-ti-jie-jue/';
-        var disqus_url = 'http://lomozm.github.io/blog/20141220/macos-10-plus-octopresswen-ti-jie-jue/';
+        var disqus_identifier = 'http://lomozm.github.io/blog/20141228/gong-ying-shang-zhu-shu-ju-xiao-yan-exits-sapmf02k/';
+        var disqus_url = 'http://lomozm.github.io/blog/20141228/gong-ying-shang-zhu-shu-ju-xiao-yan-exits-sapmf02k/';
         var disqus_script = 'embed.js';
       
     (function () {
