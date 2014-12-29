@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2014-12-29T22:38:51+08:00</updated>
+  <updated>2014-12-29T22:43:30+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -23,9 +23,9 @@
 其它立库等系统也一样<br /></p>
 
 <h4 id="section-1">重要参数说明</h4>
-<p>1、参数vbkok-komue：自动以拣配数量覆盖交货数量（只能改小，不能改大？）
-2、参数VBKOK-WABUC：自动过帐货物移动，如果为空，则只是测试运行，为“X”，表示过帐
-3、参数LT_VBPOK-LIANP：修改交货数量
+<p>1、参数vbkok-komue：自动以拣配数量覆盖交货数量（只能改小，不能改大？）<br />
+2、参数VBKOK-WABUC：自动过帐货物移动，如果为空，则只是测试运行，为“X”，表示过帐<br />
+3、参数LT_VBPOK-LIANP：修改交货数量<br />
 <!-- more --></p>
 
 <h4 id="section-2">示例</h4>
