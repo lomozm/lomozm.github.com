@@ -5,14 +5,16 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>MIGO收货时报M3682错误(同一物料在同一批次被使用) - lomozm’s Journal</title>
+  <title>交货单拣配过帐BAPIs - SD_DELIVERY_UPDATE_PICKING - lomozm’s Journal</title>
   <meta name="author" content="lomozm">
 
   
   <meta name="description" content="场景
-用户在使用migo收货时，发现同一物料同一批次不能同时处理，错误消息是：物料###的批次##被用户##锁定 解决方法
-见notes:1523750 - MIGO: Message M3682 during goods movement to same batch
-使用badi: &hellip;">
+与地磅接口时，地磅系统根据所选交货单称重，并以此作为出库数量
+其它立库等系统也一样 重要参数说明
+1、参数vbkok-komue：自动以拣配数量覆盖交货数量（只能改小，不能改大？）
+2、参数VBKOK-WABUC：自动过帐货物移动，如果为空，则只是测试运行，为“X”，表示过帐
+3、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +23,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://lomozm.github.io/blog/20140103/migoshou-huo-shi-bao-m3682cuo-wu-tong-%5B%3F%5D-wu-liao-zai-tong-%5B%3F%5D-pi-ci-bei-shi-yong/">
+  <link rel="canonical" href="http://lomozm.github.io/blog/20141229/jiao-huo-dan-jian-pei-guo-zhang-bapis-sd-delivery-update-picking/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -73,7 +75,7 @@
   <header>
     
       
-        <h1 class="entry-title">MIGO收货时报M3682错误(同一物料在同一批次被使用)</h1>
+        <h1 class="entry-title">交货单拣配过帐BAPIs - SD_DELIVERY_UPDATE_PICKING</h1>
       
     
     
@@ -90,7 +92,7 @@
   
 
 
-<time datetime="2014-01-03T16:21:47+08:00" pubdate data-updated="true">2014-01-03 Fri</time>
+<time datetime="2014-12-29T22:19:43+08:00" pubdate data-updated="true">2014-12-29 Mon</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -99,22 +101,17 @@
   </header>
 
 
-<div class="entry-content">
-<h3 id="section">场景</h3>
-<p>用户在使用migo收货时，发现同一物料同一批次不能同时处理，错误消息是：物料###的批次##被用户##锁定<br /></p>
+<div class="entry-content"><h4 id="section">场景</h4>
+<p>与地磅接口时，地磅系统根据所选交货单称重，并以此作为出库数量<br />
+其它立库等系统也一样<br /></p>
 
-<h3 id="section-1">解决方法</h3>
-<p>见notes:1523750 - MIGO: Message M3682 during goods movement to same batch<br />
-使用badi: BATCH_MASTER<br />
-method: <code>LOCK_BATCH_MASTER_IN_MIGO</code><br />
-<!--more--></p>
+<h4 id="section-1">重要参数说明</h4>
+<p>1、参数vbkok-komue：自动以拣配数量覆盖交货数量（只能改小，不能改大？）
+2、参数VBKOK-WABUC：自动过帐货物移动，如果为空，则只是测试运行，为“X”，表示过帐
+3、参数LT_VBPOK-LIANP：修改交货数量
+<!-- more --></p>
 
-<p>注意：<br />
-1. notes中关于版本的描述，打这个notes时，相关notes也必须打上<br />
-2. 锁数据查看事务代码：sm12<br />
-3. badi调用的函数：<code>VB_ENQUEUE_BATCH</code><br /></p>
-
-<h3 id="section-2">出口代码</h3>
+<h4 id="section-2">示例</h4>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -175,68 +172,131 @@ method: <code>LOCK_BATCH_MASTER_IN_MIGO</code><br />
 <span class="line-number">57</span>
 <span class="line-number">58</span>
 <span class="line-number">59</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">method IF_EX_BATCH_MASTER~LOCK_BATCH_MASTER_IN_MIGO.
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+<span class="line-number">62</span>
+<span class="line-number">63</span>
+<span class="line-number">64</span>
+<span class="line-number">65</span>
+<span class="line-number">66</span>
+<span class="line-number">67</span>
+<span class="line-number">68</span>
+<span class="line-number">69</span>
+<span class="line-number">70</span>
+<span class="line-number">71</span>
+<span class="line-number">72</span>
+<span class="line-number">73</span>
+<span class="line-number">74</span>
+<span class="line-number">75</span>
+<span class="line-number">76</span>
+<span class="line-number">77</span>
+<span class="line-number">78</span>
+<span class="line-number">79</span>
+<span class="line-number">80</span>
+<span class="line-number">81</span>
+<span class="line-number">82</span>
+<span class="line-number">83</span>
+<span class="line-number">84</span>
+<span class="line-number">85</span>
+<span class="line-number">86</span>
+<span class="line-number">87</span>
+<span class="line-number">88</span>
+<span class="line-number">89</span>
+<span class="line-number">90</span>
+<span class="line-number">91</span>
+<span class="line-number">92</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">DATA: HEAD      TYPE          BAPIOBDLVHDRCHG,
+</span><span class="line">        HEAD_C    TYPE          BAPIOBDLVHDRCTRLCHG,
+</span><span class="line">        TECH_C    TYPE          BAPIDLVCONTROL,
+</span><span class="line">        WA_RETURN TYPE          BAPIRET2,
+</span><span class="line">        VBKOK     TYPE          VBKOK,
+</span><span class="line">        ITEM_CONT TYPE TABLE OF BAPIOBDLVITEMCTRLCHG WITH HEADER LINE,
+</span><span class="line">        LT_VBPOK  TYPE TABLE OF VBPOK WITH HEADER LINE,
+</span><span class="line">        LT_LIPS   TYPE TABLE OF LIPS WITH HEADER LINE,
+</span><span class="line">        LT_PROTT  TYPE TABLE OF PROTT WITH HEADER LINE,
+</span><span class="line">        EXTENSION TYPE TABLE OF BAPIEXTC WITH HEADER LINE .
 </span><span class="line">
-</span><span class="line">  data: it_sel type TABLE OF seqg3,
-</span><span class="line">        wa_sel type seqg3,
-</span><span class="line">        it_enq type table of seqg3,
-</span><span class="line">        wa_enq type seqg3.
+</span><span class="line">  FIELD-SYMBOLS: &lt;F_ITEM&gt; TYPE BAPIOBDLVITEMCHG.
 </span><span class="line">
-</span><span class="line">  data: gname    type  seqg3-gname.
-</span><span class="line">  data: garg     type  seqg3-garg.
-</span><span class="line">  data: gtarg    type  seqg3-gtarg.
-</span><span class="line">  data: guname   type  seqg3-guname.
-</span><span class="line">  data: gclient  type  seqg3-gclient.
-</span><span class="line">  data: subrc type i.
-</span><span class="line">*
-</span><span class="line">  if sy-tcode eq 'MIGO'.  "事务代码判断
+</span><span class="line">  CLEAR VBKOK.
 </span><span class="line">
-</span><span class="line">    gname   = 'MCH1'.   "锁定的表
-</span><span class="line">    guname  = ''. "sy-uname.  “如果不指定用户，系统默认当前用户，就不能解锁其它用户锁定的数据，所以指定为空
-</span><span class="line">    gclient = sy-mandt.
-</span><span class="line">    concatenate gclient i_matnr i_charg into garg.  "锁定的对象
-</span><span class="line">*读取锁定数据
-</span><span class="line">    CALL FUNCTION 'ENQUEUE_READ'
-</span><span class="line">      EXPORTING
-</span><span class="line">        gclient               = gclient
-</span><span class="line">        guname                = guname
-</span><span class="line">        gname                 = gname
-</span><span class="line">      IMPORTING
-</span><span class="line">        subrc                 = subrc
-</span><span class="line">      TABLES
-</span><span class="line">        enq                   = it_enq
-</span><span class="line">      EXCEPTIONS
-</span><span class="line">        communication_failure = 2
-</span><span class="line">        others                = 1.
-</span><span class="line">    if sy-subrc = 0.
-</span><span class="line">      C_LOCK_MODE = 'S'.  "更改排它锁为共享锁
+</span><span class="line">  VBKOK-VBELN_VL = I_VBELN.
+</span><span class="line">*  vbkok-komue = 'X'.
+</span><span class="line">  VBKOK-WABUC = I_WABUC.
+</span><span class="line">  VBKOK-WADAT_IST = SY-DATUM.
+</span><span class="line">  VBKOK-BLDAT = SY-DATUM.
 </span><span class="line">
-</span><span class="line">      delete it_enq where garg ne garg and gmode eq C_LOCK_MODE.
+</span><span class="line">  CLEAR: LT_LIPS,LT_LIPS[].
+</span><span class="line">  SELECT * INTO TABLE LT_LIPS
+</span><span class="line">    FROM LIPS
+</span><span class="line">    WHERE VBELN = I_VBELN.
 </span><span class="line">
-</span><span class="line">      if it_enq is not initial.
-</span><span class="line">*删除锁定数据
-</span><span class="line">        CALL FUNCTION 'ENQUE_DELETE'
-</span><span class="line">          EXPORTING
-</span><span class="line">            check_upd_requests = 1
-</span><span class="line">          IMPORTING
-</span><span class="line">            subrc              = subrc
-</span><span class="line">          TABLES
-</span><span class="line">            enq                = it_enq.
+</span><span class="line">  SORT LT_LIPS BY VBELN POSNR.
 </span><span class="line">
-</span><span class="line">        if subrc eq 0.
-</span><span class="line">          clear it_enq.
-</span><span class="line">        endif.
-</span><span class="line">      endif.
-</span><span class="line">    elseif sy-subrc = 2.
-</span><span class="line">      exit.
-</span><span class="line">    endif.
+</span><span class="line">  CLEAR: LT_VBPOK,LT_VBPOK[].
+</span><span class="line">  LOOP AT ITEM_DATA ASSIGNING &lt;F_ITEM&gt;.
+</span><span class="line">    CLEAR LT_VBPOK.
+</span><span class="line">    LT_VBPOK-VBELN_VL = &lt;F_ITEM&gt;-DELIV_NUMB.
+</span><span class="line">    LT_VBPOK-POSNR_VL = &lt;F_ITEM&gt;-DELIV_ITEM.
 </span><span class="line">
+</span><span class="line">    CLEAR LT_LIPS.
+</span><span class="line">    READ TABLE LT_LIPS WITH KEY VBELN = I_VBELN POSNR = &lt;F_ITEM&gt;-HIERARITEM BINARY SEARCH.
+</span><span class="line">
+</span><span class="line">    LT_VBPOK-VBELN = LT_LIPS-VGBEL.
+</span><span class="line">    LT_VBPOK-POSNN = LT_LIPS-VGPOS.
+</span><span class="line">
+</span><span class="line">    LT_VBPOK-MATNR = &lt;F_ITEM&gt;-MATERIAL.
+</span><span class="line">    LT_VBPOK-CHARG = &lt;F_ITEM&gt;-BATCH.
+</span><span class="line">    LT_VBPOK-WERKS = LT_LIPS-WERKS.
+</span><span class="line">    LT_VBPOK-LIANP = 'X'.
+</span><span class="line">    LT_VBPOK-PIKMG = &lt;F_ITEM&gt;-DLV_QTY.
+</span><span class="line">    LT_VBPOK-LFIMG = &lt;F_ITEM&gt;-DLV_QTY.
+</span><span class="line">    LT_VBPOK-UMVKZ = &lt;F_ITEM&gt;-FACT_UNIT_NOM.
+</span><span class="line">    LT_VBPOK-UMVKN = &lt;F_ITEM&gt;-FACT_UNIT_DENOM.
+</span><span class="line">    LT_VBPOK-VRKME = &lt;F_ITEM&gt;-SALES_UNIT.
+</span><span class="line">    LT_VBPOK-MEINS = &lt;F_ITEM&gt;-BASE_UOM.
+</span><span class="line">    LT_VBPOK-LGORT = LT_LIPS-LGORT.
+</span><span class="line">
+</span><span class="line">    APPEND LT_VBPOK.
+</span><span class="line">  ENDLOOP.
+</span><span class="line">
+</span><span class="line">  CLEAR: LT_PROTT,LT_PROTT[].
+</span><span class="line">  CALL FUNCTION 'SD_DELIVERY_UPDATE_PICKING'
+</span><span class="line">    EXPORTING
+</span><span class="line">      VBKOK_WA  = VBKOK
+</span><span class="line">    TABLES
+</span><span class="line">      VBPOK_TAB = LT_VBPOK
+</span><span class="line">      PROT      = LT_PROTT.
+</span><span class="line">*sy-msgty = 'S'.
+</span><span class="line">  READ TABLE LT_PROTT TRANSPORTING NO FIELDS WITH KEY MSGTY = 'E'.
+</span><span class="line">  IF SY-SUBRC EQ 0.
+</span><span class="line">    CALL FUNCTION 'BAPI_TRANSACTION_ROLLBACK'.
+</span><span class="line">    LOOP AT LT_PROTT WHERE MSGTY EQ 'E'.
+</span><span class="line">      CLEAR WA_RETURN.
+</span><span class="line">      WA_RETURN-TYPE = 'E'.
+</span><span class="line">      CONCATENATE LT_PROTT-VBELN '/' LT_PROTT-POSNR ':' LT_PROTT-MATNR '/' LT_PROTT-CHARG ';'
+</span><span class="line">      LT_PROTT-MSGNO LT_PROTT-MSGID LT_PROTT-MSGV1 LT_PROTT-MSGV2 LT_PROTT-MSGV3
+</span><span class="line">      INTO WA_RETURN-MESSAGE.
+</span><span class="line">
+</span><span class="line">      APPEND WA_RETURN TO RETURN.
+</span><span class="line">      CLEAR LT_PROTT.
+</span><span class="line">    ENDLOOP.
+</span><span class="line">
+</span><span class="line">    RETURN.
 </span><span class="line">  ENDIF.
 </span><span class="line">
-</span><span class="line">endmethod.</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>其它有用的链接<br />
-<a href="http://help.sap.com/saphelp_erp60_sp/helpdata/en/02/e0b24188b3e534e10000000a1550b0/content.htm">http://help.sap.com/saphelp_erp60_sp/helpdata/en/02/e0b24188b3e534e10000000a1550b0/content.htm</a><br /></p>
+</span><span class="line">  CLEAR WA_RETURN.
+</span><span class="line">  CALL FUNCTION 'BAPI_TRANSACTION_COMMIT'
+</span><span class="line">    EXPORTING
+</span><span class="line">      WAIT   = 'X'
+</span><span class="line">    IMPORTING
+</span><span class="line">      RETURN = WA_RETURN.
+</span><span class="line">
+</span><span class="line">  IF WA_RETURN-TYPE EQ 'E'.
+</span><span class="line">    CALL FUNCTION 'BAPI_TRANSACTION_ROLLBACK'.
+</span><span class="line">    APPEND WA_RETURN TO RETURN.
+</span><span class="line">    RETURN.
+</span><span class="line">  ENDIF.</span></code></pre></td></tr></table></div></figure></notextile></div>
 </div>
 
 
@@ -259,12 +319,12 @@ method: <code>LOCK_BATCH_MASTER_IN_MIGO</code><br />
   
 
 
-<time datetime="2014-01-03T16:21:47+08:00" pubdate data-updated="true">2014-01-03 Fri</time>
+<time datetime="2014-12-29T22:19:43+08:00" pubdate data-updated="true">2014-12-29 Mon</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/badis/'>BADIs</a>, <a class='category' href='/blog/categories/mmzeng-qiang/'>MM增强</a>
+    <a class='category' href='/blog/categories/bapis/'>BAPIs</a>, <a class='category' href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数</a>
   
 </span>
 
@@ -296,10 +356,8 @@ method: <code>LOCK_BATCH_MASTER_IN_MIGO</code><br />
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/20131230/eval-formula-gong-shi-ji-suan-ce-shi/" title="Previous Post: EVAL_FORMULA 公式计算测试">&laquo; EVAL_FORMULA 公式计算测试</a>
+        <a class="basic-alignment left" href="/blog/20141228/gong-ying-shang-zhu-shu-ju-xiao-yan-exits-sapmf02k/" title="Previous Post: 供应商主数据校验EXITs - SAPMF02K">&laquo; 供应商主数据校验EXITs - SAPMF02K</a>
       
-      
-        <a class="basic-alignment right" href="/blog/20140220/textmate-highlight-for-abap/" title="Next Post: TextMate highlight for ABAP">TextMate highlight for ABAP &raquo;</a>
       
     </p>
   </footer>
@@ -407,8 +465,8 @@ method: <code>LOCK_BATCH_MASTER_IN_MIGO</code><br />
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://lomozm.github.io/blog/20140103/migoshou-huo-shi-bao-m3682cuo-wu-tong-%5B%3F%5D-wu-liao-zai-tong-%5B%3F%5D-pi-ci-bei-shi-yong/';
-        var disqus_url = 'http://lomozm.github.io/blog/20140103/migoshou-huo-shi-bao-m3682cuo-wu-tong-%5B%3F%5D-wu-liao-zai-tong-%5B%3F%5D-pi-ci-bei-shi-yong/';
+        var disqus_identifier = 'http://lomozm.github.io/blog/20141229/jiao-huo-dan-jian-pei-guo-zhang-bapis-sd-delivery-update-picking/';
+        var disqus_url = 'http://lomozm.github.io/blog/20141229/jiao-huo-dan-jian-pei-guo-zhang-bapis-sd-delivery-update-picking/';
         var disqus_script = 'embed.js';
       
     (function () {

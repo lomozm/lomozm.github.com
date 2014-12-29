@@ -101,13 +101,13 @@
 
 <h4 id="section">说明</h4>
 <p>1、一般情况下，必须指定输入参数：goodsmvt_code，具体内容在表：T158G可以看到<br />
-01	-	MB01<br />     <br />
-02	-	MB31<br />     <br />
-03	-	MB1A<br />     <br />
-04	-   MB1B<br />     <br />
-05	-	MB1C<br />     <br />
-06	-	MB11<br />     <br />
-07	-	MB04<br />     <br />
+01	-	MB01<br />
+02	-	MB31<br />
+03	-	MB1A<br />
+04	-   MB1B<br />
+05	-	MB1C<br />
+06	-	MB11<br />
+07	-	MB04<br />
 2、一般情况下，必须指定行项目参数（移动标识）：MVT_IND，具体内容在DOMAIN：KZBEW的值范围内可以看到<br />
 空	-	无参考的货物移动<br /> 
 B	-	按采购订单的货物移动<br /> 
@@ -207,17 +207,22 @@ W	-	比例的后续调整/产品单位物料<br />
 <span class="line-number">85</span>
 <span class="line-number">86</span>
 <span class="line-number">87</span>
+<span class="line-number">88</span>
+<span class="line-number">89</span>
+<span class="line-number">90</span>
+<span class="line-number">91</span>
+<span class="line-number">92</span>
+<span class="line-number">93</span>
+<span class="line-number">94</span>
+<span class="line-number">95</span>
+<span class="line-number">96</span>
 </pre></td><td class="code"><pre><code class=""><span class="line">DATA: WA_HEAD     TYPE          BAPI2017_GM_HEAD_01 ,                         "表头数据
 </span><span class="line">        L_CODE      TYPE          GM_CODE ,                                     "
 </span><span class="line">        WA_HEADRET  TYPE          BAPI2017_GM_HEAD_RET ,                        "入库完成后传回的物料凭证编号和物料凭证年度
-</span><span class="line">
 </span><span class="line">        WA_STATUS   TYPE          BAPIRETURN ,      "反馈至地磅的消息
-</span><span class="line">
 </span><span class="line">        LT_RETURN   TYPE TABLE OF BAPIRET2,    "反馈消息
 </span><span class="line">        WA_RETURN   TYPE          BAPIRET2,
-</span><span class="line">
 </span><span class="line">        LT_ITEM     TYPE TABLE OF BAPI2017_GM_ITEM_CREATE WITH HEADER LINE,    "表数据，采购订单行项目
-</span><span class="line">
 </span><span class="line">        G_C(3)      TYPE          C,
 </span><span class="line">        L_KZBEW     TYPE          KZBEW,
 </span><span class="line">        G_CHARG     TYPE          CHARG_D,
@@ -243,6 +248,15 @@ W	-	比例的后续调整/产品单位物料<br />
 </span><span class="line">      G_C    = '122' .
 </span><span class="line">      L_KZBEW = 'B'.
 </span><span class="line">      L_MOVE_REAS = '0001' .  "移动原因"
+</span><span class="line">    WHEN 'E'.    "生产订单发料
+</span><span class="line">      L_CODE = '03'.
+</span><span class="line">      G_C = '261'.
+</span><span class="line">      CLEAR: L_KZBEW, L_MOVE_REAS .
+</span><span class="line">    WHEN 'F'.    "生产订单入库
+</span><span class="line">      L_CODE = '02'.
+</span><span class="line">      G_C = '101'.
+</span><span class="line">      L_KZBEW  = 'F'.
+</span><span class="line">      CLEAR: L_MOVE_REAS .
 </span><span class="line">  ENDCASE.
 </span><span class="line">
 </span><span class="line">  CLEAR: WA_HEAD .
@@ -263,6 +277,10 @@ W	-	比例的后续调整/产品单位物料<br />
 </span><span class="line">    LT_ITEM-MVT_IND    = L_KZBEW.
 </span><span class="line">    LT_ITEM-BATCH      = WA_TABLE-CHARG .
 </span><span class="line">    LT_ITEM-MOVE_REAS  = L_MOVE_REAS.
+</span><span class="line">	
+</span><span class="line">	IF I_TYPE EQ 'E' OR I_TYPE EQ 'F'.
+</span><span class="line">      LT_ITEM-ORDERID = WA_TABLE-AUFNR.
+</span><span class="line">	ENDIF.
 </span><span class="line">
 </span><span class="line">    APPEND LT_ITEM .
 </span><span class="line">  ENDLOOP .
@@ -389,6 +407,10 @@ W	-	比例的后续调整/产品单位物料<br />
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/20141229/jiao-huo-dan-jian-pei-guo-zhang-bapis-sd-delivery-update-picking/">交货单拣配过帐BAPIs - SD_DELIVERY_UPDATE_PICKING</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/20141228/gong-ying-shang-zhu-shu-ju-xiao-yan-exits-sapmf02k/">供应商主数据校验EXITs - SAPMF02K</a>
       </li>
     
@@ -416,10 +438,6 @@ W	-	比例的后续调整/产品单位物料<br />
         <a href="/blog/20141219/deng-tai-shan/">登泰山</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/20140310/luo-yang-long-men-shi-ku/">洛阳龙门石窟</a>
-      </li>
-    
   </ul>
 </section>
 <section>
@@ -431,11 +449,11 @@ W	-	比例的后续调整/产品单位物料<br />
   <ul id="categories"> 
     <li class='category'><a href='/blog/categories/abapji-zhu/'>ABAP技术 (5)</a></li>
 <li class='category'><a href='/blog/categories/badis/'>BADIs (3)</a></li>
-<li class='category'><a href='/blog/categories/bapis/'>BAPIs (2)</a></li>
+<li class='category'><a href='/blog/categories/bapis/'>BAPIs (3)</a></li>
 <li class='category'><a href='/blog/categories/bwetl/'>BWETL (1)</a></li>
 <li class='category'><a href='/blog/categories/exits/'>Exits (5)</a></li>
 <li class='category'><a href='/blog/categories/mmzeng-qiang/'>MM增强 (4)</a></li>
-<li class='category'><a href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数 (5)</a></li>
+<li class='category'><a href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数 (6)</a></li>
 <li class='category'><a href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数 (4)</a></li>
 <li class='category'><a href='/blog/categories/sdzeng-qiang/'>SD增强 (4)</a></li>
 <li class='category'><a href='/blog/categories/textmate/'>TextMate (1)</a></li>

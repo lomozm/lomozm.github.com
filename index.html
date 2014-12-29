@@ -9,9 +9,12 @@
   <meta name="author" content="lomozm">
 
   
-  <meta name="description" content="应用场景
-用户创建供应商主数据时检查，其税号是唯一存在的，不能对应多个供应商的情况，防止后续系统错误；出口函数：EXIT_SAPMF02K_001
-">
+  <meta name="description" content="场景
+与地磅接口时，地磅系统根据所选交货单称重，并以此作为出库数量
+其它立库等系统也一样 重要参数说明
+1、参数vbkok-komue：自动以拣配数量覆盖交货数量（只能改小，不能改大？）
+2、参数VBKOK-WABUC：自动过帐货物移动，如果为空，则只是测试运行，为“X”，表示过帐
+3、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,6 +71,57 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/20141229/jiao-huo-dan-jian-pei-guo-zhang-bapis-sd-delivery-update-picking/">交货单拣配过帐BAPIs - SD_DELIVERY_UPDATE_PICKING</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-29T22:19:43+08:00" pubdate data-updated="true">2014-12-29 Mon</time>
+        
+         | <a href="/blog/20141229/jiao-huo-dan-jian-pei-guo-zhang-bapis-sd-delivery-update-picking/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h4 id="section">场景</h4>
+<p>与地磅接口时，地磅系统根据所选交货单称重，并以此作为出库数量<br />
+其它立库等系统也一样<br /></p>
+
+<h4 id="section-1">重要参数说明</h4>
+<p>1、参数vbkok-komue：自动以拣配数量覆盖交货数量（只能改小，不能改大？）
+2、参数VBKOK-WABUC：自动过帐货物移动，如果为空，则只是测试运行，为“X”，表示过帐
+3、参数LT_VBPOK-LIANP：修改交货数量
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/20141229/jiao-huo-dan-jian-pei-guo-zhang-bapis-sd-delivery-update-picking/">阅读全文…</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -150,13 +204,13 @@
 
 <h4 id="section">说明</h4>
 <p>1、一般情况下，必须指定输入参数：goodsmvt_code，具体内容在表：T158G可以看到<br />
-01	-	MB01<br />     <br />
-02	-	MB31<br />     <br />
-03	-	MB1A<br />     <br />
-04	-   MB1B<br />     <br />
-05	-	MB1C<br />     <br />
-06	-	MB11<br />     <br />
-07	-	MB04<br />     <br />
+01	-	MB01<br />
+02	-	MB31<br />
+03	-	MB1A<br />
+04	-   MB1B<br />
+05	-	MB1C<br />
+06	-	MB11<br />
+07	-	MB04<br />
 2、一般情况下，必须指定行项目参数（移动标识）：MVT_IND，具体内容在DOMAIN：KZBEW的值范围内可以看到<br />
 空	-	无参考的货物移动<br /> 
 B	-	按采购订单的货物移动<br /> 
@@ -515,51 +569,6 @@ W	-	比例的后续调整/产品单位物料<br />
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
-        <h1 class="entry-title"><a href="/blog/20140227/wei-reportxuan-ze-ping-mu-tian-jia-gong-neng-an-niu/">为Report选择屏幕添加事件按钮</a></h1>
-      
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-27T16:28:30+08:00" pubdate data-updated="true">2014-02-27 Thu</time>
-        
-         | <a href="/blog/20140227/wei-reportxuan-ze-ping-mu-tian-jia-gong-neng-an-niu/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-<p>以前也有用户要这个需求，就是运行程序的第一个屏幕添加其它的事件按钮，以实现对当前程序进行预操作，或者是功能补充。我用set PF-STATUS进行测试，发现程序进入选择屏幕后，不能捕捉到新增加的事件，也就作罢（说不能实现）；最近空闲一下，发现sap在选择屏幕可以加入function key功能可以实现<br />
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/20140227/wei-reportxuan-ze-ping-mu-tian-jia-gong-neng-an-niu/">阅读全文…</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -585,6 +594,10 @@ W	-	比例的后续调整/产品单位物料<br />
 <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/20141229/jiao-huo-dan-jian-pei-guo-zhang-bapis-sd-delivery-update-picking/">交货单拣配过帐BAPIs - SD_DELIVERY_UPDATE_PICKING</a>
+      </li>
     
       <li class="post">
         <a href="/blog/20141228/gong-ying-shang-zhu-shu-ju-xiao-yan-exits-sapmf02k/">供应商主数据校验EXITs - SAPMF02K</a>
@@ -614,10 +627,6 @@ W	-	比例的后续调整/产品单位物料<br />
         <a href="/blog/20141219/deng-tai-shan/">登泰山</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/20140310/luo-yang-long-men-shi-ku/">洛阳龙门石窟</a>
-      </li>
-    
   </ul>
 </section>
 <section>
@@ -629,11 +638,11 @@ W	-	比例的后续调整/产品单位物料<br />
   <ul id="categories"> 
     <li class='category'><a href='/blog/categories/abapji-zhu/'>ABAP技术 (5)</a></li>
 <li class='category'><a href='/blog/categories/badis/'>BADIs (3)</a></li>
-<li class='category'><a href='/blog/categories/bapis/'>BAPIs (2)</a></li>
+<li class='category'><a href='/blog/categories/bapis/'>BAPIs (3)</a></li>
 <li class='category'><a href='/blog/categories/bwetl/'>BWETL (1)</a></li>
 <li class='category'><a href='/blog/categories/exits/'>Exits (5)</a></li>
 <li class='category'><a href='/blog/categories/mmzeng-qiang/'>MM增强 (4)</a></li>
-<li class='category'><a href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数 (5)</a></li>
+<li class='category'><a href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数 (6)</a></li>
 <li class='category'><a href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数 (4)</a></li>
 <li class='category'><a href='/blog/categories/sdzeng-qiang/'>SD增强 (4)</a></li>
 <li class='category'><a href='/blog/categories/textmate/'>TextMate (1)</a></li>

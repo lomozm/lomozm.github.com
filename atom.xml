@@ -4,7 +4,7 @@
   <title><![CDATA[lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2014-12-28T23:20:33+08:00</updated>
+  <updated>2014-12-29T22:38:51+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -12,6 +12,210 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[交货单拣配过帐BAPIs - SD_DELIVERY_UPDATE_PICKING]]></title>
+    <link href="http://lomozm.github.io/blog/20141229/jiao-huo-dan-jian-pei-guo-zhang-bapis-sd-delivery-update-picking/"/>
+    <updated>2014-12-29T22:19:43+08:00</updated>
+    <id>http://lomozm.github.io/blog/20141229/jiao-huo-dan-jian-pei-guo-zhang-bapis-sd-delivery-update-picking</id>
+    <content type="html"><![CDATA[<h4 id="section">场景</h4>
+<p>与地磅接口时，地磅系统根据所选交货单称重，并以此作为出库数量<br />
+其它立库等系统也一样<br /></p>
+
+<h4 id="section-1">重要参数说明</h4>
+<p>1、参数vbkok-komue：自动以拣配数量覆盖交货数量（只能改小，不能改大？）
+2、参数VBKOK-WABUC：自动过帐货物移动，如果为空，则只是测试运行，为“X”，表示过帐
+3、参数LT_VBPOK-LIANP：修改交货数量
+<!-- more --></p>
+
+<h4 id="section-2">示例</h4>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+<span class="line-number">62</span>
+<span class="line-number">63</span>
+<span class="line-number">64</span>
+<span class="line-number">65</span>
+<span class="line-number">66</span>
+<span class="line-number">67</span>
+<span class="line-number">68</span>
+<span class="line-number">69</span>
+<span class="line-number">70</span>
+<span class="line-number">71</span>
+<span class="line-number">72</span>
+<span class="line-number">73</span>
+<span class="line-number">74</span>
+<span class="line-number">75</span>
+<span class="line-number">76</span>
+<span class="line-number">77</span>
+<span class="line-number">78</span>
+<span class="line-number">79</span>
+<span class="line-number">80</span>
+<span class="line-number">81</span>
+<span class="line-number">82</span>
+<span class="line-number">83</span>
+<span class="line-number">84</span>
+<span class="line-number">85</span>
+<span class="line-number">86</span>
+<span class="line-number">87</span>
+<span class="line-number">88</span>
+<span class="line-number">89</span>
+<span class="line-number">90</span>
+<span class="line-number">91</span>
+<span class="line-number">92</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">DATA: HEAD      TYPE          BAPIOBDLVHDRCHG,
+</span><span class="line">        HEAD_C    TYPE          BAPIOBDLVHDRCTRLCHG,
+</span><span class="line">        TECH_C    TYPE          BAPIDLVCONTROL,
+</span><span class="line">        WA_RETURN TYPE          BAPIRET2,
+</span><span class="line">        VBKOK     TYPE          VBKOK,
+</span><span class="line">        ITEM_CONT TYPE TABLE OF BAPIOBDLVITEMCTRLCHG WITH HEADER LINE,
+</span><span class="line">        LT_VBPOK  TYPE TABLE OF VBPOK WITH HEADER LINE,
+</span><span class="line">        LT_LIPS   TYPE TABLE OF LIPS WITH HEADER LINE,
+</span><span class="line">        LT_PROTT  TYPE TABLE OF PROTT WITH HEADER LINE,
+</span><span class="line">        EXTENSION TYPE TABLE OF BAPIEXTC WITH HEADER LINE .
+</span><span class="line">
+</span><span class="line">  FIELD-SYMBOLS: &lt;F_ITEM&gt; TYPE BAPIOBDLVITEMCHG.
+</span><span class="line">
+</span><span class="line">  CLEAR VBKOK.
+</span><span class="line">
+</span><span class="line">  VBKOK-VBELN_VL = I_VBELN.
+</span><span class="line">*  vbkok-komue = 'X'.
+</span><span class="line">  VBKOK-WABUC = I_WABUC.
+</span><span class="line">  VBKOK-WADAT_IST = SY-DATUM.
+</span><span class="line">  VBKOK-BLDAT = SY-DATUM.
+</span><span class="line">
+</span><span class="line">  CLEAR: LT_LIPS,LT_LIPS[].
+</span><span class="line">  SELECT * INTO TABLE LT_LIPS
+</span><span class="line">    FROM LIPS
+</span><span class="line">    WHERE VBELN = I_VBELN.
+</span><span class="line">
+</span><span class="line">  SORT LT_LIPS BY VBELN POSNR.
+</span><span class="line">
+</span><span class="line">  CLEAR: LT_VBPOK,LT_VBPOK[].
+</span><span class="line">  LOOP AT ITEM_DATA ASSIGNING &lt;F_ITEM&gt;.
+</span><span class="line">    CLEAR LT_VBPOK.
+</span><span class="line">    LT_VBPOK-VBELN_VL = &lt;F_ITEM&gt;-DELIV_NUMB.
+</span><span class="line">    LT_VBPOK-POSNR_VL = &lt;F_ITEM&gt;-DELIV_ITEM.
+</span><span class="line">
+</span><span class="line">    CLEAR LT_LIPS.
+</span><span class="line">    READ TABLE LT_LIPS WITH KEY VBELN = I_VBELN POSNR = &lt;F_ITEM&gt;-HIERARITEM BINARY SEARCH.
+</span><span class="line">
+</span><span class="line">    LT_VBPOK-VBELN = LT_LIPS-VGBEL.
+</span><span class="line">    LT_VBPOK-POSNN = LT_LIPS-VGPOS.
+</span><span class="line">
+</span><span class="line">    LT_VBPOK-MATNR = &lt;F_ITEM&gt;-MATERIAL.
+</span><span class="line">    LT_VBPOK-CHARG = &lt;F_ITEM&gt;-BATCH.
+</span><span class="line">    LT_VBPOK-WERKS = LT_LIPS-WERKS.
+</span><span class="line">    LT_VBPOK-LIANP = 'X'.
+</span><span class="line">    LT_VBPOK-PIKMG = &lt;F_ITEM&gt;-DLV_QTY.
+</span><span class="line">    LT_VBPOK-LFIMG = &lt;F_ITEM&gt;-DLV_QTY.
+</span><span class="line">    LT_VBPOK-UMVKZ = &lt;F_ITEM&gt;-FACT_UNIT_NOM.
+</span><span class="line">    LT_VBPOK-UMVKN = &lt;F_ITEM&gt;-FACT_UNIT_DENOM.
+</span><span class="line">    LT_VBPOK-VRKME = &lt;F_ITEM&gt;-SALES_UNIT.
+</span><span class="line">    LT_VBPOK-MEINS = &lt;F_ITEM&gt;-BASE_UOM.
+</span><span class="line">    LT_VBPOK-LGORT = LT_LIPS-LGORT.
+</span><span class="line">
+</span><span class="line">    APPEND LT_VBPOK.
+</span><span class="line">  ENDLOOP.
+</span><span class="line">
+</span><span class="line">  CLEAR: LT_PROTT,LT_PROTT[].
+</span><span class="line">  CALL FUNCTION 'SD_DELIVERY_UPDATE_PICKING'
+</span><span class="line">    EXPORTING
+</span><span class="line">      VBKOK_WA  = VBKOK
+</span><span class="line">    TABLES
+</span><span class="line">      VBPOK_TAB = LT_VBPOK
+</span><span class="line">      PROT      = LT_PROTT.
+</span><span class="line">*sy-msgty = 'S'.
+</span><span class="line">  READ TABLE LT_PROTT TRANSPORTING NO FIELDS WITH KEY MSGTY = 'E'.
+</span><span class="line">  IF SY-SUBRC EQ 0.
+</span><span class="line">    CALL FUNCTION 'BAPI_TRANSACTION_ROLLBACK'.
+</span><span class="line">    LOOP AT LT_PROTT WHERE MSGTY EQ 'E'.
+</span><span class="line">      CLEAR WA_RETURN.
+</span><span class="line">      WA_RETURN-TYPE = 'E'.
+</span><span class="line">      CONCATENATE LT_PROTT-VBELN '/' LT_PROTT-POSNR ':' LT_PROTT-MATNR '/' LT_PROTT-CHARG ';'
+</span><span class="line">      LT_PROTT-MSGNO LT_PROTT-MSGID LT_PROTT-MSGV1 LT_PROTT-MSGV2 LT_PROTT-MSGV3
+</span><span class="line">      INTO WA_RETURN-MESSAGE.
+</span><span class="line">
+</span><span class="line">      APPEND WA_RETURN TO RETURN.
+</span><span class="line">      CLEAR LT_PROTT.
+</span><span class="line">    ENDLOOP.
+</span><span class="line">
+</span><span class="line">    RETURN.
+</span><span class="line">  ENDIF.
+</span><span class="line">
+</span><span class="line">  CLEAR WA_RETURN.
+</span><span class="line">  CALL FUNCTION 'BAPI_TRANSACTION_COMMIT'
+</span><span class="line">    EXPORTING
+</span><span class="line">      WAIT   = 'X'
+</span><span class="line">    IMPORTING
+</span><span class="line">      RETURN = WA_RETURN.
+</span><span class="line">
+</span><span class="line">  IF WA_RETURN-TYPE EQ 'E'.
+</span><span class="line">    CALL FUNCTION 'BAPI_TRANSACTION_ROLLBACK'.
+</span><span class="line">    APPEND WA_RETURN TO RETURN.
+</span><span class="line">    RETURN.
+</span><span class="line">  ENDIF.</span></code></pre></td></tr></table></div></figure></notextile></div>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[供应商主数据校验EXITs - SAPMF02K]]></title>
@@ -138,13 +342,13 @@
 
 <h4 id="section">说明</h4>
 <p>1、一般情况下，必须指定输入参数：goodsmvt_code，具体内容在表：T158G可以看到<br />
-01	-	MB01<br />     <br />
-02	-	MB31<br />     <br />
-03	-	MB1A<br />     <br />
-04	-   MB1B<br />     <br />
-05	-	MB1C<br />     <br />
-06	-	MB11<br />     <br />
-07	-	MB04<br />     <br />
+01	-	MB01<br />
+02	-	MB31<br />
+03	-	MB1A<br />
+04	-   MB1B<br />
+05	-	MB1C<br />
+06	-	MB11<br />
+07	-	MB04<br />
 2、一般情况下，必须指定行项目参数（移动标识）：MVT_IND，具体内容在DOMAIN：KZBEW的值范围内可以看到<br />
 空	-	无参考的货物移动<br /> 
 B	-	按采购订单的货物移动<br /> 
@@ -244,17 +448,22 @@ W	-	比例的后续调整/产品单位物料<br />
 <span class="line-number">85</span>
 <span class="line-number">86</span>
 <span class="line-number">87</span>
+<span class="line-number">88</span>
+<span class="line-number">89</span>
+<span class="line-number">90</span>
+<span class="line-number">91</span>
+<span class="line-number">92</span>
+<span class="line-number">93</span>
+<span class="line-number">94</span>
+<span class="line-number">95</span>
+<span class="line-number">96</span>
 </pre></td><td class="code"><pre><code class=""><span class="line">DATA: WA_HEAD     TYPE          BAPI2017_GM_HEAD_01 ,                         "表头数据
 </span><span class="line">        L_CODE      TYPE          GM_CODE ,                                     "
 </span><span class="line">        WA_HEADRET  TYPE          BAPI2017_GM_HEAD_RET ,                        "入库完成后传回的物料凭证编号和物料凭证年度
-</span><span class="line">
 </span><span class="line">        WA_STATUS   TYPE          BAPIRETURN ,      "反馈至地磅的消息
-</span><span class="line">
 </span><span class="line">        LT_RETURN   TYPE TABLE OF BAPIRET2,    "反馈消息
 </span><span class="line">        WA_RETURN   TYPE          BAPIRET2,
-</span><span class="line">
 </span><span class="line">        LT_ITEM     TYPE TABLE OF BAPI2017_GM_ITEM_CREATE WITH HEADER LINE,    "表数据，采购订单行项目
-</span><span class="line">
 </span><span class="line">        G_C(3)      TYPE          C,
 </span><span class="line">        L_KZBEW     TYPE          KZBEW,
 </span><span class="line">        G_CHARG     TYPE          CHARG_D,
@@ -280,6 +489,15 @@ W	-	比例的后续调整/产品单位物料<br />
 </span><span class="line">      G_C    = '122' .
 </span><span class="line">      L_KZBEW = 'B'.
 </span><span class="line">      L_MOVE_REAS = '0001' .  "移动原因"
+</span><span class="line">    WHEN 'E'.    "生产订单发料
+</span><span class="line">      L_CODE = '03'.
+</span><span class="line">      G_C = '261'.
+</span><span class="line">      CLEAR: L_KZBEW, L_MOVE_REAS .
+</span><span class="line">    WHEN 'F'.    "生产订单入库
+</span><span class="line">      L_CODE = '02'.
+</span><span class="line">      G_C = '101'.
+</span><span class="line">      L_KZBEW  = 'F'.
+</span><span class="line">      CLEAR: L_MOVE_REAS .
 </span><span class="line">  ENDCASE.
 </span><span class="line">
 </span><span class="line">  CLEAR: WA_HEAD .
@@ -300,6 +518,10 @@ W	-	比例的后续调整/产品单位物料<br />
 </span><span class="line">    LT_ITEM-MVT_IND    = L_KZBEW.
 </span><span class="line">    LT_ITEM-BATCH      = WA_TABLE-CHARG .
 </span><span class="line">    LT_ITEM-MOVE_REAS  = L_MOVE_REAS.
+</span><span class="line">	
+</span><span class="line">	IF I_TYPE EQ 'E' OR I_TYPE EQ 'F'.
+</span><span class="line">      LT_ITEM-ORDERID = WA_TABLE-AUFNR.
+</span><span class="line">	ENDIF.
 </span><span class="line">
 </span><span class="line">    APPEND LT_ITEM .
 </span><span class="line">  ENDLOOP .
@@ -2980,31 +3202,6 @@ tcode: smod<br />
 </span><span class="line">  ENDLOOP.</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p><img src="http://lomozm.github.io/images/images/0cf1722fb9de37455d6f9f3e4c5aefbd.jpeg" alt="m002" /><br /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[BW层次主数据加载]]></title>
-    <link href="http://lomozm.github.io/blog/20131226/bwceng-ci-zhu-shu-ju-jia-zai/"/>
-    <updated>2013-12-26T11:12:19+08:00</updated>
-    <id>http://lomozm.github.io/blog/20131226/bwceng-ci-zhu-shu-ju-jia-zai</id>
-    <content type="html"><![CDATA[
-<h3 id="r3ksh2">R3系统中，事务代码KSH2，在源数据中新增成本中心</h3>
-<p><img src="http://lomozm.github.io/images/images/hierarchyloadetl.files/image001.png" alt="m001" /><br />
-<!--more-->
-### BW系统中，事务代码RSA1，上载成本中心（0COSTCENTER）数据，可以看出层次更新有两个，在此分别表示中/英文
-<img src="http://lomozm.github.io/images/images/hierarchyloadetl.files/image003.png" alt="m002" /><br /></p>
-
-<h3 id="full">上载路径：文本 -&gt; 属性 -&gt; 层次结构，且只用FULL上载就可以了，因为主数据上载是覆盖性的</h3>
-<p><img src="http://lomozm.github.io/images/images/hierarchyloadetl.files/image005.png" alt="m003" /><br />
-可以看出这个上载已在处理链中，单击开始进行文本上载，同时对于主数据属性的更新也是如此<br />
-<img src="http://lomozm.github.io/images/images/hierarchyloadetl.files/image007.png" alt="m004" /><br /></p>
-
-<h3 id="r3infopackage">对于层次上载，在“层次结构选择”中可以看到来自R3的所有成本中心层次；如果需要上载多个层次结构，则需要建多个InfoPackage来上载相应数据，然后开始上载</h3>
-<p><img src="http://lomozm.github.io/images/images/hierarchyloadetl.files/image009.jpg" alt="m005" /><br /></p>
-
-<h3 id="bwrsh1">上载成功后，BW系统中，事务代码RSH1，可以看到更新的内容</h3>
-<p><img src="http://lomozm.github.io/images/images/hierarchyloadetl.files/image011.png" alt="m006" /><br /></p>
 ]]></content>
   </entry>
   
