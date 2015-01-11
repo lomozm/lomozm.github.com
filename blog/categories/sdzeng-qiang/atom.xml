@@ -4,7 +4,7 @@
   <title><![CDATA[Category: SD增强 | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/sdzeng-qiang/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2015-01-11T20:39:47+08:00</updated>
+  <updated>2015-01-11T20:46:35+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -1499,14 +1499,15 @@
     <updated>2013-12-26T15:17:42+08:00</updated>
     <id>http://lomozm.github.io/blog/20131226/xiao-shou-shou-fa-huo-badi-le-shp-delivery-proc</id>
     <content type="html"><![CDATA[
+<h4 id="section">背景</h4>
 <p>业务要求，销售定单里的行项目交货完成后，自动更改其开票冻结标识；同时，当取消交货后，又改回冻结状态<br /></p>
 
-<h3 id="section">实现方法</h3>
+<h3 id="section-1">实现方法</h3>
 <p>通过实现<code>badi:LE_SHP_DELIVERY_PROC</code>的<code>save_and_publish_document</code>方法，可以完成；因为销售交货及取消都用到这个badi<br />
 <!--more-->
 <img src="/images/images/157a73d626f831258455b03c20b5fd96.jpeg" alt="m001" /><br /></p>
 
-<h3 id="section-1">源代码</h3>
+<h3 id="section-2">源代码</h3>
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
