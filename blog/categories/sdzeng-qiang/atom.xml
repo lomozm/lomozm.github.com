@@ -4,7 +4,7 @@
   <title><![CDATA[Category: SD增强 | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/sdzeng-qiang/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2015-01-11T20:29:49+08:00</updated>
+  <updated>2015-01-11T20:39:47+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -41,7 +41,7 @@
 <img src="/images/images/QQ20141231-14@2x.png" alt="06" /><br />
 <img src="/images/images/QQ20141231-15@2x.png" alt="07" /><br />
 4、代码截图<br />
-<img src="/images/images/QQ20141231-16@2x.pngs" alt="08" /><br /></p>
+<img src="/images/images/QQ20141231-16@2x.png" alt="08" /><br /></p>
 
 <h4 id="bapis">BAPIs原代码</h4>
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -598,7 +598,7 @@
 然后双击，实现这个routing，把原来151的代码全部拷过来，注意：里面有部分是被增强的，检查的时候会被自动删除掉，这些不会对复制产生影响<br />
 <img src="/images/images/QQ20141231-5@2x.png" alt="05" /><br />
 退回，最后激活<br />
-<img src="/images/images/QQ20141231-8@2x.pngs" alt="08" /><br />
+<img src="/images/images/QQ20141231-8@2x.png" alt="08" /><br />
 附上原代码<br />
 <div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
