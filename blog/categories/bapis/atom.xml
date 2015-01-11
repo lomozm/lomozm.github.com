@@ -4,7 +4,7 @@
   <title><![CDATA[Category: BAPIs | lomozm’s Journal]]></title>
   <link href="http://lomozm.github.io/blog/categories/bapis/atom.xml" rel="self"/>
   <link href="http://lomozm.github.io/"/>
-  <updated>2014-12-29T22:43:30+08:00</updated>
+  <updated>2015-01-11T20:29:49+08:00</updated>
   <id>http://lomozm.github.io/</id>
   <author>
     <name><![CDATA[lomozm]]></name>
@@ -12,6 +12,558 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[销售订单创建(增强字段处理)BAPIs - BAPI_SALESORDER_CREATEFROMDAT2]]></title>
+    <link href="http://lomozm.github.io/blog/20141231/xiao-shou-ding-dan-chuang-jian-bapis-bapi-salesorder-createfromdat2/"/>
+    <updated>2014-12-31T15:34:07+08:00</updated>
+    <id>http://lomozm.github.io/blog/20141231/xiao-shou-ding-dan-chuang-jian-bapis-bapi-salesorder-createfromdat2</id>
+    <content type="html"><![CDATA[
+<h4 id="section">背景</h4>
+<p>关于销售订单新增屏幕字段，用TCODE:VA41或VA01处理时，数据会自动传递到数据库保存；如果要调用bapis创建订单时，数据必须自已加上去<br />
+可能涉及到的销售相关的业务数据可能都会有这样的情况<br />
+此外，交货单、发票也会有类似的增强，可以参照<br /></p>
+
+<h4 id="section-1">解决方案</h4>
+<p>1、用EXITs增强，在<code>INCLUDE: MV45AFZZ</code>下的<code>FORM USEREXIT_SAVE_DOCUMENT_PREPARE.</code>下把相应的值写进去，至于怎么传值过来，不是这里讨论的重点<br />
+2、使用bapi标准extension来完成，把相应的结构进行相扩展<br />
+<!-- more --></p>
+
+<h4 id="section-2">下面是第2种方法的实现步骤：</h4>
+<p>1、vbap里扩展的字段<br />
+<img src="/images/images/QQ20141231-9@2x.png" alt="01" /><br />
+2、扩展BAPE_VBAP和BAPE_VBAPX结构，注意APPEND进去的结构名不能和vbap的一样，得重新命名<br />
+<img src="/images/images/QQ20141231-10@2x.png" alt="02" /><br />
+<img src="/images/images/QQ20141231-11@2x.png" alt="03" /><br />
+<img src="/images/images/QQ20141231-12@2x.png" alt="04" /><br />
+3、扩展VBAPKOZ和VBAPKOZX结构<br />
+<img src="/images/images/QQ20141231-13@2x.png" alt="05" /><br />
+<img src="/images/images/QQ20141231-14@2x.png" alt="06" /><br />
+<img src="/images/images/QQ20141231-15@2x.png" alt="07" /><br />
+4、代码截图<br />
+<img src="/images/images/QQ20141231-16@2x.pngs" alt="08" /><br /></p>
+
+<h4 id="bapis">BAPIs原代码</h4>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+<span class='line-number'>172</span>
+<span class='line-number'>173</span>
+<span class='line-number'>174</span>
+<span class='line-number'>175</span>
+<span class='line-number'>176</span>
+<span class='line-number'>177</span>
+<span class='line-number'>178</span>
+<span class='line-number'>179</span>
+<span class='line-number'>180</span>
+<span class='line-number'>181</span>
+<span class='line-number'>182</span>
+<span class='line-number'>183</span>
+<span class='line-number'>184</span>
+<span class='line-number'>185</span>
+<span class='line-number'>186</span>
+<span class='line-number'>187</span>
+<span class='line-number'>188</span>
+<span class='line-number'>189</span>
+<span class='line-number'>190</span>
+<span class='line-number'>191</span>
+<span class='line-number'>192</span>
+<span class='line-number'>193</span>
+<span class='line-number'>194</span>
+<span class='line-number'>195</span>
+<span class='line-number'>196</span>
+<span class='line-number'>197</span>
+<span class='line-number'>198</span>
+<span class='line-number'>199</span>
+<span class='line-number'>200</span>
+<span class='line-number'>201</span>
+<span class='line-number'>202</span>
+<span class='line-number'>203</span>
+<span class='line-number'>204</span>
+<span class='line-number'>205</span>
+<span class='line-number'>206</span>
+<span class='line-number'>207</span>
+<span class='line-number'>208</span>
+<span class='line-number'>209</span>
+<span class='line-number'>210</span>
+<span class='line-number'>211</span>
+<span class='line-number'>212</span>
+<span class='line-number'>213</span>
+<span class='line-number'>214</span>
+<span class='line-number'>215</span>
+<span class='line-number'>216</span>
+<span class='line-number'>217</span>
+<span class='line-number'>218</span>
+<span class='line-number'>219</span>
+<span class='line-number'>220</span>
+<span class='line-number'>221</span>
+<span class='line-number'>222</span>
+<span class='line-number'>223</span>
+<span class='line-number'>224</span>
+<span class='line-number'>225</span>
+<span class='line-number'>226</span>
+<span class='line-number'>227</span>
+<span class='line-number'>228</span>
+<span class='line-number'>229</span>
+<span class='line-number'>230</span>
+<span class='line-number'>231</span>
+<span class='line-number'>232</span>
+<span class='line-number'>233</span>
+<span class='line-number'>234</span>
+<span class='line-number'>235</span>
+<span class='line-number'>236</span>
+<span class='line-number'>237</span>
+<span class='line-number'>238</span>
+<span class='line-number'>239</span>
+<span class='line-number'>240</span>
+<span class='line-number'>241</span>
+<span class='line-number'>242</span>
+<span class='line-number'>243</span>
+<span class='line-number'>244</span>
+<span class='line-number'>245</span>
+<span class='line-number'>246</span>
+<span class='line-number'>247</span>
+<span class='line-number'>248</span>
+<span class='line-number'>249</span>
+<span class='line-number'>250</span>
+<span class='line-number'>251</span>
+<span class='line-number'>252</span>
+<span class='line-number'>253</span>
+<span class='line-number'>254</span>
+<span class='line-number'>255</span>
+<span class='line-number'>256</span>
+<span class='line-number'>257</span>
+<span class='line-number'>258</span>
+<span class='line-number'>259</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>DATA: LS_BAPE_VBAP LIKE BAPE_VBAP,
+</span><span class='line'>        L_POSNR      TYPE POSNR_VA .&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>CLEAR: GT_ORDER_HEADER_IN ,  GT_ORDER_CONDITIONS_IN[] ,  GT_RETURN2[] ,
+</span><span class='line'>         GT_ORDER_PARTNERS[] , GT_ORDER_SCHEDULES_IN[] , GT_ORDER_ITEMS_IN[] ,
+</span><span class='line'>         GT_ORDER_TEXT[] ,     GT_EXTENSIONIN[] .&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>*写入表头数据
+</span><span class='line'>  GT_ORDER_HEADER_IN-DOC_TYPE    = I_HEADER-AUART .    “销售凭证类型
+</span><span class='line'>  GT_ORDER_HEADER_IN-SALES_ORG   = I_HEADER-VKORG .   “销售组织
+</span><span class='line'>  GT_ORDER_HEADER_IN-DISTR_CHAN  = I_HEADER-VTWEG .  “分销渠道
+</span><span class='line'>  GT_ORDER_HEADER_IN-DIVISION    = I_HEADER-SPART .    “产品组
+</span><span class='line'>  GT_ORDER_HEADER_IN-SALES_OFF   = I_HEADER-VKBUR .    “销售部门
+</span><span class='line'>  GT_ORDER_HEADER_IN-SALES_GRP   = I_HEADER-VKGRP .    “销售组
+</span><span class='line'>  GT_ORDER_HEADER_IN-REF_1       = I_HEADER-IHREZ .        “您的参考
+</span><span class='line'>  GT_ORDER_HEADER_IN-INCOTERMS1  = I_HEADER-INCO1 .    “国际贸易条款1
+</span><span class='line'>  GT_ORDER_HEADER_IN-INCOTERMS2  = I_HEADER-INCO2 .    “国际贸易条款2
+</span><span class='line'>*  GT_ORDER_HEADER_IN-PRICE_GRP   = I_HEADER-KONDM .    “物料定价组
+</span><span class='line'>*  GT_ORDER_HEADER_IN-SALES_DIST  = I_HEADER-BZIRK .    “销售地区
+</span><span class='line'>  GT_ORDER_HEADER_IN-PRICE_DATE  = I_HEADER-PRSDT .    “定价日期
+</span><span class='line'>  GT_ORDER_HEADER_IN-CT_VALID_F  = I_HEADER-GUEBG .    “有效起始日期
+</span><span class='line'>  GT_ORDER_HEADER_IN-CT_VALID_T  = I_HEADER-GUEEN .    “有效至日期
+</span><span class='line'>  GT_ORDER_HEADER_IN-PMNTTRMS    = I_HEADER-ZTERM .      “付款条件代码
+</span><span class='line'>  GT_ORDER_HEADER_IN-PURCH_NO_C  = I_HEADER-BSTKD .    “客户采购订单编号
+</span><span class='line'>  GT_ORDER_HEADER_IN-PURCH_NO_S  = I_HEADER-BSTKD_E .  “运达方的采购订单编号
+</span><span class='line'>  GT_ORDER_HEADER_IN-H_CURR      = I_HEADER-WAERK .        “币种
+</span><span class='line'>  GT_ORDER_HEADER_IN-DOC_DATE    = SY-DATUM. “I_HEADER-AUDAT .      “单据日期     （凭证日期 (接收/发送日期)）
+</span><span class='line'>  GT_ORDER_HEADER_IN-NAME = I_HEADER-BNAME.  “OA合同号
+</span><span class='line'>  GT_ORDER_HEADER_IN-SHIP_COND = I_HEADER-VSBED.  “装运条件&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>** partner
+</span><span class='line'>  GT_ORDER_PARTNERS-PARTN_ROLE = ‘AG’ .
+</span><span class='line'>  GT_ORDER_PARTNERS-PARTN_NUMB = I_HEADER-KUNNR_SHOU .      “售达方
+</span><span class='line'>  APPEND GT_ORDER_PARTNERS .
+</span><span class='line'>  GT_ORDER_PARTNERS-PARTN_ROLE = ‘RE’ .
+</span><span class='line'>  GT_ORDER_PARTNERS-PARTN_NUMB = I_HEADER-KUNNR_SONG .      “送达方
+</span><span class='line'>  GT_ORDER_PARTNERS-UNLOAD_PT = I_HEADER-ABLAD .            “卸货点
+</span><span class='line'>  APPEND GT_ORDER_PARTNERS .
+</span><span class='line'>  GT_ORDER_PARTNERS-PARTN_ROLE = ‘RG’ .
+</span><span class='line'>  GT_ORDER_PARTNERS-PARTN_NUMB = I_HEADER-KUNNR_SPF .       “收票方
+</span><span class='line'>  APPEND GT_ORDER_PARTNERS .
+</span><span class='line'>  GT_ORDER_PARTNERS-PARTN_ROLE = ‘WE’ .
+</span><span class='line'>  GT_ORDER_PARTNERS-PARTN_NUMB = I_HEADER-KUNNR_FKF .       “付款方
+</span><span class='line'>  APPEND GT_ORDER_PARTNERS .
+</span><span class='line'>  GT_ORDER_PARTNERS-PARTN_ROLE = ‘Z1’ .
+</span><span class='line'>  GT_ORDER_PARTNERS-PARTN_NUMB = I_HEADER-KUNNR_YWY .       “业务员
+</span><span class='line'>  APPEND GT_ORDER_PARTNERS .&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>** price condition
+</span><span class='line'>**内贸计划运费
+</span><span class='line'>*  IF I_HEADER-KBETR_ZKF0 IS NOT INITIAL.
+</span><span class='line'>*    GT_ORDER_CONDITIONS_IN-COND_TYPE   = ‘ZKF0’ .
+</span><span class='line'>*    GT_ORDER_CONDITIONS_IN-CURRENCY    = I_HEADER-WAERK .
+</span><span class='line'>*    GT_ORDER_CONDITIONS_IN-COND_VALUE  = I_HEADER-KBETR_ZKF0 .
+</span><span class='line'>*    APPEND GT_ORDER_CONDITIONS_IN .
+</span><span class='line'>*  ENDIF.
+</span><span class='line'>*    “客户佣金
+</span><span class='line'>  IF I_HEADER-KBETR_ZK01 IS NOT INITIAL.
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-COND_TYPE   = ‘ZK01’ .
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-CURRENCY    = I_HEADER-WAERK .
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-COND_VALUE  = I_HEADER-KBETR_ZK01 .
+</span><span class='line'>    APPEND GT_ORDER_CONDITIONS_IN .
+</span><span class='line'>  ENDIF.
+</span><span class='line'>  “海运费
+</span><span class='line'>  IF I_HEADER-KBETR_ZK03 IS NOT INITIAL.
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-COND_TYPE   = ‘ZK03’ .
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-CURRENCY    = I_HEADER-WAERK .
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-COND_VALUE  = I_HEADER-KBETR_ZK03 .
+</span><span class='line'>    APPEND GT_ORDER_CONDITIONS_IN .
+</span><span class='line'>  ENDIF.
+</span><span class='line'>  “进口关税
+</span><span class='line'>  IF I_HEADER-KBETR_ZK04 IS NOT INITIAL.
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-COND_TYPE   = ‘ZK04’ .
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-CURRENCY    = I_HEADER-WAERK .
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-COND_VALUE  = I_HEADER-KBETR_ZK04 .
+</span><span class='line'>    APPEND GT_ORDER_CONDITIONS_IN .
+</span><span class='line'>  ENDIF.
+</span><span class='line'>  “目的港港杂费
+</span><span class='line'>  IF I_HEADER-KBETR_ZK05 IS NOT INITIAL.
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-COND_TYPE   = ‘ZK05’ .
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-CURRENCY    = I_HEADER-WAERK .
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-COND_VALUE  = I_HEADER-KBETR_ZK05 .
+</span><span class='line'>    APPEND GT_ORDER_CONDITIONS_IN .
+</span><span class='line'>  ENDIF.
+</span><span class='line'>  “国外陆运费
+</span><span class='line'>  IF I_HEADER-KBETR_ZK06 IS NOT INITIAL.
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-COND_TYPE   = ‘ZK06’ .
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-CURRENCY    = I_HEADER-WAERK .
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-COND_VALUE  = I_HEADER-KBETR_ZK06 .
+</span><span class='line'>    APPEND GT_ORDER_CONDITIONS_IN .
+</span><span class='line'>  ENDIF.
+</span><span class='line'>  “国内陆运费
+</span><span class='line'>  IF I_HEADER-KBETR_ZK07 IS NOT INITIAL.
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-COND_TYPE   = ‘ZK07’ .
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-CURRENCY    = I_HEADER-WAERK .
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-COND_VALUE  = I_HEADER-KBETR_ZK07 .
+</span><span class='line'>    APPEND GT_ORDER_CONDITIONS_IN .
+</span><span class='line'>  ENDIF.
+</span><span class='line'>  “装运港港杂费
+</span><span class='line'>  IF I_HEADER-KBETR_ZK08 IS NOT INITIAL.
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-COND_TYPE   = ‘ZK08’ .
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-CURRENCY    = I_HEADER-WAERK .
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-COND_VALUE  = I_HEADER-KBETR_ZK08 .
+</span><span class='line'>    APPEND GT_ORDER_CONDITIONS_IN .
+</span><span class='line'>  ENDIF.
+</span><span class='line'>  “客户折扣
+</span><span class='line'>  IF I_HEADER-KBETR_ZK17 IS NOT INITIAL.
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-COND_TYPE   = ‘ZK17’ .
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-CURRENCY    = I_HEADER-WAERK .
+</span><span class='line'>    GT_ORDER_CONDITIONS_IN-COND_VALUE  = I_HEADER-KBETR_ZK17 .
+</span><span class='line'>    APPEND GT_ORDER_CONDITIONS_IN .
+</span><span class='line'>    CLEAR: GT_ORDER_CONDITIONS_IN .
+</span><span class='line'>  ENDIF.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;ul>
+</span><span class='line'>  &lt;li>header text
+</span><span class='line'>GT_ORDER_TEXT-TEXT_ID   = ‘0001’ .
+</span><span class='line'>GT_ORDER_TEXT-LANGU     = ‘1’ .
+</span><span class='line'>GT_ORDER_TEXT-TEXT_LINE = I_HEADER-TTWB .
+</span><span class='line'>GT_ORDER_TEXT-FUNCTION  = ‘018’.
+</span><span class='line'>APPEND GT_ORDER_TEXT .&lt;/li>
+</span><span class='line'>&lt;/ul>
+</span><span class='line'>
+</span><span class='line'>&lt;hr />
+</span><span class='line'>&lt;ul>
+</span><span class='line'>  &lt;li>item info
+</span><span class='line'>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;em>**&lt;/em>
+</span><span class='line'>LOOP AT I_POSNR.
+</span><span class='line'>  L_POSNR = SY-TABIX * 10.
+</span><span class='line'>** schedule
+</span><span class='line'>  GT_ORDER_SCHEDULES_IN-ITM_NUMBER  = L_POSNR.
+</span><span class='line'>  GT_ORDER_SCHEDULES_IN-REQ_DATE    = SY-DATUM.
+</span><span class='line'>  GT_ORDER_SCHEDULES_IN-REQ_QTY     = I_POSNR-ZMENG.
+</span><span class='line'>  APPEND GT_ORDER_SCHEDULES_IN .&lt;/li>
+</span><span class='line'>&lt;/ul>
+</span><span class='line'>
+</span><span class='line'>&lt;p>** item
+</span><span class='line'>    GT_ORDER_ITEMS_IN-ITM_NUMBER  = L_POSNR .  “行项目号
+</span><span class='line'>    GT_ORDER_ITEMS_IN-MATERIAL    = I_POSNR-MATNR .    “物料编码
+</span><span class='line'>    GT_ORDER_ITEMS_IN-PURCH_NO_C  = I_HEADER-BSTKD .    “客户采购订单编号
+</span><span class='line'>    GT_ORDER_ITEMS_IN-MAT_ENTRD   = I_POSNR-MATNR .   “以输入物料号
+</span><span class='line'>*    GT_ORDER_ITEMS_IN-BATCH       = I_POSNR-CHARG .       “批次
+</span><span class='line'>*    GT_ORDER_ITEMS_IN-PLANT       = I_POSNR-WERKS .       “工厂
+</span><span class='line'>    GT_ORDER_ITEMS_IN-TARGET_QTY  = I_POSNR-ZMENG .  “以销售单位计的订单数量
+</span><span class='line'>    GT_ORDER_ITEMS_IN-SALES_UNIT  = I_POSNR-VRKME .  “销售单位（计量单位）
+</span><span class='line'>*    GT_ORDER_ITEMS_IN-REF_1       = I_POSNR-IHREZ .       “您的参考
+</span><span class='line'>    GT_ORDER_ITEMS_IN-PURCH_NO_S  = I_HEADER-BSTKD_E .”运达方的采购订单编号
+</span><span class='line'>*    GT_ORDER_ITEMS_IN-SALES_DIST  = I_POSNR-BZIRK .  “销售地区
+</span><span class='line'>    GT_ORDER_ITEMS_IN-PRICE_DATE  = I_POSNR-PRSDT .  “定价日期
+</span><span class='line'>    GT_ORDER_ITEMS_IN-REC_POINT   = I_POSNR-ABLAD .  “收货点（卸货点）
+</span><span class='line'>*    GT_ORDER_ITEMS_IN-DIVISION    = I_POSNR-SPART .    “产品组
+</span><span class='line'>    GT_ORDER_ITEMS_IN-CURRENCY    = I_HEADER-WAERK .    “币种
+</span><span class='line'>    GT_ORDER_ITEMS_IN-MAT_PR_GRP  = I_POSNR-KONDM .    “物料定价组
+</span><span class='line'>    GT_ORDER_ITEMS_IN-PMNTTRMS    = I_HEADER-ZTERM .    “付款条件代码
+</span><span class='line'>*    GT_ORDER_ITEMS_IN-INCOTERMS1  = I_POSNR-INCO1 .    “国际贸易条款1
+</span><span class='line'>*    GT_ORDER_ITEMS_IN-INCOTERMS2  = I_POSNR-INCO2 .    “国际贸易条款2
+</span><span class='line'>    APPEND GT_ORDER_ITEMS_IN  .
+</span><span class='line'>    CLEAR: GT_ORDER_ITEMS_IN .&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>** price item
+</span><span class='line'>    “单价
+</span><span class='line'>    IF I_POSNR-KBETR_ZPR1 IS NOT INITIAL.
+</span><span class='line'>      GT_ORDER_CONDITIONS_IN-ITM_NUMBER  = L_POSNR .
+</span><span class='line'>      GT_ORDER_CONDITIONS_IN-COND_TYPE   = ‘ZPR1’ .
+</span><span class='line'>      GT_ORDER_CONDITIONS_IN-CURRENCY    = I_HEADER-WAERK .
+</span><span class='line'>      GT_ORDER_CONDITIONS_IN-COND_VALUE  = I_POSNR-KBETR_ZPR1 .
+</span><span class='line'>      APPEND GT_ORDER_CONDITIONS_IN .
+</span><span class='line'>    ENDIF.
+</span><span class='line'>    “客户/物料佣金
+</span><span class='line'>    IF I_POSNR-KBETR_ZK09 IS NOT INITIAL.
+</span><span class='line'>      GT_ORDER_CONDITIONS_IN-ITM_NUMBER  = L_POSNR .
+</span><span class='line'>      GT_ORDER_CONDITIONS_IN-COND_TYPE   = ‘ZK09’ .
+</span><span class='line'>      GT_ORDER_CONDITIONS_IN-CURRENCY    = I_HEADER-WAERK .
+</span><span class='line'>      GT_ORDER_CONDITIONS_IN-COND_VALUE  = I_POSNR-KBETR_ZK09 .
+</span><span class='line'>      APPEND GT_ORDER_CONDITIONS_IN .
+</span><span class='line'>    ENDIF.
+</span><span class='line'>    “物料折扣
+</span><span class='line'>    IF I_POSNR-KBETR_ZK14 IS NOT INITIAL.
+</span><span class='line'>      GT_ORDER_CONDITIONS_IN-ITM_NUMBER  = L_POSNR .
+</span><span class='line'>      GT_ORDER_CONDITIONS_IN-COND_TYPE   = ‘ZK14’ .
+</span><span class='line'>      GT_ORDER_CONDITIONS_IN-CURRENCY    = I_HEADER-WAERK .
+</span><span class='line'>      GT_ORDER_CONDITIONS_IN-COND_VALUE  = I_POSNR-KBETR_ZK14 .
+</span><span class='line'>      APPEND GT_ORDER_CONDITIONS_IN .
+</span><span class='line'>      CLEAR: GT_ORDER_CONDITIONS_IN .
+</span><span class='line'>    ENDIF.
+</span><span class='line'>**内贸计划运费
+</span><span class='line'>*  IF I_HEADER-KBETR_ZKF0 IS NOT INITIAL.
+</span><span class='line'>*      GT_ORDER_CONDITIONS_IN-ITM_NUMBER  = L_POSNR .
+</span><span class='line'>*    GT_ORDER_CONDITIONS_IN-COND_TYPE   = ‘ZKF0’ .
+</span><span class='line'>*    GT_ORDER_CONDITIONS_IN-CURRENCY    = I_HEADER-WAERK .
+</span><span class='line'>*    GT_ORDER_CONDITIONS_IN-COND_VALUE  = I_HEADER-KBETR_ZKF0 .
+</span><span class='line'>*    APPEND GT_ORDER_CONDITIONS_IN .
+</span><span class='line'>*  ENDIF.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>CLEAR GT_EXTENSIONIN.
+</span><span class='line'>
+</span><span class='line'>MOVE 'BAPE_VBAP' TO GT_EXTENSIONIN-STRUCTURE.
+</span><span class='line'>LS_BAPE_VBAP-POSNR = L_POSNR.
+</span><span class='line'>LS_BAPE_VBAP-DJ = I_POSNR-DJ.
+</span><span class='line'>
+</span><span class='line'>CALL METHOD CL_ABAP_CONTAINER_UTILITIES=&gt;FILL_CONTAINER_C
+</span><span class='line'>  EXPORTING
+</span><span class='line'>    IM_VALUE     = LS_BAPE_VBAP
+</span><span class='line'>  IMPORTING
+</span><span class='line'>    EX_CONTAINER = GT_EXTENSIONIN-VALUEPART1.
+</span><span class='line'>
+</span><span class='line'>APPEND GT_EXTENSIONIN .   ENDLOOP.
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;hr />
+</span><span class='line'>&lt;ul>
+</span><span class='line'>  &lt;li>“导入销售订单
+</span><span class='line'>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>&lt;strong>**&lt;/strong>*****
+</span><span class='line'>  DATA: L_VBELN    TYPE VBELN_VA,
+</span><span class='line'>     L_BAPIRET2 TYPE BAPIRET2.&lt;/li>
+</span><span class='line'>&lt;/ul>
+</span><span class='line'>
+</span><span class='line'>&lt;p>CALL FUNCTION ‘BAPI_SALESORDER_CREATEFROMDAT2’
+</span><span class='line'>    EXPORTING
+</span><span class='line'>      ORDER_HEADER_IN     = GT_ORDER_HEADER_IN       “订单表头转换
+</span><span class='line'>    IMPORTING
+</span><span class='line'>      SALESDOCUMENT       = L_VBELN          “生成的销售凭证
+</span><span class='line'>    TABLES
+</span><span class='line'>      RETURN              = GT_RETURN2                “返回消息
+</span><span class='line'>      ORDER_ITEMS_IN      = GT_ORDER_ITEMS_IN        “行数据
+</span><span class='line'>      ORDER_PARTNERS      = GT_ORDER_PARTNERS        “文档的伴侣
+</span><span class='line'>      ORDER_SCHEDULES_IN  = GT_ORDER_SCHEDULES_IN    “计划行数据
+</span><span class='line'>      ORDER_CONDITIONS_IN = GT_ORDER_CONDITIONS_IN   “条件
+</span><span class='line'>      ORDER_TEXT          = GT_ORDER_TEXT            “文本
+</span><span class='line'>      EXTENSIONIN         = GT_EXTENSIONIN.           “客户对VBAK，VBAP，vbep的增强&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>IF L_VBELN IS NOT INITIAL.
+</span><span class='line'>    CALL FUNCTION ‘BAPI_TRANSACTION_COMMIT’
+</span><span class='line'>      EXPORTING
+</span><span class='line'>        WAIT   = ‘X’
+</span><span class='line'>      IMPORTING
+</span><span class='line'>        RETURN = L_BAPIRET2.
+</span><span class='line'>    IF L_BAPIRET2 IS NOT INITIAL.
+</span><span class='line'>      MOVE-CORRESPONDING L_BAPIRET2 TO O_STATUS.
+</span><span class='line'>    ELSE.
+</span><span class='line'>      O_STATUS-TYPE = ‘S’.
+</span><span class='line'>      CONCATENATE ‘新生成合同号:’ L_VBELN INTO O_STATUS-MESSAGE.
+</span><span class='line'>      O_STATUS-LOG_NO = L_VBELN.
+</span><span class='line'>    ENDIF.
+</span><span class='line'>  ELSE.
+</span><span class='line'>    O_STATUS-TYPE = ‘E’.
+</span><span class='line'>    LOOP AT GT_RETURN2.
+</span><span class='line'>      IF GT_RETURN2-TYPE EQ ‘E’.
+</span><span class='line'>        CONCATENATE GT_RETURN2-TYPE ‘:’ GT_RETURN2-MESSAGE ‘；’ O_STATUS-MESSAGE
+</span><span class='line'>                  INTO O_STATUS-MESSAGE.
+</span><span class='line'>      ENDIF.
+</span><span class='line'>    ENDLOOP.&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>CALL FUNCTION 'BAPI_TRANSACTION_ROLLBACK'.   ENDIF.
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[交货单拣配过帐BAPIs - SD_DELIVERY_UPDATE_PICKING]]></title>

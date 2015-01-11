@@ -1,0 +1,902 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>与销售订单屏幕增强 - 复制控制(copy control) - lomozm’s Journal</title>
+  <meta name="author" content="lomozm">
+
+  
+  <meta name="description" content="背景
+SD模块通常会有屏幕增强，比如销售合同（TCODE:VA41）用户会在订单的头部或行项目新增定制化的属性；而合同的对应的后续销售订单(tcode:va01)就需要把这些属性带过来。
+与此类似的情况是：销售订单到交货单，交货单至开票 解决方案
+1、通过标准出口实现，销售的INCLUDE: &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://lomozm.github.io/blog/20141231/yu-xiao-shou-ding-dan-ping-mu-xiang-guan-shi-yi/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="lomozm’s Journal" type="application/atom+xml">
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">lomozm’s Journal</a></h1>
+  
+    <h2>长得不帅，跑得不快；一如既往，永往向前...</h2>
+  
+  <div class="clear"></div>
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:lomozm.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">文章列表</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      
+        <h1 class="entry-title">与销售订单屏幕增强 - 复制控制(copy Control)</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-31T14:56:14+08:00" pubdate data-updated="true">2014-12-31 Wed</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">
+<h4 id="section">背景</h4>
+<p>SD模块通常会有屏幕增强，比如销售合同（TCODE:VA41）用户会在订单的头部或行项目新增定制化的属性；而合同的对应的后续销售订单(tcode:va01)就需要把这些属性带过来。<br />
+与此类似的情况是：销售订单到交货单，交货单至开票<br /></p>
+
+<h4 id="section-1">解决方案</h4>
+<p>1、通过标准出口实现，销售的<code>INCLUDE: MV45AFZZ</code>下的<code>FORM USEREXIT_MOVE_FIELD_TO_VBAK.</code>或<code>FORM USEREXIT_MOVE_FIELD_TO_VBAP.</code>取得合同编号，把相应的值写上去;<br />
+2、通过SAP提供的复制控制来完成，更简单<br />
+<!-- more --></p>
+
+<h4 id="section-2">下面是第2种方法的实现步骤：</h4>
+<p>1、tcode: spro中针对复制控制的配置<br />
+针对销售订单<br />
+<img src="/images/images/QQ20141231-1@2x.png" alt="01" /><br />
+针对交货单<br />
+<img src="/images/images/QQ20141231-2@2x.png" alt="02" /><br />
+如果是销售订单，会要求选择，从哪个订单类型至哪个订单类型；下图标准的复制走151，我改为了810<br />
+<img src="/images/images/QQ20141231-3@2x.png" alt="03" /><br />
+到这里配置就算完成了，810是我自己建的<br /></p>
+
+<p>2、tcode: vofm建立复制routing<br />
+选择路径”数据传输”<br />
+<img src="/images/images/QQ20141231-6@2x.png" alt="06" /><br />
+新建810，保存<br />
+<img src="/images/images/QQ20141231-7@2x.png" alt="07" /><br />
+然后双击，实现这个routing，把原来151的代码全部拷过来，注意：里面有部分是被增强的，检查的时候会被自动删除掉，这些不会对复制产生影响<br />
+<img src="/images/images/QQ20141231-5@2x.png" alt="05" /><br />
+退回，最后激活<br />
+<img src="/images/images/QQ20141231-8@2x.pngs" alt="08" /><br />
+附上原代码<br /></p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+<span class="line-number">62</span>
+<span class="line-number">63</span>
+<span class="line-number">64</span>
+<span class="line-number">65</span>
+<span class="line-number">66</span>
+<span class="line-number">67</span>
+<span class="line-number">68</span>
+<span class="line-number">69</span>
+<span class="line-number">70</span>
+<span class="line-number">71</span>
+<span class="line-number">72</span>
+<span class="line-number">73</span>
+<span class="line-number">74</span>
+<span class="line-number">75</span>
+<span class="line-number">76</span>
+<span class="line-number">77</span>
+<span class="line-number">78</span>
+<span class="line-number">79</span>
+<span class="line-number">80</span>
+<span class="line-number">81</span>
+<span class="line-number">82</span>
+<span class="line-number">83</span>
+<span class="line-number">84</span>
+<span class="line-number">85</span>
+<span class="line-number">86</span>
+<span class="line-number">87</span>
+<span class="line-number">88</span>
+<span class="line-number">89</span>
+<span class="line-number">90</span>
+<span class="line-number">91</span>
+<span class="line-number">92</span>
+<span class="line-number">93</span>
+<span class="line-number">94</span>
+<span class="line-number">95</span>
+<span class="line-number">96</span>
+<span class="line-number">97</span>
+<span class="line-number">98</span>
+<span class="line-number">99</span>
+<span class="line-number">100</span>
+<span class="line-number">101</span>
+<span class="line-number">102</span>
+<span class="line-number">103</span>
+<span class="line-number">104</span>
+<span class="line-number">105</span>
+<span class="line-number">106</span>
+<span class="line-number">107</span>
+<span class="line-number">108</span>
+<span class="line-number">109</span>
+<span class="line-number">110</span>
+<span class="line-number">111</span>
+<span class="line-number">112</span>
+<span class="line-number">113</span>
+<span class="line-number">114</span>
+<span class="line-number">115</span>
+<span class="line-number">116</span>
+<span class="line-number">117</span>
+<span class="line-number">118</span>
+<span class="line-number">119</span>
+<span class="line-number">120</span>
+<span class="line-number">121</span>
+<span class="line-number">122</span>
+<span class="line-number">123</span>
+<span class="line-number">124</span>
+<span class="line-number">125</span>
+<span class="line-number">126</span>
+<span class="line-number">127</span>
+<span class="line-number">128</span>
+<span class="line-number">129</span>
+<span class="line-number">130</span>
+<span class="line-number">131</span>
+<span class="line-number">132</span>
+<span class="line-number">133</span>
+<span class="line-number">134</span>
+<span class="line-number">135</span>
+<span class="line-number">136</span>
+<span class="line-number">137</span>
+<span class="line-number">138</span>
+<span class="line-number">139</span>
+<span class="line-number">140</span>
+<span class="line-number">141</span>
+<span class="line-number">142</span>
+<span class="line-number">143</span>
+<span class="line-number">144</span>
+<span class="line-number">145</span>
+<span class="line-number">146</span>
+<span class="line-number">147</span>
+<span class="line-number">148</span>
+<span class="line-number">149</span>
+<span class="line-number">150</span>
+<span class="line-number">151</span>
+<span class="line-number">152</span>
+<span class="line-number">153</span>
+<span class="line-number">154</span>
+<span class="line-number">155</span>
+<span class="line-number">156</span>
+<span class="line-number">157</span>
+<span class="line-number">158</span>
+<span class="line-number">159</span>
+<span class="line-number">160</span>
+<span class="line-number">161</span>
+<span class="line-number">162</span>
+<span class="line-number">163</span>
+<span class="line-number">164</span>
+<span class="line-number">165</span>
+<span class="line-number">166</span>
+<span class="line-number">167</span>
+<span class="line-number">168</span>
+<span class="line-number">169</span>
+<span class="line-number">170</span>
+<span class="line-number">171</span>
+<span class="line-number">172</span>
+<span class="line-number">173</span>
+<span class="line-number">174</span>
+<span class="line-number">175</span>
+<span class="line-number">176</span>
+<span class="line-number">177</span>
+<span class="line-number">178</span>
+<span class="line-number">179</span>
+<span class="line-number">180</span>
+<span class="line-number">181</span>
+<span class="line-number">182</span>
+<span class="line-number">183</span>
+<span class="line-number">184</span>
+<span class="line-number">185</span>
+<span class="line-number">186</span>
+<span class="line-number">187</span>
+<span class="line-number">188</span>
+<span class="line-number">189</span>
+<span class="line-number">190</span>
+<span class="line-number">191</span>
+<span class="line-number">192</span>
+<span class="line-number">193</span>
+<span class="line-number">194</span>
+<span class="line-number">195</span>
+<span class="line-number">196</span>
+<span class="line-number">197</span>
+<span class="line-number">198</span>
+<span class="line-number">199</span>
+<span class="line-number">200</span>
+<span class="line-number">201</span>
+<span class="line-number">202</span>
+<span class="line-number">203</span>
+<span class="line-number">204</span>
+<span class="line-number">205</span>
+<span class="line-number">206</span>
+<span class="line-number">207</span>
+<span class="line-number">208</span>
+<span class="line-number">209</span>
+<span class="line-number">210</span>
+<span class="line-number">211</span>
+<span class="line-number">212</span>
+<span class="line-number">213</span>
+<span class="line-number">214</span>
+<span class="line-number">215</span>
+<span class="line-number">216</span>
+<span class="line-number">217</span>
+<span class="line-number">218</span>
+<span class="line-number">219</span>
+<span class="line-number">220</span>
+<span class="line-number">221</span>
+<span class="line-number">222</span>
+<span class="line-number">223</span>
+<span class="line-number">224</span>
+<span class="line-number">225</span>
+<span class="line-number">226</span>
+<span class="line-number">227</span>
+<span class="line-number">228</span>
+<span class="line-number">229</span>
+<span class="line-number">230</span>
+<span class="line-number">231</span>
+<span class="line-number">232</span>
+<span class="line-number">233</span>
+<span class="line-number">234</span>
+<span class="line-number">235</span>
+<span class="line-number">236</span>
+<span class="line-number">237</span>
+<span class="line-number">238</span>
+<span class="line-number">239</span>
+<span class="line-number">240</span>
+<span class="line-number">241</span>
+<span class="line-number">242</span>
+<span class="line-number">243</span>
+<span class="line-number">244</span>
+<span class="line-number">245</span>
+<span class="line-number">246</span>
+<span class="line-number">247</span>
+<span class="line-number">248</span>
+<span class="line-number">249</span>
+<span class="line-number">250</span>
+<span class="line-number">251</span>
+<span class="line-number">252</span>
+<span class="line-number">253</span>
+<span class="line-number">254</span>
+<span class="line-number">255</span>
+<span class="line-number">256</span>
+<span class="line-number">257</span>
+<span class="line-number">258</span>
+<span class="line-number">259</span>
+<span class="line-number">260</span>
+<span class="line-number">261</span>
+<span class="line-number">262</span>
+<span class="line-number">263</span>
+<span class="line-number">264</span>
+<span class="line-number">265</span>
+<span class="line-number">266</span>
+<span class="line-number">267</span>
+<span class="line-number">268</span>
+<span class="line-number">269</span>
+<span class="line-number">270</span>
+<span class="line-number">271</span>
+<span class="line-number">272</span>
+<span class="line-number">273</span>
+<span class="line-number">274</span>
+<span class="line-number">275</span>
+<span class="line-number">276</span>
+<span class="line-number">277</span>
+<span class="line-number">278</span>
+<span class="line-number">279</span>
+<span class="line-number">280</span>
+<span class="line-number">281</span>
+<span class="line-number">282</span>
+<span class="line-number">283</span>
+<span class="line-number">284</span>
+<span class="line-number">285</span>
+<span class="line-number">286</span>
+<span class="line-number">287</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">FORM DATEN_KOPIEREN_810.
+</span><span class="line">*{   INSERT         DEVK900147                                        1
+</span><span class="line">
+</span><span class="line">  DATA: lv_posnr TYPE vbap-posnr.
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">  DATA: object        TYPE balobj_d   VALUE 'SD-SLS',
+</span><span class="line">        subobject     TYPE balsubobj  VALUE 'OBLIGO',
+</span><span class="line">        lt_mesg  TYPE STANDARD TABLE OF mesg,
+</span><span class="line">        ls_mesg  TYPE mesg.
+</span><span class="line">* 这里的消号必须与routing号对应
+</span><span class="line">  IF cvbap-posnr IS INITIAL.
+</span><span class="line">    MESSAGE a247 WITH '810'.
+</span><span class="line">  ENDIF.
+</span><span class="line">* Fields which are copied
+</span><span class="line">  vbap-matwa = cvbap-matwa.
+</span><span class="line">  vbap-matkl = cvbap-matkl.
+</span><span class="line">  vbap-arktx = cvbap-arktx.
+</span><span class="line">  vbap-bwtar = cvbap-bwtar.
+</span><span class="line">  vbap-prodh = cvbap-prodh.
+</span><span class="line">  vbap-pmatn = cvbap-pmatn.
+</span><span class="line">  vbap-meins = cvbap-meins.
+</span><span class="line">  vbap-vrkme = cvbap-vrkme.
+</span><span class="line">  vbap-umvkz = cvbap-umvkz.
+</span><span class="line">  vbap-umvkn = cvbap-umvkn.
+</span><span class="line">  vbap-zieme = cvbap-zieme.
+</span><span class="line">  vbap-umziz = cvbap-umziz.
+</span><span class="line">  vbap-umzin = cvbap-umzin.
+</span><span class="line">
+</span><span class="line">** add on field. by zhongm 20141219 --start--
+</span><span class="line">  vbap-cpxn = cvbap-cpxn.
+</span><span class="line">  vbap-dj = cvbap-dj.
+</span><span class="line">  vbap-BZMAT = cvbap-BZMAT.
+</span><span class="line">
+</span><span class="line">  vbap-FZL = cvbap-FZL.
+</span><span class="line">  vbap-ZSMEN = cvbap-ZSMEN.
+</span><span class="line">  vbap-PERME = cvbap-PERME.
+</span><span class="line">  vbap-FK = cvbap-FK.
+</span><span class="line">  vbap-JOINS = cvbap-JOINS.
+</span><span class="line">  vbap-AGENT = cvbap-AGENT.
+</span><span class="line">  vbap-WG100 = cvbap-WG100.
+</span><span class="line">  vbap-WG305 = cvbap-WG305.
+</span><span class="line">  vbap-QFWG = cvbap-QFWG.
+</span><span class="line">
+</span><span class="line">  VBAP-KONDM = CVBAP-KONDM.  "物料定价组
+</span><span class="line">** add on field. by zhongm 20141219 --end--
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">  IF NOT vbap-vkgru EQ vkgru_rep_reparaturanfo.
+</span><span class="line">    vbap-vkgru = cvbap-vkgru.
+</span><span class="line">  ENDIF.
+</span><span class="line">  vbap-vkaus = cvbap-vkaus.
+</span><span class="line">  IF NOT cvbap-grkor IS INITIAL
+</span><span class="line">     AND  vbap-grkor IS INITIAL.
+</span><span class="line">    vbap-grkor = cvbap-grkor.
+</span><span class="line">  ENDIF.
+</span><span class="line">  vbap-fmeng = cvbap-fmeng.
+</span><span class="line">  vbap-atpkz = cvbap-atpkz.
+</span><span class="line">  vbap-rkfkf = cvbap-rkfkf.
+</span><span class="line">  vbap-spart = cvbap-spart.
+</span><span class="line">  vbap-waerk = cvbap-waerk.
+</span><span class="line">
+</span><span class="line">  IF NOT cvbap-prctr IS INITIAL.
+</span><span class="line">    vbap-prctr = cvbap-prctr.
+</span><span class="line">  ENDIF.
+</span><span class="line">  IF NOT cvbap-pctrf IS INITIAL.
+</span><span class="line">    vbap-pctrf = cvbap-pctrf.
+</span><span class="line">  ENDIF.
+</span><span class="line">
+</span><span class="line">  vbap-anzsn = cvbap-anzsn.
+</span><span class="line">  vbap-serail = cvbap-serail.
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">* Fields that are copied when the sold-to parties are the same.
+</span><span class="line">* The sold-to is read from the reference document
+</span><span class="line">
+</span><span class="line">  cvbpa = space.
+</span><span class="line">  cvbpa-parvw = parvw_ag.
+</span><span class="line">  READ TABLE cvbpa.
+</span><span class="line">  IF sy-subrc = 0 AND                  " kein Musterauftrag
+</span><span class="line">    cvbpa-kunnr = kuagv-kunnr.
+</span><span class="line">    vbap-kdmat = cvbap-kdmat.
+</span><span class="line">    IF vbap-iuid_relevant IS INITIAL.  "EHP603 IUID
+</span><span class="line">      vbap-iuid_relevant = cvbap-iuid_relevant.
+</span><span class="line">    ENDIF.
+</span><span class="line">* For delivery orders, no max./min. delivery tolerances
+</span><span class="line">    IF cvbak-vbklt NE vbklt_lp_ausl_auft AND
+</span><span class="line">       vbak-vbklt NE vbklt_ausl_auft.
+</span><span class="line">      vbap-uebtk = cvbap-uebtk.
+</span><span class="line">      vbap-uebto = cvbap-uebto.
+</span><span class="line">      vbap-untto = cvbap-untto.
+</span><span class="line">    ENDIF.
+</span><span class="line">    vbap-chspl = cvbap-chspl.
+</span><span class="line">    IF vbap-faksp = space.
+</span><span class="line">      vbap-faksp = cvbap-faksp.
+</span><span class="line">    ENDIF.
+</span><span class="line">    vbap-antlf = cvbap-antlf.
+</span><span class="line">* Component supplier's partial delivery flags are not copied (D)
+</span><span class="line">    IF cvbak-abdis IS INITIAL.
+</span><span class="line">      vbap-kztlf = cvbap-kztlf.
+</span><span class="line">    ENDIF.
+</span><span class="line">    vbap-lprio = cvbap-lprio.
+</span><span class="line">    IF cvbak-vsbed = vbak-vsbed AND
+</span><span class="line">       NOT cvbap-vstel IS INITIAL.
+</span><span class="line">      vbap-vstel = cvbap-vstel.
+</span><span class="line">      vbap-route = cvbap-route.
+</span><span class="line">    ENDIF.
+</span><span class="line">  ENDIF.
+</span><span class="line">
+</span><span class="line">* Fields which are copied only to quotations
+</span><span class="line">  IF vbak-vbtyp = charb.
+</span><span class="line">    vbap-grpos = cvbap-grpos.
+</span><span class="line">  ENDIF.
+</span><span class="line">
+</span><span class="line">* Fields that are copied only to contracts, credit and debit memos
+</span><span class="line">* In 3.0 also to quotations (Example: Service contract in service
+</span><span class="line">* quotation)
+</span><span class="line">
+</span><span class="line">  IF vbak-vbtyp = charg OR
+</span><span class="line">     vbak-vbtyp = chark OR
+</span><span class="line">     vbak-vbtyp = charl OR
+</span><span class="line">     vbak-vbtyp = charb OR
+</span><span class="line">     vbak-vbtyp = charf.
+</span><span class="line">    vbap-zwert = cvbap-zwert.
+</span><span class="line">* Create a credit or debit request. No schedule lines allowed.
+</span><span class="line">    IF tvap-eterl = space.
+</span><span class="line">      IF cvbak-vbtyp CN 'DKLG'.        " Aus Belegen mit Auftragsmenge
+</span><span class="line">        vbap-zmeng = cvbap-orfmng.
+</span><span class="line">        vbap-zieme = cvbap-vrkme.
+</span><span class="line">        vbap-umziz = cvbap-umvkz.
+</span><span class="line">        vbap-umzin = cvbap-umvkn.
+</span><span class="line">      ELSE.
+</span><span class="line">        vbap-zmeng = cvbap-orfmng.     " Aus Belegen ohne Auftragsmenge
+</span><span class="line">        vbap-zieme = cvbap-zieme.
+</span><span class="line">        vbap-umziz = cvbap-umziz.
+</span><span class="line">        vbap-umzin = cvbap-umzin.
+</span><span class="line">      ENDIF.
+</span><span class="line">    ENDIF.
+</span><span class="line">  ENDIF.
+</span><span class="line">
+</span><span class="line">* Credit and debit requests, returns
+</span><span class="line">  IF vbak-vbtyp CA vbtyp_anfo OR
+</span><span class="line">     vbak-vbtyp CA vbtyp_reto.
+</span><span class="line">    vbap-kzvbr = cvbap-kzvbr.
+</span><span class="line">    vbap-kzbws = cvbap-kzbws.
+</span><span class="line">  ENDIF.
+</span><span class="line">  IF NOT cvbap-ps_psp_pnr IS INITIAL.
+</span><span class="line">    vbap-ps_psp_pnr = cvbap-ps_psp_pnr.
+</span><span class="line">  ENDIF.
+</span><span class="line">
+</span><span class="line">* Copy the business area
+</span><span class="line">  vbap-gsber = cvbap-gsber.
+</span><span class="line">* Copy the order number
+</span><span class="line">  vbap-aufnr = cvbap-aufnr.
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">  "Soft switch check
+</span><span class="line">  IF cl_erp_co_olc_sw_check=&gt;erp_co_olc( ) IS NOT INITIAL.
+</span><span class="line">    VBAP-AUFPL_OAA = CVBAP-AUFPL_OAA.
+</span><span class="line">    VBAP-APLZL_OAA = CVBAP-APLZL_OAA.
+</span><span class="line">  ENDIF.
+</span><span class="line">
+</span><span class="line">* Target quantity in the scheduling agreement
+</span><span class="line">  IF vbak-vbtyp = chare.
+</span><span class="line">    vbap-zmeng = cvbap-zmeng.
+</span><span class="line">    vbap-zieme = cvbap-zieme.
+</span><span class="line">    vbap-umziz = cvbap-umziz.
+</span><span class="line">    vbap-umzin = cvbap-umzin.
+</span><span class="line">  ENDIF.
+</span><span class="line">  IF NOT cvbap-kmpmg IS INITIAL.
+</span><span class="line">    vbap-kmpmg = cvbap-kmpmg.
+</span><span class="line">  ENDIF.
+</span><span class="line">
+</span><span class="line">* FM data of the reference document is copied in the following
+</span><span class="line">  DATA : ls_cobl TYPE cobl,
+</span><span class="line">         g_t_fmii1     LIKE fmii1  OCCURS   0 WITH HEADER LINE,
+</span><span class="line">         ls_fmii1 TYPE fmii1,
+</span><span class="line">         lv_vbeln TYPE vbak-vbeln,
+</span><span class="line">         lv_objnr TYPE fmii1-objnr,
+</span><span class="line">         ls_vbak TYPE vbak,
+</span><span class="line">         ls_vbap TYPE vbap,
+</span><span class="line">         ls_vbkd TYPE vbkd.
+</span><span class="line">
+</span><span class="line">  ls_vbak = cvbak.
+</span><span class="line">  ls_vbap = cvbap.
+</span><span class="line">  ls_vbkd = cvbkd.
+</span><span class="line">
+</span><span class="line">* In case that CVBAP-POSNR was changed
+</span><span class="line">* restore the old value temporarily
+</span><span class="line">  IF cvbap-vgpos NE cvbap-posnr AND
+</span><span class="line">     NOT cvbap-vgpos IS INITIAL.
+</span><span class="line">    lv_posnr = cvbap-posnr.
+</span><span class="line">    cvbap-posnr = cvbap-vgpos.
+</span><span class="line">    ls_vbap-posnr = cvbap-vgpos.
+</span><span class="line">  ENDIF.
+</span><span class="line">
+</span><span class="line">* get coding block of the reference document
+</span><span class="line">  PERFORM cobl_fuellen(sapfv45p) USING ls_vbak
+</span><span class="line">                             ls_vbap
+</span><span class="line">                             ls_vbkd
+</span><span class="line">                             ls_cobl.
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">  CALL FUNCTION 'APPL_LOG_INIT'
+</span><span class="line">    EXPORTING
+</span><span class="line">      object              = object
+</span><span class="line">      subobject           = subobject
+</span><span class="line">    EXCEPTIONS
+</span><span class="line">      object_not_found    = 1
+</span><span class="line">      subobject_not_found = 2.
+</span><span class="line">
+</span><span class="line">  CALL FUNCTION 'MESSAGES_INITIALIZE'.
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">* take FM objects of the reference doc. to g_t_fmii1 and send to memory
+</span><span class="line">* ACTYP is in background mode
+</span><span class="line">  CALL FUNCTION 'FM_CO_ASS_INPUT_MAINTAIN_SD'
+</span><span class="line">    EXPORTING
+</span><span class="line">      i_cobl  = ls_cobl
+</span><span class="line">      i_vbak  = ls_vbak
+</span><span class="line">      i_vbap  = ls_vbap
+</span><span class="line">      i_actyp = 'B'.
+</span><span class="line">
+</span><span class="line">  CALL FUNCTION 'MESSAGES_STOP'.
+</span><span class="line">
+</span><span class="line">  CALL FUNCTION 'MESSAGES_GIVE'
+</span><span class="line">    TABLES
+</span><span class="line">      t_mesg = lt_mesg
+</span><span class="line">    EXCEPTIONS
+</span><span class="line">      OTHERS = 1.
+</span><span class="line">
+</span><span class="line">  CLEAR ls_mesg.
+</span><span class="line">  LOOP AT lt_mesg INTO ls_mesg WHERE msgty = 'E'.
+</span><span class="line">    message_collect subobject ls_mesg-msgty.
+</span><span class="line">    message_collect_lord.
+</span><span class="line">  ENDLOOP.
+</span><span class="line">
+</span><span class="line">  CALL FUNCTION 'MESSAGES_STOP'.
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">* get the object number of reference doc.
+</span><span class="line">  PERFORM sd_get_objnr(saplfrc4) USING
+</span><span class="line">                          ls_vbap-vbeln
+</span><span class="line">                          ls_vbap-posnr
+</span><span class="line">                        CHANGING
+</span><span class="line">                          lv_objnr.
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">* get the object number of the current doc.
+</span><span class="line">  PERFORM sd_get_objnr(saplfrc4) USING
+</span><span class="line">                          vbap-vbeln
+</span><span class="line">                          vbap-posnr
+</span><span class="line">                        CHANGING
+</span><span class="line">                          ls_fmii1-objnr.
+</span><span class="line">
+</span><span class="line">* replace the new objnr. with the old one.
+</span><span class="line">  IMPORT g_t_fmii1 FROM MEMORY ID 'HHMSD'.
+</span><span class="line">  MODIFY  g_t_fmii1 FROM ls_fmii1
+</span><span class="line">      TRANSPORTING objnr WHERE objnr = lv_objnr.
+</span><span class="line">  EXPORT g_t_fmii1 TO MEMORY ID 'HHMSD'.
+</span><span class="line">
+</span><span class="line">  IF NOT lv_posnr IS INITIAL.
+</span><span class="line">    cvbap-posnr = lv_posnr.
+</span><span class="line">    ls_vbap-posnr = lv_posnr.
+</span><span class="line">  ENDIF.
+</span><span class="line">
+</span><span class="line">* consignment issue =&gt; copy CUOBJ for material variant
+</span><span class="line">* otherwise if the the variant was reconfigured it will
+</span><span class="line">* lose its value assignment because it will be overwritten
+</span><span class="line">* with the material master value assignment
+</span><span class="line">  IF vbap-sobkz = 'W' AND
+</span><span class="line">     NOT maepv-cuobj IS INITIAL.
+</span><span class="line">    vbap-cuobj = cvbap-cuobj.
+</span><span class="line">  ENDIF.
+</span><span class="line">
+</span><span class="line">  IF cl_ops_switch_check=&gt;ops_sfws_sc_advret1( ) EQ charx.
+</span><span class="line">    IF gr_msr_sales IS NOT INITIAL.
+</span><span class="line">      vbap-msr_ret_reason = cvbap-msr_ret_reason.
+</span><span class="line">      vbap-msr_refund_code = cvbap-msr_refund_code.
+</span><span class="line">      vbap-msr_approv_block = cvbap-msr_approv_block.
+</span><span class="line">    ENDIF.
+</span><span class="line">  ENDIF.
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">*}   INSERT
+</span><span class="line">ENDFORM.</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>最后就是去建张合同，然后再参照建张销售订单，数据都不过来了，很爽的！<br /><br /></p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">lomozm</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-31T14:56:14+08:00" pubdate data-updated="true">2014-12-31 Wed</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/sdzeng-qiang/'>SD增强</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+     
+      <!-- aThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1372549893240163" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+  
+      <h1> </h1>
+    
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/20141229/jiao-huo-dan-jian-pei-guo-zhang-bapis-sd-delivery-update-picking/" title="Previous Post: 交货单拣配过帐BAPIs - SD_DELIVERY_UPDATE_PICKING">&laquo; 交货单拣配过帐BAPIs - SD_DELIVERY_UPDATE_PICKING</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/20141231/xiao-shou-ding-dan-chuang-jian-bapis-bapi-salesorder-createfromdat2/" title="Next Post: 销售订单创建(增强字段处理)BAPIs - BAPI_SALESORDER_CREATEFROMDAT2">销售订单创建(增强字段处理)BAPIs - BAPI_SALESORDER_CREATEFROMDAT2 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    
+<section> 
+    <img class="center" src="/images/myTitle/title.jpg">
+
+ <h1>关于我</h1>
+ <ul>
+    <li>
+    做过些事，时有心得，以记之<br>
+    lomo.zhong@icloud.com
+    </li>
+ </ul> 
+</section>
+<section>
+  <h1>最新文章</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/20141231/xiao-shou-ding-dan-chuang-jian-bapis-bapi-salesorder-createfromdat2/">销售订单创建(增强字段处理)BAPIs - BAPI_SALESORDER_CREATEFROMDAT2</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20141231/yu-xiao-shou-ding-dan-ping-mu-xiang-guan-shi-yi/">与销售订单屏幕增强 - 复制控制(copy Control)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20141229/jiao-huo-dan-jian-pei-guo-zhang-bapis-sd-delivery-update-picking/">交货单拣配过帐BAPIs - SD_DELIVERY_UPDATE_PICKING</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20141228/gong-ying-shang-zhu-shu-ju-xiao-yan-exits-sapmf02k/">供应商主数据校验EXITs - SAPMF02K</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20141228/huo-wu-bapis-bapi-goodsmvt-createde-shuo-ming/">货物移动BAPIs - BAPI_GOODSMVT_CREATE的说明</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20141227/jiao-huo-chu-li-guo-cheng-zhong-shu-ju-chu-li-badis-smod-v50b0001/">交货处理过程中数据处理BADIs - SMOD_V50B0001</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20141227/jiao-huo-dan-jian-pei-bapis-bapi-outb-delivery-change/">交货单拣配BAPIs - BAPI_OUTB_DELIVERY_CHANGE</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/20141225/ji-yu-gong-yi-lu-xian-de-jian-yan-ji-hua-dao-ru-han-shu-cpcc-s-task-list-maintain/">基于工艺路线的检验计划导入函数 - CPCC_S_TASK_LIST_MAINTAIN</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>最新评论</h1>
+  <script type="text/javascript" src="http://lomozm.disqus.com/recent_comments_widget.js?num_items=10&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
+</section>
+<section> 
+  <h1>文章分类</h1> 
+  <ul id="categories"> 
+    <li class='category'><a href='/blog/categories/abapji-zhu/'>ABAP技术 (5)</a></li>
+<li class='category'><a href='/blog/categories/badis/'>BADIs (3)</a></li>
+<li class='category'><a href='/blog/categories/bapis/'>BAPIs (4)</a></li>
+<li class='category'><a href='/blog/categories/bwetl/'>BWETL (1)</a></li>
+<li class='category'><a href='/blog/categories/exits/'>Exits (5)</a></li>
+<li class='category'><a href='/blog/categories/mmzeng-qiang/'>MM增强 (4)</a></li>
+<li class='category'><a href='/blog/categories/sapxi-tong-han-shu/'>SAP系统函数 (7)</a></li>
+<li class='category'><a href='/blog/categories/sapzi-jian-han-shu/'>SAP自建函数 (4)</a></li>
+<li class='category'><a href='/blog/categories/sdzeng-qiang/'>SD增强 (6)</a></li>
+<li class='category'><a href='/blog/categories/textmate/'>TextMate (1)</a></li>
+<li class='category'><a href='/blog/categories/workflow/'>Workflow (1)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (2)</a></li>
+<li class='category'><a href='/blog/categories/lu-xing/'>旅行 (2)</a></li>
+ 
+  </ul> 
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - lomozm -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'lomozm';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://lomozm.github.io/blog/20141231/yu-xiao-shou-ding-dan-ping-mu-xiang-guan-shi-yi/';
+        var disqus_url = 'http://lomozm.github.io/blog/20141231/yu-xiao-shou-ding-dan-ping-mu-xiang-guan-shi-yi/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
